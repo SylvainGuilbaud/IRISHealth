@@ -1,0 +1,18 @@
+dataclass_csv
+numpy
+pandas
+# fhirpy
+# fhir.resources
+geopy
+chronyk
+requests
+mysql.connector
+folium
+openpyxl
+names
+postgres
+mysql-connector
+matplotlib
+random-address
+phone-gen
+sqlalchemy-iris

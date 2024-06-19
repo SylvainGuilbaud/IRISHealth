@@ -1,10 +1,11 @@
-version: '3.7'
 services:
   iris:
-    image: ${IMAGE_IRIS_PREVIEW} # DEVELOPER PREVIEW
+    build:
+      context: ./IRIS
+      dockerfile: Dockerfile
     init: true
-    container_name: ${CONTAINER_IRIS_PREVIEW}
-    hostname: ${CONTAINER_IRIS_PREVIEW}
+    container_name: ${CONTAINER_NAME}
+    hostname: ${CONTAINER_NAME}
     volumes:
     - type: bind
       source: ./IRIS
@@ -12,38 +13,16 @@ services:
     - type: bind
       source: ./data
       target: /data
-    - type: bind
-      source: ./src
-      target: /src
     # command: -a /IRIS/configure.sh
     ports:
-      - 19726:1972
-      - 8006:52773
-  # iris-em:
-  #   image: ${IMAGE_IRIS_EM} # EXTENDED MAINTENANCE
-  #   init: true
-  #   container_name: ${CONTAINER_IRIS_EM}
-  #   hostname: ${CONTAINER_IRIS_EM}
-  #   volumes:
-  #   - type: bind
-  #     source: ./IRIS
-  #     target: /IRIS
-  #   command: -a /IRIS/configure.sh
-  #   ports:
-  #     - 19724:1972
-  #     - 8004:52773
-
-  # iris-cd:
-  #   image: ${IMAGE_IRIS_CD} # CONTINUOUS DELIVERY
-  #   init: true
-  #   container_name: ${CONTAINER_IRIS_CD}
-  #   hostname: ${CONTAINER_IRIS_CD}
-  #   volumes:
-  #   - type: bind
-  #     source: ./IRIS
-  #     target: /IRIS
-  #   command: -a /IRIS/configure.sh
-  #   ports:
-  #     - 19725:1972
-  #     - 8005:52773
-
+      - 29720:1972
+      - 28000:52773
+  notebook:
+    build: 
+      context: notebook
+      dockerfile: dockerfile
+    ports:
+      - "28001:8888"
+    volumes:
+      - ./notebook/Notebooks:/Notebooks
+    command: "start-notebook.sh --NotebookApp.token='' --NotebookApp.password='' --notebook-dir=/Notebooks"
