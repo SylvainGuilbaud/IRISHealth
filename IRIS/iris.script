@@ -2,6 +2,7 @@
     zpm "install webterminal"
     zpm "install classexplorer" 
     zpm "install passwordless"
+    zpm "install fhir-portal"
 
     zn "%SYS"
     Do ##class(Security.Users).UnExpireUserPasswords("*")
@@ -13,6 +14,22 @@
 
     zn "IRISAPP"
     set sc = $SYSTEM.OBJ.LoadDir("/home/irisowner/dev/src","ck",,1)
+    do $system.OBJ.Load("/home/irisowner/dev/src/HPRIME1238.inc","ck")
+    do $system.OBJ.Load("/home/irisowner/dev/src/HPRIME1238Errors.inc","ck")
+
+    zn "IRISAPP"
+    zpm "install csvgen"
+    Do ##class(community.csvgen).Generate("/home/irisowner/dev/ML/heart-disease.csv",",","dc.data.health.HeartDisease") 
+    Do ##class(community.csvgen).Generate("/home/irisowner/dev/ML/breast-cancer.csv",",","dc.data.health.BreastCancer") 
+    Do ##class(community.csvgen).Generate("/home/irisowner/dev/ML/diabetes.csv",",","dc.data.health.Diabetes")  
+    Do ##class(community.csvgen).Generate("/home/irisowner/dev/ML/kidney_disease.csv",",","dc.data.health.KidneyDisease") 
+    Do ##class(community.csvgen).Generate("/home/irisowner/dev/ML/maternal_health_risk.csv",",","dc.data.health.MaternalHealthRisk") 
+    Do ##class(community.csvgen).Generate("/home/irisowner/dev/ML/hospital_mortality.csv",",","dc.data.health.HospitalMortality") 
+    Do ##class(community.csvgen).Generate("/home/irisowner/dev/ML/life_expectancy.csv",",","dc.data.health.LifeExpectancy") 
+    Do ##class(community.csvgen).Generate("/home/irisowner/dev/ML/pollution-deaths-from-fossil-fuels.csv",",","dc.data.health.PollutionDeaths") 
+    Do ##class(community.csvgen).Generate("/home/irisowner/dev/ML/dementia.csv",",","dc.data.health.Dementia") 
+    Do ##class(community.csvgen).Generate("/home/irisowner/dev/ML/hepatitis.csv",",","dc.data.health.Hepatitis") 
+    
 
     do ##class(Ens.Util.Statistics).EnableSAMForNamespace()
     do ##class(Ens.Util.Statistics).EnableStatsForProduction()
@@ -37,5 +54,16 @@
     #; w ##class(EnsLib.EDI.ASTM.SchemaXML).Import("/IRIS/HPRIM/HPRIM2.2.ast")
     #; write ##class(HPRIM.EDI.E1238.SchemaXML).Import("/IRIS/HPRIM/HPRIM2.2.ast")
     #; write ##class(HPRIM.EDI.E1238.SchemaXML).Import("/IRIS/HPRIM/HPRIM2.2-add.ast")
+
+    zn "%SYS"
+    set props2("NameSpace") = "FHIRSERVER"
+    set props2("DispatchClass") = "FHIRDemo.REST.Dispatch"
+    set props2("CookiePath") = "/csp/demo/rest/"
+    set props2("Description") = "Demo REST API"
+    set props2("MatchRoles") = ":%All"
+    set props2("AutheEnabled") = 64
+    set tSC = ##class(Security.Applications).Create("/csp/demo/rest", .props2)
+    zw tSCs
+
     zpm "load /home/irisowner/dev/ -dev -v":1:1
     halt

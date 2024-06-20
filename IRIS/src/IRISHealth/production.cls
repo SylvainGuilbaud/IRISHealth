@@ -3,17 +3,16 @@ Class IRISHealth.production Extends Ens.Production
 
 ClassMethod OnStart(pTimeStarted As %String) As %Status
 {
-  do ##class(%File).CopyDir("/data/HL7/test","/data/HL7/in",1)
-  do ##class(%File).CopyDir("/data/HL7/test","/data/HL7/validate",1)
+  #; do ##class(%File).CopyDir("/data/HL7/test","/data/HL7/in",1)
+  #; do ##class(%File).CopyDir("/data/HL7/test","/data/HL7/validate",1)
   do ##class(Ens.Util.Statistics).EnableStatsForProduction()
-
+  do ##class(Ens.Util.Statistics).EnableSAMForNamespace()
 	return $$$OK
 }
 
 XData ProductionDefinition
 {
 <Production Name="IRISHealth.production" TestingEnabled="true" LogGeneralTraceEvents="true">
-  <Description>This demo transforms HL7v2 SIU messages to Kafka</Description>
   <ActorPoolSize>2</ActorPoolSize>
   <Item Name="source HL7 SIU FILE" Category="HL7" ClassName="EnsLib.HL7.Service.FileService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
     <Setting Target="Adapter" Name="FileSpec">*.hl7</Setting>
@@ -95,7 +94,7 @@ XData ProductionDefinition
     <Setting Target="Host" Name="FailureTimeout">-1</Setting>
   </Item>
   <Item Name="target HPRIM FTP" Category="" ClassName="HPRIM.EDI.E1238.Operation.FTPOperation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
-    <Setting Target="Adapter" Name="FTPServer">IRISHealth-demo-ftp</Setting>
+    <Setting Target="Adapter" Name="FTPServer">IRISHealth-ftp</Setting>
     <Setting Target="Adapter" Name="Credentials">ftp</Setting>
     <Setting Target="Adapter" Name="FilePath">./ftp/out</Setting>
     <Setting Target="Adapter" Name="FTPPort"></Setting>

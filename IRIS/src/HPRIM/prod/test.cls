@@ -31,7 +31,7 @@ XData ProductionDefinition
     <Setting Target="Host" Name="FailureTimeout">-1</Setting>
   </Item>
   <Item Name="vers HPRIM FTP" Category="" ClassName="HPRIM.EDI.E1238.Operation.FTPOperation" PoolSize="1" Enabled="false" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
-    <Setting Target="Adapter" Name="FTPServer">IRISHealth-demo-ftp</Setting>
+    <Setting Target="Adapter" Name="FTPServer">IRISHealth-ftp</Setting>
     <Setting Target="Adapter" Name="Credentials">ftp</Setting>
     <Setting Target="Adapter" Name="FilePath">./ftp/out</Setting>
     <Setting Target="Adapter" Name="FTPPort"></Setting>
@@ -53,7 +53,7 @@ XData ProductionDefinition
     <Setting Target="Adapter" Name="Port"></Setting>
     <Setting Target="Host" Name="TargetConfigNames">router</Setting>
     <Setting Target="Host" Name="ReplyMode">App</Setting>
-    <Setting Target="Adapter" Name="AllowedIPAddresses">AllowedIPAddresses=!IRISHealth-demo</Setting>
+    <Setting Target="Adapter" Name="AllowedIPAddresses">AllowedIPAddresses=!IRISHealth</Setting>
   </Item>
   <Item Name="router" Category="" ClassName="EnsLib.EDI.MsgRouter.SegmentedRoutingEngine" PoolSize="1" Enabled="false" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
     <Setting Target="Host" Name="BusinessRuleName">ASTM.router</Setting>

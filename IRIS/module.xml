@@ -23,6 +23,21 @@
       </Invoke>
       <Invoke Class="IRISHealth.utils" Method="createSQLGateway" >
       </Invoke>
+      <Invoke Class="fhirtemplate.Setup" Method="SetupFHIRServer" Phase="Activate" When="After" >
+        <Arg>FHIRSERVER</Arg>
+      </Invoke>
+      <Resource Name="fhirtemplate.PKG"/>
+      <Resource Name="User.PKG"/>
+      <Resource Name="FHIR.PKG"/>
+      <FileCopy Name="data/fhir/" Target="${mgrdir}test-data-fhir/"/>
+        <CSPApplication
+          Url="/fhirUI"
+          SourcePath="/fhirUI"
+          DeployPath="{$cspdir}/fhirUI"
+          ServeFiles="1"
+          Recurse="1"
+          CookiePath="/fhirUI"
+        />
     </Module>
   </Document>
 </Export>

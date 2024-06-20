@@ -19,17 +19,19 @@ services:
       - 28000:52773
       - 10001:10001
   notebook:
+    container_name: ${CONTAINER_NAME}-notebook
     build: 
       context: notebook
-      dockerfile: dockerfile
     ports:
       - "28001:8888"
     volumes:
       - ./notebook/Notebooks:/Notebooks
     command: "start-notebook.sh --NotebookApp.token='' --NotebookApp.password='' --notebook-dir=/Notebooks"
+    environment:
+      - IRISINSTALLDIR='/usr/irissys'
   angular:
     init: true
-    container_name: workflow-ui
+    container_name: ${CONTAINER_NAME}-workflow-ui
     build:
       context: ./workflow-ui
       dockerfile: Dockerfile
