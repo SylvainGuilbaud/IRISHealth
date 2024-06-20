@@ -17,6 +17,7 @@ services:
     ports:
       - 29720:1972
       - 28000:52773
+      - 10001:10001
   notebook:
     build: 
       context: notebook
@@ -26,3 +27,64 @@ services:
     volumes:
       - ./notebook/Notebooks:/Notebooks
     command: "start-notebook.sh --NotebookApp.token='' --NotebookApp.password='' --notebook-dir=/Notebooks"
+  angular:
+    init: true
+    container_name: workflow-ui
+    build:
+      context: ./workflow-ui
+      dockerfile: Dockerfile
+    ports:
+      - 28002:4200
+    depends_on:
+      - iris
+  ftp_server:
+    image: delfer/alpine-ftp-server:latest
+    container_name: ${CONTAINER_NAME}-ftp
+    hostname: ${CONTAINER_NAME}-ftp
+    ports:
+      - "28021:21"
+      # - "21000-21010:21000-21010"
+    volumes: 
+      - "./data:/home/app/"
+      # - "./data/passwd:/etc/pure-ftpd/passwd"
+# uncomment for ssl/tls, see https://github.com/stilliard/docker-pure-ftpd#tls
+#      - "/folder_on_disk/ssl:/etc/ssl/private/"
+# or ssl/tls with Let's Encrypt (cert and key as two files)
+#      - "/etc/letsencrypt/live/<your_server>/cert.pem:/etc/ssl/private/pure-ftpd-cert.pem"
+#      - "/etc/letsencrypt/live/<your_server>/privkey.pem:/etc/ssl/private/pure-ftpd-key.pem"
+    environment:
+      PUBLICHOST: "localhost"
+      USERS: "app|youneverknow|/home/app|10000"
+# also for ssl/tls:
+#      ADDED_FLAGS: "--tls=2"
+    restart: always
+  postgres:
+    container_name: ${CONTAINER_NAME}-postgres
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - ./postgreSQL:/docker-entrypoint-initdb.d/
+      - ./volumes/postgreSQL:/var/lib/postgresql/data
+    ports:
+      - 25432:5432
+    restart: unless-stopped
+    healthcheck:
+        test: ["CMD", "pg_isready", "-U", "postgres"]
+        interval: 30s
+        timeout: 30s
+        retries: 3
+  fhirhl7v2ui:
+    build: ./fhirhl7ui
+    depends_on:
+      - iris
+    ports:
+      - "4201:4200"
+    working_dir: /home/node/app
+    environment:
+      - NODE_ENV=production
+    command: "npm run proxy"
+    volumes:
+    - type: bind
+      source: ./fhirhl7ui/app/src/app
+      target: /home/node/app/src/app

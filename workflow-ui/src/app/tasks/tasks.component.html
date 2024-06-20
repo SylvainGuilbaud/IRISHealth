@@ -1,0 +1,17 @@
+<div class="div-task-card">
+    <mat-card class="task-card" *ngFor="let task of tasks">
+        <mat-card-header>
+            <div mat-card-avatar [ngClass]="{'none-header-image': task.priority === 0, 'high-header-image': task.priority === 1, 'medium-header-image': task.priority === 2, 'low-header-image': task.priority === 3}"></div>
+            <mat-card-title>{{task.subject}}</mat-card-title>
+            <mat-card-subtitle>{{task.creation}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <p>
+                {{task.message}}
+            </p>
+        </mat-card-content>      
+        <mat-card-actions *ngIf="task.actions !== ''" class="action-card">
+            <button *ngFor="let action of splitActions(task.actions)" mat-raised-button (click)="onAction(task.id, action)">{{action}}</button>
+        </mat-card-actions>
+    </mat-card>
+</div>

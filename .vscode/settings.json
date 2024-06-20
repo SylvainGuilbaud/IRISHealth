@@ -7,12 +7,32 @@
             "internalPort": 52773
         },
         "links": {
-            "Monitor": "http://${host}:${port}/csp/healthshare/irisapp/_DeepSee.UserPortal.DashboardViewer.zen?DASHBOARD=Ens/Analytics/ActivityVolumeAndDuration.dashboard&EMBED=1",
+            "workflow-ui": "http://${host}:28002",
+            "activity dashboard": "http://${host}:${port}/csp/healthshare/irisapp/_DeepSee.UserPortal.DashboardViewer.zen?DASHBOARD=Ens/Analytics/ActivityVolumeAndDuration.dashboard&EMBED=1",
+            "monitor metrics ": "http://${host}:${port}/api/monitor/metrics",
+            "monitor interop interfaces": "http://${host}:${port}/api/monitor/interop/interfaces",
             "class explorer": "http://${host}:${port}/classexplorer/#{%22name%22:%22data.kafka,data.kafka.DxCare,data.kafka.Surg,data.kafka.TrakCare%22,%22type%22:%22arbitrary%22,%22level%22:%22%22,%22namespace%22:%22IRISAPP%22}",
             "Production": "http://${host}:${port}/csp/healthshare/irisapp/EnsPortal.ProductionConfig.zen?PRODUCTION=HL7v2toKafka.production",
             "Rule": "http://${host}:${port}/ui/interop/rule-editor/index.html?$NAMESPACE=IRISAPP&rule=HL7v2toKafka.HL7router.SIU",
             "Visual Trace": "http://${host}:${port}/csp/healthshare/irisapp/EnsPortal.MessageViewer.zen?$NAMESPACE=IRISAPP&$NAMESPACE=IRISAPP&",
-            "Notebook": "http://localhost:28001"
+            "Notebook": "http://localhost:28001",
+            "License Key": "http://${host}:${port}/csp/sys/mgr/%25CSP.UI.Portal.License.Key.zen",
+            "API Atelier IRIS": "http://${host}:${port}/api/atelier/",
+            "IRIS API Management": "http://${host}:${port}/api/mgmnt/"
         }
+    },
+    "objectscript.export": {
+        "folder": "IRIS/src",
+        "addCategory": false,
+        "map": {},
+        "atelier": true,
+        "generated": false,
+        "filter": "",
+        "exactFilter": "",
+        "category": "CLS,CSP,OTH",
+        "noStorage": false,
+        "dontExportIfNoChanges": false,
+        "maxConcurrentConnections": 0,
+        "mapped": true
     }
 }

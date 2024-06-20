@@ -1,0 +1,548 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="IRIS" version="26" zv="IRIS for UNIX (Ubuntu Server LTS for ARM64 Containers) 2024.1 (Build 267.2U)" ts="2024-06-20 13:43:43">
+<Class name="IRISHealth.HL7router.SIU">
+<Description>
+</Description>
+<Super>Ens.Rule.Definition</Super>
+<TimeChanged>67010,56740.730885221</TimeChanged>
+<TimeCreated>67010,56740.730885221</TimeCreated>
+
+<Parameter name="RuleAssistClass">
+<Default>EnsLib.HL7.MsgRouter.RuleAssist</Default>
+</Parameter>
+
+<XData name="RuleDefinition">
+<XMLNamespace>http://www.intersystems.com/rule</XMLNamespace>
+<Data><![CDATA[
+<ruleDefinition alias="" context="EnsLib.HL7.MsgRouter.RoutingEngine" production="IRISHealth.production">
+<ruleSet name="" effectiveBegin="" effectiveEnd="">
+<rule name="HL7 SIU FILE">
+<constraint name="docCategory" value="2.3.1"></constraint>
+<constraint name="docName" value="SIU_S12,SIU_S13,SIU_S14,SIU_S15,SIU_S16,SIU_S17,SIU_S18,SIU_S19,SIU_S20,SIU_S21,SIU_S22,SIU_S23,SIU_S24,SIU_S26"></constraint>
+<constraint name="source" value="source HL7 SIU FILE"></constraint>
+<when condition="1" comment="">
+<send transform="" target=",target HL7 SIU HTTP,target HL7 SIU TCP"></send>
+<send transform="IRISHealth.transfo.SIU" target=",target Kafka Producer"></send>
+<return></return>
+</when>
+</rule>
+<rule name="HL7 SIU ANY SOURCE" disabled="false">
+<constraint name="source" value=""></constraint>
+<constraint name="docCategory" value="2.3.1"></constraint>
+<constraint name="docName" value="SIU_S12,SIU_S13,SIU_S14,SIU_S15,SIU_S16,SIU_S17,SIU_S18,SIU_S19,SIU_S20,SIU_S21,SIU_S22,SIU_S23,SIU_S24,SIU_S26"></constraint>
+<when condition="1" comment="">
+<send transform="IRISHealth.transfo.SIU" target=",target Kafka Producer"></send>
+<return></return>
+</when>
+</rule>
+</ruleSet>
+</ruleDefinition>
+]]></Data>
+</XData>
+</Class>
+
+
+<Class name="IRISHealth.msg.gender">
+<Super>msg.json,Ens.Request</Super>
+<TimeChanged>67010,56740.726995554</TimeChanged>
+<TimeCreated>67010,56740.726995554</TimeCreated>
+
+<Property name="firstname">
+<Type>%String</Type>
+<Parameter name="MAXLEN" value="500"/>
+</Property>
+
+<Property name="value">
+<Type>%String</Type>
+</Property>
+
+<Storage name="Default">
+<Type>%Storage.Persistent</Type>
+<DefaultData>genderDefaultData</DefaultData>
+<Data name="genderDefaultData">
+<Subscript>"gender"</Subscript>
+<Value name="1">
+<Value>firstname</Value>
+</Value>
+<Value name="2">
+<Value>value</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="IRISHealth.msg.iris">
+<Super>msg.json,Ens.Response</Super>
+<TimeChanged>67010,56740.733870804</TimeChanged>
+<TimeCreated>67010,56740.733870804</TimeCreated>
+
+<Property name="NumRowsAffected">
+<Type>%Integer</Type>
+</Property>
+
+<Storage name="Default">
+<Type>%Storage.Persistent</Type>
+<DefaultData>irisDefaultData</DefaultData>
+<Data name="irisDefaultData">
+<Subscript>"iris"</Subscript>
+<Value name="1">
+<Value>NumRowsAffected</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="IRISHealth.msg.kafka">
+<Super>msg.json,EnsLib.Kafka.Message</Super>
+<TimeChanged>67010,56740.744848637</TimeChanged>
+<TimeCreated>67010,56740.744848637</TimeCreated>
+
+<Property name="topic">
+<Description>
+Message topic</Description>
+<Type>%String</Type>
+<Parameter name="MAXLEN" value="1000"/>
+</Property>
+
+<Property name="value">
+<Description>
+Message value as string
+If the value exceeds maximum length of IRIS string, encode/decode the string from binaryValue using UTF8. </Description>
+<Type>%String</Type>
+<Parameter name="MAXLEN"/>
+</Property>
+
+<Property name="key">
+<Description>
+Optional message value key</Description>
+<Type>%String</Type>
+<Parameter name="MAXLEN" value="1000"/>
+</Property>
+
+<Method name="%ShowContents">
+<FormalSpec>pZenOutput:%Boolean=0</FormalSpec>
+<Implementation><![CDATA[
+    do ##super()
+    &html<
+        <pre>http://localhost:8082/topics</pre>
+    >
+]]></Implementation>
+</Method>
+
+<Storage name="Default">
+<Type>%Storage.Persistent</Type>
+<DefaultData>kafkaDefaultData</DefaultData>
+<Data name="kafkaDefaultData">
+<Subscript>"kafka"</Subscript>
+<Value name="1">
+<Value>topic</Value>
+</Value>
+<Value name="2">
+<Value>value</Value>
+</Value>
+<Value name="3">
+<Value>key</Value>
+</Value>
+<Value name="4">
+<Value>binaryValue</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="IRISHealth.process.validate">
+<Description>
+</Description>
+<Super>Ens.BusinessProcessBPL</Super>
+<TimeChanged>67010,56740.746622929</TimeChanged>
+<TimeCreated>67010,56740.746622929</TimeCreated>
+
+<Storage name="Default">
+<Type>%Storage.Persistent</Type>
+</Storage>
+
+<XData name="BPL">
+<Description>
+BPL Definition</Description>
+<XMLNamespace>http://www.intersystems.com/bpl</XMLNamespace>
+<Data><![CDATA[
+<process language='objectscript' request='EnsLib.HL7.Message' response='IRISHealth.msg.kafka' height='2000' width='2000' >
+<context>
+<property name='genderRequest' type='HTTP.msg.genderRequest' instantiate='0' />
+<property name='genderResponse' type='HTTP.msg.genderResponse' instantiate='0' />
+<property name='genderStored' type='IRISHealth.msg.iris' instantiate='0' />
+<property name='HL7Msg' type='EnsLib.HL7.Message' instantiate='0' />
+</context>
+<sequence xend='200' yend='1300' >
+<transform name='get FirstName' class='IRISHealth.transfo.getFirstName' source='request' target='context.genderRequest' xpos='200' ypos='250' />
+<trace name='first name' value='context.genderRequest.firstName' xpos='200' ypos='350' />
+<call name='check gender' target='get gender' async='0' xpos='200' ypos='450' >
+<request type='HTTP.msg.genderRequest' >
+<assign property="callrequest" value="context.genderRequest" action="set" languageOverride="" />
+</request>
+<response type='HTTP.msg.genderResponse' >
+<assign property="context.genderResponse" value="callresponse" action="set" languageOverride="" />
+</response>
+</call>
+<trace name='gender' value='context.genderResponse.gender' xpos='200' ypos='550' />
+<if name='high probability' condition='context.genderResponse.probability&gt;0.9' xpos='200' ypos='650' xend='200' yend='1100' >
+<true>
+<trace name='high probability' value='"high probability"' xpos='470' ypos='800' />
+<call name='store gender' target='store gender' async='0' xpos='470' ypos='900' >
+<request type='IRISHealth.msg.gender' >
+<assign property="callrequest.firstname" value="context.genderRequest.firstName" action="set" languageOverride="" />
+<assign property="callrequest.value" value="context.genderResponse.gender" action="set" languageOverride="" />
+</request>
+<response type='IRISHealth.msg.iris' >
+<assign property="context.genderStored" value="callresponse" action="set" languageOverride="" />
+</response>
+</call>
+<transform name='set gender' class='IRISHealth.transfo.setGender' source='request' target='context.HL7Msg' xpos='470' ypos='1000' />
+</true>
+<false>
+<trace name='no issue' value='"no issue"' xpos='200' ypos='800' />
+</false>
+</if>
+<call name='SIU Router' target='HL7 SIU router' async='1' xpos='200' ypos='1200' >
+<request type='EnsLib.HL7.Message' >
+<assign property="callrequest" value="context.HL7Msg" action="set" languageOverride="" />
+</request>
+<response type='Ens.Response' />
+</call>
+</sequence>
+</process>
+]]></Data>
+</XData>
+</Class>
+
+
+<Class name="IRISHealth.production">
+<Super>Ens.Production</Super>
+<TimeChanged>67010,56740.748377637</TimeChanged>
+<TimeCreated>67010,56740.748377637</TimeCreated>
+
+<Method name="OnStart">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>pTimeStarted:%String</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+  do ##class(%File).CopyDir("/data/HL7/test","/data/HL7/in",1)
+  do ##class(%File).CopyDir("/data/HL7/test","/data/HL7/validate",1)
+  do ##class(Ens.Util.Statistics).EnableStatsForProduction()
+
+	return $$$OK
+]]></Implementation>
+</Method>
+
+<XData name="ProductionDefinition">
+<Data><![CDATA[
+<Production Name="IRISHealth.production" TestingEnabled="true" LogGeneralTraceEvents="true">
+  <Description>This demo transforms HL7v2 SIU messages to Kafka</Description>
+  <ActorPoolSize>2</ActorPoolSize>
+  <Item Name="source HL7 SIU FILE" Category="HL7" ClassName="EnsLib.HL7.Service.FileService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
+    <Setting Target="Adapter" Name="FileSpec">*.hl7</Setting>
+    <Setting Target="Host" Name="TargetConfigNames">HL7 SIU router</Setting>
+  </Item>
+  <Item Name="HL7 SIU router" Category="HL7" ClassName="EnsLib.HL7.MsgRouter.RoutingEngine" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
+    <Setting Target="Host" Name="BusinessRuleName">IRISHealth.HL7router.SIU</Setting>
+  </Item>
+  <Item Name="source HL7 SIU TCP" Category="HL7" ClassName="EnsLib.HL7.Service.TCPService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
+    <Setting Target="Host" Name="TargetConfigNames">HL7 SIU router</Setting>
+    <Setting Target="Host" Name="LocalFacilityApplication">ISC:IRISHL7</Setting>
+  </Item>
+  <Item Name="target HL7 SIU TCP" Category="HL7" ClassName="EnsLib.HL7.Operation.TCPOperation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
+  </Item>
+  <Item Name="source HL7 SIU HTTP" Category="HL7" ClassName="EnsLib.HL7.Service.HTTPService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
+    <Setting Target="Host" Name="TargetConfigNames">HL7 SIU router</Setting>
+    <Setting Target="Host" Name="LocalFacilityApplication">ISC:IRISHL7</Setting>
+  </Item>
+  <Item Name="target HL7 SIU HTTP" Category="HL7" ClassName="EnsLib.HL7.Operation.HTTPOperation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
+  </Item>
+  <Item Name="Kafka router" Category="Kafka" ClassName="EnsLib.MsgRouter.RoutingEngine" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
+    <Setting Target="Host" Name="BusinessRuleName">IRISHealth.rules.Kafka</Setting>
+  </Item>
+  <Item Name="source Kafka Consumer TOPIC APT-FROM-DXPLANNING" Category="Kafka" ClassName="EnsLib.Kafka.Service" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
+  </Item>
+  <Item Name="source Kafka Consumer TOPIC APT-FROM-TRAKCARE" Category="Kafka" ClassName="EnsLib.Kafka.Service" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
+  </Item>
+  <Item Name="source Kafka Consumer TOPIC SURG" Category="Kafka" ClassName="EnsLib.Kafka.Service" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
+  </Item>
+  <Item Name="target Kafka Producer" Category="Kafka,HL7" ClassName="EnsLib.Kafka.Operation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
+  </Item>
+  <Item Name="JDBC Gateway" Category="SQL" ClassName="EnsLib.JavaGateway.Service" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
+  </Item>
+  <Item Name="Ens.ProductionMonitorService" Category="" ClassName="Ens.ProductionMonitorService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  </Item>
+  <Item Name="target IRIS TrakCare SQL" Category="SQL,Kafka" ClassName="EnsLib.SQL.Operation.GenericOperation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
+    <Setting Target="Adapter" Name="StayConnected">5</Setting>
+  </Item>
+  <Item Name="target IRIS DxCare SQL" Category="SQL,Kafka" ClassName="EnsLib.SQL.Operation.GenericOperation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
+    <Setting Target="Adapter" Name="StayConnected">5</Setting>
+  </Item>
+  <Item Name="target IRIS Surg SQL" Category="SQL,Kafka" ClassName="EnsLib.SQL.Operation.GenericOperation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
+    <Setting Target="Adapter" Name="StayConnected">5</Setting>
+  </Item>
+  <Item Name="get gender" Category="transfo + traitements" ClassName="HTTP.operation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
+    <Setting Target="Adapter" Name="HTTPServer">api.genderize.io</Setting>
+    <Setting Target="Adapter" Name="SSLConfig">API</Setting>
+    <Setting Target="Adapter" Name="URL">/</Setting>
+    <Setting Target="Adapter" Name="SSLCheckServerIdentity">0</Setting>
+    <Setting Target="Host" Name="ArchiveIO">1</Setting>
+  </Item>
+  <Item Name="validate" Category="HL7,transfo + traitements" ClassName="IRISHealth.process.validate" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
+  </Item>
+  <Item Name="store gender" Category="SQL,Kafka" ClassName="EnsLib.SQL.Operation.GenericOperation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
+    <Setting Target="Host" Name="RequestClass">IRISHealth.msg.gender</Setting>
+    <Setting Target="Host" Name="ResponseClass">IRISHealth.msg.iris</Setting>
+    <Setting Target="Adapter" Name="StayConnected">5</Setting>
+  </Item>
+  <Item Name="source HL7 SIU FILE validate" Category="HL7" ClassName="EnsLib.HL7.Service.FileService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
+    <Setting Target="Adapter" Name="FileSpec">*.hl7</Setting>
+    <Setting Target="Host" Name="TargetConfigNames">validate</Setting>
+  </Item>
+  <Item Name="Ens.Activity.Operation.Local" Category="" ClassName="Ens.Activity.Operation.Local" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  </Item>
+</Production>
+]]></Data>
+</XData>
+</Class>
+
+
+<Class name="IRISHealth.rules.Kafka">
+<Description>
+</Description>
+<Super>Ens.Rule.Definition</Super>
+<TimeChanged>67010,56740.729156012</TimeChanged>
+<TimeCreated>67010,56740.729156012</TimeCreated>
+
+<Parameter name="RuleAssistClass">
+<Default>EnsLib.MsgRouter.RuleAssist</Default>
+</Parameter>
+
+<XData name="RuleDefinition">
+<XMLNamespace>http://www.intersystems.com/rule</XMLNamespace>
+<Data><![CDATA[
+<ruleDefinition alias="" context="EnsLib.MsgRouter.RoutingEngine" production="IRISHealth.production">
+<ruleSet name="" effectiveBegin="" effectiveEnd="">
+<rule name="TrakCare" disabled="false">
+<constraint name="source" value="source Kafka Consumer TOPIC APT-FROM-TRAKCARE"></constraint>
+<constraint name="msgClass" value="EnsLib.Kafka.Message"></constraint>
+<when condition="Document.topic[&quot;TRAKCARE&quot;" comment="">
+<send transform="" target="target IRIS TrakCare SQL"></send>
+<return></return>
+</when>
+</rule>
+<rule name="DxPlanning" disabled="false">
+<constraint name="source" value="source Kafka Consumer TOPIC APT-FROM-DXPLANNING"></constraint>
+<constraint name="msgClass" value="EnsLib.Kafka.Message"></constraint>
+<when condition="Document.topic[&quot;DXPLANNING&quot;" comment="">
+<send transform="" target=",target IRIS DxCare SQL"></send>
+<return></return>
+</when>
+</rule>
+<rule name="Surg" disabled="false">
+<constraint name="source" value="source Kafka Consumer TOPIC SURG"></constraint>
+<constraint name="msgClass" value="EnsLib.Kafka.Message"></constraint>
+<when condition="Document.topic[&quot;SURG&quot;" comment="">
+<send transform="" target=",target IRIS Surg SQL"></send>
+<return></return>
+</when>
+</rule>
+</ruleSet>
+</ruleDefinition>
+]]></Data>
+</XData>
+</Class>
+
+
+<Class name="IRISHealth.transfo.SIU">
+<Super>Ens.DataTransformDTL</Super>
+<TimeChanged>67010,56740.767513429</TimeChanged>
+<TimeCreated>67010,56740.767513429</TimeCreated>
+<DependsOn>EnsLib.HL7.Message,IRISHealth.msg.kafka</DependsOn>
+
+<Parameter name="IGNOREMISSINGSOURCE">
+<Default>1</Default>
+</Parameter>
+
+<Parameter name="REPORTERRORS">
+<Default>1</Default>
+</Parameter>
+
+<Parameter name="TREATEMPTYREPEATINGFIELDASNULL">
+<Default>0</Default>
+</Parameter>
+
+<XData name="DTL">
+<XMLNamespace>http://www.intersystems.com/dtl</XMLNamespace>
+<Data><![CDATA[
+<transform sourceClass='EnsLib.HL7.Message' targetClass='IRISHealth.msg.kafka' sourceDocType='2.3.1:SIU_S12' create='new' language='objectscript' >
+<assign value='source.{SCH:EventReason}' property='target.topic' action='set' />
+<assign value='target.topic _ " FROM "  _ source.{MSH:SendingApplication}' property='target.topic' action='set' />
+<assign value='target.topic _ " "  _ source.{MSH:SendingFacility}' property='target.topic' action='set' />
+<assign value='target.topic _ " TO "  _ source.{MSH:ReceivingApplication}' property='target.topic' action='set' />
+<assign value='target.topic _ "  "  _ source.{MSH:ReceivingFacility}' property='target.topic' action='set' />
+<assign value='..ReplaceStr(target.topic," ","-")' property='target.topic' action='set' />
+<assign value='source.{PIDgrp(1).PID:PatientIdentifierList()}' property='target.key' action='set' />
+<assign value='source.{SCH:AppointmentTimingQuantity().startdatetime.timeofanevent}' property='target.value' action='set' />
+<assign value='target.value _ " PATIENT: " _ source.{PIDgrp(1).PID:PatientName(1)}' property='target.value' action='set' />
+<assign value='target.value _ source.{PIDgrp(1).PID:Sex}' property='target.value' action='set' />
+<foreach property='source.{PIDgrp(1).OBX()}' key='k1' >
+<assign value='target.value _ "  "_source.{PIDgrp(1).OBX(k1):ObservationIdentifier}' property='target.value' action='set' />
+<assign value='target.value _ " " _ source.{PIDgrp(1).OBX(k1):ObservationValue()}' property='target.value' action='set' />
+<assign value='target.value _ source.{PIDgrp(1).OBX(k1):Units}' property='target.value' action='set' />
+</foreach>
+</transform>
+]]></Data>
+</XData>
+</Class>
+
+
+<Class name="IRISHealth.transfo.getFirstName">
+<Super>Ens.DataTransformDTL</Super>
+<TimeChanged>67010,56740.743869887</TimeChanged>
+<TimeCreated>67010,56740.743869887</TimeCreated>
+<DependsOn>EnsLib.HL7.Message,HTTP.msg.genderRequest</DependsOn>
+
+<Parameter name="IGNOREMISSINGSOURCE">
+<Default>1</Default>
+</Parameter>
+
+<Parameter name="REPORTERRORS">
+<Default>1</Default>
+</Parameter>
+
+<Parameter name="TREATEMPTYREPEATINGFIELDASNULL">
+<Default>0</Default>
+</Parameter>
+
+<XData name="DTL">
+<XMLNamespace>http://www.intersystems.com/dtl</XMLNamespace>
+<Data><![CDATA[
+<transform sourceClass='EnsLib.HL7.Message' targetClass='HTTP.msg.genderRequest' sourceDocType='2.3.1:SIU_S12' create='new' language='objectscript' >
+<assign value='source.{PIDgrp(1).PID:PatientName().givenname}' property='target.firstName' action='set' />
+</transform>
+]]></Data>
+</XData>
+</Class>
+
+
+<Class name="IRISHealth.transfo.setGender">
+<Super>Ens.DataTransformDTL</Super>
+<TimeChanged>67010,56740.759894096</TimeChanged>
+<TimeCreated>67010,56740.759894096</TimeCreated>
+<DependsOn>EnsLib.HL7.Message</DependsOn>
+
+<Parameter name="IGNOREMISSINGSOURCE">
+<Default>1</Default>
+</Parameter>
+
+<Parameter name="REPORTERRORS">
+<Default>1</Default>
+</Parameter>
+
+<Parameter name="TREATEMPTYREPEATINGFIELDASNULL">
+<Default>0</Default>
+</Parameter>
+
+<XData name="DTL">
+<XMLNamespace>http://www.intersystems.com/dtl</XMLNamespace>
+<Data><![CDATA[
+<transform sourceClass='EnsLib.HL7.Message' targetClass='EnsLib.HL7.Message' sourceDocType='2.3.1:SIU_S12' targetDocType='2.3.1:SIU_S12' create='copy' language='objectscript' >
+<assign value='source.{PIDgrp(1).PID:PatientName(1).givenname}' property='firstname' action='set' />
+<trace value='"firstname:"_firstname' />
+<sql>
+<![CDATA[select top 1 value 
+into :gender
+from data.gender
+where firstname = :firstname
+order by ts desc]]]]><![CDATA[></sql>
+<trace value='"gender:"_gender' />
+<assign value='..Lookup("gender",gender)' property='target.{PIDgrp(1).PID:Sex}' action='set' />
+</transform>
+]]></Data>
+</XData>
+</Class>
+
+
+<Class name="IRISHealth.utils">
+<Super>%RegisteredObject</Super>
+<TimeChanged>67010,56740.730475887</TimeChanged>
+<TimeCreated>67010,56740.730475887</TimeCreated>
+
+<Method name="createSQLGateway">
+<Description>
+Create SQL Gateway</Description>
+<ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+        Set sc = $$$OK
+        merge ^%SYS("sql","ODBCCONNECTION") = ^SQLGateway
+        Return sc
+]]></Implementation>
+</Method>
+
+<Method name="send">
+<Description>
+Description</Description>
+<ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+        Set tSC = $$$OK
+        
+        set settings = ..settings()
+        zw settings
+
+        set client = ##class(%External.Messaging.Client).CreateClient(settings, .tSC)
+        #; zw tSC
+        // if tSC is an error, handle error scenario 
+        // 
+
+        Set producerSettings = "{""key.serializer"":""org.apache.kafka.common.serialization.StringSerializer""}"
+        Set tSC = client.UpdateProducerConfig(producerSettings)
+
+        Set topic = "test-from-IRIS"
+        set msg = ""
+        for i=1:1:5 { set msg = msg_ $c(13,10)_i _ ":" _ ##class(%PopulateUtils).Mission()}
+       
+        w !,msg,!
+        w !,"msg:",$l(msg),!
+        Set value = msg, key = "OptionalTag"
+
+        Set msg = ##class(%External.Messaging.KafkaMessage).%New()
+        Set msg.topic = topic
+        Set msg.value = value
+        Set msg.key = key
+
+        Set tSC = client.SendMessage(msg)
+        zw tSC
+        Return tSC
+]]></Implementation>
+</Method>
+
+<Method name="settings">
+<Description>
+Description</Description>
+<ClassMethod>1</ClassMethod>
+<ReturnType>%External.Messaging.Settings</ReturnType>
+<Implementation><![CDATA[
+        Set settings = ##class(%External.Messaging.KafkaSettings).%New()
+        // Set settings.username = "amandasmith"
+        // Set settings.password = "234sdsge"
+        // Set settings.servers = "host.docker.internal:9092, 100.0.70.089:7070"
+        Set settings.servers = "host.docker.internal:9092"
+        Set settings.clientId = "testFromIRIS"
+        // If Consumer, specify a consumer group
+        Set settings.groupId = "G1"
+        Set settings.securityprotocol="SASL_PLAINTEXT"
+        Set settings.saslmechanism="PLAIN"
+        // Set settings.truststorelocation="/etc/kafkatls/trustcerts.jks"
+        // Set settings.truststorepassword="F00B&r!"
+        Return settings
+]]></Implementation>
+</Method>
+</Class>
+</Export>

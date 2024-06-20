@@ -8,7 +8,34 @@
 
     do ##class(Security.SSLConfigs).Create("API")
 
+    zn "%SYS" 
+    do ##class(Security.Applications).Import("/home/irisowner/dev/webapp.xml",.n) 
+
     zn "IRISAPP"
-   
+    set sc = $SYSTEM.OBJ.LoadDir("/home/irisowner/dev/src","ck",,1)
+
+    do ##class(Ens.Util.Statistics).EnableSAMForNamespace()
+    do ##class(Ens.Util.Statistics).EnableStatsForProduction()
+
+    #; Credentials    
+    write ##class(Ens.Config.Credentials).SetCredential("ftp","app","youneverknow",1)
+    write ##class(Ens.Config.Credentials).SetCredential("PostgreSQL","postgres","postgres",1)
+
+    #; WorkFlow    
+    Do ##class(EnsLib.Workflow.RoleDefinition).CreateRole("ManualBloodPressureRole") 
+    Do ##class(EnsLib.Workflow.RoleDefinition).CreateRole("AutomaticBloodPressureRole") 
+    do ##class(Workflow.Utils.Functions).UserExists("FakeDoctor","ManualBloodPressureRole") 
+
+    #; HPRIM
+    w ##class(EnsLib.EDI.ASTM.SchemaXML).Import("/home/irisowner/dev/HPRIM/HPRIM2.2-add.ast")
+    w ##class(EnsLib.EDI.ASTM.SchemaXML).Import("/home/irisowner/dev/HPRIM/HPRIM2.2.ast")
+    write ##class(HPRIM.EDI.E1238.SchemaXML).Import("/home/irisowner/dev/HPRIM/HPRIM2.2.ast")
+    write ##class(HPRIM.EDI.E1238.SchemaXML).Import("/home/irisowner/dev/HPRIM/HPRIM2.2-add.ast")
+
+
+    #; w ##class(EnsLib.EDI.ASTM.SchemaXML).Import("/IRIS/HPRIM/HPRIM2.2-add.ast")
+    #; w ##class(EnsLib.EDI.ASTM.SchemaXML).Import("/IRIS/HPRIM/HPRIM2.2.ast")
+    #; write ##class(HPRIM.EDI.E1238.SchemaXML).Import("/IRIS/HPRIM/HPRIM2.2.ast")
+    #; write ##class(HPRIM.EDI.E1238.SchemaXML).Import("/IRIS/HPRIM/HPRIM2.2-add.ast")
     zpm "load /home/irisowner/dev/ -dev -v":1:1
     halt

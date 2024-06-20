@@ -1,0 +1,76 @@
+Export of 1 global from Namespace IRISAPP~Format=5.S~
+20 Jun 2024   1:47 PM   IRIS
+^Ens.Config.DefaultSettingsD("*","*","*","ArchiveIO")
+1
+^Ens.Config.DefaultSettingsD("*","*","*","LogTraceEvents")
+1
+^Ens.Config.DefaultSettingsD("*","*","*","RuleLogging")
+a
+^Ens.Config.DefaultSettingsD("IRISHealth.production","*","*","MessageSchemaCategory")
+2.3.1
+^Ens.Config.DefaultSettingsD("IRISHealth.production","*","EnsLib.Kafka.Service","Servers")
+host.docker.internal:9092
+^Ens.Config.DefaultSettingsD("IRISHealth.production","*","EnsLib.Kafka.Service","TargetConfigNames")
+Kafka router
+^Ens.Config.DefaultSettingsD("IRISHealth.production","*","EnsLib.SQL.Operation.GenericOperation","DSN")
+iris
+^Ens.Config.DefaultSettingsD("IRISHealth.production","*","EnsLib.SQL.Operation.GenericOperation","JGService")
+JDBC Gateway
+^Ens.Config.DefaultSettingsD("IRISHealth.production","*","EnsLib.SQL.Operation.GenericOperation","RequestClass")
+EnsLib.Kafka.Message
+^Ens.Config.DefaultSettingsD("IRISHealth.production","*","EnsLib.SQL.Operation.GenericOperation","ResponseClass")
+IRISHealth.msg.iris
+^Ens.Config.DefaultSettingsD("IRISHealth.production","JDBC Gateway","*","Address")
+127.0.0.1
+^Ens.Config.DefaultSettingsD("IRISHealth.production","JDBC Gateway","*","Port")
+55555
+^Ens.Config.DefaultSettingsD("IRISHealth.production","source HL7 SIU FILE","*","ArchivePath")
+/data/HL7/archive
+^Ens.Config.DefaultSettingsD("IRISHealth.production","source HL7 SIU FILE","*","FilePath")
+/data/HL7/in
+^Ens.Config.DefaultSettingsD("IRISHealth.production","source HL7 SIU FILE","*","WorkPath")
+/data/HL7/work
+^Ens.Config.DefaultSettingsD("IRISHealth.production","source HL7 SIU FILE validate","*","ArchivePath")
+/data/HL7/archive
+^Ens.Config.DefaultSettingsD("IRISHealth.production","source HL7 SIU FILE validate","*","FilePath")
+/data/HL7/validate
+^Ens.Config.DefaultSettingsD("IRISHealth.production","source HL7 SIU FILE validate","*","WorkPath")
+/data/HL7/work
+^Ens.Config.DefaultSettingsD("IRISHealth.production","source HL7 SIU HTTP","*","Port")
+19001
+^Ens.Config.DefaultSettingsD("IRISHealth.production","source HL7 SIU TCP","*","Port")
+19000
+^Ens.Config.DefaultSettingsD("IRISHealth.production","source Kafka Consumer TOPIC APT-FROM-DXPLANNING","*","Topic")
+/APT-FROM-DXPLANNING-ENVOIE-TO-PTAH--RECEPTION
+^Ens.Config.DefaultSettingsD("IRISHealth.production","source Kafka Consumer TOPIC APT-FROM-TRAKCARE","*","Topic")
+-APT-FROM-TRAKCARE-ENVOIE-TO-PTAH--RECEPTION
+^Ens.Config.DefaultSettingsD("IRISHealth.production","source Kafka Consumer TOPIC SURG","*","Topic")
+?SURG-FROM-SendingApp-SendingFac-TO-ReceivingApp--ReceivingFac
+^Ens.Config.DefaultSettingsD("IRISHealth.production","store gender","*","InputParameters")
+*firstname,*value
+^Ens.Config.DefaultSettingsD("IRISHealth.production","store gender","*","Query")
+:insert into data.gender (firstname,value)  values  (?,?)
+^Ens.Config.DefaultSettingsD("IRISHealth.production","target HL7 SIU HTTP","*","HTTPPort")
+19001
+^Ens.Config.DefaultSettingsD("IRISHealth.production","target HL7 SIU HTTP","*","HTTPServer")
+localhost
+^Ens.Config.DefaultSettingsD("IRISHealth.production","target HL7 SIU TCP","*","IPAddress")
+localhost
+^Ens.Config.DefaultSettingsD("IRISHealth.production","target HL7 SIU TCP","*","Port")
+19000
+^Ens.Config.DefaultSettingsD("IRISHealth.production","target IRIS DxCare SQL","*","Query")
+Cinsert into data_kafka.DxCare  (topic,key,value)  values  (?,?,?)
+^Ens.Config.DefaultSettingsD("IRISHealth.production","target IRIS DxCare SQL","EnsLib.SQL.Operation.GenericOperation","InputParameters")
+*topic,*key,*value
+^Ens.Config.DefaultSettingsD("IRISHealth.production","target IRIS Surg SQL","*","Query")
+Ainsert into data_kafka.Surg  (topic,key,value)  values  (?,?,?)
+^Ens.Config.DefaultSettingsD("IRISHealth.production","target IRIS Surg SQL","EnsLib.SQL.Operation.GenericOperation","InputParameters")
+*topic,*key,*value
+^Ens.Config.DefaultSettingsD("IRISHealth.production","target IRIS TrakCare SQL","*","Query")
+Einsert into data_kafka.TrakCare  (topic,key,value)  values  (?,?,?)
+^Ens.Config.DefaultSettingsD("IRISHealth.production","target IRIS TrakCare SQL","EnsLib.SQL.Operation.GenericOperation","InputParameters")
+*topic,*key,*value
+^Ens.Config.DefaultSettingsD("IRISHealth.production","target Kafka Producer","*","Servers")
+host.docker.internal:9092
+
+
