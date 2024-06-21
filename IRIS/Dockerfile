@@ -2,9 +2,7 @@ ARG IMAGE=containers.intersystems.com/intersystems/irishealth-community:latest-e
 ARG IMAGE=containers.intersystems.com/intersystems/irishealth-ml-community:latest-em
 FROM $IMAGE as builder
 
-COPY .iris_init /home/irisowner/.iris_init
-
-WORKDIR /home/irisowner/dev
+USER root
 
 # i386
 # RUN apt update && apt install -y fontconfig xfonts-75dpi xfonts-base && rm -rf /var/lib/apt/lists/* \
@@ -23,6 +21,11 @@ RUN apt update && apt install -y fontconfig xfonts-75dpi xfonts-base && rm -rf /
   && wget -q -O /tmp/wkhtmltox https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-2/wkhtmltox_0.12.6.1-2.jammy_arm64.deb \
   && dpkg -i /tmp/wkhtmltox \
   && rm /tmp/wkhtmltox
+
+USER irisowner  
+COPY .iris_init /home/irisowner/.iris_init
+
+WORKDIR /home/irisowner/dev
 
 RUN --mount=type=bind,src=.,dst=. \
     pip3 install -r requirements.txt && \
