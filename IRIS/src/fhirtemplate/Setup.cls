@@ -5,8 +5,8 @@ ClassMethod SetupFHIRServer(ns) As %Status
 {
     zn "HSLIB"
     set namespace=ns
-    #; Set appKey = "/" _ $zcvt(ns,"L") _ "/r4"
-    Set appKey = "/fhir/r4"
+    Set appKey = "/" _ $zcvt(ns,"L") _ "/fhir/r4"
+    #; Set appKey = "/fhir/r4"
     Set strategyClass = "HS.FHIRServer.Storage.Json.InteractionsStrategy"
     set metadataPackages = $lb("hl7.fhir.r4.core@4.0.1")
     Set metadataConfigKey = "HL7v40"
@@ -39,7 +39,7 @@ ClassMethod SetupFHIRServer(ns) As %Status
     //
 
     do $system.OBJ.ImportDir("/home/irisowner/dev","*.cls","cdk",.errors,1)
-    zw $classmethod("Ens.Director", "SetAutoStart", "FHIRHL7V2DEMOPKG.FoundationProduction", 0)
+    #; zw $classmethod("Ens.Director", "SetAutoStart", "FHIRHL7V2DEMOPKG.FoundationProduction", 0)
 
     //
     

@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
 
     // Parameters
     ip = window.location.hostname;
-    port = "52776"
+    port = "28000"
 
     HL7fileForm : FormGroup;
     messageViewerHidden = true;
@@ -47,19 +47,19 @@ export class HomeComponent implements OnInit {
     }
 
     openProduction() {
-        this.window_open('http://' + this.ip + ':' + this.port + '/csp/healthshare/fhirserver/EnsPortal.ProductionConfig.zen?$NAMESPACE=FHIRHL7V2DEMO&$NAMESPACE=FHIRHL7V2DEMO&IRISUserName=SuperUser&IRISPassword=password')
+        this.window_open('http://' + this.ip + ':' + this.port + '/csp/healthshare/irisapp/EnsPortal.ProductionConfig.zen?$NAMESPACE=FHIRHL7V2DEMO&$NAMESPACE=FHIRHL7V2DEMO&IRISUserName=SuperUser&IRISPassword=password')
     }
 
     openMessageTrace() {
-        this.window_open('http://' + this.ip + ':' + this.port + '/csp/healthshare/fhirserver/EnsPortal.MessageViewer.zen?$NAMESPACE=FHIRHL7V2DEMO&IRISUserName=SuperUser&IRISPassword=password')
+        this.window_open('http://' + this.ip + ':' + this.port + '/csp/healthshare/irisapp/EnsPortal.MessageViewer.zen?$NAMESPACE=FHIRHL7V2DEMO&IRISUserName=SuperUser&IRISPassword=password')
     }
 
     openTransformationIN() {
-        this.window_open('http://' + this.ip + ':' + this.port + '/csp/healthshare/fhirserver/EnsPortal.DTLEditor.zen?DT=HS.Hub.Standalone.HL7.DTL.SubTransform.PD1ToSDA3.dtl&IRISUserName=SuperUser&IRISPassword=password')
+        this.window_open('http://' + this.ip + ':' + this.port + '/csp/healthshare/irisapp/EnsPortal.DTLEditor.zen?DT=HS.Hub.Standalone.HL7.DTL.SubTransform.PD1ToSDA3.dtl&IRISUserName=SuperUser&IRISPassword=password')
     }
 
     openTransformationOUT() {
-        this.window_open('http://' + this.ip + ':' + this.port + '/csp/healthshare/fhirserver/EnsPortal.DTLEditor.zen?DT=HS.FHIR.DTL.SDA3.vR4.Patient.Patient.dtl&IRISUserName=SuperUser&IRISPassword=password')
+        this.window_open('http://' + this.ip + ':' + this.port + '/csp/healthshare/irisapp/EnsPortal.DTLEditor.zen?DT=HS.FHIR.DTL.SDA3.vR4.Patient.Patient.dtl&IRISUserName=SuperUser&IRISPassword=password')
     }
 
     openUX() {
@@ -80,7 +80,7 @@ export class HomeComponent implements OnInit {
     }
 
     PDFConversion() {
-        this.window_open("http://localhost:52776/csp/sys/exp/%25CSP.UI.Portal.SQL.Home.zen?$NAMESPACE=FHIRHL7V2DEMO&$NAMESPACE=FHIRHL7V2DEMO")
+        this.window_open("http://localhost:28000/csp/sys/exp/%25CSP.UI.Portal.SQL.Home.zen?$NAMESPACE=FHIRHL7V2DEMO&$NAMESPACE=FHIRHL7V2DEMO")
     }
 
     selectChangeHandler(event: any) {

@@ -13,25 +13,26 @@ ClassMethod OnStart(pTimeStarted As %String) As %Status
 XData ProductionDefinition
 {
 <Production Name="IRISHealth.production" TestingEnabled="true" LogGeneralTraceEvents="true">
+  <Description></Description>
   <ActorPoolSize>2</ActorPoolSize>
-  <Item Name="source HL7 SIU FILE" Category="HL7" ClassName="EnsLib.HL7.Service.FileService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
+  <Item Name="source HL7 FILE" Category="HL7" ClassName="EnsLib.HL7.Service.FileService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
     <Setting Target="Adapter" Name="FileSpec">*.hl7</Setting>
-    <Setting Target="Host" Name="TargetConfigNames">HL7 SIU router</Setting>
+    <Setting Target="Host" Name="TargetConfigNames">HL7 router</Setting>
   </Item>
-  <Item Name="HL7 SIU router" Category="HL7" ClassName="EnsLib.HL7.MsgRouter.RoutingEngine" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
+  <Item Name="HL7v2 router" Category="HL7" ClassName="EnsLib.HL7.MsgRouter.RoutingEngine" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
     <Setting Target="Host" Name="BusinessRuleName">IRISHealth.HL7router.SIU</Setting>
   </Item>
-  <Item Name="source HL7 SIU TCP" Category="HL7" ClassName="EnsLib.HL7.Service.TCPService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
-    <Setting Target="Host" Name="TargetConfigNames">HL7 SIU router</Setting>
+  <Item Name="source HL7 TCP" Category="HL7" ClassName="EnsLib.HL7.Service.TCPService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
+    <Setting Target="Host" Name="TargetConfigNames">HL7 router</Setting>
     <Setting Target="Host" Name="LocalFacilityApplication">ISC:IRISHL7</Setting>
   </Item>
-  <Item Name="target HL7 SIU TCP" Category="HL7" ClassName="EnsLib.HL7.Operation.TCPOperation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
+  <Item Name="target HL7 TCP" Category="HL7" ClassName="EnsLib.HL7.Operation.TCPOperation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
   </Item>
-  <Item Name="source HL7 SIU HTTP" Category="HL7" ClassName="EnsLib.HL7.Service.HTTPService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
-    <Setting Target="Host" Name="TargetConfigNames">HL7 SIU router</Setting>
+  <Item Name="source HL7 HTTP" Category="HL7" ClassName="EnsLib.HL7.Service.HTTPService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
+    <Setting Target="Host" Name="TargetConfigNames">HL7 router</Setting>
     <Setting Target="Host" Name="LocalFacilityApplication">ISC:IRISHL7</Setting>
   </Item>
-  <Item Name="target HL7 SIU HTTP" Category="HL7" ClassName="EnsLib.HL7.Operation.HTTPOperation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
+  <Item Name="target HL7 HTTP" Category="HL7" ClassName="EnsLib.HL7.Operation.HTTPOperation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
   </Item>
   <Item Name="Kafka router" Category="Kafka" ClassName="EnsLib.MsgRouter.RoutingEngine" PoolSize="1" Enabled="false" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
     <Setting Target="Host" Name="BusinessRuleName">IRISHealth.rules.Kafka</Setting>
@@ -58,12 +59,12 @@ XData ProductionDefinition
   </Item>
   <Item Name="validate" Category="HL7,transfo + traitements" ClassName="IRISHealth.process.validate" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
   </Item>
-  <Item Name="store gender" Category="SQL,Kafka" ClassName="EnsLib.SQL.Operation.GenericOperation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
+  <Item Name="store gender" Category="SQL,transfo + traitements" ClassName="EnsLib.SQL.Operation.GenericOperation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
     <Setting Target="Host" Name="RequestClass">IRISHealth.msg.gender</Setting>
     <Setting Target="Host" Name="ResponseClass">IRISHealth.msg.iris</Setting>
     <Setting Target="Adapter" Name="StayConnected">5</Setting>
   </Item>
-  <Item Name="source HL7 SIU FILE validate" Category="HL7" ClassName="EnsLib.HL7.Service.FileService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
+  <Item Name="source HL7 FILE validate" Category="HL7" ClassName="EnsLib.HL7.Service.FileService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
     <Setting Target="Adapter" Name="FileSpec">*.hl7</Setting>
     <Setting Target="Host" Name="TargetConfigNames">validate</Setting>
   </Item>
@@ -98,6 +99,38 @@ XData ProductionDefinition
     <Setting Target="Adapter" Name="Credentials">ftp</Setting>
     <Setting Target="Adapter" Name="FilePath">./ftp/out</Setting>
     <Setting Target="Adapter" Name="FTPPort"></Setting>
+  </Item>
+  <Item Name="retrieve gender" Category="SQL,transfo + traitements" ClassName="EnsLib.SQL.Operation.GenericOperation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
+    <Setting Target="Host" Name="RequestClass">HTTP.msg.genderRequest</Setting>
+    <Setting Target="Host" Name="ResponseClass">Ens.StringResponse</Setting>
+    <Setting Target="Adapter" Name="StayConnected">5</Setting>
+    <Setting Target="Host" Name="Query">select top 1 value as StringValue
+from data.gender 
+where firstname = ?</Setting>
+    <Setting Target="Host" Name="ParamSQLTypes"></Setting>
+    <Setting Target="Host" Name="InputParameters">*firstName</Setting>
+  </Item>
+  <Item Name="cellule identito-vigilance" Category="" ClassName="EnsLib.Workflow.Operation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+    <Setting Target="Host" Name="AutoCreateRole">1</Setting>
+  </Item>
+  <Item Name="HL7v2toSDA" Category="" ClassName="IRISHealth.process.HL7v2toSDA" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
+    <Setting Target="Host" Name="TargetConfigName">SDAtoFHIR</Setting>
+  </Item>
+  <Item Name="SDAtoFHIR" Category="" ClassName="HS.FHIR.DTL.Util.HC.SDA3.FHIR.Process" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
+    <Setting Target="Host" Name="TraceOperations">*FULL*</Setting>
+    <Setting Target="Host" Name="FHIREndpoint">/irisapp/fhir/r4</Setting>
+    <Setting Target="Host" Name="FHIRMetadataSet">HL7v40 / FHIR R4 Core Specification</Setting>
+    <Setting Target="Host" Name="TargetConfigName">HS.FHIRServer.Interop.Operation</Setting>
+  </Item>
+  <Item Name="HS.Util.Trace.Operations" Category="" ClassName="HS.Util.Trace.Operations" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  </Item>
+  <Item Name="HS.FHIRServer.Interop.Operation" Category="" ClassName="HS.FHIRServer.Interop.Operation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  </Item>
+  <Item Name="HS.FHIRServer.Interop.Service" Category="" ClassName="HS.FHIRServer.Interop.Service" PoolSize="0" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  </Item>
+  <Item Name="WS_REST" Category="Demo" ClassName="FHIRDemo.Service.POSTService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+    <Setting Target="Host" Name="MessageSchemaCategory">2.3.1</Setting>
+    <Setting Target="Host" Name="TargetConfigNames">HL7v2toSDA</Setting>
   </Item>
 </Production>
 }

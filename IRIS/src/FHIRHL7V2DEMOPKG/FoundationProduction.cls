@@ -21,7 +21,7 @@ XData ProductionDefinition
   </Item>
   <Item Name="HS.FHIR.DTL.Util.HC.SDA3.FHIR.Process" Category="Demo" ClassName="HS.FHIR.DTL.Util.HC.SDA3.FHIR.Process" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
     <Setting Target="Host" Name="TargetConfigName">HS.FHIRServer.Interop.Operation</Setting>
-    <Setting Target="Host" Name="FHIREndpoint">/fhir/r4</Setting>
+    <Setting Target="Host" Name="FHIREndpoint">/irisapp/fhir/r4</Setting>
     <Setting Target="Host" Name="FHIRMetadataSet">HL7v40 / Base HL7 Metadata for FHIR R4 (4.0.1)</Setting>
     <Setting Target="Host" Name="FormatFHIROutput">1</Setting>
     <Setting Target="Host" Name="OutputToQuickStream">1</Setting>

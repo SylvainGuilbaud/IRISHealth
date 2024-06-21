@@ -24,7 +24,7 @@
       <Invoke Class="IRISHealth.utils" Method="createSQLGateway" >
       </Invoke>
       <Invoke Class="fhirtemplate.Setup" Method="SetupFHIRServer" Phase="Activate" When="After" >
-        <Arg>FHIRSERVER</Arg>
+        <Arg>IRISAPP</Arg>
       </Invoke>
       <Resource Name="fhirtemplate.PKG"/>
       <Resource Name="User.PKG"/>

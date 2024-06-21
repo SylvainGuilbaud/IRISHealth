@@ -30,14 +30,14 @@ export class UploadComponent implements OnInit {
 
   constructor(private http: HttpClient) {
     this.DataForm = new FormGroup({
-    createPatientUrl : new FormControl("http://localhost:52776/fhir/r4/Patient"),
-    createAllergyPatientUrl : new FormControl("http://localhost:52776/fhir/r4/AllergyIntolerance"),
-    getBundlePatientUrl : new FormControl("http://localhost:52776/fhir/r4/"),
-    updatePatientUrl : new FormControl("http://localhost:52776/fhir/r4/Patient/1"),
-    getBinaryUrl : new FormControl("http://localhost:52776/fhir/r4/Binary/1"),
-    getBinaryFileUrl : new FormControl("http://localhost:52776/fhir/r4/Binary/1/$binary"),
-    getAllPatientUrl : new FormControl("http://localhost:52776/fhir/r4/Patient"),
-    getFullPatientViewUrl : new FormControl("http://localhost:52776/fhir/r4/Patient/1/$everything")
+    createPatientUrl : new FormControl("http://localhost:28000/irisapp/fhir/r4/Patient"),
+    createAllergyPatientUrl : new FormControl("http://localhost:28000/irisapp/fhir/r4/AllergyIntolerance"),
+    getBundlePatientUrl : new FormControl("http://localhost:28000/irisapp/fhir/r4/"),
+    updatePatientUrl : new FormControl("http://localhost:28000/irisapp/fhir/r4/Patient/1"),
+    getBinaryUrl : new FormControl("http://localhost:28000/irisapp/fhir/r4/Binary/1"),
+    getBinaryFileUrl : new FormControl("http://localhost:28000/irisapp/fhir/r4/Binary/1/$binary"),
+    getAllPatientUrl : new FormControl("http://localhost:28000/irisapp/fhir/r4/Patient"),
+    getFullPatientViewUrl : new FormControl("http://localhost:28000/irisapp/fhir/r4/Patient/1/$everything")
     });
     this.RequestDataForm = new FormGroup({
     createPatientRequest : new FormControl(this.createPatientBody),

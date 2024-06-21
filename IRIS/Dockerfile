@@ -6,6 +6,24 @@ COPY .iris_init /home/irisowner/.iris_init
 
 WORKDIR /home/irisowner/dev
 
+# i386
+# RUN apt update && apt install -y fontconfig xfonts-75dpi xfonts-base && rm -rf /var/lib/apt/lists/* \
+#   && wget -q -O /tmp/wkhtmltox https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.bionic_i386.deb \
+#   && dpkg -i /tmp/wkhtmltox \
+#   && rm /tmp/wkhtmltox
+
+#AMD64
+# RUN apt update && apt install -y fontconfig xfonts-75dpi xfonts-base && rm -rf /var/lib/apt/lists/* \
+#   && wget -q -O /tmp/wkhtmltox https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-2/wkhtmltox_0.12.6.1-2.jammy_amd64.deb \
+#   && dpkg -i /tmp/wkhtmltox \
+#   && rm /tmp/wkhtmltox
+
+# ARM64
+RUN apt update && apt install -y fontconfig xfonts-75dpi xfonts-base && rm -rf /var/lib/apt/lists/* \
+  && wget -q -O /tmp/wkhtmltox https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-2/wkhtmltox_0.12.6.1-2.jammy_arm64.deb \
+  && dpkg -i /tmp/wkhtmltox \
+  && rm /tmp/wkhtmltox
+
 RUN --mount=type=bind,src=.,dst=. \
     pip3 install -r requirements.txt && \
     iris start IRIS && \

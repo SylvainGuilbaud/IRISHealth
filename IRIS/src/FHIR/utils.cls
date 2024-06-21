@@ -62,7 +62,7 @@ ClassMethod uninstall(NAMESPACE As %String = "FHIRDEMO") As %Status
 }
 
 /// Delete all resources from the FHIR Server
-ClassMethod purge(pServiceName As %String = "/fhir/r4") As %Status
+ClassMethod purge(pServiceName As %String = "/irisapp/fhir/r4") As %Status
 {
     Try {
         set sc = $$$OK
@@ -78,7 +78,7 @@ ClassMethod purge(pServiceName As %String = "/fhir/r4") As %Status
 }
 
 /// Load resources in the FHIR Server
-ClassMethod load(pInputDirectory As %String = "/data/fhir/", pServiceType As %String = "FHIRServer", pServiceName As %String = "/fhir/r4", pDisplayProgress As %Boolean = 1) As %Status
+ClassMethod load(pInputDirectory As %String = "/IRIS/data/fhir/", pServiceType As %String = "FHIRServer", pServiceName As %String = "/irisapp/fhir/r4", pDisplayProgress As %Boolean = 1) As %Status
 {
     Try {
         set sc = $$$OK

@@ -24,21 +24,21 @@ Export of 1 global from Namespace IRISAPP~Format=5.S~
 127.0.0.1
 ^Ens.Config.DefaultSettingsD("IRISHealth.production","JDBC Gateway","*","Port")
 55555
-^Ens.Config.DefaultSettingsD("IRISHealth.production","source HL7 SIU FILE","*","ArchivePath")
+^Ens.Config.DefaultSettingsD("IRISHealth.production","source HL7 FILE","*","ArchivePath")
 /data/HL7/archive
-^Ens.Config.DefaultSettingsD("IRISHealth.production","source HL7 SIU FILE","*","FilePath")
+^Ens.Config.DefaultSettingsD("IRISHealth.production","source HL7 FILE","*","FilePath")
 /data/HL7/in
-^Ens.Config.DefaultSettingsD("IRISHealth.production","source HL7 SIU FILE","*","WorkPath")
+^Ens.Config.DefaultSettingsD("IRISHealth.production","source HL7 FILE","*","WorkPath")
 /data/HL7/work
-^Ens.Config.DefaultSettingsD("IRISHealth.production","source HL7 SIU FILE validate","*","ArchivePath")
+^Ens.Config.DefaultSettingsD("IRISHealth.production","source HL7 FILE validate","*","ArchivePath")
 /data/HL7/archive
-^Ens.Config.DefaultSettingsD("IRISHealth.production","source HL7 SIU FILE validate","*","FilePath")
+^Ens.Config.DefaultSettingsD("IRISHealth.production","source HL7 FILE validate","*","FilePath")
 /data/HL7/validate
-^Ens.Config.DefaultSettingsD("IRISHealth.production","source HL7 SIU FILE validate","*","WorkPath")
+^Ens.Config.DefaultSettingsD("IRISHealth.production","source HL7 FILE validate","*","WorkPath")
 /data/HL7/work
-^Ens.Config.DefaultSettingsD("IRISHealth.production","source HL7 SIU HTTP","*","Port")
+^Ens.Config.DefaultSettingsD("IRISHealth.production","source HL7 HTTP","*","Port")
 19001
-^Ens.Config.DefaultSettingsD("IRISHealth.production","source HL7 SIU TCP","*","Port")
+^Ens.Config.DefaultSettingsD("IRISHealth.production","source HL7 TCP","*","Port")
 19000
 ^Ens.Config.DefaultSettingsD("IRISHealth.production","source Kafka Consumer TOPIC APT-FROM-DXPLANNING","*","Topic")
 /APT-FROM-DXPLANNING-ENVOIE-TO-PTAH--RECEPTION
@@ -50,13 +50,13 @@ Export of 1 global from Namespace IRISAPP~Format=5.S~
 *firstname,*value
 ^Ens.Config.DefaultSettingsD("IRISHealth.production","store gender","*","Query")
 :insert into data.gender (firstname,value)  values  (?,?)
-^Ens.Config.DefaultSettingsD("IRISHealth.production","target HL7 SIU HTTP","*","HTTPPort")
+^Ens.Config.DefaultSettingsD("IRISHealth.production","target HL7 HTTP","*","HTTPPort")
 19001
-^Ens.Config.DefaultSettingsD("IRISHealth.production","target HL7 SIU HTTP","*","HTTPServer")
+^Ens.Config.DefaultSettingsD("IRISHealth.production","target HL7 HTTP","*","HTTPServer")
 localhost
-^Ens.Config.DefaultSettingsD("IRISHealth.production","target HL7 SIU TCP","*","IPAddress")
+^Ens.Config.DefaultSettingsD("IRISHealth.production","target HL7 TCP","*","IPAddress")
 localhost
-^Ens.Config.DefaultSettingsD("IRISHealth.production","target HL7 SIU TCP","*","Port")
+^Ens.Config.DefaultSettingsD("IRISHealth.production","target HL7 TCP","*","Port")
 19000
 ^Ens.Config.DefaultSettingsD("IRISHealth.production","target IRIS DxCare SQL","*","Query")
 Cinsert into data_kafka.DxCare  (topic,key,value)  values  (?,?,?)

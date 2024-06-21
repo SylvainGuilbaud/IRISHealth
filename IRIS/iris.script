@@ -6,6 +6,8 @@
 
     zn "%SYS"
     do ##class(Security.Users).UnExpireUserPasswords("*")
+    do ##class(%SQL.Statement).%ExecDirect(,"update security.events set enabled=1")
+
     do ##class(Security.SSLConfigs).Create("API")
     do ##class(Security.Applications).Import("/home/irisowner/dev/webapp.xml",.n) 
 
@@ -32,7 +34,12 @@
     #; WorkFlow    
     Do ##class(EnsLib.Workflow.RoleDefinition).CreateRole("ManualBloodPressureRole") 
     Do ##class(EnsLib.Workflow.RoleDefinition).CreateRole("AutomaticBloodPressureRole") 
+    Do ##class(EnsLib.Workflow.RoleDefinition).CreateRole("cellule identito-vigilance")
     do ##class(Workflow.Utils.Functions).UserExists("FakeDoctor","ManualBloodPressureRole") 
+    do ##class(Workflow.Utils.Functions).UserExists("Virgile","cellule identito-vigilance") 
+
+    #; Lookup table
+    do ##class(Ens.Util.LookupTable).%Import("/home/irisowner/dev/src/gbl/gender.xml")
 
     zpm "install csvgen"
     Do ##class(community.csvgen).Generate("/home/irisowner/dev/ML/heart-disease.csv",",","dc.data.health.HeartDisease") 
@@ -47,14 +54,22 @@
     Do ##class(community.csvgen).Generate("/home/irisowner/dev/ML/hepatitis.csv",",","dc.data.health.Hepatitis") 
     
     zn "%SYS"
-    set props2("NameSpace") = "FHIRSERVER"
-    set props2("DispatchClass") = "FHIRDemo.REST.Dispatch"
-    set props2("CookiePath") = "/csp/demo/rest/"
-    set props2("Description") = "Demo REST API"
-    set props2("MatchRoles") = ":%All"
-    set props2("AutheEnabled") = 64
-    set tSC = ##class(Security.Applications).Create("/csp/demo/rest", .props2)
+    set demo("NameSpace") = "IRISAPP"
+    set demo("DispatchClass") = "FHIRDemo.REST.Dispatch"
+    set demo("CookiePath") = "/csp/demo/rest/"
+    set demo("Description") = "Demo REST API"
+    set demo("MatchRoles") = ":%All"
+    set demo("AutheEnabled") = 64
+    set demo("IsNameSpaceDefault") = 0
+    set tSC = ##class(Security.Applications).Create("/csp/demo/rest", .demo)
+
+    set mainapp="/csp/healthshare/irisapp"
+    set prop("DeepSeeEnabled")=1
+    set prop("IsNameSpaceDefault")=1
+    set sc = ##class(Security.Applications).Modify(mainapp,.prop)
 
     zn "IRISAPP"
+
+    do ##class(%File).CopyFile("/home/irisowner/dev/fhirPortal/myFHIR.js","/usr/irissys/csp/fhir/portal/resources/js/myFHIR.js")
     zpm "load /home/irisowner/dev/ -dev -v":1:1
     halt
