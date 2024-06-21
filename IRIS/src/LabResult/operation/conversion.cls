@@ -100,6 +100,11 @@ Method toPDF(pInput As LabResult.msg.request, Output pOutput As Ens.StringRespon
 	
 	set html=..Adapter.FilePath_"/"_HTML
 	set pdf=..Adapter.FilePath_"/"_PDF
+
+	$$$TRACE("HTML:"_html)
+	$$$TRACE("PDF:"_pdf)
+	
+
 	if ..PDFgenerator=1 {
 		set command="wkhtmltopdf" 
 		set flags="/LOGCMD"
@@ -124,6 +129,7 @@ Method toPDF(pInput As LabResult.msg.request, Output pOutput As Ens.StringRespon
 		set args(3)="--print-to-pdf="_pdf_" "_html
 		#; set args(4)=html		
 	}
+	$$$TRACE("command:"_command)
 	set pdfResult=$zf(-100,flags,command,.args) 
 	set pOutput.StringValue=command_"("_pdfResult_")"
 	$$$TRACE(pOutput.StringValue)
