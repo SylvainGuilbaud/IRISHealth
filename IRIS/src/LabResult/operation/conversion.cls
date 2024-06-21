@@ -106,7 +106,7 @@ Method toPDF(pInput As LabResult.msg.request, Output pOutput As Ens.StringRespon
 	
 
 	if ..PDFgenerator=1 {
-		set command="wkhtmltopdf" 
+		set command="/IRIS/wkhtmltopdf/wkhtmltopdf" 
 		set flags="/LOGCMD"
 		set args=4
 		set args(1)="--footer-center"
