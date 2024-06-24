@@ -49,8 +49,10 @@ Method toPDF(pInput As LabResult.msg.request, Output pOutput As Ens.StringRespon
 	set filename=$replace(pInput.PatientID_"-"_pInput.OrderNumber,"^","-")
 	set date=$tr($zdt($h,3)," :","__")_"_"
 	set HTML=date_filename_".html"
-	set:..PDFgenerator=1 PDF="wkhtmltopdf_"_date_filename_".pdf"
-	set:..PDFgenerator=2 PDF="Chrome_"_date_filename_".pdf"
+	#; set:..PDFgenerator=1 PDF="wkhtmltopdf_"_date_filename_".pdf"
+	#; set:..PDFgenerator=2 PDF="Chrome_"_date_filename_".pdf"
+
+	set PDF=date_filename_".pdf"
 	
 	do ..Adapter.PutLine(HTML,"<html>")
 	do ..Adapter.PutLine(HTML,"<body>")

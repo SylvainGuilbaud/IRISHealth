@@ -113,10 +113,10 @@ where firstname = ?</Setting>
   <Item Name="cellule identito-vigilance" Category="" ClassName="EnsLib.Workflow.Operation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
     <Setting Target="Host" Name="AutoCreateRole">1</Setting>
   </Item>
-  <Item Name="HL7v2toSDA" Category="HL7,HPRIM,SDA" ClassName="IRISHealth.process.HL7v2toSDA" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
+  <Item Name="HL7v2toSDA" Category="HL7,HPRIM,SDA" ClassName="IRISHealth.process.HL7v2toSDA" PoolSize="30" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
     <Setting Target="Host" Name="TargetConfigName">SDAtoFHIR</Setting>
   </Item>
-  <Item Name="SDAtoFHIR" Category="HL7,SDA,FHIR" ClassName="HS.FHIR.DTL.Util.HC.SDA3.FHIR.Process" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
+  <Item Name="SDAtoFHIR" Category="HL7,SDA,FHIR" ClassName="HS.FHIR.DTL.Util.HC.SDA3.FHIR.Process" PoolSize="30" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
     <Setting Target="Host" Name="TraceOperations">*FULL*</Setting>
     <Setting Target="Host" Name="FHIREndpoint">/irisapp/fhir/r4</Setting>
     <Setting Target="Host" Name="FHIRMetadataSet">HL7v40 / FHIR R4 Core Specification</Setting>
@@ -124,7 +124,7 @@ where firstname = ?</Setting>
   </Item>
   <Item Name="HS.Util.Trace.Operations" Category="FHIR" ClassName="HS.Util.Trace.Operations" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
   </Item>
-  <Item Name="HS.FHIRServer.Interop.Operation" Category="FHIR" ClassName="HS.FHIRServer.Interop.Operation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  <Item Name="HS.FHIRServer.Interop.Operation" Category="FHIR" ClassName="HS.FHIRServer.Interop.Operation" PoolSize="10" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
   </Item>
   <Item Name="HS.FHIRServer.Interop.Service" Category="FHIR" ClassName="HS.FHIRServer.Interop.Service" PoolSize="0" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
   </Item>

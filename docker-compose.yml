@@ -13,6 +13,7 @@ services:
     - type: bind
       source: ./data
       target: /data
+    - ./IRIS/wkhtmltopdf/wkhtmltopdf:/usr/local/bin/wkhtmltopdf
     # command: -a /IRIS/configure.sh
     ports:
       - 29720:1972
