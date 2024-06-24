@@ -21,7 +21,7 @@ Storage Default
 /// BPL Definition
 XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 {
-<process language='objectscript' request='EnsLib.HL7.Message' response='EnsLib.HL7.Message' height='2000' width='2000' layout='manual' >
+<process language='objectscript' request='EnsLib.HL7.Message' response='EnsLib.HL7.Message' height='4000' width='2690' layout='manual' >
 <context>
 <property name='genderRequest' type='HTTP.msg.genderRequest' instantiate='0' />
 <property name='genderResponse' type='HTTP.msg.genderResponse' instantiate='0' />
@@ -34,14 +34,75 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 </property>
 <property name='workflowResponse' type='EnsLib.Workflow.TaskResponse' instantiate='0' />
 </context>
-<sequence xpos='200' ypos='150' xend='200' yend='1750' >
+<sequence xpos='200' ypos='150' xend='200' yend='2600' >
 <assign name="init response" property="response" value="request" action="set" languageOverride="" xpos='200' ypos='250' />
-<transform name='get FirstName' class='IRISHealth.transfo.getFirstName' source='request' target='context.genderRequest' xpos='200' ypos='350' >
-<annotation><![CDATA[retrieve firstname in HL7 PID]]></annotation>
-</transform>
-<trace name='first name' value='context.genderRequest.firstName' xpos='200' ypos='450' />
-<scope xpos='200' ypos='550' xend='200' yend='900' >
-<call name='check gender' target='get gender' async='0' xpos='200' ypos='650' >
+<trace name='DocType' value='"DocType:"_request.DocType' xpos='200' ypos='350' />
+<switch name='message type' xpos='200' ypos='450' xend='200' yend='700' >
+<case condition='request.DocType["SIU"' name='"SIU"' >
+<transform name='get FirstName from SIU' class='IRISHealth.transfo.getFirstNameSIU' source='request' target='context.genderRequest' xpos='335' ypos='600' />
+</case>
+<case condition='request.DocType["ADT"' name='ADT' >
+<transform name='get FirstName from ADT' class='IRISHealth.transfo.getFirstNameADT' source='request' target='context.genderRequest' xpos='605' ypos='600' />
+</case>
+<case condition='request.DocType["ORM"' name='ORM' >
+<transform name='get FirstName from ORM' class='IRISHealth.transfo.getFirstNameORM' source='request' target='context.genderRequest' xpos='875' ypos='600' />
+</case>
+<case condition='request.DocType["MDM"' name='MDM' >
+<transform name='get FirstName from MDM' class='IRISHealth.transfo.getFirstNameMDM' source='request' target='context.genderRequest' xpos='1145' ypos='600' />
+</case>
+<default/>
+</switch>
+<trace name='first name' value='"firstName:"_context.genderRequest.firstName' xpos='200' ypos='800' />
+<if name='NO FIRST NAME' condition='context.genderRequest.firstName=""' xpos='200' ypos='900' xend='200' yend='2500' >
+<true>
+<alert value='"NO FIRST NAME"' xpos='200' ypos='1050' />
+</true>
+<false>
+<if name='workflow' condition='process.forceWorkflow' xpos='470' ypos='1050' xend='470' yend='2300' >
+<annotation><![CDATA[contrôle si validation humaine est obligatoire]]></annotation>
+<true>
+<trace name='workflow' value='"forced workflow " _ process.forceWorkflow' xpos='470' ypos='1200' />
+<call name='cellule identito-vigilance' target='cellule identito-vigilance' async='1' xpos='470' ypos='1300' >
+<request type='EnsLib.Workflow.TaskRequest' >
+<assign property="callrequest.%Actions" value="&quot;male,female&quot;" action="set" languageOverride="" />
+<assign property="callrequest.%Subject" value="&quot;valider genre de &quot;_context.genderRequest.firstName" action="set" languageOverride="" />
+<assign property="callrequest.%UserName" value="&quot;Virgile&quot;" action="set" languageOverride="" />
+</request>
+<response type='EnsLib.Workflow.TaskResponse' >
+<assign property="context.workflowResponse" value="callresponse" action="set" languageOverride="" />
+<assign property="context.genderResponse.gender" value="callresponse.%Action" action="set" languageOverride="" />
+</response>
+</call>
+<sync name='cellule identito-vigilance' calls='cellule identito-vigilance' type='all' xpos='470' ypos='1400' />
+<call name='stock gender' target='store gender' async='0' xpos='470' ypos='1500' >
+<request type='IRISHealth.msg.gender' >
+<assign property="callrequest.firstname" value="context.genderRequest.firstName" action="set" languageOverride="" />
+<assign property="callrequest.value" value="context.genderResponse.gender" action="set" languageOverride="" />
+</request>
+<response type='IRISHealth.msg.iris' >
+<assign property="context.genderStored" value="callresponse" action="set" languageOverride="" />
+</response>
+</call>
+<switch name='message type' xpos='470' ypos='1600' xend='470' yend='1850' >
+<case condition='request.DocType["SIU"' name='"SIU"' >
+<transform name='get FirstName from SIU' class='IRISHealth.transfo.setGenderSIU' source='request' target='context.HL7Msg' xpos='605' ypos='1750' />
+</case>
+<case condition='request.DocType["ADT"' name='ADT' >
+<transform name='get FirstName from ADT' class='IRISHealth.transfo.setGenderADT' source='request' target='context.HL7Msg' xpos='875' ypos='1750' />
+</case>
+<case condition='request.DocType["ORM"' name='ORM' >
+<transform name='get FirstName from ORM' class='IRISHealth.transfo.setGenderORM' source='request' target='context.HL7Msg' xpos='1145' ypos='1750' />
+</case>
+<case condition='request.DocType["MDM"' name='MDM' >
+<transform name='get FirstName from MDM' class='IRISHealth.transfo.setGenderMDM' source='request' target='context.HL7Msg' xpos='1415' ypos='1750' />
+</case>
+<default/>
+</switch>
+<assign name="response" property="response" value="context.HL7Msg" action="set" languageOverride="" xpos='470' ypos='1950' />
+</true>
+<false>
+<scope xpos='1820' ypos='1200' xend='1820' yend='1550' >
+<call name='check gender' target='get gender' async='0' xpos='1820' ypos='1300' >
 <request type='HTTP.msg.genderRequest' >
 <assign property="callrequest" value="context.genderRequest" action="set" languageOverride="" />
 </request>
@@ -50,7 +111,7 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 </response>
 </call>
 <faulthandlers>
-<catchall xpos='200' ypos='750' xend='200' yend='1300' >
+<catchall xpos='1820' ypos='1400' xend='200' yend='1300' >
 <trace name='LastError' value='"%LastError "_$System.Status.GetErrorCodes(..%Context.%LastError)_" : "_$System.Status.GetOneStatusText(..%Context.%LastError)' xpos='200' ypos='250' />
 <assign name="HTTP Error" property="context.HTTPError" value="$System.Status.GetOneStatusText(..%Context.%LastError)" action="set" languageOverride="" xpos='200' ypos='350' />
 <switch name='HTTP Errors' xpos='200' ypos='450' xend='200' yend='1200' >
@@ -100,13 +161,13 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 </catchall>
 </faulthandlers>
 </scope>
-<trace name='gender' value='context.genderResponse.gender' xpos='200' ypos='1000' />
-<if name='high probability' condition='context.genderResponse.probability&gt;0.9' xpos='200' ypos='1100' xend='200' yend='1550' >
+<trace name='gender' value='context.genderResponse.gender' xpos='1820' ypos='1650' />
+<if name='high probability' condition='context.genderResponse.probability&gt;0.9' xpos='1820' ypos='1750' xend='1820' yend='2200' >
 <true>
-<trace name='high probability' value='"high probability"' xpos='665' ypos='1251' >
+<trace name='high probability' value='"high probability"' xpos='2090' ypos='1900' >
 <annotation><![CDATA[store results in database]]></annotation>
 </trace>
-<call name='store gender' target='store gender' async='0' xpos='665' ypos='1353' >
+<call name='store gender' target='store gender' async='0' xpos='2090' ypos='2000' >
 <request type='IRISHealth.msg.gender' >
 <assign property="callrequest.firstname" value="context.genderRequest.firstName" action="set" languageOverride="" />
 <assign property="callrequest.value" value="context.genderResponse.gender" action="set" languageOverride="" />
@@ -115,22 +176,26 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 <assign property="context.genderStored" value="callresponse" action="set" languageOverride="" />
 </response>
 </call>
-<transform name='set gender' class='IRISHealth.transfo.setGender' source='request' target='context.HL7Msg' xpos='665' ypos='1459' >
+<transform name='set gender' class='IRISHealth.transfo.setGender' source='request' target='context.HL7Msg' xpos='2090' ypos='2100' >
 <annotation><![CDATA[overwrite the gender in HL7 PID ]]></annotation>
 </transform>
 </true>
 <false>
-<trace name='low probability' value='"low probability"' xpos='200' ypos='1250' >
+<trace name='low probability' value='"low probability"' xpos='1820' ypos='1900' >
 <annotation><![CDATA[nothing to do]]></annotation>
 </trace>
 </false>
 </if>
-<call name='SIU Router' target='HL7 SIU router' async='1' xpos='200' ypos='1650' >
+</false>
+</if>
+<call name='HL7 Router' target='HL7v2 router' async='1' xpos='470' ypos='2400' >
 <request type='EnsLib.HL7.Message' >
 <assign property="callrequest" value="context.HL7Msg" action="set" languageOverride="" />
 </request>
 <response type='Ens.Response' />
 </call>
+</false>
+</if>
 </sequence>
 </process>
 }
