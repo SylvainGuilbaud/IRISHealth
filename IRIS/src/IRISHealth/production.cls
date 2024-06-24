@@ -132,7 +132,7 @@ where firstname = ?</Setting>
     <Setting Target="Host" Name="MessageSchemaCategory">2.3.1</Setting>
     <Setting Target="Host" Name="TargetConfigNames">HL7v2toSDA</Setting>
   </Item>
-    <Item Name="de Résultats de Laboratoire" Category="Résultats de Laboratoire" ClassName="EnsLib.HL7.Service.FileService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  <Item Name="de Résultats de Laboratoire" Category="Résultats de Laboratoire" ClassName="EnsLib.HL7.Service.FileService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
     <Setting Target="Host" Name="MessageSchemaCategory">2.3</Setting>
     <Setting Target="Host" Name="TargetConfigNames">LABO</Setting>
     <Setting Target="Adapter" Name="FilePath">/data/LabResult/in</Setting>
@@ -161,6 +161,8 @@ where firstname = ?</Setting>
     <Setting Target="Adapter" Name="IPAddress">127.0.0.1</Setting>
     <Setting Target="Adapter" Name="Port">9000</Setting>
     <Setting Target="Host" Name="ArchiveIO">1</Setting>
+  </Item>
+  <Item Name="HPRIMtoHL7v2" Category="" ClassName="IRISHealth.process.HPRIMtoHLVv2" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
   </Item>
 </Production>
 }

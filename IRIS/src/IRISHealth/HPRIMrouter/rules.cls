@@ -11,11 +11,10 @@ XData RuleDefinition [ XMLNamespace = "http://www.intersystems.com/rule" ]
 <rule name="HPRIM TCP" disabled="false">
 <constraint name="source" value="source HPRIM FILE"></constraint>
 <when condition="1" comment="">
-<send transform="HPRIM.transfo.H.Upper" target=",target HPRIM FTP"></send>
+<send transform="HPRIM.transfo.H.Upper" target=",target HPRIM FTP,HPRIMtoHL7v2"></send>
 <return></return>
 </when>
 </rule>
-<send transform="HPRIM.transfo.H.Upper" target="target HPRIM FILE,target HPRIM FTP,target HPRIM TCP"></send>
 </ruleSet>
 </ruleDefinition>
 }
