@@ -14,6 +14,7 @@ services:
       source: ./data
       target: /data
     - ./IRIS/wkhtmltopdf/wkhtmltopdf:/usr/local/bin/wkhtmltopdf
+    - ./IRIS/swagger-ui/index.html:/usr/irissys/csp/swagger-ui/index.html
     # command: -a /IRIS/configure.sh
     ports:
       - 29720:1972

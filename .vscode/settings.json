@@ -15,6 +15,7 @@
             "FHIR SQL Builder": "http://${host}:${port}/csp/fhirsql/index.html",
             "SQL": "http://${host}:${port}/csp/sys/exp/%25CSP.UI.Portal.SQL.Home.zen?$NAMESPACE=IRISAPP&$NAMESPACE=IRISAPP",
             "swagger-ui": "http://${host}:${port}/swagger-ui/index.html",
+            "data CRUD": "http://${host}:${port}/data/crud/",
             "API FHIR Patients": "http://${host}:${port}/irisapp/fhir/r4/Patient",
             "terminal": "http://${host}:${port}/terminal/",
             "class explorer": "http://${host}:${port}/classexplorer/#{%22name%22:%22data.kafka,data.kafka.DxCare,data.kafka.Surg,data.kafka.TrakCare%22,%22type%22:%22arbitrary%22,%22level%22:%22%22,%22namespace%22:%22IRISAPP%22}",

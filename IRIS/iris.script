@@ -3,6 +3,7 @@
     zpm "install classexplorer" 
     zpm "install passwordless"
     zpm "install fhir-portal"
+    zpm "install swagger-ui"
 
     zn "%SYS"
     do ##class(Security.Users).UnExpireUserPasswords("*")

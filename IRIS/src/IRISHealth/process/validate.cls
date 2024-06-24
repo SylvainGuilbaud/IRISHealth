@@ -2,8 +2,19 @@
 Class IRISHealth.process.validate Extends Ens.BusinessProcessBPL
 {
 
+Parameter SETTINGS = "forceWorkflow:Basic";
+
+Property forceWorkflow As %Boolean [ InitialExpression = 0 ];
+
 Storage Default
 {
+<Data name="validateDefaultData">
+<Subscript>"validate"</Subscript>
+<Value name="1">
+<Value>forceWorkflow</Value>
+</Value>
+</Data>
+<DefaultData>validateDefaultData</DefaultData>
 <Type>%Storage.Persistent</Type>
 }
 
