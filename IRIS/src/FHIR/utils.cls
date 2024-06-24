@@ -1,7 +1,7 @@
 Class FHIR.utils
 {
 
-ClassMethod install(NAMESPACE As %String = "FHIRDEMO") As %Status
+ClassMethod install(NAMESPACE As %String = "IRISAPP") As %Status
 {
     set sc = $$$OK
     set ns = $NAMESPACE
