@@ -17,19 +17,19 @@ XData ProductionDefinition
   <ActorPoolSize>2</ActorPoolSize>
   <Item Name="source HL7 FILE" Category="HL7" ClassName="EnsLib.HL7.Service.FileService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
     <Setting Target="Adapter" Name="FileSpec">*.hl7</Setting>
-    <Setting Target="Host" Name="TargetConfigNames">HL7 router</Setting>
+    <Setting Target="Host" Name="TargetConfigNames">HL7v2 router</Setting>
   </Item>
   <Item Name="HL7v2 router" Category="HL7" ClassName="EnsLib.HL7.MsgRouter.RoutingEngine" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
     <Setting Target="Host" Name="BusinessRuleName">IRISHealth.HL7router.SIU</Setting>
   </Item>
   <Item Name="source HL7 TCP" Category="HL7" ClassName="EnsLib.HL7.Service.TCPService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
-    <Setting Target="Host" Name="TargetConfigNames">HL7 router</Setting>
+    <Setting Target="Host" Name="TargetConfigNames">HL7v2 router</Setting>
     <Setting Target="Host" Name="LocalFacilityApplication">ISC:IRISHL7</Setting>
   </Item>
   <Item Name="target HL7 TCP" Category="HL7" ClassName="EnsLib.HL7.Operation.TCPOperation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
   </Item>
   <Item Name="source HL7 HTTP" Category="HL7" ClassName="EnsLib.HL7.Service.HTTPService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
-    <Setting Target="Host" Name="TargetConfigNames">HL7 router</Setting>
+    <Setting Target="Host" Name="TargetConfigNames">HL7v2 router</Setting>
     <Setting Target="Host" Name="LocalFacilityApplication">ISC:IRISHL7</Setting>
   </Item>
   <Item Name="target HL7 HTTP" Category="HL7" ClassName="EnsLib.HL7.Operation.HTTPOperation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
@@ -70,7 +70,7 @@ XData ProductionDefinition
   </Item>
   <Item Name="Ens.Activity.Operation.Local" Category="" ClassName="Ens.Activity.Operation.Local" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
   </Item>
-  <Item Name="source HPRIM FILE" Category="" ClassName="HPRIM.EDI.E1238.Service.FileService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  <Item Name="source HPRIM FILE" Category="HPRIM" ClassName="HPRIM.EDI.E1238.Service.FileService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
     <Setting Target="Adapter" Name="FilePath">/data/HPRIM/in/</Setting>
     <Setting Target="Adapter" Name="FileSpec">*.hpr</Setting>
     <Setting Target="Adapter" Name="SemaphoreSpec">*.ok</Setting>
@@ -79,7 +79,7 @@ XData ProductionDefinition
     <Setting Target="Adapter" Name="ArchivePath">/data/HPRIM/archive</Setting>
     <Setting Target="Adapter" Name="WorkPath">/data/HPRIM/work</Setting>
   </Item>
-  <Item Name="target HPRIM FILE" Category="" ClassName="HPRIM.EDI.E1238.Operation.FileOperation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  <Item Name="target HPRIM FILE" Category="HPRIM" ClassName="HPRIM.EDI.E1238.Operation.FileOperation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
     <Setting Target="Host" Name="Filename">%f_%Q.hpr</Setting>
     <Setting Target="Adapter" Name="FilePath">/data/HPRIM/out</Setting>
     <Setting Target="Host" Name="FileOK">1</Setting>
@@ -89,12 +89,12 @@ XData ProductionDefinition
     <Setting Target="Host" Name="ASegmentsEnabled">1</Setting>
     <Setting Target="Host" Name="MaxSegmentSize">220</Setting>
   </Item>
-  <Item Name="HPRIM router" Category="" ClassName="EnsLib.MsgRouter.RoutingEngine" PoolSize="0" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  <Item Name="HPRIM router" Category="HPRIM" ClassName="EnsLib.MsgRouter.RoutingEngine" PoolSize="0" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
     <Setting Target="Host" Name="Validation"></Setting>
     <Setting Target="Host" Name="BusinessRuleName">IRISHealth.HPRIMrouter.rules</Setting>
     <Setting Target="Host" Name="FailureTimeout">-1</Setting>
   </Item>
-  <Item Name="target HPRIM FTP" Category="" ClassName="HPRIM.EDI.E1238.Operation.FTPOperation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
+  <Item Name="target HPRIM FTP" Category="HPRIM" ClassName="HPRIM.EDI.E1238.Operation.FTPOperation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
     <Setting Target="Adapter" Name="FTPServer">IRISHealth-ftp</Setting>
     <Setting Target="Adapter" Name="Credentials">ftp</Setting>
     <Setting Target="Adapter" Name="FilePath">./ftp/out</Setting>
@@ -113,20 +113,20 @@ where firstname = ?</Setting>
   <Item Name="cellule identito-vigilance" Category="" ClassName="EnsLib.Workflow.Operation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
     <Setting Target="Host" Name="AutoCreateRole">1</Setting>
   </Item>
-  <Item Name="HL7v2toSDA" Category="" ClassName="IRISHealth.process.HL7v2toSDA" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
+  <Item Name="HL7v2toSDA" Category="HL7,HPRIM,SDA" ClassName="IRISHealth.process.HL7v2toSDA" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
     <Setting Target="Host" Name="TargetConfigName">SDAtoFHIR</Setting>
   </Item>
-  <Item Name="SDAtoFHIR" Category="" ClassName="HS.FHIR.DTL.Util.HC.SDA3.FHIR.Process" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
+  <Item Name="SDAtoFHIR" Category="HL7,SDA,FHIR" ClassName="HS.FHIR.DTL.Util.HC.SDA3.FHIR.Process" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
     <Setting Target="Host" Name="TraceOperations">*FULL*</Setting>
     <Setting Target="Host" Name="FHIREndpoint">/irisapp/fhir/r4</Setting>
     <Setting Target="Host" Name="FHIRMetadataSet">HL7v40 / FHIR R4 Core Specification</Setting>
     <Setting Target="Host" Name="TargetConfigName">HS.FHIRServer.Interop.Operation</Setting>
   </Item>
-  <Item Name="HS.Util.Trace.Operations" Category="" ClassName="HS.Util.Trace.Operations" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  <Item Name="HS.Util.Trace.Operations" Category="FHIR" ClassName="HS.Util.Trace.Operations" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
   </Item>
-  <Item Name="HS.FHIRServer.Interop.Operation" Category="" ClassName="HS.FHIRServer.Interop.Operation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  <Item Name="HS.FHIRServer.Interop.Operation" Category="FHIR" ClassName="HS.FHIRServer.Interop.Operation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
   </Item>
-  <Item Name="HS.FHIRServer.Interop.Service" Category="" ClassName="HS.FHIRServer.Interop.Service" PoolSize="0" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  <Item Name="HS.FHIRServer.Interop.Service" Category="FHIR" ClassName="HS.FHIRServer.Interop.Service" PoolSize="0" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
   </Item>
   <Item Name="WS_REST" Category="Demo" ClassName="FHIRDemo.Service.POSTService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
     <Setting Target="Host" Name="MessageSchemaCategory">2.3.1</Setting>
@@ -162,7 +162,7 @@ where firstname = ?</Setting>
     <Setting Target="Adapter" Name="Port">9000</Setting>
     <Setting Target="Host" Name="ArchiveIO">1</Setting>
   </Item>
-  <Item Name="HPRIMtoHL7v2" Category="" ClassName="IRISHealth.process.HPRIMtoHLVv2" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  <Item Name="HPRIMtoHL7v2" Category="HPRIM,HL7" ClassName="IRISHealth.process.HPRIMtoHLVv2" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
   </Item>
 </Production>
 }
