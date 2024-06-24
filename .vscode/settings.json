@@ -7,6 +7,7 @@
             "internalPort": 52773
         },
         "links": {
+            "Notebook": "http://${host}:28001",
             "FHIR UI Portal": "http://${host}:${port}/fhir/portal/patientlist.html",
             "FHIR UI Demo": "http://${host}:${port}/fhirUI/FHIRAppDemo.html",
             "FHIR server test": "http://${host}:${port}/irisapp/fhir/r4/metadata",
@@ -25,7 +26,7 @@
             "Production": "http://${host}:${port}/csp/healthshare/irisapp/EnsPortal.ProductionConfig.zen?PRODUCTION=HL7v2toKafka.production",
             "Rule": "http://${host}:${port}/ui/interop/rule-editor/index.html?$NAMESPACE=IRISAPP&rule=HL7v2toKafka.HL7router.SIU",
             "Visual Trace": "http://${host}:${port}/csp/healthshare/irisapp/EnsPortal.MessageViewer.zen?$NAMESPACE=IRISAPP&$NAMESPACE=IRISAPP&",
-            "Notebook": "http://${host}:28001",
+            "Kafka Manager TOPICS": "http://${host}:8082/topics",
             "License Key": "http://${host}:${port}/csp/sys/mgr/%25CSP.UI.Portal.License.Key.zen",
             "API Atelier IRIS": "http://${host}:${port}/api/atelier/",
             "IRIS API Management": "http://${host}:${port}/api/mgmnt/"

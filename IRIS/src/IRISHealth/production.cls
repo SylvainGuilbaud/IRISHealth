@@ -162,6 +162,14 @@ where firstname = ?</Setting>
     <Setting Target="Adapter" Name="Port">9000</Setting>
     <Setting Target="Host" Name="ArchiveIO">1</Setting>
   </Item>
+  <Item Name="source Kafka Consumer TOPIC APT-FROM-DXPLANNING" Category="Kafka" ClassName="EnsLib.Kafka.Service" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
+  </Item>
+  <Item Name="source Kafka Consumer TOPIC APT-FROM-TRAKCARE" Category="Kafka" ClassName="EnsLib.Kafka.Service" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
+  </Item>
+  <Item Name="source Kafka Consumer TOPIC SURG" Category="Kafka" ClassName="EnsLib.Kafka.Service" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
+  </Item>
+  <Item Name="target Kafka Producer" Category="Kafka,HL7" ClassName="EnsLib.Kafka.Operation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
+  </Item>
 </Production>
 }
 
