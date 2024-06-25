@@ -1,7 +1,9 @@
 Class FHIRDemo.REST.Dispatch Extends %CSP.REST
 {
 
-Parameter BsName = "WS_REST";
+// Parameter BsName = "WS_REST";
+
+Parameter BsName = "source Portail Santé";
 
 Parameter CHARSET = "utf-8";
 

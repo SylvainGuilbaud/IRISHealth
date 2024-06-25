@@ -64,6 +64,15 @@
     set demo("IsNameSpaceDefault") = 0
     set tSC = ##class(Security.Applications).Create("/csp/demo/rest", .demo)
 
+    set crud("NameSpace") = "IRISAPP"
+    set crud("DispatchClass") = "REST.crud"
+    set crud("CookiePath") = "/crud/"
+    set crud("Description") = "CRUD REST API"
+    set crud("MatchRoles") = ":%All"
+    set crud("AutheEnabled") = 96
+    set crud("IsNameSpaceDefault") = 0
+    set tSC = ##class(Security.Applications).Create("/crud", .crud)
+
     set mainapp="/csp/healthshare/irisapp"
     set prop("DeepSeeEnabled")=1
     set prop("IsNameSpaceDefault")=1
