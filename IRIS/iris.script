@@ -13,7 +13,17 @@
     do ##class(Security.Applications).Import("/home/irisowner/dev/webapp.xml",.n) 
 
     zn "IRISAPP"
-    
+
+    #; common
+    do $system.OBJ.Load("/home/irisowner/dev/src/inc/common.inc","ck")
+
+    #; HL7v2
+    write ##class(EnsLib.HL7.SchemaXML).Import("/home/irisowner/dev/HL7v2/GEFI.HL7")
+    write ##class(EnsLib.HL7.SchemaXML).Import("/home/irisowner/dev/HL7v2/GEFIReceiver.HL7")
+    write ##class(EnsLib.HL7.SchemaXML).Import("/home/irisowner/dev/HL7v2/HL7v25IHE.HL7")
+    write ##class(EnsLib.HL7.SchemaXML).Import("/home/irisowner/dev/HL7v2/HL7v231IHE.HL7")
+    write ##class(EnsLib.HL7.SchemaXML).Import("/home/irisowner/dev/HL7v2/HPRIMV2.HL7")
+
     #; HPRIM
     do $system.OBJ.Load("/home/irisowner/dev/src/HPRIME1238.inc","ck")
     do $system.OBJ.Load("/home/irisowner/dev/src/HPRIME1238Errors.inc","ck")
@@ -81,5 +91,10 @@
     zn "IRISAPP"
 
     do ##class(%File).CopyFile("/home/irisowner/dev/fhirPortal/myFHIR.js","/usr/irissys/csp/fhir/portal/resources/js/myFHIR.js")
+
+    do ##class(%File).CopyFile("/home/irisowner/dev/swagger-ui/index.html","/usr/irissys/csp/swagger-ui/index.html")
+
+    do ##class(%File).CopyFile("/home/irisowner/dev/wkhtmltopdf/wkhtmltopdf","/usr/local/bin/wkhtmltopdf")
+    
     zpm "load /home/irisowner/dev/ -dev -v":1:1
     halt

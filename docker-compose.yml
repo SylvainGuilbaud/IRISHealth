@@ -13,9 +13,13 @@ services:
     - type: bind
       source: ./data
       target: /data
-    - ./IRIS/wkhtmltopdf/wkhtmltopdf:/usr/local/bin/wkhtmltopdf
-    # - ./IRIS/swagger-ui/index.html:/usr/irissys/csp/swagger-ui/index.html
+    - type: bind
+      source: ./volumes
+      target: /volumes
     # command: -a /IRIS/configure.sh
+    environment:
+      - ISC_DATA_DIRECTORY=/volumes/IRIS
+      # - ISC_CPF_MERGE_FILE=/IRIS/mirrorPrimary.conf
     ports:
       - 29720:1972
       - 28000:52773
