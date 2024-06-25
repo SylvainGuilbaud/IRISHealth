@@ -53,7 +53,7 @@ XData ProductionDefinition
   <Item Name="get gender" Category="transfo + traitements" ClassName="HTTP.operation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
     <Setting Target="Adapter" Name="HTTPServer">api.genderize.io</Setting>
     <Setting Target="Adapter" Name="SSLConfig">API</Setting>
-    <Setting Target="Adapter" Name="URL">/</Setting>
+    <Setting Target="Adapter" Name="URL">/a</Setting>
     <Setting Target="Adapter" Name="SSLCheckServerIdentity">0</Setting>
     <Setting Target="Host" Name="ArchiveIO">1</Setting>
   </Item>

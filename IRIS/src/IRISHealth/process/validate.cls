@@ -115,15 +115,6 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 </response>
 </call>
 <sync name='cellule identito-vigilance' calls='cellule identito-vigilance' type='all' xpos='740' ypos='800' />
-<call name='enregistre gender' target='store gender' async='0' xpos='740' ypos='900' >
-<request type='IRISHealth.msg.gender' >
-<assign property="callrequest.firstname" value="context.genderRequest.firstName" action="set" languageOverride="" />
-<assign property="callrequest.value" value="context.genderResponse.gender" action="set" languageOverride="" />
-</request>
-<response type='IRISHealth.msg.iris' >
-<assign property="context.genderStored" value="callresponse" action="set" languageOverride="" />
-</response>
-</call>
 </case>
 <case condition='context.HTTPError[505' name='HTTP/1.1 505 Not Supported' >
 <trace name='Not Supported' value='"HTTP/1.1 404 Not Found"' xpos='1010' ypos='600' />
@@ -139,15 +130,6 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 </response>
 </call>
 <sync name='cellule identito-vigilance' calls='cellule identito-vigilance' type='all' xpos='1010' ypos='800' />
-<call name='record gender' target='store gender' async='0' xpos='1010' ypos='900' >
-<request type='IRISHealth.msg.gender' >
-<assign property="callrequest.firstname" value="context.genderRequest.firstName" action="set" languageOverride="" />
-<assign property="callrequest.value" value="context.genderResponse.gender" action="set" languageOverride="" />
-</request>
-<response type='IRISHealth.msg.iris' >
-<assign property="context.genderStored" value="callresponse" action="set" languageOverride="" />
-</response>
-</call>
 </case>
 <default name='default' >
 <trace name='Other' value='context.HTTPError' xpos='200' ypos='600' />

@@ -1,5 +1,5 @@
 /// 
-Class dc.data.health.BreastCancer Extends (%Persistent, %JSON.Adaptor) [ ClassType = persistent, DdlAllowed, Final, Owner = {irisowner}, ProcedureBlock, SqlRowIdPrivate, SqlTableName = BreastCancer ]
+Class dc.data.health.BreastCancer Extends %Persistent [ ClassType = persistent, DdlAllowed, Final, Owner = {irisowner}, ProcedureBlock, SqlRowIdPrivate, SqlTableName = BreastCancer ]
 {
 
 Property diagnosis As %Library.String(MAXLEN = 250) [ SqlColumnNumber = 2 ];
