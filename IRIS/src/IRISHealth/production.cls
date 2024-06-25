@@ -178,7 +178,7 @@ XData ProductionDefinition
     <Setting Target="Host" Name="MessageSchemaCategory">2.3.1</Setting>
     <Setting Target="Host" Name="TargetConfigNames">HL7v2toSDA</Setting>
   </Item>
-  <Item Name="HPRIMtoHLVv2" Category="" ClassName="IRISHealth.process.HPRIMtoHLVv2" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  <Item Name="HPRIMtoHL7v2" Category="" ClassName="IRISHealth.process.HPRIMtoHL7v2" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
   </Item>
 </Production>
 }
