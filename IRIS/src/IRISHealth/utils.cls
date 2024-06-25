@@ -1,6 +1,38 @@
 Class IRISHealth.utils Extends %RegisteredObject
 {
 
+ClassMethod purge() As %Status [ Language = python ]
+{
+    import iris
+    import requests
+    from datetime import datetime
+    now = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S.%f")
+    Server = "host.docker.internal"
+    Port = 52773
+    Username = "_system"
+    Password = "SYS"
+    url = "http://" + Server + ":" + str(Port) + "/irisapp/fhir/r4/Patient/"
+
+    for x in range(0,10000):
+        print(x+1)
+        url = "http://IRISHealth:52773/irisapp/fhir/r4/Patient/" + str(x) 
+        resp = requests.delete(url, auth=(Username, Password))
+        print("resp:" + resp.text)
+        print("status:" + str(resp.status_code))
+}
+
+ClassMethod load(pInputDirectory As %String = "/IRIS/data/fhir/", pServiceType As %String = "FHIRServer", pServiceName As %String = "/irisapp/fhir/r4", pDisplayProgress As %Boolean = 1) As %Status
+{
+    Try {
+        set sc = $$$OK
+        set sc = ##class(HS.FHIRServer.Tools.DataLoader).SubmitResourceFiles(pInputDirectory, pServiceType, pServiceName, pDisplayProgress)
+    }
+    Catch ex {
+        set tSC=ex.AsStatus()
+    }
+    return sc
+}
+
 /// Create SQL Gateway
 ClassMethod createSQLGateway() As %Status
 {

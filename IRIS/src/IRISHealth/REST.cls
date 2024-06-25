@@ -19,8 +19,64 @@ XData UrlMap [ XMLNamespace = "http://www.intersystems.com/urlmap" ]
 <Route Url="/api/:classname/:id" Method="PUT" Call="update"/>
 <Route Url="/api/:classname/:id" Method="DELETE" Call="delete"/>
 <Route Url="/sendfile" Method="POST" Call="SendFileContent" Cors="true"/>
+<Route Url="/list/:classname" Method="GET" Call="list" Cors="true"/>
 <Route Url="/_spec" Method="GET" Call="spec" />
 </Routes>
+}
+
+ClassMethod list(classname As %String) As %Status
+{
+    set sc = $$$OK
+    set %response.ContentType = ..#CONTENTTYPETEXT
+    Try {
+    if ##class(%Dictionary.ClassDefinition).%ExistsId(classname) {
+        set class = ##class(%Dictionary.ClassDefinition).%OpenId(classname)
+
+        set header = "ID;"
+        for h = 1 : 1 : class.Properties.Count() {
+            set propertyName = class.Properties.GetAt(h).Name 
+            set header = header _ propertyName
+            if h < class.Properties.Count() {
+                    set header = header _ ";"
+                }
+        }
+        write header,!
+        set tableName = class.SqlTableName
+        set:tableName="" tableName = classname
+        set sql = "select * from " _ tableName
+        set result = ##class(%SQL.Statement).%ExecDirect(,sql)
+        if result.%SQLCODE = 0 {
+            set i = 0
+            while result.%Next() { 
+                do $INCREMENT(i)
+                set line = i _ ";"
+                   
+                for l = 1 : 1 : class.Properties.Count() {
+                    set propertyName = class.Properties.GetAt(l).Name
+                    if class.Properties.GetAt(l).Type = "%Date"  {
+                        set line = line _ $zd(result.%Get(propertyName),4)
+                    } else {
+                        set line = line _ result.%Get(propertyName) 
+                    }
+                    if l < class.Properties.Count() {
+                        set line = line _ ";"
+                    }
+                    
+                }
+                write line,!
+                    
+            }
+                
+        }
+    }
+    else {
+        write classname _ " doesn't exist"
+    }
+    }
+    Catch ex {
+        Set sc=ex.AsStatus()
+    }
+    return sc
 }
 
 ClassMethod SendFileContent() As %Status
