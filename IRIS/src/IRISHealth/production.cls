@@ -102,16 +102,6 @@ XData ProductionDefinition
     <Setting Target="Adapter" Name="FilePath">./ftp/out</Setting>
     <Setting Target="Adapter" Name="FTPPort"></Setting>
   </Item>
-  <Item Name="retrieve gender" Category="SQL,transfo + traitements" ClassName="EnsLib.SQL.Operation.GenericOperation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
-    <Setting Target="Host" Name="RequestClass">HTTP.msg.genderRequest</Setting>
-    <Setting Target="Host" Name="ResponseClass">Ens.StringResponse</Setting>
-    <Setting Target="Adapter" Name="StayConnected">5</Setting>
-    <Setting Target="Host" Name="Query">select top 1 value as StringValue
-from data.gender 
-where firstname = ?</Setting>
-    <Setting Target="Host" Name="ParamSQLTypes"></Setting>
-    <Setting Target="Host" Name="InputParameters">*firstName</Setting>
-  </Item>
   <Item Name="cellule identito-vigilance" Category="" ClassName="EnsLib.Workflow.Operation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
     <Setting Target="Host" Name="AutoCreateRole">1</Setting>
   </Item>
@@ -187,6 +177,10 @@ where firstname = ?</Setting>
   <Item Name="Alertes de jour" Category="" ClassName="EnsLib.EMail.AlertOperation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
   </Item>
   <Item Name="Alertes de nuit" Category="" ClassName="EnsLib.EMail.AlertOperation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  </Item>
+  <Item Name="source Portail Santé" Category="Demo" ClassName="FHIRDemo.Service.POSTService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+    <Setting Target="Host" Name="MessageSchemaCategory">2.3.1</Setting>
+    <Setting Target="Host" Name="TargetConfigNames">HL7v2toSDA</Setting>
   </Item>
 </Production>
 }

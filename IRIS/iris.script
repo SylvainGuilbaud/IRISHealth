@@ -56,7 +56,7 @@
     
     zn "%SYS"
     set demo("NameSpace") = "IRISAPP"
-    set demo("DispatchClass") = "FHIRDemo.REST.Dispatch"
+    set demo("DispatchClass") = "IRISHealth.REST"
     set demo("CookiePath") = "/csp/demo/rest/"
     set demo("Description") = "Demo REST API"
     set demo("MatchRoles") = ":%All"
@@ -65,7 +65,7 @@
     set tSC = ##class(Security.Applications).Create("/csp/demo/rest", .demo)
 
     set crud("NameSpace") = "IRISAPP"
-    set crud("DispatchClass") = "REST.crud"
+    set crud("DispatchClass") = "IRISHealth.REST"
     set crud("CookiePath") = "/crud/"
     set crud("Description") = "CRUD REST API"
     set crud("MatchRoles") = ":%All"
