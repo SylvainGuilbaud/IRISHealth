@@ -120,10 +120,6 @@ XData ProductionDefinition
   </Item>
   <Item Name="HS.FHIRServer.Interop.Service" Category="" ClassName="HS.FHIRServer.Interop.Service" PoolSize="0" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
   </Item>
-  <Item Name="WS_REST" Category="Demo" ClassName="FHIRDemo.Service.POSTService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
-    <Setting Target="Host" Name="MessageSchemaCategory">2.3.1</Setting>
-    <Setting Target="Host" Name="TargetConfigNames">HL7v2toSDA</Setting>
-  </Item>
   <Item Name="de Résultats de Laboratoire" Category="Résultats de Laboratoire" ClassName="EnsLib.HL7.Service.FileService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
     <Setting Target="Host" Name="MessageSchemaCategory">2.3</Setting>
     <Setting Target="Host" Name="TargetConfigNames">LABO</Setting>
@@ -181,6 +177,8 @@ XData ProductionDefinition
   <Item Name="source Portail Santé" Category="Demo" ClassName="FHIRDemo.Service.POSTService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
     <Setting Target="Host" Name="MessageSchemaCategory">2.3.1</Setting>
     <Setting Target="Host" Name="TargetConfigNames">HL7v2toSDA</Setting>
+  </Item>
+  <Item Name="HPRIMtoHLVv2" Category="" ClassName="IRISHealth.process.HPRIMtoHLVv2" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
   </Item>
 </Production>
 }
