@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<lookupTable>
+<entry table="HL7_CCOM_EpisodeType" key="E">5</entry>
+<entry table="HL7_CCOM_EpisodeType" key="I">3</entry>
+<entry table="HL7_CCOM_EpisodeType" key="O">1</entry>
+<entry table="HL7_CCOM_EpisodeType" key="R">1</entry>
+</lookupTable>

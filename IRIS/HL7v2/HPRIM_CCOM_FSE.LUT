@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<lookupTable>
+<entry table="HPRIM_CCOM_FSE" key="se1">1</entry>
+<entry table="HPRIM_CCOM_FSE" key="se2">1</entry>
+<entry table="HPRIM_CCOM_FSE" key="se3">1</entry>
+<entry table="HPRIM_CCOM_FSE" key="se4">1</entry>
+</lookupTable>

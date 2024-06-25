@@ -9,6 +9,12 @@ XData RuleDefinition [ XMLNamespace = "http://www.intersystems.com/rule" ]
 <ruleDefinition alias="" context="EnsLib.HL7.MsgRouter.RoutingEngine" production="IRISHealth.production">
 <ruleSet name="" effectiveBegin="" effectiveEnd="">
 <rule name="HL7v2 to SDA" disabled="false">
+<constraint name="source" value="validate"></constraint>
+<when condition="1" comment="">
+<send transform="" target=",HL7v2toSDA"></send>
+</when>
+</rule>
+<rule name="HL7v2 to SDA" disabled="false">
 <constraint name="source" value="source HL7 FILE"></constraint>
 <when condition="1" comment="">
 <send transform="" target=",HL7v2toSDA"></send>

@@ -58,6 +58,7 @@ XData ProductionDefinition
     <Setting Target="Host" Name="ArchiveIO">1</Setting>
   </Item>
   <Item Name="validate" Category="HL7,transfo + traitements" ClassName="IRISHealth.process.validate" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
+    <Setting Target="Host" Name="forceWorkflow">0</Setting>
   </Item>
   <Item Name="store gender" Category="SQL,transfo + traitements" ClassName="EnsLib.SQL.Operation.GenericOperation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
     <Setting Target="Host" Name="RequestClass">IRISHealth.msg.gender</Setting>
@@ -67,6 +68,7 @@ XData ProductionDefinition
   <Item Name="source HL7 FILE validate" Category="HL7" ClassName="EnsLib.HL7.Service.FileService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
     <Setting Target="Adapter" Name="FileSpec">*.hl7</Setting>
     <Setting Target="Host" Name="TargetConfigNames">validate</Setting>
+    <Setting Target="Host" Name="MessageSchemaCategory">2.3.1,MDM_*=2.5,ORM_*=2.5</Setting>
   </Item>
   <Item Name="Ens.Activity.Operation.Local" Category="" ClassName="Ens.Activity.Operation.Local" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
   </Item>

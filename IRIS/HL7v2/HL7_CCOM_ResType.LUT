@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<lookupTable>
+<entry table="HL7_CCOM_ResType" key="ED">FI</entry>
+<entry table="HL7_CCOM_ResType" key="FIC">FI</entry>
+<entry table="HL7_CCOM_ResType" key="FT">TX</entry>
+<entry table="HL7_CCOM_ResType" key="RP">FI</entry>
+</lookupTable>

@@ -1,0 +1,135 @@
+<?xml version="1.0"?>
+
+<Category name="GEFI">
+
+<MessageGroup name='ARTICLE' description='Fiche Article'/>
+<MessageGroup name='INVENTAIRE' description='Inventaire / Etat des stocks'/>
+<MessageGroup name='STOCK' description='Réception de stocks'/>
+
+<MessageEvent name='ARTICLE' description='Fiche Article'/>
+<MessageEvent name='INVENTAIRE' description='Inventaire / Etat des stocks'/>
+<MessageEvent name='STOCK' description='Réception de stocks'/>
+
+<MessageType name='ARTICLE' structure='ARTICLE'/>
+<MessageType name='INVENTAIRE' structure='INVENTAIRE'/>
+<MessageType name='STOCK' structure='STOCK'/>
+
+<MessageStructure name='ARTICLE' definition='MSH~{~003~}' description='Fiche Article'/>
+<MessageStructure name='INVENTAIRE' definition='MSH~{~001~{~[~002~]~}~}' description='Inventaire / Etat des stocks'/>
+<MessageStructure name='STOCK' definition='MSH~{~011~}' description='Réception de stocks'/>
+
+<SegmentStructure name='001' description='Inventaire - Article'>
+    <SegmentSubStructure piece='1' description='001_01 Date Action' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='2' description='001_02 Heure Action' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='3' description='001_03 IU Produit' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='4' description='001_04 Code Produit' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='5' description='001_05 Description' max_length='999' required='O' ifrepeating='1'/>
+    <SegmentSubStructure piece='6' description='001_06 Lieu Stockage' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='7' description='001_07 Type Article' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='8' description='001_08 Code Categorie' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='9' description='001_09 Code sous-categorie' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='10' description='001_10 Famille Statistique 1' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='11' description='001_11 Famille Statistique 2' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='12' description='001_12 Unite De Distribution' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='13' description='001_13 Code Propriete' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='14' description='001_14 Code Barre' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='15' description='001_15 Code UCD' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='16' description='001_16 Code LPP' max_length='999' required='O' ifrepeating='1'/>
+    <SegmentSubStructure piece='17' description='001_17 Fournisseur' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='18' description='001_18 PUMP ou Dernier Prix Achat' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='19' description='001_19 Quantite' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='20' description='001_20 Coefficient De Distribution' max_length='999' required='O' ifrepeating='0'/>
+</SegmentStructure>
+<SegmentStructure name='002' description='Inventaire - Lot'>
+    <SegmentSubStructure piece='1' description='002_01 Date Action' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='2' description='002_02 Heure Action' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='3' description='002_03 IU Produit' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='4' description='002_04 Code Produit' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='5' description='002_05 Numero Lot' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='6' description='002_06 Date Peremption' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='7' description='002_07 Quantite' max_length='999' required='O' ifrepeating='0'/>
+</SegmentStructure>
+<SegmentStructure name='003' description='Fiche Article'>
+    <SegmentSubStructure piece='1' description='003_01 Code Action' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='2' description='003_02 Date Action' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='3' description='003_03 Heure Action' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='4' description='003_04 IU Produit' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='5' description='003_05 Code Produit' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='6' description='003_06 Description' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='7' description='003_07 Emplacement' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='8' description='003_08 Libelle lieu de stockage' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='9' description='003_09 Type article' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='10' description='003_10 Libelle Type article' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='11' description='003_11 Code Categorie' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='12' description='003_12 Libelle Categorie' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='13' description='003_13 Code Sous-Categorie' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='14' description='003_14 Libelle Sous-categorie' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='15' description='003_15 Famille Statistique 1' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='16' description='003_16 Libelle Famille Stat 1' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='17' description='003_17 Famille Statistique 2' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='18' description='003_18 Libelle Famille Stat 2' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='19' description='003_19 Unite Distribution' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='20' description='003_20 Code Propriete' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='21' description='003_21 Code Barre' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='22' description='003_22 Code UCD' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='23' description='003_23 LPP' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='24' description='003_24 Fournisseur' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='25' description='003_25 PUMP' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='26' description='003_26 Date Fin Utilisation' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='27' description='003_27 STOP Utilisation' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='28' description='003_28 Coefficient Distribution' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='29' description='003_29 Compte' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='30' description='003_30 Taux TVA' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='31' description='003_31 Suivi Par Lot' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='32' description='003_32 Suivi Nominatif' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='33' description='003_33 Suivi En Stock' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='34' description='003_34 Article Gere Au Livret Medicament' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='35' description='003_35 Code Liaison' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='36' description='003_36 Code Mode Conservation' max_length='999' required='O' ifrepeating='0'/>
+</SegmentStructure>
+<SegmentStructure name='011' description='Stock'>
+    <SegmentSubStructure piece='1' description='011_01 Date Action' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='2' description='011_02 Heure Action' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='3' description='011_03 Gestionnaire' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='4' description='011_04 Lieu De Stockage' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='5' description='011_05 IU Produit' max_length='999' required='O' ifrepeating='1'/>
+    <SegmentSubStructure piece='6' description='011_06 Fournisseur' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='7' description='011_07 Numero De Lot' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='8' description='011_08 Date Peremption' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='9' description='011_09 Description' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='10' description='011_10 Quantite' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='11' description='011_11 Date Reception' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='12' description='011_12 Code Article' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='13' description='011_13 Nature Mouvement' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='14' description='011_14 Code UF Conso' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='15' description='011_15 Numero Commande' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='16' description='011_16 Numero Ligne De Commande' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='17' description='011_17 Code à Barre Ligne 1' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='18' description='011_18 Code à Barre Ligne 2' max_length='999' required='O' ifrepeating='0'/>
+</SegmentStructure>
+<SegmentStructure name='MSH' description='Message Header Segment'>
+    <SegmentSubStructure piece='1' description='MSH_01 Field Separator' symbol='!' max_length='1' required='R' ifrepeating='0'/>
+    <SegmentSubStructure piece='2' description='MSH_02 Encoding Characters' symbol='!' max_length='4' required='R' ifrepeating='0'/>
+    <SegmentSubStructure piece='3' description='MSH_03 Sending Application' max_length='180' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='4' description='MSH_04 Sending Facility' max_length='180' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='5' description='MSH_05 Receiving Application' max_length='180' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='6' description='MSH_06 Receiving Facility' max_length='180' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='7' description='MSH_07 Date Time Of Message' max_length='26' ifrepeating='0'/>
+    <SegmentSubStructure piece='8' description='MSH_08 Security' max_length='40' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='9' description='MSH_09 Message Type' symbol='!' max_length='7' required='R' ifrepeating='0'/>
+    <SegmentSubStructure piece='10' description='MSH_10 Message Control ID' symbol='!' max_length='20' required='R' ifrepeating='0'/>
+    <SegmentSubStructure piece='11' description='MSH_11 Processing ID' symbol='!' max_length='3' required='R' ifrepeating='0'/>
+    <SegmentSubStructure piece='12' description='MSH_12 Version ID' symbol='!' max_length='8' required='R' ifrepeating='0'/>
+    <SegmentSubStructure piece='13' description='MSH_13 Sequence Number' max_length='15' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='14' description='MSH_14 Continuation Pointer' max_length='180' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='15' description='MSH_15 Accept Acknowledgement Type' max_length='2' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='16' description='MSH_16 Application Acknowledgement Type' max_length='2' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='17' description='MSH_17 Country Code' max_length='2' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='18' description='MSH_18 Character Set' max_length='6' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='19' description='MSH_19 Principal Language Of Message' max_length='3' required='O' ifrepeating='0'/>
+</SegmentStructure>
+
+<DataType name='ISC_VERSION' description='$Id: //legacy/fr_products/CCOMTCC/REL/schema/hl7/GEFI.xml#5 $'>
+</DataType>
+
+</Category>

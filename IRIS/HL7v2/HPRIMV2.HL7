@@ -1,0 +1,264 @@
+<?xml version="1.0"?>
+
+<Category name="HPRIMV2">
+
+<MessageGroup name='ADT' description='Mouvements'/>
+<MessageGroup name='FAC' description='Actes NGAP'/>
+<MessageGroup name='HMV' description='Hemovigilance'/>
+<MessageGroup name='ORM' description='Prescriptions'/>
+<MessageGroup name='ORU' description='Resultats'/>
+
+<MessageEvent name='ADT' description='Mouvements'/>
+<MessageEvent name='FAC' description='Actes NGAP'/>
+<MessageEvent name='HMV' description='Hemovigilance'/>
+<MessageEvent name='ORM' description='Prescriptions'/>
+<MessageEvent name='ORU' description='Resultats'/>
+
+<MessageType name='ADT' structure='ADT'/>
+<MessageType name='FAC' structure='FAC'/>
+<MessageType name='HMV' structure='HMV'/>
+<MessageType name='ORM' structure='ORM'/>
+<MessageType name='ORU' structure='ORU'/>
+
+<MessageStructure name='ADT' definition='MSH~H~P~[~C~]~L' description='Mouvements'/>
+<MessageStructure name='FAC' definition='MSH~H~P~FAC~{~ACT~}~[~L~]' description='Actes NGAP'/>
+<MessageStructure name='HMV' definition='MSH~H~P~OBR~HMV~PRO~[~L~]' description='Hemovigilance'/>
+<MessageStructure name='ORM' definition='MSH~H~P~[~C~]~{~OBR~{~[~C~]~}~{~[~A~]~}~[~{~OBX~{~[~C~]~}~}~]~}~[~L~]' description='Prescriptions'/>
+<MessageStructure name='ORU' definition='MSH~H~P~[~C~]~{~OBR~{~[~C~]~}~[~{~OBX~{~[~C~]~}~}~]~}~[~L~]' description='Resultats'/>
+
+<SegmentStructure name='A' description='Addendum'>
+    <SegmentSubStructure piece='1' description='A_01 Texte' max_length='999' required='O' ifrepeating='0'/>
+</SegmentStructure>
+<SegmentStructure name='ACT' description='Ligne Facture'>
+    <SegmentSubStructure piece='1' description='ACT_01 Rang Du Segment' max_length='999' required='R' ifrepeating='0'/>
+    <SegmentSubStructure piece='2' description='ACT_02 Lettre Cle' max_length='999' required='R' ifrepeating='0'/>
+    <SegmentSubStructure piece='3' description='ACT_03 Coefficient' max_length='999' required='R' ifrepeating='0'/>
+    <SegmentSubStructure piece='4' description='ACT_04 Denombrement' max_length='999' required='R' ifrepeating='0'/>
+    <SegmentSubStructure piece='5' description='ACT_05 Quantite' max_length='999' required='R' ifrepeating='0'/>
+    <SegmentSubStructure piece='6' description='ACT_06 Libelle Actes' datatype='HPRIM_SPEC' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='7' description='ACT_07 Type Majoration' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='8' description='ACT_08 Identification Executant' datatype='HPRIM_SPEC' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='9' description='ACT_09 Nomenclature' datatype='HPRIM_SPEC' symbol='+' max_length='999' required='O' ifrepeating='1'/>
+    <SegmentSubStructure piece='10' description='ACT_10 Code RMO' max_length='999' required='O' ifrepeating='0'/>
+</SegmentStructure>
+<SegmentStructure name='C' description='Commentaire'>
+    <SegmentSubStructure piece='1' description='C_01 Rang Du Segment' max_length='999' required='R' ifrepeating='0'/>
+    <SegmentSubStructure piece='2' description='C_02 Origine Du Commentaire' max_length='999' required='R' ifrepeating='0'/>
+    <SegmentSubStructure piece='3' description='C_03 Texte Du Commentaire' max_length='999' required='R' ifrepeating='0'/>
+</SegmentStructure>
+<SegmentStructure name='FAC' description='Entete Facture'>
+    <SegmentSubStructure piece='1' description='FAC_01 Rang Du Segment' max_length='999' required='R' ifrepeating='0'/>
+    <SegmentSubStructure piece='2' description='FAC_02 Numero Dossier Administratif Demandeur' max_length='999' required='R' ifrepeating='0'/>
+    <SegmentSubStructure piece='3' description='FAC_03 Numero Demande Executant' max_length='999' required='R' ifrepeating='0'/>
+    <SegmentSubStructure piece='4' description='FAC_04 Date Actes' max_length='999' required='R' ifrepeating='0'/>
+    <SegmentSubStructure piece='5' description='FAC_05 Identification Prescripteur' datatype='HPRIM_SPEC' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='6' description='FAC_06 Identification Preleveur' datatype='HPRIM_SPEC' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='7' description='FAC_07 Demande Incomplete Non Facturee' max_length='999' required='O' ifrepeating='0'/>
+</SegmentStructure>
+<SegmentStructure name='H' description='Entete Message'>
+    <SegmentSubStructure piece='1' description='H_01 Delimiteurs' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='2' description='H_02 Identifiant Message' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='3' description='H_03 Mot De Passe' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='4' description='H_04 Emetteur' datatype='HPRIM_SPEC' max_length='999' required='R' ifrepeating='0'/>
+    <SegmentSubStructure piece='5' description='H_05 Adresse Emetteur' datatype='HPRIM_AD' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='6' description='H_06 Type De Message' max_length='999' required='R' ifrepeating='0'/>
+    <SegmentSubStructure piece='7' description='H_07 Telephone Emetteur' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='8' description='H_08 Caracteristiques Transmission' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='9' description='H_09 Destinataire' datatype='HPRIM_SPEC' max_length='999' required='R' ifrepeating='0'/>
+    <SegmentSubStructure piece='10' description='H_10 Commentaire' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='11' description='H_11 Mode Traitement' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='12' description='H_12 Version' datatype='HPRIM_SPEC' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='13' description='H_13 Date Heure Message' max_length='999' required='R' ifrepeating='0'/>
+</SegmentStructure>
+<SegmentStructure name='HMV' description='Hemovigilance'>
+    <SegmentSubStructure piece='1' description='HMV_01 Rang Du Segment' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='2' description='HMV_02 Type de suivi' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='3' description='HMV_03 UF' datatype='HPRIM_SPEC' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='4' description='HMV_04 Date Heure Transfusion' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='5' description='HMV_05 Transfuseur' datatype='HPRIM_SPEC' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='6' description='HMV_06 Non Utilise' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='7' description='HMV_07 Indicateur Incident' max_length='999' required='O' ifrepeating='0'/>
+</SegmentStructure>
+<SegmentStructure name='L' description='Fin Message'>
+    <SegmentSubStructure piece='1' description='L_01 Rang Du Segment' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='2' description='L_02 Non Utilise' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='3' description='L_03 Nombre De Segments P' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='4' description='L_04 Nombre De Segments Du Message' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='5' description='L_05 Numero De Lot' max_length='999' required='O' ifrepeating='0'/>
+</SegmentStructure>
+<SegmentStructure name='MSH' description='Message Header Segment'>
+    <SegmentSubStructure piece='1' description='MSH_01 Field Separator' symbol='!' max_length='1' required='R' ifrepeating='0'/>
+    <SegmentSubStructure piece='2' description='MSH_02 Encoding Characters' symbol='!' max_length='4' required='R' ifrepeating='0'/>
+    <SegmentSubStructure piece='3' description='MSH_03 Sending Application' max_length='180' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='4' description='MSH_04 Sending Facility' max_length='180' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='5' description='MSH_05 Receiving Application' max_length='180' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='6' description='MSH_06 Receiving Facility' max_length='180' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='7' description='MSH_07 Date Time Of Message' max_length='26' ifrepeating='0'/>
+    <SegmentSubStructure piece='8' description='MSH_08 Security' max_length='40' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='9' description='MSH_09 Message Type' symbol='!' max_length='7' required='R' ifrepeating='0'/>
+    <SegmentSubStructure piece='10' description='MSH_10 Message Control ID' symbol='!' max_length='20' required='R' ifrepeating='0'/>
+    <SegmentSubStructure piece='11' description='MSH_11 Processing ID' symbol='!' max_length='3' required='R' ifrepeating='0'/>
+    <SegmentSubStructure piece='12' description='MSH_12 Version ID' symbol='!' max_length='8' required='R' ifrepeating='0'/>
+    <SegmentSubStructure piece='13' description='MSH_13 Sequence Number' max_length='15' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='14' description='MSH_14 Continuation Pointer' max_length='180' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='15' description='MSH_15 Accept Acknowledgement Type' max_length='2' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='16' description='MSH_16 Application Acknowledgement Type' max_length='2' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='17' description='MSH_17 Country Code' max_length='2' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='18' description='MSH_18 Character Set' max_length='6' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='19' description='MSH_19 Principal Language Of Message' max_length='3' required='O' ifrepeating='0'/>
+</SegmentStructure>
+<SegmentStructure name='OBR' description='Demande Analyses Ou Actes'>
+    <SegmentSubStructure piece='1' description='OBR_01 Rang Du Segment' max_length='999' required='R' ifrepeating='0'/>
+    <SegmentSubStructure piece='2' description='OBR_02 Id Echantillon Et Demande Demandeur' datatype='HPRIM_CM' max_length='999' required='R' ifrepeating='0'/>
+    <SegmentSubStructure piece='3' description='OBR_03 Id Echantillon Et Demande Executant' datatype='HPRIM_CM' max_length='999' required='R' ifrepeating='0'/>
+    <SegmentSubStructure piece='4' description='OBR_04 Analyses Ou Actes' datatype='HPRIM_CE' symbol='+' max_length='999' required='R' ifrepeating='1'/>
+    <SegmentSubStructure piece='5' description='OBR_05 Priorite' max_length='1' required='R' ifrepeating='0'/>
+    <SegmentSubStructure piece='6' description='OBR_06 Date Heure Prise En Compte' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='7' description='OBR_07 Date Heure Actes Prelevement' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='8' description='OBR_08 Date Heure Fin Prelevement' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='9' description='OBR_09 Volume Recueil Et Unite' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='10' description='OBR_10 Preleveur' datatype='HPRIM_CNA' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='11' description='OBR_11 Code Action' max_length='1' required='R' ifrepeating='0'/>
+    <SegmentSubStructure piece='12' description='OBR_12 Risque' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='13' description='OBR_13 Renseignements Cliniques ' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='14' description='OBR_14 Date Heure Reception Echantillon Chez Executant' max_length='999' required='R' ifrepeating='0'/>
+    <SegmentSubStructure piece='15' description='OBR_15 Nature Echantillon' datatype='HPRIM_SPEC' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='16' description='OBR_16 Prescripteur' datatype='HPRIM_SPEC' max_length='999' required='R' ifrepeating='0'/>
+    <SegmentSubStructure piece='17' description='OBR_17 Telephone Prescripteur' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='18' description='OBR_18 Champ Libre 1 Demandeur' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='19' description='OBR_19 Champ Libre 2 Demandeur' max_length='999' required='R' ifrepeating='0'/>
+    <SegmentSubStructure piece='20' description='OBR_20 Champ Libre 1 Executant' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='21' description='OBR_21 Champ Libre 2 Executant' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='22' description='OBR_22 Date Heure Resultats' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='23' description='OBR_23 Prix Des Actes' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='24' description='OBR_24 Service Executant' datatype='HPRIM_SPEC' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='25' description='OBR_25 Statut Actes Ou Resultats' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='26' description='OBR_26 Resultats Lies' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='27' description='OBR_27 Cycle Et Epreuve Fonctionnelle' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='28' description='OBR_28 Destinataire Copie' datatype='HPRIM_CNA' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='29' description='OBR_29 Demande Liee' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='30' description='OBR_30 Mode De Transport Patient' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='31' description='OBR_31 Motif Demande' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='32' description='OBR_32 Principal Interpreteur Des Resultats' datatype='HPRIM_CNA' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='33' description='OBR_33 Assistant' datatype='HPRIM_CNA' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='34' description='OBR_34 Technicien' datatype='HPRIM_CNA' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='35' description='OBR_35 Operateur De Saisie' datatype='HPRIM_CNA' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='36' description='OBR_36 Date Heure Previsionnelle Rendu Examens' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='37' description='OBR_37 Service Executant' max_length='999' required='O' ifrepeating='0'/>
+</SegmentStructure>
+<SegmentStructure name='OBX' description='Resultat Test'>
+    <SegmentSubStructure piece='1' description='OBX_01 Rang Du Segment' max_length='999' required='R' ifrepeating='0'/>
+    <SegmentSubStructure piece='2' description='OBX_02 Type Resultat' datatype='HPRIM_CE' max_length='999' required='R' ifrepeating='0'/>
+    <SegmentSubStructure piece='3' description='OBX_03 Test' datatype='HPRIM_SPEC' max_length='999' required='R' ifrepeating='0'/>
+    <SegmentSubStructure piece='4' description='OBX_04 Sous Identifiant Test' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='5' description='OBX_05 Resultat' datatype='HPRIM_SPEC' symbol='+' max_length='999' required='O' ifrepeating='1'/>
+    <SegmentSubStructure piece='6' description='OBX_06 Unite' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='7' description='OBX_07 Normales' symbol='+' max_length='999' required='O' ifrepeating='1'/>
+    <SegmentSubStructure piece='8' description='OBX_08 Indicateurs Anormalite' symbol='+' max_length='999' required='O' ifrepeating='1'/>
+    <SegmentSubStructure piece='9' description='OBX_09 Probabilite' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='10' description='OBX_10 Nature Normales' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='11' description='OBX_11 Statut Resultats' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='12' description='OBX_12 Date Dernier Changement Valeurs Normales Et Unites' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='13' description='OBX_13 Droit Acces' datatype='HPRIM_SPEC' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='14' description='OBX_14 Date Obtention Resultat' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='15' description='OBX_15 Secteur Technique Ordre Edition' datatype='HPRIM_SPEC' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='16' description='OBX_16 Valideur' datatype='HPRIM_CNA' max_length='999' required='O' ifrepeating='0'/>
+</SegmentStructure>
+<SegmentStructure name='P' description='Patient'>
+    <SegmentSubStructure piece='1' description='P_01 Numero De Sequence' max_length='999' required='R' ifrepeating='0'/>
+    <SegmentSubStructure piece='2' description='P_02 IPP' datatype='HPRIM_SPEC' max_length='999' required='R' ifrepeating='0'/>
+    <SegmentSubStructure piece='3' description='P_03 Non Utilise' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='4' description='P_04 Numero Episode' max_length='999' required='R' ifrepeating='0'/>
+    <SegmentSubStructure piece='5' description='P_05 Nom Patient' datatype='HPRIM_PN' max_length='999' required='R' ifrepeating='0'/>
+    <SegmentSubStructure piece='6' description='P_06 Nom De Jeune Fille' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='7' description='P_07 Date De Naissance' max_length='8' required='R' ifrepeating='0'/>
+    <SegmentSubStructure piece='8' description='P_08 Sexe' max_length='1' required='R' ifrepeating='0'/>
+    <SegmentSubStructure piece='9' description='P_09 Non Utilise' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='10' description='P_10 Adresse' datatype='HPRIM_AD' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='11' description='P_11 Non Utilise' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='12' description='P_12 Telephone' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='13' description='P_13 Medecins' datatype='HPRIM_CNA' max_length='999' required='R' ifrepeating='0'/>
+    <SegmentSubStructure piece='14' description='P_14 Traitement Local 1' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='15' description='P_15 Traitement Local 2' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='16' description='P_16 Taille' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='17' description='P_17 Poids' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='18' description='P_18 Diagnostic' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='19' description='P_19 Traitement' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='20' description='P_20 Regime' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='21' description='P_21 Commentaire 1' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='22' description='P_22 Commentaire 2' max_length='999' required='R' ifrepeating='0'/>
+    <SegmentSubStructure piece='23' description='P_23 Date De Mouvement' symbol='+' max_length='999' required='R' ifrepeating='1'/>
+    <SegmentSubStructure piece='24' description='P_24 Statut Admission' max_length='999' required='R' ifrepeating='0'/>
+    <SegmentSubStructure piece='25' description='P_25 Localisation' datatype='HPRIM_SPEC' max_length='999' required='R' ifrepeating='0'/>
+    <SegmentSubStructure piece='26' description='P_26 Classification Diagnostic' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='27' description='P_27 Non Utilise' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='28' description='P_28 Situation Maritale' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='29' description='P_29 Precautions A Prendre' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='30' description='P_30 Langue' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='31' description='P_31 Statut De Confidentialite' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='32' description='P_32 Date De Derniere Modification' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='33' description='P_33 Date De Deces' max_length='999' required='O' ifrepeating='0'/>
+</SegmentStructure>
+<SegmentStructure name='PRO' description='Produit Hemovigilance'>
+    <SegmentSubStructure piece='1' description='PRO_01 Rang Du Segment' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='2' description='PRO_02 Code GAITS' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='3' description='PRO_03 Numero Prelevement' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='4' description='PRO_04 Code Produit' datatype='HPRIM_SPEC' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='5' description='PRO_05 Date Heure Fabrication' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='6' description='PRO_06 Date Heure Peremption' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='7' description='PRO_07 Statut Produit' max_length='999' required='O' ifrepeating='0'/>
+</SegmentStructure>
+
+<DataType name='HPRIM_AD' description='Adresse Detaillee'>
+    <DataSubType piece='1' description='Ligne1'/>
+    <DataSubType piece='2' description='Ligne2'/>
+    <DataSubType piece='3' description='Ville'/>
+    <DataSubType piece='4' description='Libelle Departement'/>
+    <DataSubType piece='5' description='Code Postal'/>
+    <DataSubType piece='6' description='Pays'/>
+</DataType>
+<DataType name='HPRIM_CE' description='Identifiant Code'>
+    <DataSubType piece='1' description='Code 1'/>
+    <DataSubType piece='2' description='Libelle 1'/>
+    <DataSubType piece='3' description='Codification 1'/>
+    <DataSubType piece='4' description='Code 2'/>
+    <DataSubType piece='5' description='Libelle 2'/>
+    <DataSubType piece='6' description='Codification 2'/>
+</DataType>
+<DataType name='HPRIM_CM' description='CM'>
+    <DataSubType piece='1' description='Identifiant Echantillon'/>
+    <DataSubType piece='2' description='Identifiant Demande'/>
+</DataType>
+<DataType name='HPRIM_CNA' description='Identifiant Individu'>
+    <DataSubType piece='1' description='Code'/>
+    <DataSubType piece='2' description='Nom'/>
+    <DataSubType piece='3' description='Type De Code'/>
+</DataType>
+<DataType name='HPRIM_PN' description='Nom Detaille'>
+    <DataSubType piece='1' description='Nom'/>
+    <DataSubType piece='2' description='Prenom'/>
+    <DataSubType piece='3' description='Autres Prenoms'/>
+    <DataSubType piece='4' description='Alias'/>
+    <DataSubType piece='5' description='Civilite'/>
+    <DataSubType piece='6' description='Diplome'/>
+</DataType>
+<DataType name='HPRIM_SPEC' description='Donnee Codee'>
+    <DataSubType piece='1' description='Sous Champ 1' datatype='SECTEUR_TECHNIQUE'/>
+    <DataSubType piece='2' description='Sous Champ 2' datatype='SECTEUR_TECHNIQUE'/>
+    <DataSubType piece='3' description='Sous Champ 3'/>
+    <DataSubType piece='4' description='Sous Champ 4'/>
+    <DataSubType piece='5' description='Sous Champ 5'/>
+    <DataSubType piece='6' description='Sous Champ 6'/>
+    <DataSubType piece='7' description='Sous Champ 7'/>
+    <DataSubType piece='8' description='Sous Champ 8'/>
+</DataType>
+<DataType name='ISC_VERSION' description='$Id: //legacy/fr_products/CCOMTCC/REL/schema/hl7/HPRIMV2.xml#6 $'>
+</DataType>
+<DataType name='SECTEUR_TECHNIQUE' description='Secteur Technique'>
+    <DataSubType piece='1' description='Sous Champ 1'/>
+    <DataSubType piece='2' description='Sous Champ 2'/>
+    <DataSubType piece='3' description='Sous Champ 3'/>
+    <DataSubType piece='4' description='Sous Champ 4'/>
+</DataType>
+
+</Category>

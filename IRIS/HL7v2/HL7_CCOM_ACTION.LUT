@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<lookupTable>
+<entry table="HL7_CCOM_ACTION" key="S12">01</entry>
+<entry table="HL7_CCOM_ACTION" key="S13">02</entry>
+<entry table="HL7_CCOM_ACTION" key="S14">02</entry>
+<entry table="HL7_CCOM_ACTION" key="S15">03</entry>
+</lookupTable>

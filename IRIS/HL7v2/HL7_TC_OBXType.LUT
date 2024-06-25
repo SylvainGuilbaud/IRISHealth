@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<lookupTable>
+<entry table="HL7_TC_OBXType" key="ED">RP</entry>
+<entry table="HL7_TC_OBXType" key="FT">ST</entry>
+</lookupTable>

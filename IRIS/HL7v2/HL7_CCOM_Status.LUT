@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<lookupTable>
+<entry table="HL7_CCOM_Status" key="A">P</entry>
+<entry table="HL7_CCOM_Status" key="C">P</entry>
+<entry table="HL7_CCOM_Status" key="D">X</entry>
+<entry table="HL7_CCOM_Status" key="F">F</entry>
+<entry table="HL7_CCOM_Status" key="I">I</entry>
+<entry table="HL7_CCOM_Status" key="O">I</entry>
+<entry table="HL7_CCOM_Status" key="P">P</entry>
+<entry table="HL7_CCOM_Status" key="R">P</entry>
+<entry table="HL7_CCOM_Status" key="S">P</entry>
+<entry table="HL7_CCOM_Status" key="X">X</entry>
+</lookupTable>

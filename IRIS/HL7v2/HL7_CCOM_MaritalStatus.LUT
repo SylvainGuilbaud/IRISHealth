@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<lookupTable>
+<entry table="HL7_CCOM_MaritalStatus" key="01">0</entry>
+<entry table="HL7_CCOM_MaritalStatus" key="02">2</entry>
+<entry table="HL7_CCOM_MaritalStatus" key="03">1</entry>
+<entry table="HL7_CCOM_MaritalStatus" key="04">6</entry>
+<entry table="HL7_CCOM_MaritalStatus" key="05">5</entry>
+<entry table="HL7_CCOM_MaritalStatus" key="06">3</entry>
+<entry table="HL7_CCOM_MaritalStatus" key="07">6</entry>
+<entry table="HL7_CCOM_MaritalStatus" key="08">4</entry>
+<entry table="HL7_CCOM_MaritalStatus" key="A">5</entry>
+<entry table="HL7_CCOM_MaritalStatus" key="D">2</entry>
+<entry table="HL7_CCOM_MaritalStatus" key="G">4</entry>
+<entry table="HL7_CCOM_MaritalStatus" key="M">1</entry>
+<entry table="HL7_CCOM_MaritalStatus" key="P">7</entry>
+<entry table="HL7_CCOM_MaritalStatus" key="S">0</entry>
+<entry table="HL7_CCOM_MaritalStatus" key="U">6</entry>
+<entry table="HL7_CCOM_MaritalStatus" key="W">3</entry>
+</lookupTable>

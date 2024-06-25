@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<lookupTable>
+<entry table="HL7_TC_ResultStatus" key="C">K</entry>
+<entry table="HL7_TC_ResultStatus" key="R">E</entry>
+<entry table="HL7_TC_ResultStatus" key="X">D</entry>
+</lookupTable>

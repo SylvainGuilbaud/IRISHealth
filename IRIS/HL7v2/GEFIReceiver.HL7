@@ -1,0 +1,132 @@
+<?xml version="1.0"?>
+
+<Category name="GEFIReceiver">
+
+<MessageGroup name='MEDECIN' description='Medecins'/>
+<MessageGroup name='PATIENT' description='Patients'/>
+<MessageGroup name='PATMED' description='Medecins Patients'/>
+<MessageGroup name='STOCK' description='Consommations et transferts'/>
+
+<MessageEvent name='MEDECIN' description='Medecins'/>
+<MessageEvent name='PATIENT' description='Patients'/>
+<MessageEvent name='PATMED' description='Medecins Patients'/>
+<MessageEvent name='STOCK' description='Consommations et transferts'/>
+
+<MessageType name='MEDECIN' structure='MEDECIN'/>
+<MessageType name='PATIENT' structure='PATIENT'/>
+<MessageType name='PATMED' structure='PATMED'/>
+<MessageType name='STOCK' structure='STOCK'/>
+
+<MessageStructure name='MEDECIN' definition='MSH~S200~S201' description='Medecins'/>
+<MessageStructure name='PATIENT' definition='MSH~S100~[~S101~]~{~[~S102~]~}' description='Patients'/>
+<MessageStructure name='PATMED' definition='MSH~S100~{~S103~}' description='Medecins Patients'/>
+<MessageStructure name='STOCK' definition='MSH~{~021~}' description='Consommations et transferts'/>
+
+<SegmentStructure name='021' description='Stock'>
+    <SegmentSubStructure piece='1' description='S021_01 Identifiant Message' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='2' description='S021_02 IPP' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='3' description='S021_03 Numero Episode' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='4' description='S021_04 Date Action' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='5' description='S021_05 Heure Action' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='6' description='S021_06 Identifiant Application' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='7' description='S021_07 Operateur' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='8' description='S021_08 Code UF' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='9' description='S021_09 Lieu De Stockage' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='10' description='S021_10 Produit' datatype='TypeValeur' max_length='999' required='O' ifrepeating='1'/>
+    <SegmentSubStructure piece='11' description='S021_11 LPP' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='12' description='S021_12 Numero De Lot' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='13' description='S021_13 Date Peremption' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='14' description='S021_14 Fournisseur' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='15' description='S021_15 Description Produit' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='16' description='S021_16 Quantite' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='17' description='S021_17 Facteur De Conversion' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='18' description='S021_18 Mouvement' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='19' description='S021_19 Code Lieu De Transfert' max_length='999' required='O' ifrepeating='0'/>
+</SegmentStructure>
+<SegmentStructure name='MSH' description='Message Header Segment'>
+    <SegmentSubStructure piece='1' description='MSH_01 Field Separator' symbol='!' max_length='1' required='R' ifrepeating='0'/>
+    <SegmentSubStructure piece='2' description='MSH_02 Encoding Characters' symbol='!' max_length='4' required='R' ifrepeating='0'/>
+    <SegmentSubStructure piece='3' description='MSH_03 Sending Application' max_length='180' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='4' description='MSH_04 Sending Facility' max_length='180' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='5' description='MSH_05 Receiving Application' max_length='180' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='6' description='MSH_06 Receiving Facility' max_length='180' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='7' description='MSH_07 Date Time Of Message' max_length='26' ifrepeating='0'/>
+    <SegmentSubStructure piece='8' description='MSH_08 Security' max_length='40' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='9' description='MSH_09 Message Type' symbol='!' max_length='7' required='R' ifrepeating='0'/>
+    <SegmentSubStructure piece='10' description='MSH_10 Message Control ID' symbol='!' max_length='20' required='R' ifrepeating='0'/>
+    <SegmentSubStructure piece='11' description='MSH_11 Processing ID' symbol='!' max_length='3' required='R' ifrepeating='0'/>
+    <SegmentSubStructure piece='12' description='MSH_12 Version ID' symbol='!' max_length='8' required='R' ifrepeating='0'/>
+    <SegmentSubStructure piece='13' description='MSH_13 Sequence Number' max_length='15' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='14' description='MSH_14 Continuation Pointer' max_length='180' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='15' description='MSH_15 Accept Acknowledgement Type' max_length='2' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='16' description='MSH_16 Application Acknowledgement Type' max_length='2' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='17' description='MSH_17 Country Code' max_length='2' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='18' description='MSH_18 Character Set' max_length='6' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='19' description='MSH_19 Principal Language Of Message' max_length='3' required='O' ifrepeating='0'/>
+</SegmentStructure>
+<SegmentStructure name='S100' description='Action'>
+    <SegmentSubStructure piece='1' description='S100_01 Action' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='2' description='S100_02 IPP' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='3' description='S100_03 IPP a conserver' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='4' description='S100_04 IPP a fusionner' max_length='999' required='O' ifrepeating='0'/>
+</SegmentStructure>
+<SegmentStructure name='S101' description='Patient'>
+    <SegmentSubStructure piece='1' description='S101_01 Civilite' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='2' description='S101_02 Sexe' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='3' description='S101_03 Nom de naissance' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='4' description='S101_04 Nom d epouse' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='5' description='S101_05 Nom usuel' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='6' description='S101_06 Prenom' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='7' description='S101_07 Adresse 1' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='8' description='S101_08 Adresse 2' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='9' description='S101_09 Code postal' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='10' description='S101_10 Localite' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='11' description='S101_11 Date de naissance' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='12' description='S101_12 Departement de naissance' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='13' description='S101_13 Ville de naissance' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='14' description='S101_14 Date de deces' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='15' description='S101_15 Telephone' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='16' description='S101_16 Nationalite' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='17' description='S101_17 Situation familiale' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='18' description='S101_18 Nombre d enfants' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='19' description='S101_19 Pere' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='20' description='S101_20 Pere decede' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='21' description='S101_21 Mere' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='22' description='S101_22 Mere decede' max_length='999' required='O' ifrepeating='0'/>
+</SegmentStructure>
+<SegmentStructure name='S102' description='Personnes a prevenir'>
+    <SegmentSubStructure piece='1' description='S102_01 Nom et prenom' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='2' description='S102_02 Lien de parente' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='3' description='S102_03 Telephone 1' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='4' description='S102_04 Telephone 2' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='5' description='S102_05 Commentaire' max_length='999' required='O' ifrepeating='0'/>
+</SegmentStructure>
+<SegmentStructure name='S103' description='Medecins du Patient'>
+    <SegmentSubStructure piece='1' description='S103_01 Medecin traitant 1' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='2' description='S103_02 Medecin traitant 2' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='3' description='S103_03 Medecin traitant 3' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='4' description='S103_04 Medecin specialiste traitant 4' max_length='999' required='O' ifrepeating='0'/>
+</SegmentStructure>
+<SegmentStructure name='S200' description='Action'>
+    <SegmentSubStructure piece='1' description='S200_01 Action' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='2' description='S200_02 Code medecin' max_length='999' required='O' ifrepeating='0'/>
+</SegmentStructure>
+<SegmentStructure name='S201' description='Medecin'>
+    <SegmentSubStructure piece='1' description='S201_01 Nom' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='2' description='S201_02 Prenom' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='3' description='S201_03 Adresse 1' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='4' description='S201_04 Adresse 2' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='5' description='S201_05 Code postal' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='6' description='S201_06 Localite' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='7' description='S201_07 Telephone' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='8' description='S201_08 Numero ADELI' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='9' description='S201_09 Numero inscrition ordre' max_length='999' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='10' description='S201_10 Medecin correspondant' max_length='999' required='O' ifrepeating='0'/>
+</SegmentStructure>
+
+<DataType name='TypeValeur' description='Type et valeur'>
+    <DataSubType piece='1' description='Type'/>
+    <DataSubType piece='2' description='Valeur'/>
+</DataType>
+
+</Category>

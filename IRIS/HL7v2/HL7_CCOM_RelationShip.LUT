@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<lookupTable>
+<entry table="HL7_CCOM_Relationship" key="ASC">15</entry>
+<entry table="HL7_CCOM_Relationship" key="BRO">7</entry>
+<entry table="HL7_CCOM_Relationship" key="CGV">15</entry>
+<entry table="HL7_CCOM_Relationship" key="CHD">5</entry>
+<entry table="HL7_CCOM_Relationship" key="CUR">35</entry>
+<entry table="HL7_CCOM_Relationship" key="DEP">15</entry>
+<entry table="HL7_CCOM_Relationship" key="DOM">16</entry>
+<entry table="HL7_CCOM_Relationship" key="EMC">15</entry>
+<entry table="HL7_CCOM_Relationship" key="EME">15</entry>
+<entry table="HL7_CCOM_Relationship" key="EMR">15</entry>
+<entry table="HL7_CCOM_Relationship" key="EXF">18</entry>
+<entry table="HL7_CCOM_Relationship" key="FCH">5</entry>
+<entry table="HL7_CCOM_Relationship" key="FND">28</entry>
+<entry table="HL7_CCOM_Relationship" key="FTH">1</entry>
+<entry table="HL7_CCOM_Relationship" key="GCH">22</entry>
+<entry table="HL7_CCOM_Relationship" key="GRD">24</entry>
+<entry table="HL7_CCOM_Relationship" key="GRP">9</entry>
+<entry table="HL7_CCOM_Relationship" key="MGR">15</entry>
+<entry table="HL7_CCOM_Relationship" key="MTH">2</entry>
+<entry table="HL7_CCOM_Relationship" key="NCH">5</entry>
+<entry table="HL7_CCOM_Relationship" key="NON">15</entry>
+<entry table="HL7_CCOM_Relationship" key="OTH">15</entry>
+<entry table="HL7_CCOM_Relationship" key="OWN">15</entry>
+<entry table="HL7_CCOM_Relationship" key="PAR">11</entry>
+<entry table="HL7_CCOM_Relationship" key="SCH">33</entry>
+<entry table="HL7_CCOM_Relationship" key="SEL">15</entry>
+<entry table="HL7_CCOM_Relationship" key="SIB">7</entry>
+<entry table="HL7_CCOM_Relationship" key="SIS">8</entry>
+<entry table="HL7_CCOM_Relationship" key="SPO">3</entry>
+<entry table="HL7_CCOM_Relationship" key="TRA">15</entry>
+<entry table="HL7_CCOM_Relationship" key="UNK">15</entry>
+<entry table="HL7_CCOM_Relationship" key="WRD">31</entry>
+</lookupTable>

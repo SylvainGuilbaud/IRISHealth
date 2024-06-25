@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<lookupTable>
+<entry table="HPRIM_CCOM_ACTION" key="01">création</entry>
+<entry table="HPRIM_CCOM_ACTION" key="02">modification</entry>
+<entry table="HPRIM_CCOM_ACTION" key="03">suppression</entry>
+<entry table="HPRIM_CCOM_ACTION" key="Creation">04</entry>
+<entry table="HPRIM_CCOM_ACTION" key="création">04</entry>
+<entry table="HPRIM_CCOM_ACTION" key="modification">04</entry>
+<entry table="HPRIM_CCOM_ACTION" key="suppression">03</entry>
+</lookupTable>

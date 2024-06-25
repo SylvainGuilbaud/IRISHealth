@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<lookupTable>
+<entry table="HPRIM_HL7_OrderControl" key="C">RO</entry>
+<entry table="HPRIM_HL7_OrderControl" key="D">CA</entry>
+<entry table="HPRIM_HL7_OrderControl" key="F">SC</entry>
+<entry table="HPRIM_HL7_OrderControl" key="I">NW</entry>
+<entry table="HPRIM_HL7_OrderControl" key="M">SC</entry>
+<entry table="HPRIM_HL7_OrderControl" key="O">SC</entry>
+<entry table="HPRIM_HL7_OrderControl" key="P">SC</entry>
+<entry table="HPRIM_HL7_OrderControl" key="R">SC</entry>
+<entry table="HPRIM_HL7_OrderControl" key="X">OC</entry>
+</lookupTable>

@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<lookupTable>
+<entry table="HL7_HPRIM_ActionCode" key="A">A</entry>
+<entry table="HL7_HPRIM_ActionCode" key="G">A</entry>
+<entry table="HL7_HPRIM_ActionCode" key="L">L</entry>
+<entry table="HL7_HPRIM_ActionCode" key="O">L</entry>
+<entry table="HL7_HPRIM_ActionCode" key="P">R</entry>
+<entry table="HL7_HPRIM_ActionCode" key="R">R</entry>
+<entry table="HL7_HPRIM_ActionCode" key="S">N</entry>
+</lookupTable>

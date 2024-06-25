@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<lookupTable>
+<entry table="HL7_CCOM_Sexe" key="F">1</entry>
+<entry table="HL7_CCOM_Sexe" key="M">2</entry>
+<entry table="HL7_CCOM_Sexe" key="U">4</entry>
+</lookupTable>

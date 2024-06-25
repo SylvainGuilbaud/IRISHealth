@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<Category name="HL7v231IHE" base="2.3.1">
+
+<MessageType name='ADT_AXX' structure='ADT_AXX'/>
+
+<MessageStructure name='ADT_AXX' definition='base:MSH~base:EVN~base:PID~[~base:MRG~]~[~{~base:ROL~}~]~[~{~base:NK1~}~]~[~base:PV1~]~[~base:PV2~]~[~ZFU~]'/>
+
+<SegmentStructure name='ZFU' description='Functionnal Unit Segment'>
+    <SegmentSubStructure piece='1' description='Nursing Functional Unit' max_length='60' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='2' description='Nursing Functional Unit Start Date Time' max_length='60' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='3' description='Housing Functional Unit' max_length='60' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='4' description='Housing Functional Unit Start Date Time' max_length='60' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='5' description='Medical Functional Unit' datatype='base:CX' max_length='60' required='O' ifrepeating='0'/>
+    <SegmentSubStructure piece='6' description='Medical Functional Unit Start Date Time' max_length='60' required='O' ifrepeating='0'/>
+</SegmentStructure>
+
+<DataType name='ISC_VERSION' description='$Id: //legacy/fr_products/CCOMTCC/REL/schema/hl7/HL7v231IHE.xml#5 $'>
+</DataType>
+
+</Category>
