@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Export generator="IRIS" version="26" zv="IRIS for UNIX (Ubuntu Server LTS for ARM64 Containers) 2024.1 (Build 267.2U)" ts="2024-06-21 10:17:48">
+<Export generator="IRIS" version="26" zv="IRIS for UNIX (Ubuntu Server LTS for ARM64 Containers) 2024.1 (Build 267.2U)" ts="2024-06-25 23:37:34">
 <Document name="gender.LUT">
 <lookupTable>
+<entry table="gender" key="non applicable">N</entry>
+<entry table="gender" key="not applicable">N</entry>
+<entry table="gender" key="ambigu">A</entry>
+<entry table="gender" key="ambiguous">A</entry>
+<entry table="gender" key="autre">O</entry>
 <entry table="gender" key="female">F</entry>
 <entry table="gender" key="femme">F</entry>
 <entry table="gender" key="féminin">F</entry>
 <entry table="gender" key="homme">M</entry>
+<entry table="gender" key="inconnu">U</entry>
 <entry table="gender" key="male">M</entry>
 <entry table="gender" key="masculin">M</entry>
+<entry table="gender" key="other">O</entry>
+<entry table="gender" key="unknown">U</entry>
 </lookupTable>
 </Document></Export>

@@ -14,6 +14,12 @@ XData RuleDefinition [ XMLNamespace = "http://www.intersystems.com/rule" ]
 <send transform="" target=",planningastreintes"></send>
 </when>
 </rule>
+<rule name="NO FIRST NAME" disabled="false">
+<constraint name="source" value="validate"></constraint>
+<when condition="1" comment="">
+<send transform="" target=",planningastreintes"></send>
+</when>
+</rule>
 </ruleSet>
 </ruleDefinition>
 }

@@ -19,9 +19,154 @@ XData UrlMap [ XMLNamespace = "http://www.intersystems.com/urlmap" ]
 <Route Url="/api/:classname/:id" Method="PUT" Call="update"/>
 <Route Url="/api/:classname/:id" Method="DELETE" Call="delete"/>
 <Route Url="/sendfile" Method="POST" Call="SendFileContent" Cors="true"/>
+<Route Url="/fhir/r4/Patient" Method="POST" Call="FHIRPOST" Cors="true"/>
+<Route Url="/fhir/r4/Patient/:id" Method="GET" Call="FHIRGET" Cors="true"/>
+<Route Url="/fhir/r4/Patient/:id" Method="DELETE" Call="FHIRDELETE" Cors="true"/>
+<Route Url="/fhir/r4/Patient/:id" Method="PUT" Call="FHIRPUT" Cors="true"/>
+
+
 <Route Url="/list/:classname" Method="GET" Call="list" Cors="true"/>
 <Route Url="/_spec" Method="GET" Call="spec" />
 </Routes>
+}
+
+/// Description
+ClassMethod FHIRGET(id As %String) As %Status
+{
+    Set sc = $$$OK
+    set %response.ContentType = ..#CONTENTTYPEJSON
+    set json = {}
+        try{
+	
+        #dim request as %Net.HttpRequest
+        set request = ##class(%Net.HttpRequest).%New()
+        set request.Server = "IRISHealth"
+        set request.ContentType = "application/fhir+json; charset=UTF-8"
+        do request.SetHeader("Accept","*/*")
+        set request.Port = 52773
+
+	    set st = request.Get("/irisapp/fhir/r4/Patient/" _ id)
+        if ($$$ISERR(st)) {
+            throw ##class(%Exception.StatusException).CreateFromStatus(st)
+        }
+	    set json = {}.%FromJSON(request.HttpResponse.Data)
+        write json.%ToJSON()
+      
+	} catch exp{
+		set sc = exp.AsStatus()
+	}
+    Return sc
+}
+
+ClassMethod FHIRDELETE(id As %String) As %Status
+{
+    Set sc = $$$OK
+    set %response.ContentType = ..#CONTENTTYPEJSON
+    set json = {}
+        try{
+	
+        #dim request as %Net.HttpRequest
+        set request = ##class(%Net.HttpRequest).%New()
+        set request.Server = "IRISHealth"
+        set request.ContentType = "application/fhir+json; charset=UTF-8"
+        do request.SetHeader("Accept","*/*")
+        set request.Port = 52773
+
+	    set st = request.Delete("/irisapp/fhir/r4/Patient/" _ id)
+        if ($$$ISERR(st)) {
+            throw ##class(%Exception.StatusException).CreateFromStatus(st)
+        }
+	    set json.Status = request.HttpResponse.StatusCode
+        write json.%ToJSON()
+      
+	} catch exp{
+		set sc = exp.AsStatus()
+	}
+    Return sc
+}
+
+ClassMethod FHIRPUT(id As %String) As %Status
+{
+    Set sc = $$$OK
+    set %response.ContentType = ..#CONTENTTYPEJSON
+    set json = {}
+
+        try{
+	
+        #dim request as %Net.HttpRequest
+        set request = ##class(%Net.HttpRequest).%New()
+        set request.Server = "IRISHealth"
+        set request.ContentType = "application/fhir+json; charset=UTF-8"
+        do request.SetHeader("Accept","*/*")
+        set request.Port = 52773
+        do request.EntityBody.CopyFrom(%request.Content)
+
+	    set st = request.Put("/irisapp/fhir/r4/Patient/" _ id)
+        if ($$$ISERR(st)) {
+            throw ##class(%Exception.StatusException).CreateFromStatus(st)
+        }
+	    set json.Status = request.HttpResponse.StatusCode
+        write json.%ToJSON()
+      
+	} catch exp{
+		set sc = exp.AsStatus()
+	}
+    Return sc
+}
+
+ClassMethod FHIRPOST() As %Status
+{
+    Set sc = $$$OK
+    set %response.ContentType = ..#CONTENTTYPEJSON
+    set json = {}
+
+        try{
+	
+        #dim request as %Net.HttpRequest
+        set request = ##class(%Net.HttpRequest).%New()
+        set request.Server = "IRISHealth"
+        set request.ContentType = "application/fhir+json; charset=UTF-8"
+        do request.SetHeader("Accept","*/*")
+        set request.Port = 52773
+        do request.EntityBody.CopyFrom(%request.Content)
+
+	    set st = request.Post("/irisapp/fhir/r4/Patient")
+        if ($$$ISERR(st)) {
+            throw ##class(%Exception.StatusException).CreateFromStatus(st)
+        }
+	    set json.Status = request.HttpResponse.StatusCode
+        write json.%ToJSON()
+      
+	} catch exp{
+		set sc = exp.AsStatus()
+	}
+    Return sc
+}
+
+ClassMethod FHIRGETPY(id As %String) As %Status [ Language = python ]
+{
+    import requests
+
+    Username = "_system"
+    Password = "SYS"
+
+    url = "http://IRISHealth:52773/irisapp/fhir/r4/Patient/" + id
+    resp = requests.get(url, auth=(Username, Password))
+    print(resp.text)
+}
+
+ClassMethod FHIRDELETEPY(id As %String) As %Status [ Language = python ]
+{
+
+    import requests
+
+    Username = "_system"
+    Password = "SYS"
+
+    url = "http://IRISHealth:52773/irisapp/fhir/r4/Patient/" + id
+    resp = requests.delete(url, auth=(Username, Password))
+    print(resp.text)
+    #; print("status:" + str(resp.status_code))
 }
 
 ClassMethod list(classname As %String) As %Status

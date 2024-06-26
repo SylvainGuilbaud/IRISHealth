@@ -9,7 +9,7 @@ Parameter TREATEMPTYREPEATINGFIELDASNULL = 0;
 
 XData DTL [ XMLNamespace = "http://www.intersystems.com/dtl" ]
 {
-<transform sourceClass='HPRIM.EDI.E1238.Document' targetClass='EnsLib.HL7.Message' sourceDocType='HPRIM2.2Add:P' targetDocType='2.5.1:ORU_R01' create='new' language='objectscript' >
+<transform sourceClass='HPRIM.EDI.E1238.Document' targetClass='EnsLib.HL7.Message' sourceDocType='HPRIM2.2Add:P' targetDocType='2.5.1:ADT_A01' create='new' language='objectscript' >
 <subtransform class='IRISHealth.transfo.HPRIMHtoHL7v2MSH' targetObj='target.{MSH}' sourceObj='source.{H}' />
 <assign value='source.{A():AddendumContinuationPointer}' property='target.{MSH:ContinuationPointer}' action='set' />
 <assign value='source.{Cgrp().C:SequenceNumber}' property='target.{MSH:SequenceNumber}' action='set' />
