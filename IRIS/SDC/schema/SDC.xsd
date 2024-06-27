@@ -1,0 +1,116 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element name = "SOAP-ENV:Envelope">
+<xs:complexType>
+<xs:sequence>
+<xs:element name = "SOAP-ENV:Header">
+<xs:complexType>
+<xs:sequence>
+<xs:element type = " xs: string" name = "wsa:Action"/>
+<xs:element type = " xs: string" name = "wsa:MessageID"/>
+<xs:element type = " xs: string" name = "wsa:To"/>
+ </xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name = "SOAP-ENV:Body">
+<xs:complexType>
+<xs:sequence>
+<xs:element name = "mdpws:GetMdibResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element type = " xs: short" name = "mdpws:MdibVersion"/>
+<xs:element name = "mdpws:Mdib">
+<xs:complexType>
+<xs:sequence>
+<xs:element name = "biceps:MdsContext">
+<xs:complexType>
+<xs:sequence>
+<xs:element type = " xs: byte" name = "biceps:DescriptorVersion"/>
+<xs:element type = " xs: byte" name = "biceps:StateVersion"/>
+<xs:element name = "biceps:Descriptor">
+<xs:complexType>
+<xs:sequence>
+<xs:element name = "biceps:Type">
+<xs:complexType>
+<xs:sequence>
+<xs:element name = "biceps:Nomenclature">
+<xs:complexType>
+<xs:sequence>
+<xs:element type = " xs: string" name = "biceps:CodingSystem"/>
+<xs:element type = " xs: byte" name = "biceps:Code"/>
+ </xs:sequence>
+</xs:complexType>
+</xs:element>
+ </xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element type = " xs: byte" name = "biceps:Handle"/>
+<xs:element type = " xs: string" name = "biceps:Label"/>
+ </xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name = "biceps:State">
+<xs:complexType>
+<xs:sequence>
+<xs:element name = "biceps:OperatingMode">
+<xs:complexType>
+<xs:sequence>
+<xs:element name = "biceps:Value">
+<xs:complexType>
+<xs:sequence>
+<xs:element name = "biceps:Nomenclature">
+<xs:complexType>
+<xs:sequence>
+<xs:element type = " xs: string" name = "biceps:CodingSystem"/>
+<xs:element type = " xs: short" name = "biceps:Code"/>
+ </xs:sequence>
+</xs:complexType>
+</xs:element>
+ </xs:sequence>
+</xs:complexType>
+</xs:element>
+ </xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name = "biceps:Numeric">
+<xs:complexType>
+<xs:sequence>
+<xs:element type = " xs: byte" name = "biceps:Handle"/>
+<xs:element type = " xs: string" name = "biceps:Label"/>
+<xs:element name = "biceps:Unit">
+<xs:complexType>
+<xs:sequence>
+<xs:element name = "biceps:Nomenclature">
+<xs:complexType>
+<xs:sequence>
+<xs:element type = " xs: string" name = "biceps:CodingSystem"/>
+<xs:element type = " xs: int" name = "biceps:Code"/>
+ </xs:sequence>
+</xs:complexType>
+</xs:element>
+ </xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element type = " xs: byte" name = "biceps:Value"/>
+ </xs:sequence>
+</xs:complexType>
+</xs:element>
+ </xs:sequence>
+</xs:complexType>
+</xs:element>
+ </xs:sequence>
+</xs:complexType>
+</xs:element>
+ </xs:sequence>
+</xs:complexType>
+</xs:element>
+ </xs:sequence>
+</xs:complexType>
+</xs:element>
+ </xs:sequence>
+</xs:complexType>
+</xs:element>
+ </xs:sequence>
+<xs:attribute type = "xs:string" name = "xmlns:SOAP-ENV"/>
+</xs:complexType>
+</xs:element>
+</xs:schema>

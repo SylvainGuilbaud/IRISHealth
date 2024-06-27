@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Created with Liquid Technologies Online Tools 1.0 (https://www.liquid-technologies.com) -->
+<xs:schema xmlns:tns="http://schemas.xmlsoap.org/ws/2004/08/addressing" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Action" type="xs:string" />
+  <xs:element name="MessageID" type="xs:string" />
+  <xs:element name="To" type="xs:string" />
+</xs:schema>

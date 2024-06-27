@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Created with Liquid Technologies Online Tools 1.0 (https://www.liquid-technologies.com) -->
+<xs:schema xmlns:tns="http://standards.ieee.org/downloads/11073/11073-20702-2016" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://standards.ieee.org/downloads/11073/11073-20702-2016" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="schema3.xsd" namespace="http://standards.ieee.org/downloads/11073/11073-10207-2017" />
+  <xs:element name="GetMdibResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="MdibVersion" type="xs:unsignedShort" />
+        <xs:element name="Mdib">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element xmlns:q1="http://standards.ieee.org/downloads/11073/11073-10207-2017" ref="q1:MdsContext" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

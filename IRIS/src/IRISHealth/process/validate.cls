@@ -45,10 +45,10 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 <transform name='get FirstName from ADT' class='IRISHealth.transfo.getFirstNameADT' source='request' target='context.genderRequest' xpos='605' ypos='600' />
 </case>
 <case condition='request.DocType["ORM"' name='ORM' >
-<transform name='get FirstName from ORM' class='IRISHealth.transfo.getFirstNameORM' source='request' target='context.genderRequest' xpos='875' ypos='600' />
+<transform name='get FirstName from ORM' class='IRISHealth.transfo.getFirstNameORM' source='request' target='context.genderRequest' xpos='998' ypos='597' />
 </case>
 <case condition='request.DocType["MDM"' name='MDM' >
-<transform name='get FirstName from MDM' class='IRISHealth.transfo.getFirstNameMDM' source='request' target='context.genderRequest' xpos='1145' ypos='600' />
+<transform name='get FirstName from MDM' class='IRISHealth.transfo.getFirstNameMDM' source='request' target='context.genderRequest' xpos='1405' ypos='621' />
 </case>
 <default/>
 </switch>
@@ -61,10 +61,23 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 <if name='workflow' condition='process.forceWorkflow' xpos='470' ypos='1050' xend='470' yend='1750' >
 <annotation><![CDATA[contrôle si validation humaine est obligatoire]]></annotation>
 <true>
-<trace name='workflow' value='"forced workflow " _ process.forceWorkflow' xpos='470' ypos='1200' />
-<call name='cellule identito-vigilance' target='cellule identito-vigilance' async='1' xpos='470' ypos='1300' >
+<code languageOverride='python' xpos='470' ypos='1200' >
+<![CDATA[import pandas
+a=1
+]]>
+</code>
+<call name='contrôle gender' target='get gender' async='0' xpos='470' ypos='1300' >
+<request type='HTTP.msg.genderRequest' >
+<assign property="callrequest" value="context.genderRequest" action="set" languageOverride="" />
+</request>
+<response type='HTTP.msg.genderResponse' >
+<assign property="context.genderResponse" value="callresponse" action="set" languageOverride="" />
+</response>
+</call>
+<trace name='workflow' value='"forced workflow " _ process.forceWorkflow' xpos='470' ypos='1400' />
+<call name='cellule identito-vigilance' target='cellule identito-vigilance' async='1' xpos='470' ypos='1500' >
 <request type='EnsLib.Workflow.TaskRequest' >
-<assign property="callrequest.%Actions" value="&quot;male,female&quot;" action="set" languageOverride="" />
+<assign property="callrequest.%Actions" value="&quot;homme,femme,inconnu,ambigu,non applicable,autre&quot;" action="set" languageOverride="" />
 <assign property="callrequest.%Subject" value="&quot;valider genre de &quot;_context.genderRequest.firstName" action="set" languageOverride="" />
 <assign property="callrequest.%UserName" value="&quot;Virgile&quot;" action="set" languageOverride="" />
 </request>
@@ -73,7 +86,7 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 <assign property="context.genderResponse.gender" value="callresponse.%Action" action="set" languageOverride="" />
 </response>
 </call>
-<sync name='cellule identito-vigilance' calls='cellule identito-vigilance' type='all' xpos='470' ypos='1400' />
+<sync name='cellule identito-vigilance' calls='cellule identito-vigilance' type='all' xpos='470' ypos='1600' />
 </true>
 <false>
 <scope xpos='740' ypos='1200' xend='740' yend='1550' >
@@ -105,7 +118,7 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 <trace name='Not Found' value='"HTTP/1.1 404 Not Found"' xpos='740' ypos='600' />
 <call name='cellule identito-vigilance' target='cellule identito-vigilance' async='1' xpos='740' ypos='700' >
 <request type='EnsLib.Workflow.TaskRequest' >
-<assign property="callrequest.%Actions" value="&quot;male,female&quot;" action="set" languageOverride="" />
+<assign property="callrequest.%Actions" value="&quot;homme,femme,inconnu,ambigu,non applicable,autre&quot;" action="set" languageOverride="" />
 <assign property="callrequest.%Subject" value="&quot;valider genre de &quot;_context.genderRequest.firstName" action="set" languageOverride="" />
 <assign property="callrequest.%UserName" value="&quot;Virgile&quot;" action="set" languageOverride="" />
 </request>
@@ -120,7 +133,7 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 <trace name='Not Supported' value='"HTTP/1.1 404 Not Found"' xpos='1010' ypos='600' />
 <call name='cellule identito-vigilance' target='cellule identito-vigilance' async='1' xpos='1010' ypos='700' >
 <request type='EnsLib.Workflow.TaskRequest' >
-<assign property="callrequest.%Actions" value="&quot;male,female&quot;" action="set" languageOverride="" />
+<assign property="callrequest.%Actions" value="&quot;homme,femme,inconnu,ambigu,non applicable,autre&quot;" action="set" languageOverride="" />
 <assign property="callrequest.%Subject" value="&quot;valider genre de &quot;_context.genderRequest.firstName" action="set" languageOverride="" />
 <assign property="callrequest.%UserName" value="&quot;Virgile&quot;" action="set" languageOverride="" />
 </request>

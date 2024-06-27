@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SOAP-ENV:Envelope 
+  xmlns:SOAP-ENV="http://www.w3.org/2003/05/soap-envelope"
+  xmlns:SOAP-ENC="http://www.w3.org/2003/05/soap-encoding"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing"
+  xmlns:mdpws="http://standards.ieee.org/downloads/11073/11073-20702-2016"
+  xmlns:biceps="http://standards.ieee.org/downloads/11073/11073-10207-2017">
+
+  <SOAP-ENV:Header>
+    <wsa:Action>http://standards.ieee.org/downloads/11073/11073-20702-2016/GetMdibResponse</wsa:Action>
+    <wsa:MessageID>urn:uuid:d9c21a3a-c8c0-4d3e-8c0a-4d3e8c0a4d3e</wsa:MessageID>
+    <wsa:To>http://example.com/device</wsa:To>
+  </SOAP-ENV:Header>
+
+  <SOAP-ENV:Body>
+    <mdpws:GetMdibResponse>
+      <mdpws:MdibVersion>1234</mdpws:MdibVersion>
+      <mdpws:Mdib>
+        <biceps:MdsContext>
+          <biceps:DescriptorVersion>1</biceps:DescriptorVersion>
+          <biceps:StateVersion>1</biceps:StateVersion>
+          <biceps:Descriptor>
+            <biceps:Type>
+              <biceps:Nomenclature>
+                <biceps:CodingSystem>MDC</biceps:CodingSystem>
+                <biceps:Code>4</biceps:Code>
+              </biceps:Nomenclature>
+            </biceps:Type>
+            <biceps:Handle>1</biceps:Handle>
+            <biceps:Label>Pulse Oximeter</biceps:Label>
+          </biceps:Descriptor>
+          <biceps:State>
+            <biceps:OperatingMode>
+              <biceps:Value>
+                <biceps:Nomenclature>
+                  <biceps:CodingSystem>MDC</biceps:CodingSystem>
+                  <biceps:Code>532</biceps:Code>
+                </biceps:Nomenclature>
+              </biceps:Value>
+            </biceps:OperatingMode>
+            <biceps:Numeric>
+              <biceps:Handle>2</biceps:Handle>
+              <biceps:Label>SpO2</biceps:Label>
+              <biceps:Unit>
+                <biceps:Nomenclature>
+                  <biceps:CodingSystem>MDC</biceps:CodingSystem>
+                  <biceps:Code>262688</biceps:Code>
+                </biceps:Nomenclature>
+              </biceps:Unit>
+              <biceps:Value>98</biceps:Value>
+            </biceps:Numeric>
+          </biceps:State>
+        </biceps:MdsContext>
+      </mdpws:Mdib>
+    </mdpws:GetMdibResponse>
+  </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
