@@ -1,0 +1,203 @@
+/*
+Copyright (c) 2022 by InterSystems Corporation.
+Cambridge, Massachusetts, U.S.A.  All rights reserved.
+Confidential property of InterSystems Corporation.
+*/
+
+/// This object is used to capture issues/risks/challenges in the supply chain. Issues can be generated 
+/// by the system (such as through KPIs or business processes), or be imported through API. 
+Class SC.Data.Issue Extends SC.Core.Data.Internal.Issue
+{
+
+Storage Default
+{
+<Data name="IssueDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>recordCreatedTime</Value>
+</Value>
+<Value name="3">
+<Value>lastUpdatedTime</Value>
+</Value>
+<Value name="4">
+<Value>description</Value>
+</Value>
+<Value name="5">
+<Value>issueCategory</Value>
+</Value>
+<Value name="6">
+<Value>issueRegion</Value>
+</Value>
+<Value name="7">
+<Value>triggerType</Value>
+</Value>
+<Value name="8">
+<Value>triggerObjectId</Value>
+</Value>
+<Value name="9">
+<Value>impactedObjectType</Value>
+</Value>
+<Value name="10">
+<Value>impactedObjectId</Value>
+</Value>
+<Value name="11">
+<Value>issueData</Value>
+</Value>
+<Value name="12">
+<Value>processName</Value>
+</Value>
+<Value name="13">
+<Value>source</Value>
+</Value>
+<Value name="14">
+<Value>severity</Value>
+</Value>
+<Value name="15">
+<Value>urgency</Value>
+</Value>
+<Value name="16">
+<Value>status</Value>
+</Value>
+<Value name="17">
+<Value>closeTime</Value>
+</Value>
+<Value name="18">
+<Value>resolutionUser</Value>
+</Value>
+<Value name="19">
+<Value>resolutionType</Value>
+</Value>
+<Value name="20">
+<Value>resolutionNote</Value>
+</Value>
+<Value name="21">
+<Value>uid</Value>
+</Value>
+</Data>
+<DataLocation>^SC.Data.IssueD</DataLocation>
+<DefaultData>IssueDefaultData</DefaultData>
+<ExtentSize>946</ExtentSize>
+<IdLocation>^SC.Data.IssueD</IdLocation>
+<IndexLocation>^SC.Data.IssueI</IndexLocation>
+<Property name="%%CLASSNAME">
+<AverageFieldSize>2</AverageFieldSize>
+<Histogram>$lb(.06666666666666666667,0,16,$lb("-10000000000000000000","-10000000000000000000","-10000000000000000000","-10000000000000000000","-10000000000000000000","-10000000000000000000","-10000000000000000000","-10000000000000000000","-10000000000000000000","-10000000000000000000","-10000000000000000000","-10000000000000000000","-10000000000000000000","-10000000000000000000","-10000000000000000000","-10000000000000000000"),$lb(21,21,21,21,21,21,21,21,21,21,21,21,21,21,21),$lb(758198320,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,758198320))</Histogram>
+<Selectivity>100.0000%</Selectivity>
+</Property>
+<Property name="%%ID">
+<AverageFieldSize>3.73</AverageFieldSize>
+<Histogram>$lb(.06666666666666666667,1,0,$lb(1,64,127,190,253,316,379,442,505,568,631,694,757,820,883,946),$lb(0,0,1,0,0,1,0,0,1,0,1,0,0,1,0),$lb(822083584,822083584,909377536,909377536,825374464,842465280,959447040,825831424,842347264,842347264,858863104,825622528,926482432,859257088,875835904,875835904,892351744,808779776,909639680,892745728,909324544,858849280,959709184,909718528,926234368,926234368,942813184,842006528,942866432,943207168,959723008,959723008))</Histogram>
+<Selectivity>1</Selectivity>
+</Property>
+<Property name="closeTime">
+<AverageFieldSize>2</AverageFieldSize>
+<Histogram>$lb(.06666666666666666667,0,16,$lb("-10000000000000000000","-10000000000000000000","-10000000000000000000","-10000000000000000000","-10000000000000000000","-10000000000000000000","-10000000000000000000","-10000000000000000000","-10000000000000000000","-10000000000000000000","-10000000000000000000","-10000000000000000000","-10000000000000000000","-10000000000000000000","-10000000000000000000","-10000000000000000000"),$lb(21,21,21,21,21,21,21,21,21,21,21,21,21,21,21),$lb(758198320,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,758198320))</Histogram>
+<Selectivity>100.0000%</Selectivity>
+</Property>
+<Property name="description">
+<AverageFieldSize>74</AverageFieldSize>
+<Histogram>$lb(.06666666666666666667,0,0,$lb(" SALES ORDERS WHICH WERE SHIPPED LATE COMPARED TO THE COMMITTED SHIP DATE"," SALES ORDERS WHICH WERE SHIPPED LATE COMPARED TO THE COMMITTED SHIP DATE"," SALES ORDERS WHICH WERE SHIPPED LATE COMPARED TO THE COMMITTED SHIP DATE"," SALES ORDERS WHICH WERE SHIPPED LATE COMPARED TO THE COMMITTED SHIP DATE"," SALES ORDERS WHICH WERE SHIPPED LATE COMPARED TO THE COMMITTED SHIP DATE"," SALES ORDERS WHICH WERE SHIPPED LATE COMPARED TO THE COMMITTED SHIP DATE"," SALES ORDERS WHICH WERE SHIPPED LATE COMPARED TO THE COMMITTED SHIP DATE"," SALES ORDERS WHICH WERE SHIPPED LATE COMPARED TO THE COMMITTED SHIP DATE"," SALES ORDERS WHICH WERE SHIPPED LATE COMPARED TO THE COMMITTED SHIP DATE"," SALES ORDERS WHICH WERE SHIPPED LATE COMPARED TO THE COMMITTED SHIP DATE"," SALES ORDERS WHICH WERE SHIPPED LATE COMPARED TO THE COMMITTED SHIP DATE"," SALES ORDERS WHICH WERE SHIPPED LATE COMPARED TO THE COMMITTED SHIP DATE"," SALES ORDERS WHICH WERE SHIPPED LATE COMPARED TO THE COMMITTED SHIP DATE"," SALES ORDERS WHICH WERE SHIPPED LATE COMPARED TO THE COMMITTED SHIP DATE"," SALES ORDERS WHICH WERE SHIPPED LATE COMPARED TO THE COMMITTED SHIP DATE"," SALES ORDERS WHICH WERE SHIPPED LATE COMPARED TO THE COMMITTED SHIP DATE"),$lb(74,74,74,74,74,74,74,74,74,74,74,74,74,74,74),$lb(542327116,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,542327116))</Histogram>
+<Selectivity>100.0000%</Selectivity>
+</Property>
+<Property name="impactedObjectId">
+<AverageFieldSize>38</AverageFieldSize>
+<Histogram>$lb(.06666666666666666667,0,0,$lb(" 0016EEB1-E523-4093-A742-659AED3EFE33"," 1312EEBA-6D56-48CB-BE9E-09AE24D4BC14"," 231F194A-444C-4D9E-A961-83E9408420EA"," 32FF7412-4E64-4F82-BACF-023EE4F3ADB7"," 412227FB-5C8B-4BD2-8D6C-E3F358856F14"," 540E2FD5-47D7-4546-BB9B-862A1F95DF83"," 62C6D0FB-0685-4FC6-9C49-775DAE39E90C"," 732011EF-C63E-4BA2-BC25-FBEADB66E0BA"," 834F4EE4-BAED-4CD6-83AD-1599AAD0E7B1"," 92356F45-7869-4720-BD4B-ADF89792A78A"," A1487DE2-627C-4576-8FA6-FA8249B21D8F"," B4158B05-D5BB-4324-9535-30C3611E11A5"," C6CF25F9-5812-43ED-9DDF-98B518C6B9A7"," D8FEF742-E25A-4C27-A2F5-1644C2D317BF"," ECAE653D-FC91-4133-A378-10601BCFE5F2"," FFC8D0D6-38BD-4688-BD12-8D160732D159"),$lb(1,1,1,1,1,1,1,1,1,1,1,1,1,1,1),$lb(540028977,808464694,825438514,825438514,842215750,842215750,858932806,858932806,875639346,875639346,892612677,892612677,909263670,909263670,926102064,926102064,942879814,942879814,959591221,959591221,1093743672,1093743672,1110716725,1110716725,1127629638,1127629638,1144538693,1144538693,1162035525,1162035525,1179009848,541476419))</Histogram>
+<Selectivity>0.1057%</Selectivity>
+</Property>
+<Property name="impactedObjectType">
+<AverageFieldSize>12</AverageFieldSize>
+<Histogram>$lb(.06666666666666666667,0,0,$lb(" SALESORDER"," SALESORDER"," SALESORDER"," SALESORDER"," SALESORDER"," SALESORDER"," SALESORDER"," SALESORDER"," SALESORDER"," SALESORDER"," SALESORDER"," SALESORDER"," SALESORDER"," SALESORDER"," SALESORDER"," SALESORDER"),$lb(12,12,12,12,12,12,12,12,12,12,12,12,12,12,12),$lb(542327116,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,542327116))</Histogram>
+<Selectivity>100.0000%</Selectivity>
+</Property>
+<Property name="issueCategory">
+<AverageFieldSize>2</AverageFieldSize>
+<Histogram>$lb(.06666666666666666667,0,0,$lb(" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "),$lb(2,2,2,2,2,2,2,2,2,2,2,2,2,2,2),$lb(536870912,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,536870912))</Histogram>
+<Selectivity>100.0000%</Selectivity>
+</Property>
+<Property name="issueData">
+<AverageFieldSize>2</AverageFieldSize>
+<Histogram>$lb(.06666666666666666667,0,0,$lb(" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "),$lb(2,2,2,2,2,2,2,2,2,2,2,2,2,2,2),$lb(536870912,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,536870912))</Histogram>
+<Selectivity>100.0000%</Selectivity>
+</Property>
+<Property name="issueRegion">
+<AverageFieldSize>2</AverageFieldSize>
+<Histogram>$lb(.06666666666666666667,0,0,$lb(" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "),$lb(2,2,2,2,2,2,2,2,2,2,2,2,2,2,2),$lb(536870912,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,536870912))</Histogram>
+<Selectivity>100.0000%</Selectivity>
+</Property>
+<Property name="lastUpdatedTime">
+<AverageFieldSize>25</AverageFieldSize>
+<Histogram>$lb(.06666666666666666667,0,0,$lb("2023-05-04 16:20:31.145","2023-05-04 16:20:31.176","2023-05-04 16:20:31.207","2023-05-04 16:20:31.239","2023-05-04 16:20:31.275","2023-05-04 16:20:31.314","2023-05-04 16:20:31.354","2023-05-04 16:20:31.398","2023-05-04 16:20:31.444","2023-05-04 16:20:31.492","2023-05-04 16:20:31.543","2023-05-04 16:20:31.597","2023-05-04 16:20:31.653","2023-05-04 16:20:31.712","2023-05-04 16:20:31.774","2023-05-04 16:20:31.838"),$lb(21,20,21,21,20,21,21,20,21,20,21,20,20,21,20),$lb(842019379,875888640,926285824,825701888,842020608,808910848,859373568,859373568,926220288,842478848,858862592,825491456,892600320,892600320,959971328,859387904,875836416,875823104,959578112,876163584,892613376,875757568,959905792,892942080,909456128,909456128,925970944,825360384,926154752,926364672,942880768,842019379))</Histogram>
+<Selectivity>0.1451%</Selectivity>
+</Property>
+<Property name="processName">
+<AverageFieldSize>21</AverageFieldSize>
+<Histogram>$lb(.06666666666666666667,0,0,$lb(" SALES ORDER PROCESS"," SALES ORDER PROCESS"," SALES ORDER PROCESS"," SALES ORDER PROCESS"," SALES ORDER PROCESS"," SALES ORDER PROCESS"," SALES ORDER PROCESS"," SALES ORDER PROCESS"," SALES ORDER PROCESS"," SALES ORDER PROCESS"," SALES ORDER PROCESS"," SALES ORDER PROCESS"," SALES ORDER PROCESS"," SALES ORDER PROCESS"," SALES ORDER PROCESS"," SALES ORDER PROCESS"),$lb(21,21,21,21,21,21,21,21,21,21,21,21,21,21,21),$lb(542327116,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,542327116))</Histogram>
+<Selectivity>100.0000%</Selectivity>
+</Property>
+<Property name="recordCreatedTime">
+<AverageFieldSize>24.89</AverageFieldSize>
+<Histogram>$lb(.06666666666666666667,0,0,$lb("2023-05-04 16:20:31.145","2023-05-04 16:20:31.176","2023-05-04 16:20:31.207","2023-05-04 16:20:31.239","2023-05-04 16:20:31.275","2023-05-04 16:20:31.313","2023-05-04 16:20:31.354","2023-05-04 16:20:31.398","2023-05-04 16:20:31.444","2023-05-04 16:20:31.492","2023-05-04 16:20:31.543","2023-05-04 16:20:31.597","2023-05-04 16:20:31.653","2023-05-04 16:20:31.712","2023-05-04 16:20:31.774","2023-05-04 16:20:31.838"),$lb(21,20,21,21,20,21,21,20,21,20,21,20,20,21,20),$lb(842019379,875888640,926285824,825701888,842020608,808910848,859373568,859373568,926220288,842478848,858862336,825425920,892600320,892600320,959971328,859387904,875836416,875823104,959578112,876163584,892613376,875757568,959905792,892942080,909456128,909456128,925970944,825360384,926154752,926364672,942880768,842019379))</Histogram>
+<Selectivity>0.1449%</Selectivity>
+</Property>
+<Property name="resolutionNote">
+<AverageFieldSize>2</AverageFieldSize>
+<Histogram>$lb(.06666666666666666667,0,0,$lb(" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "),$lb(2,2,2,2,2,2,2,2,2,2,2,2,2,2,2),$lb(536870912,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,536870912))</Histogram>
+<Selectivity>100.0000%</Selectivity>
+</Property>
+<Property name="resolutionType">
+<AverageFieldSize>2</AverageFieldSize>
+<Histogram>$lb(.06666666666666666667,0,0,$lb(" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "),$lb(2,2,2,2,2,2,2,2,2,2,2,2,2,2,2),$lb(536870912,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,536870912))</Histogram>
+<Selectivity>100.0000%</Selectivity>
+</Property>
+<Property name="resolutionUser">
+<AverageFieldSize>2</AverageFieldSize>
+<Histogram>$lb(.06666666666666666667,0,0,$lb(" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "),$lb(2,2,2,2,2,2,2,2,2,2,2,2,2,2,2),$lb(536870912,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,536870912))</Histogram>
+<Selectivity>100.0000%</Selectivity>
+</Property>
+<Property name="severity">
+<AverageFieldSize>3</AverageFieldSize>
+<Histogram>$lb(.06666666666666666667,1,0,$lb(2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2),$lb(1,1,1,1,1,1,1,1,1,1,1,1,1,1,1),$lb(838860800,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,838860800))</Histogram>
+<Selectivity>100.0000%</Selectivity>
+</Property>
+<Property name="source">
+<AverageFieldSize>2</AverageFieldSize>
+<Histogram>$lb(.06666666666666666667,0,0,$lb(" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "),$lb(2,2,2,2,2,2,2,2,2,2,2,2,2,2,2),$lb(536870912,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,536870912))</Histogram>
+<Selectivity>100.0000%</Selectivity>
+</Property>
+<Property name="status">
+<AverageFieldSize>6</AverageFieldSize>
+<Histogram>$lb(.06666666666666666667,0,0,$lb(" OPEN"," OPEN"," OPEN"," OPEN"," OPEN"," OPEN"," OPEN"," OPEN"," OPEN"," OPEN"," OPEN"," OPEN"," OPEN"," OPEN"," OPEN"," OPEN"),$lb(6,6,6,6,6,6,6,6,6,6,6,6,6,6,6),$lb(542068805,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,542068805))</Histogram>
+<Selectivity>100.0000%</Selectivity>
+</Property>
+<Property name="triggerObjectId">
+<AverageFieldSize>31</AverageFieldSize>
+<Histogram>$lb(.06666666666666666667,0,0,$lb(" SALESORDERLATESHIPVSCOMMITTED"," SALESORDERLATESHIPVSCOMMITTED"," SALESORDERLATESHIPVSCOMMITTED"," SALESORDERLATESHIPVSCOMMITTED"," SALESORDERLATESHIPVSCOMMITTED"," SALESORDERLATESHIPVSCOMMITTED"," SALESORDERLATESHIPVSCOMMITTED"," SALESORDERLATESHIPVSCOMMITTED"," SALESORDERLATESHIPVSCOMMITTED"," SALESORDERLATESHIPVSCOMMITTED"," SALESORDERLATESHIPVSCOMMITTED"," SALESORDERLATESHIPVSCOMMITTED"," SALESORDERLATESHIPVSCOMMITTED"," SALESORDERLATESHIPVSCOMMITTED"," SALESORDERLATESHIPVSCOMMITTED"," SALESORDERLATESHIPVSCOMMITTED"),$lb(31,31,31,31,31,31,31,31,31,31,31,31,31,31,31),$lb(542327116,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,542327116))</Histogram>
+<Selectivity>100.0000%</Selectivity>
+</Property>
+<Property name="triggerType">
+<AverageFieldSize>5</AverageFieldSize>
+<Histogram>$lb(.06666666666666666667,0,0,$lb(" KPI"," KPI"," KPI"," KPI"," KPI"," KPI"," KPI"," KPI"," KPI"," KPI"," KPI"," KPI"," KPI"," KPI"," KPI"," KPI"),$lb(5,5,5,5,5,5,5,5,5,5,5,5,5,5,5),$lb(541806665,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,541806665))</Histogram>
+<Selectivity>100.0000%</Selectivity>
+</Property>
+<Property name="uid">
+<AverageFieldSize>38</AverageFieldSize>
+<Selectivity>1</Selectivity>
+</Property>
+<Property name="urgency">
+<AverageFieldSize>2</AverageFieldSize>
+<Histogram>$lb(.06666666666666666667,1,16,$lb(-10000000000000000000,-10000000000000000000,-10000000000000000000,-10000000000000000000,-10000000000000000000,-10000000000000000000,-10000000000000000000,-10000000000000000000,-10000000000000000000,-10000000000000000000,-10000000000000000000,-10000000000000000000,-10000000000000000000,-10000000000000000000,-10000000000000000000,-10000000000000000000),$lb(21,21,21,21,21,21,21,21,21,21,21,21,21,21,21),$lb(758198320,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,758198320))</Histogram>
+<Selectivity>100.0000%</Selectivity>
+</Property>
+<SQLMap name="IDKEY">
+<BlockCount>-160</BlockCount>
+</SQLMap>
+<SQLMap name="uidIndex">
+<BlockCount>-32</BlockCount>
+</SQLMap>
+<StreamLocation>^SC.Data.IssueS</StreamLocation>
+<Type>%Storage.Persistent</Type>
+}
+
+}
