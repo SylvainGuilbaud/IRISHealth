@@ -33,8 +33,13 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 </parameters>
 </property>
 <property name='workflowResponse' type='EnsLib.Workflow.TaskResponse' instantiate='0' />
+<property name='LastName' type='%String' instantiate='0' >
+<parameters>
+<parameter name='MAXLEN'  value='250' />
+</parameters>
+</property>
 </context>
-<sequence xpos='200' ypos='150' xend='200' yend='2600' >
+<sequence xpos='200' ypos='150' xend='200' yend='2800' >
 <assign name="init response" property="response" value="request" action="set" languageOverride="" xpos='200' ypos='250' />
 <trace name='DocType' value='"DocType:"_request.DocType' xpos='200' ypos='350' />
 <switch name='message type' xpos='200' ypos='450' xend='200' yend='700' >
@@ -53,15 +58,17 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 <default/>
 </switch>
 <trace name='first name' value='"firstName:"_context.genderRequest.firstName' xpos='200' ypos='800' />
-<if name='NO FIRST NAME' condition='context.genderRequest.firstName=""' xpos='200' ypos='900' xend='200' yend='2500' >
+<if name='NO FIRST NAME' condition='context.genderRequest.firstName=""' xpos='200' ypos='900' xend='200' yend='2700' >
 <true>
 <alert value='"NO FIRST NAME"' xpos='200' ypos='1050' />
 </true>
 <false>
-<if name='workflow' condition='process.forceWorkflow' xpos='470' ypos='1050' xend='470' yend='1750' >
+<assign name="LastName" property="context.LastName" value="request.GetValueAtPath(&quot;PID:5(1).1&quot;)" action="set" languageOverride="" xpos='470' ypos='1050' />
+<trace name='last name' value='"LastName:"_context.LastName' xpos='470' ypos='1150' />
+<if name='workflow' condition='process.forceWorkflow' xpos='470' ypos='1250' xend='470' yend='1950' >
 <annotation><![CDATA[contrôle si validation humaine est obligatoire]]></annotation>
 <true>
-<call name='contrôle gender' target='get gender' async='0' xpos='470' ypos='1200' >
+<call name='contrôle gender' target='get gender' async='0' xpos='470' ypos='1400' >
 <request type='HTTP.msg.genderRequest' >
 <assign property="callrequest" value="context.genderRequest" action="set" languageOverride="" />
 </request>
@@ -69,11 +76,11 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 <assign property="context.genderResponse" value="callresponse" action="set" languageOverride="" />
 </response>
 </call>
-<trace name='workflow' value='"forced workflow " _ process.forceWorkflow' xpos='470' ypos='1300' />
-<call name='cellule identito-vigilance' target='cellule identito-vigilance' async='1' xpos='470' ypos='1400' >
+<trace name='workflow' value='"forced workflow " _ process.forceWorkflow' xpos='470' ypos='1500' />
+<call name='cellule identito-vigilance' target='cellule identito-vigilance' async='1' xpos='470' ypos='1600' >
 <request type='EnsLib.Workflow.TaskRequest' >
 <assign property="callrequest.%Actions" value="&quot;homme,femme,inconnu,ambigu,non applicable,autre&quot;" action="set" languageOverride="" />
-<assign property="callrequest.%Subject" value="&quot;valider genre de &quot;_context.genderRequest.firstName _ &quot; probabilité retournée par https://api.genderize.io/ = &quot; _context.genderResponse.probability _ &quot; pour que ce soit du genre &quot; _ context.genderResponse.gender" action="set" languageOverride="" />
+<assign property="callrequest.%Subject" value="&quot;valider genre de &quot;_context.genderRequest.firstName _ &quot; &quot; _context.LastName _&quot;  NB: probabilité retournée par https://api.genderize.io/ = &quot; _context.genderResponse.probability _ &quot; pour que ce soit du genre &quot; _ context.genderResponse.gender" action="set" languageOverride="" />
 <assign property="callrequest.%UserName" value="&quot;Virgile&quot;" action="set" languageOverride="" />
 </request>
 <response type='EnsLib.Workflow.TaskResponse' >
@@ -81,11 +88,11 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 <assign property="context.genderResponse.gender" value="callresponse.%Action" action="set" languageOverride="" />
 </response>
 </call>
-<sync name='cellule identito-vigilance' calls='cellule identito-vigilance' type='all' xpos='470' ypos='1500' />
+<sync name='cellule identito-vigilance' calls='cellule identito-vigilance' type='all' xpos='470' ypos='1700' />
 </true>
 <false>
-<scope xpos='740' ypos='1200' xend='740' yend='1550' >
-<call name='check gender' target='get gender' async='0' xpos='740' ypos='1300' >
+<scope xpos='740' ypos='1400' xend='740' yend='1750' >
+<call name='check gender' target='get gender' async='0' xpos='740' ypos='1500' >
 <request type='HTTP.msg.genderRequest' >
 <assign property="callrequest" value="context.genderRequest" action="set" languageOverride="" />
 </request>
@@ -94,7 +101,7 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 </response>
 </call>
 <faulthandlers>
-<catchall xpos='740' ypos='1400' xend='200' yend='1100' >
+<catchall xpos='740' ypos='1600' xend='200' yend='1100' >
 <trace name='LastError' value='"%LastError "_$System.Status.GetErrorCodes(..%Context.%LastError)_" : "_$System.Status.GetOneStatusText(..%Context.%LastError)' xpos='200' ypos='250' />
 <assign name="HTTP Error" property="context.HTTPError" value="$System.Status.GetOneStatusText(..%Context.%LastError)" action="set" languageOverride="" xpos='200' ypos='350' />
 <switch name='HTTP Errors' xpos='200' ypos='450' xend='200' yend='1000' >
@@ -146,10 +153,10 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 </catchall>
 </faulthandlers>
 </scope>
-<trace name='gender' value='context.genderResponse.gender' xpos='740' ypos='1650' />
+<trace name='gender' value='context.genderResponse.gender' xpos='740' ypos='1850' />
 </false>
 </if>
-<call name='stock gender' target='store gender' async='0' xpos='470' ypos='1850' >
+<call name='stock gender' target='store gender' async='0' xpos='470' ypos='2050' >
 <request type='IRISHealth.msg.gender' >
 <assign property="callrequest.firstname" value="context.genderRequest.firstName" action="set" languageOverride="" />
 <assign property="callrequest.value" value="context.genderResponse.gender" action="set" languageOverride="" />
@@ -158,23 +165,23 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 <assign property="context.genderStored" value="callresponse" action="set" languageOverride="" />
 </response>
 </call>
-<switch name='message type' xpos='470' ypos='1950' xend='470' yend='2200' >
+<switch name='message type' xpos='470' ypos='2150' xend='470' yend='2400' >
 <case condition='request.DocType["SIU"' name='"SIU"' >
-<transform name='set gender to SIU' class='IRISHealth.transfo.setGenderSIU' source='request' target='context.HL7Msg' xpos='605' ypos='2100' />
+<transform name='set gender to SIU' class='IRISHealth.transfo.setGenderSIU' source='request' target='context.HL7Msg' xpos='605' ypos='2300' />
 </case>
 <case condition='request.DocType["ADT"' name='ADT' >
-<transform name='set gender to ADT' class='IRISHealth.transfo.setGenderADT' source='request' target='context.HL7Msg' xpos='875' ypos='2100' />
+<transform name='set gender to ADT' class='IRISHealth.transfo.setGenderADT' source='request' target='context.HL7Msg' xpos='875' ypos='2300' />
 </case>
 <case condition='request.DocType["ORM"' name='ORM' >
-<transform name='set gender to ORM' class='IRISHealth.transfo.setGenderORM' source='request' target='context.HL7Msg' xpos='1145' ypos='2100' />
+<transform name='set gender to ORM' class='IRISHealth.transfo.setGenderORM' source='request' target='context.HL7Msg' xpos='1145' ypos='2300' />
 </case>
 <case condition='request.DocType["MDM"' name='MDM' >
-<transform name='set gender to MDM' class='IRISHealth.transfo.setGenderMDM' source='request' target='context.HL7Msg' xpos='1415' ypos='2100' />
+<transform name='set gender to MDM' class='IRISHealth.transfo.setGenderMDM' source='request' target='context.HL7Msg' xpos='1415' ypos='2300' />
 </case>
 <default/>
 </switch>
-<assign name="response" property="response" value="context.HL7Msg" action="set" languageOverride="" xpos='470' ypos='2300' />
-<call name='HL7 Router' target='HL7v2 router' async='1' xpos='470' ypos='2400' >
+<assign name="response" property="response" value="context.HL7Msg" action="set" languageOverride="" xpos='470' ypos='2500' />
+<call name='HL7 Router' target='HL7v2 router' async='1' xpos='470' ypos='2600' >
 <request type='EnsLib.HL7.Message' >
 <assign property="callrequest" value="context.HL7Msg" action="set" languageOverride="" />
 </request>
