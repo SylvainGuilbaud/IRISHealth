@@ -45,10 +45,10 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 <transform name='get FirstName from ADT' class='IRISHealth.transfo.getFirstNameADT' source='request' target='context.genderRequest' xpos='605' ypos='600' />
 </case>
 <case condition='request.DocType["ORM"' name='ORM' >
-<transform name='get FirstName from ORM' class='IRISHealth.transfo.getFirstNameORM' source='request' target='context.genderRequest' xpos='998' ypos='597' />
+<transform name='get FirstName from ORM' class='IRISHealth.transfo.getFirstNameORM' source='request' target='context.genderRequest' xpos='875' ypos='600' />
 </case>
 <case condition='request.DocType["MDM"' name='MDM' >
-<transform name='get FirstName from MDM' class='IRISHealth.transfo.getFirstNameMDM' source='request' target='context.genderRequest' xpos='1405' ypos='621' />
+<transform name='get FirstName from MDM' class='IRISHealth.transfo.getFirstNameMDM' source='request' target='context.genderRequest' xpos='1145' ypos='600' />
 </case>
 <default/>
 </switch>
@@ -61,12 +61,7 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 <if name='workflow' condition='process.forceWorkflow' xpos='470' ypos='1050' xend='470' yend='1750' >
 <annotation><![CDATA[contrôle si validation humaine est obligatoire]]></annotation>
 <true>
-<code languageOverride='python' xpos='470' ypos='1200' >
-<![CDATA[import pandas
-a=1
-]]>
-</code>
-<call name='contrôle gender' target='get gender' async='0' xpos='470' ypos='1300' >
+<call name='contrôle gender' target='get gender' async='0' xpos='470' ypos='1200' >
 <request type='HTTP.msg.genderRequest' >
 <assign property="callrequest" value="context.genderRequest" action="set" languageOverride="" />
 </request>
@@ -74,11 +69,11 @@ a=1
 <assign property="context.genderResponse" value="callresponse" action="set" languageOverride="" />
 </response>
 </call>
-<trace name='workflow' value='"forced workflow " _ process.forceWorkflow' xpos='470' ypos='1400' />
-<call name='cellule identito-vigilance' target='cellule identito-vigilance' async='1' xpos='470' ypos='1500' >
+<trace name='workflow' value='"forced workflow " _ process.forceWorkflow' xpos='470' ypos='1300' />
+<call name='cellule identito-vigilance' target='cellule identito-vigilance' async='1' xpos='470' ypos='1400' >
 <request type='EnsLib.Workflow.TaskRequest' >
 <assign property="callrequest.%Actions" value="&quot;homme,femme,inconnu,ambigu,non applicable,autre&quot;" action="set" languageOverride="" />
-<assign property="callrequest.%Subject" value="&quot;valider genre de &quot;_context.genderRequest.firstName" action="set" languageOverride="" />
+<assign property="callrequest.%Subject" value="&quot;valider genre de &quot;_context.genderRequest.firstName _ &quot; probabilité retournée par https://api.genderize.io/ = &quot; _context.genderResponse.probability _ &quot; pour que ce soit du genre &quot; _ context.genderResponse.gender" action="set" languageOverride="" />
 <assign property="callrequest.%UserName" value="&quot;Virgile&quot;" action="set" languageOverride="" />
 </request>
 <response type='EnsLib.Workflow.TaskResponse' >
@@ -86,7 +81,7 @@ a=1
 <assign property="context.genderResponse.gender" value="callresponse.%Action" action="set" languageOverride="" />
 </response>
 </call>
-<sync name='cellule identito-vigilance' calls='cellule identito-vigilance' type='all' xpos='470' ypos='1600' />
+<sync name='cellule identito-vigilance' calls='cellule identito-vigilance' type='all' xpos='470' ypos='1500' />
 </true>
 <false>
 <scope xpos='740' ypos='1200' xend='740' yend='1550' >

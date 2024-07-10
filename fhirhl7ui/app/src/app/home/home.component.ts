@@ -47,19 +47,19 @@ export class HomeComponent implements OnInit {
     }
 
     openProduction() {
-        this.window_open('http://' + this.ip + ':' + this.port + '/csp/healthshare/irisapp/EnsPortal.ProductionConfig.zen?$NAMESPACE=FHIRHL7V2DEMO&$NAMESPACE=FHIRHL7V2DEMO&IRISUserName=SuperUser&IRISPassword=password')
+        this.window_open('http://' + this.ip + ':' + this.port + '/csp/healthshare/irisapp/EnsPortal.ProductionConfig.zen?$NAMESPACE=IRISAPP&$NAMESPACE=IRISAPP&IRISUserName=SuperUser&IRISPassword=SYS')
     }
 
     openMessageTrace() {
-        this.window_open('http://' + this.ip + ':' + this.port + '/csp/healthshare/irisapp/EnsPortal.MessageViewer.zen?$NAMESPACE=FHIRHL7V2DEMO&IRISUserName=SuperUser&IRISPassword=password')
+        this.window_open('http://' + this.ip + ':' + this.port + '/csp/healthshare/irisapp/EnsPortal.MessageViewer.zen?$NAMESPACE=IRISAPP&IRISUserName=SuperUser&IRISPassword=SYS')
     }
 
     openTransformationIN() {
-        this.window_open('http://' + this.ip + ':' + this.port + '/csp/healthshare/irisapp/EnsPortal.DTLEditor.zen?DT=HS.Hub.Standalone.HL7.DTL.SubTransform.PD1ToSDA3.dtl&IRISUserName=SuperUser&IRISPassword=password')
+        this.window_open('http://' + this.ip + ':' + this.port + '/csp/healthshare/irisapp/EnsPortal.DTLEditor.zen?DT=HS.Hub.Standalone.HL7.DTL.SubTransform.PD1ToSDA3.dtl&IRISUserName=SuperUser&IRISPassword=SYS')
     }
 
     openTransformationOUT() {
-        this.window_open('http://' + this.ip + ':' + this.port + '/csp/healthshare/irisapp/EnsPortal.DTLEditor.zen?DT=HS.FHIR.DTL.SDA3.vR4.Patient.Patient.dtl&IRISUserName=SuperUser&IRISPassword=password')
+        this.window_open('http://' + this.ip + ':' + this.port + '/csp/healthshare/irisapp/EnsPortal.DTLEditor.zen?DT=HS.FHIR.DTL.SDA3.vR4.Patient.Patient.dtl&IRISUserName=SuperUser&IRISPassword=SYS')
     }
 
     openUX() {
@@ -67,7 +67,7 @@ export class HomeComponent implements OnInit {
     }
 
     openSQL() {
-        this.window_open('http://' + this.ip + ':' + this.port + '/csp/sys/exp/%25CSP.UI.SQL.QueryBuilderWindow.cls?$NAMESPACE=FHIRHL7V2DEMO&ClassFilter=&ColumnType=2&$ID1=SELECT%20%0A*%0AFROM HSFHIR_I0001_S.Patient&zenLaunch=1')
+        this.window_open('http://' + this.ip + ':' + this.port + '/csp/sys/exp/%25CSP.UI.SQL.QueryBuilderWindow.cls?$NAMESPACE=IRISAPP&ClassFilter=&ColumnType=2&$ID1=SELECT%20%0A*%0AFROM HSFHIR_I0001_S.Patient&zenLaunch=1')
     }
 
     // Open all windows
@@ -80,7 +80,7 @@ export class HomeComponent implements OnInit {
     }
 
     PDFConversion() {
-        this.window_open("http://localhost:28000/csp/sys/exp/%25CSP.UI.Portal.SQL.Home.zen?$NAMESPACE=FHIRHL7V2DEMO&$NAMESPACE=FHIRHL7V2DEMO")
+        this.window_open("http://localhost:28000/csp/sys/exp/%25CSP.UI.Portal.SQL.Home.zen?$NAMESPACE=IRISAPP&$NAMESPACE=IRISAPP")
     }
 
     selectChangeHandler(event: any) {

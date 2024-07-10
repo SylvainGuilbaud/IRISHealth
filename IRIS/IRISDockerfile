@@ -1,5 +1,6 @@
 ARG IMAGE=containers.intersystems.com/intersystems/irishealth-community:latest-em
 ARG IMAGE=containers.intersystems.com/intersystems/irishealth-ml-community:latest-em
+# ARG IMAGE=containers.intersystems.com/intersystems/irishealth-ml-community:latest-preview
 FROM $IMAGE as builder
 
 USER root
@@ -32,7 +33,6 @@ RUN apt update && apt install -y fontconfig xfonts-75dpi xfonts-base && rm -rf /
 
 USER ${ISC_PACKAGE_MGRUSER}  
 COPY .iris_init /home/irisowner/.iris_init
-
 WORKDIR /home/irisowner/dev
 
 #create Python env
@@ -55,12 +55,10 @@ COPY kernels/irispython/* /home/irisowner/.local/share/jupyter/kernels/irispytho
 # Install objectscript kernel
 RUN mkdir /home/irisowner/.local/share/jupyter/kernels/objectscript
 COPY kernels/objectscript/* /home/irisowner/.local/share/jupyter/kernels/objectscript/
-COPY entrypoint.sh entrypoint.sh
 # Install Native API
 # For now Native API wheel is not embedded in container
 # COPY python/intersystems_iris-3.5.0-py3-none-any.whl /usr/irissys/dev/python/intersystems_iris-3.5.0-py3-none-any.whl
 # RUN pip3 install /usr/irissys/dev/python/intersystems_iris-3.5.0-py3-none-any.whl
-
 
 RUN --mount=type=bind,src=.,dst=. \
     pip3 install -r requirements.txt && \
@@ -75,6 +73,7 @@ ADD --chown=${ISC_PACKAGE_MGRUSER}:${ISC_PACKAGE_IRISGROUP} https://github.com/g
 
 RUN --mount=type=bind,source=/,target=/builder/root,from=builder \
     cp -f /builder/root/usr/irissys/iris.cpf /usr/irissys/iris.cpf && \
-    python3 /home/irisowner/dev/copy-data.py -c /usr/irissys/iris.cpf -d /builder/root/
+    python3 /home/irisowner/dev/copy-data.py -c /usr/irissys/iris.cpf -d /builder/root/ 
 
+COPY entrypoint.sh /home/irisowner/dev/entrypoint.sh
 ENTRYPOINT [ "/tini", "--", "/home/irisowner/dev/entrypoint.sh" ]

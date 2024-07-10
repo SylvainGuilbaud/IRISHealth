@@ -4,3 +4,7 @@
 volumes
 **/out
 data/LabResult/pdf
+**/IRIS.DAT
+**/iris.lck
+
+

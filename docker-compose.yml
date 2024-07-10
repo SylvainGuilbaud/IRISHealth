@@ -2,7 +2,7 @@ services:
   iris:
     build:
       context: ./IRIS
-      dockerfile: Dockerfile
+      dockerfile: IRISDockerfile
     init: true
     container_name: ${CONTAINER_NAME}
     hostname: ${CONTAINER_NAME}
@@ -19,6 +19,7 @@ services:
     # command: -a /IRIS/configure.sh
     environment:
       - ISC_DATA_DIRECTORY=/volumes/IRIS
+      - TINI_SUBREAPER=1
       # - ISC_CPF_MERGE_FILE=/IRIS/mirrorPrimary.conf
     ports:
       - 29720:1972
