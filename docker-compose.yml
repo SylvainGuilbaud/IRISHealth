@@ -16,6 +16,8 @@ services:
     - type: bind
       source: ./volumes
       target: /volumes
+    - "/etc/timezone:/etc/timezone:ro"
+    - "/etc/localtime:/etc/localtime:ro"
     # command: -a /IRIS/configure.sh
     environment:
       - ISC_DATA_DIRECTORY=/volumes/IRIS

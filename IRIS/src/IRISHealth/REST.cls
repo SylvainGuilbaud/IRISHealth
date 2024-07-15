@@ -264,7 +264,7 @@ ClassMethod GetJSONFromRequest(ByRef obj As %DynamicObject) As %Boolean
 ClassMethod readAll(classname As %String) As %Status
 {
     set sc = $$$OK
-    while $Get(^WAIT,1){hang 2}  
+    #; while $Get(^WAIT,1){hang 2}  
     set %response.ContentType = ..#CONTENTTYPEJSON
     set json = {}
     Try {
