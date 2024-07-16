@@ -377,6 +377,7 @@ ClassMethod SendFileContent() As %Status
     
     Set result={}
     do result.%Set("Status",$s($$$ISERR(status):$system.Status.GetOneErrorText(status),1:"OK"))
+    set result.ts=($zdt($h,3))
     write result.%ToJSON()
     return $$$OK
 }
