@@ -20,7 +20,7 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 <sequence xend='200' yend='1300' >
 <transform name='get FirstName' class='HL7v2toKafka.transfo.getFirstName' source='request' target='context.genderRequest' xpos='200' ypos='250' />
 <trace name='first name' value='context.genderRequest.firstName' xpos='200' ypos='350' />
-<call name='check gender' target='get gender' async='0' xpos='200' ypos='450' >
+<call name='check gender' target='api.genderize.io' async='0' xpos='200' ypos='450' >
 <request type='HTTP.msg.genderRequest' >
 <assign property="callrequest" value="context.genderRequest" action="set" languageOverride="" />
 </request>

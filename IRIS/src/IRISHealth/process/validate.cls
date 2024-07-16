@@ -68,7 +68,7 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 <if name='workflow' condition='process.forceWorkflow' xpos='470' ypos='1250' xend='470' yend='1950' >
 <annotation><![CDATA[contrôle si validation humaine est obligatoire]]></annotation>
 <true>
-<call name='contrôle gender' target='get gender' async='0' xpos='470' ypos='1400' >
+<call name='contrôle gender' target='api.genderize.io' async='0' xpos='470' ypos='1400' >
 <request type='HTTP.msg.genderRequest' >
 <assign property="callrequest" value="context.genderRequest" action="set" languageOverride="" />
 </request>
@@ -92,7 +92,7 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 </true>
 <false>
 <scope xpos='740' ypos='1400' xend='740' yend='1750' >
-<call name='check gender' target='get gender' async='0' xpos='740' ypos='1500' >
+<call name='check gender' target='api.genderize.io' async='0' xpos='740' ypos='1500' >
 <request type='HTTP.msg.genderRequest' >
 <assign property="callrequest" value="context.genderRequest" action="set" languageOverride="" />
 </request>

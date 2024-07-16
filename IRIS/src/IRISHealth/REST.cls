@@ -20,10 +20,15 @@ XData UrlMap [ XMLNamespace = "http://www.intersystems.com/urlmap" ]
 <Route Url="/api/:classname/:id" Method="DELETE" Call="delete"/>
 <Route Url="/sendfile" Method="POST" Call="SendFileContent" Cors="true"/>
 <Route Url="/fhir/r4/Patient" Method="POST" Call="FHIRPOST" Cors="true"/>
-<Route Url="/fhir/r4/Patient/:id" Method="GET" Call="FHIRGET" Cors="true"/>
+<Route Url="/fhir/r4/Patient/:id" Method="GET" Call="FHIRGETPATIENT" Cors="true"/>
+<Route Url="/fhir/r4/Everything/:id" Method="GET" Call="FHIRGETEVERYTHING" Cors="true"/>
+
 <Route Url="/fhir/r4/Patient/:id" Method="DELETE" Call="FHIRDELETE" Cors="true"/>
 <Route Url="/fhir/r4/Patient/:id" Method="PUT" Call="FHIRPUT" Cors="true"/>
 
+<Route Url="/fhir/r4/Observation/:id" Method="GET" Call="FHIROBSERVATION" Cors="true"/>
+
+<Route Url="/fhir/r4/Bundle" Method="POST" Call="FHIRBUNDLE" Cors="true" />
 
 <Route Url="/list/:classname" Method="GET" Call="list" Cors="true"/>
 <Route Url="/_spec" Method="GET" Call="spec" />
@@ -31,7 +36,37 @@ XData UrlMap [ XMLNamespace = "http://www.intersystems.com/urlmap" ]
 }
 
 /// Description
-ClassMethod FHIRGET(id As %String) As %Status
+ClassMethod FHIRBUNDLE() As %Status
+{
+    Set sc = $$$OK
+    set %response.ContentType = ..#CONTENTTYPEJSON
+    set json = {}
+
+        try{
+	
+        #dim request as %Net.HttpRequest
+        set request = ##class(%Net.HttpRequest).%New()
+        set request.Server = "IRISHealth"
+        set request.ContentType = "application/fhir+json; charset=UTF-8"
+        do request.SetHeader("Accept","*/*")
+        set request.Port = 52773
+        do request.EntityBody.CopyFrom(%request.Content)
+
+	    set st = request.Post("/irisapp/fhir/r4/Bundle")
+        if ($$$ISERR(st)) {
+            throw ##class(%Exception.StatusException).CreateFromStatus(st)
+        }
+	    set json.Status = request.HttpResponse.StatusCode
+        write json.%ToJSON()
+      
+	} catch exp{
+		set sc = exp.AsStatus()
+	}
+    Return sc
+}
+
+/// Description
+ClassMethod FHIRGETPATIENT(id As %String) As %Status
 {
     Set sc = $$$OK
     set %response.ContentType = ..#CONTENTTYPEJSON
@@ -58,6 +93,60 @@ ClassMethod FHIRGET(id As %String) As %Status
     Return sc
 }
 
+ClassMethod FHIRGETEVERYTHING(id As %String) As %Status
+{
+    Set sc = $$$OK
+    set %response.ContentType = ..#CONTENTTYPEJSON
+    set json = {}
+        try{
+	
+        #dim request as %Net.HttpRequest
+        set request = ##class(%Net.HttpRequest).%New()
+        set request.Server = "IRISHealth"
+        set request.ContentType = "application/fhir+json; charset=UTF-8"
+        do request.SetHeader("Accept","*/*")
+        set request.Port = 52773
+
+	    set st = request.Get("/irisapp/fhir/r4/Patient/" _ id _ "/$everything")
+        if ($$$ISERR(st)) {
+            throw ##class(%Exception.StatusException).CreateFromStatus(st)
+        }
+	    set json = {}.%FromJSON(request.HttpResponse.Data)
+        write json.%ToJSON()
+      
+	} catch exp{
+		set sc = exp.AsStatus()
+	}
+    Return sc
+}
+
+ClassMethod FHIROBSERVATION(id As %String) As %Status
+{
+    Set sc = $$$OK
+    set %response.ContentType = ..#CONTENTTYPEJSON
+    set json = {}
+        try{
+	
+        #dim request as %Net.HttpRequest
+        set request = ##class(%Net.HttpRequest).%New()
+        set request.Server = "IRISHealth"
+        set request.ContentType = "application/fhir+json; charset=UTF-8"
+        do request.SetHeader("Accept","*/*")
+        set request.Port = 52773
+        /* GET [base]/Observation?patient=[patient_id] */
+	    set st = request.Get("/irisapp/fhir/r4/Observation?patient=" _ id)
+        if ($$$ISERR(st)) {
+            throw ##class(%Exception.StatusException).CreateFromStatus(st)
+        }
+	    set json = {}.%FromJSON(request.HttpResponse.Data)
+        write json.%ToJSON()
+      
+	} catch exp{
+		set sc = exp.AsStatus()
+	}
+    Return sc
+}
+
 ClassMethod FHIRDELETE(id As %String) As %Status
 {
     Set sc = $$$OK
@@ -72,7 +161,47 @@ ClassMethod FHIRDELETE(id As %String) As %Status
         do request.SetHeader("Accept","*/*")
         set request.Port = 52773
 
-	    set st = request.Delete("/irisapp/fhir/r4/Patient/" _ id)
+
+        // DELETE [base]/$bulk-delete?_type=Observation,AllergyIntolerance&subject=Patient/[patient-id]
+        /* set st = request.Delete("/irisapp/fhir/r4/Patient/" _ id _ "/$purge") */
+        /* set st = request.Delete("/irisapp/fhir/r4/$bulk-delete?_type=Observation,AllergyIntolerance,Immunization,DiagnosticReport,Procedure&subject=Patient/" _ id) */
+        /* set bundle = {}
+        
+        set bundle."resourceType" =  "Bundle"
+        set bundle."type" =  "transaction"
+        set bundle."entry" =  []
+
+        for resourceType = "Observation","Encounter","Patient" {
+            set resource = {}
+            set resource."request" = {}
+            set resource."request"."method" = "DELETE"
+            set resource."request"."url" = resourceType _ "?subject=Patient/" _ (id)
+            do bundle."entry".%Push(resource)
+        }
+        
+        do request.EntityBody.Write(bundle.%ToJSON())
+        set st = request.Post("/irisapp/fhir/r4/") */
+
+
+        set json.delete=[]
+        set url = "/irisapp/fhir/r4/Patient/" _ id
+        set st = request.Delete(url)
+        set delete = {}
+        set delete.url = url
+        set delete.Status = request.HttpResponse.StatusCode
+        do json.delete.%Push(delete)
+ 
+        for resourceType = "Observation","Encounter","Procedure","DiagnosticReport","Claim","ExplanationOfBenefit","Immunization","MedicationRequest","CarePlan" {
+            set url = "/irisapp/fhir/r4/" _ resourceType _"?patient=" _ id
+            set st = request.Delete(url)
+             set delete = {}
+            set delete.url = url
+            set delete.Status = request.HttpResponse.StatusCode
+            do json.delete.%Push(delete)
+        }
+
+        /* write bundle.%ToJSON() */
+
         if ($$$ISERR(st)) {
             throw ##class(%Exception.StatusException).CreateFromStatus(st)
         }
@@ -80,7 +209,9 @@ ClassMethod FHIRDELETE(id As %String) As %Status
         write json.%ToJSON()
       
 	} catch exp{
+        
 		set sc = exp.AsStatus()
+        
 	}
     Return sc
 }

@@ -50,15 +50,8 @@ XData ProductionDefinition
   <Item Name="target IRIS Surg SQL" Category="SQL,Kafka" ClassName="EnsLib.SQL.Operation.GenericOperation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
     <Setting Target="Adapter" Name="StayConnected">5</Setting>
   </Item>
-  <Item Name="get gender" Category="transfo + traitements" ClassName="HTTP.operation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
-    <Setting Target="Adapter" Name="HTTPServer">api.genderize.io</Setting>
-    <Setting Target="Adapter" Name="SSLConfig">API</Setting>
-    <Setting Target="Adapter" Name="URL">/a</Setting>
-    <Setting Target="Adapter" Name="SSLCheckServerIdentity">0</Setting>
-    <Setting Target="Host" Name="ArchiveIO">1</Setting>
-  </Item>
   <Item Name="validate" Category="HL7,transfo + traitements" ClassName="IRISHealth.process.validate" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
-    <Setting Target="Host" Name="forceWorkflow">0</Setting>
+    <Setting Target="Host" Name="forceWorkflow">1</Setting>
   </Item>
   <Item Name="store gender" Category="SQL,transfo + traitements" ClassName="EnsLib.SQL.Operation.GenericOperation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
     <Setting Target="Host" Name="RequestClass">IRISHealth.msg.gender</Setting>
@@ -68,7 +61,7 @@ XData ProductionDefinition
   <Item Name="source HL7 FILE validate" Category="HL7" ClassName="EnsLib.HL7.Service.FileService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
     <Setting Target="Adapter" Name="FileSpec">*.hl7</Setting>
     <Setting Target="Host" Name="TargetConfigNames">validate</Setting>
-    <Setting Target="Host" Name="MessageSchemaCategory">2.3.1,MDM_*=2.5,ORM_*=2.5</Setting>
+    <Setting Target="Host" Name="MessageSchemaCategory">2.5.1,MDM_*=2.5,ORM_*=2.5</Setting>
   </Item>
   <Item Name="Ens.Activity.Operation.Local" Category="" ClassName="Ens.Activity.Operation.Local" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
   </Item>
@@ -175,10 +168,23 @@ XData ProductionDefinition
   <Item Name="Alertes de nuit" Category="" ClassName="EnsLib.EMail.AlertOperation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
   </Item>
   <Item Name="source Portail Santé" Category="Demo" ClassName="FHIRDemo.Service.POSTService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
-    <Setting Target="Host" Name="MessageSchemaCategory">2.3.1</Setting>
+    <Setting Target="Host" Name="MessageSchemaCategory">2.5.1</Setting>
     <Setting Target="Host" Name="TargetConfigNames">HL7v2toSDA</Setting>
   </Item>
   <Item Name="HPRIMtoHL7v2" Category="" ClassName="IRISHealth.process.HPRIMtoHL7v2" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  </Item>
+  <Item Name="source CSV FILE" Category="" ClassName="EnsLib.File.PassthroughService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+    <Setting Target="Adapter" Name="ArchivePath">/data/CSV/archive/</Setting>
+    <Setting Target="Adapter" Name="FilePath">/data/CSV/in/</Setting>
+    <Setting Target="Adapter" Name="FileSpec">*.csv</Setting>
+    <Setting Target="Adapter" Name="WorkPath">/data/CSV/work/</Setting>
+  </Item>
+  <Item Name="api.genderize.io" Category="transfo + traitements" ClassName="HTTP.operation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
+    <Setting Target="Adapter" Name="HTTPServer">api.genderize.io</Setting>
+    <Setting Target="Adapter" Name="SSLConfig">API</Setting>
+    <Setting Target="Adapter" Name="URL">/</Setting>
+    <Setting Target="Adapter" Name="SSLCheckServerIdentity">0</Setting>
+    <Setting Target="Host" Name="ArchiveIO">1</Setting>
   </Item>
 </Production>
 }

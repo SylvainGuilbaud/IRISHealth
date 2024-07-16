@@ -1,0 +1,570 @@
+{
+  "resourceType": "Bundle",
+  "type": "transaction",
+  "entry": [
+    {
+      "request": { "method": "POST", "url": "Organization" },
+      "fullUrl": "urn:uuid:7c4849ac-42c1-11ef-89da-0242ac1a0004",
+      "resource": {
+        "resourceType": "Organization",
+        "identifier": [{ "value": "MCM" }]
+      }
+    },
+    {
+      "request": { "method": "POST", "url": "Organization" },
+      "fullUrl": "urn:uuid:7c485899-42c1-11ef-89da-0242ac1a0004",
+      "resource": {
+        "resourceType": "Organization",
+        "identifier": [{ "value": "GENHOSP" }]
+      }
+    },
+    {
+      "request": { "method": "POST", "url": "RelatedPerson" },
+      "fullUrl": "urn:uuid:7c488c12-42c1-11ef-89da-0242ac1a0004",
+      "resource": {
+        "resourceType": "RelatedPerson",
+        "extension": [
+          {
+            "url": "http://intersystems.com/fhir/extn/sda3/lib/support-contact-relationship",
+            "valueCodeableConcept": { "coding": [{ "code": "EPOUSE" }] }
+          }
+        ],
+        "name": [
+          { "family": "DUPONT", "given": ["MARIE"], "text": "MARIE DUPONT" }
+        ],
+        "patient": { "reference": "Patient/14067590" }
+      }
+    },
+    {
+      "request": { "method": "PUT", "url": "Patient/14067590" },
+      "fullUrl": "Patient/14067590",
+      "resource": {
+        "resourceType": "Patient",
+        "address": [
+          {
+            "city": "PARIS",
+            "line": ["10 Rue du Louvre"],
+            "postalCode": "75001",
+            "state": "75"
+          }
+        ],
+        "birthDate": "1935-10-08",
+        "communication": [
+          {
+            "language": { "coding": [{ "code": "FRENCH" }] },
+            "preferred": true
+          }
+        ],
+        "contact": [
+          {
+            "extension": [
+              {
+                "url": "http://intersystems.com/fhir/extn/sda3/lib/support-contact-relationship",
+                "valueCodeableConcept": { "coding": [{ "code": "EPOUSE" }] }
+              }
+            ],
+            "name": {
+              "family": "DUPONT",
+              "given": ["MARIE"],
+              "text": "MARIE DUPONT"
+            }
+          }
+        ],
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/patient-religion",
+            "valueCodeableConcept": { "coding": [{ "code": "C" }] }
+          }
+        ],
+        "gender": "female",
+        "identifier": [
+          {
+            "assigner": {
+              "reference": "urn:uuid:7c485899-42c1-11ef-89da-0242ac1a0004"
+            },
+            "extension": [
+              {
+                "url": "http://intersystems.com/fhir/extn/sda3/lib/patient-number-i-s-o-assigning-authority",
+                "valueString": "GENHOSP"
+              }
+            ],
+            "value": "14067590"
+          },
+          {
+            "assigner": {
+              "reference": "urn:uuid:7c4849ac-42c1-11ef-89da-0242ac1a0004"
+            },
+            "value": "253763"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "code": "SB",
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203"
+                }
+              ],
+              "text": "SSN"
+            },
+            "value": "135107599867839956"
+          }
+        ],
+        "link": [
+          {
+            "other": {
+              "reference": "urn:uuid:7c488c12-42c1-11ef-89da-0242ac1a0004"
+            },
+            "type": "seealso"
+          }
+        ],
+        "managingOrganization": {
+          "reference": "urn:uuid:7c4849ac-42c1-11ef-89da-0242ac1a0004"
+        },
+        "maritalStatus": {
+          "coding": [
+            {
+              "code": "U",
+              "system": "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus"
+            }
+          ]
+        },
+        "name": [
+          {
+            "family": "SAINT-SAENS",
+            "given": ["Camille", "A"],
+            "text": "Camille A SAINT-SAENS",
+            "use": "official"
+          }
+        ],
+        "telecom": [
+          { "system": "phone", "use": "home", "value": "(01)543326670" },
+          { "system": "phone", "use": "work", "value": "(06)665543209" }
+        ],
+        "id": "14067590"
+      }
+    },
+    {
+      "request": { "method": "POST", "url": "AllergyIntolerance" },
+      "fullUrl": "urn:uuid:7c48e8b7-42c1-11ef-89da-0242ac1a0004",
+      "resource": {
+        "resourceType": "AllergyIntolerance",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active",
+              "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical"
+            }
+          ]
+        },
+        "code": { "coding": [{ "display": "AMOXICILLINE" }] },
+        "extension": [
+          {
+            "url": "http://intersystems.com/fhir/extn/sda3/lib/allergy-entered-at",
+            "valueReference": {
+              "reference": "urn:uuid:7c4849ac-42c1-11ef-89da-0242ac1a0004"
+            }
+          }
+        ],
+        "patient": { "reference": "Patient/14067590" },
+        "reaction": [
+          { "manifestation": [{ "coding": [{ "code": "URTICAIRE" }] }] }
+        ]
+      }
+    },
+    {
+      "request": { "method": "POST", "url": "AllergyIntolerance" },
+      "fullUrl": "urn:uuid:7c491321-42c1-11ef-89da-0242ac1a0004",
+      "resource": {
+        "resourceType": "AllergyIntolerance",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active",
+              "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical"
+            }
+          ]
+        },
+        "code": { "coding": [{ "display": "ASPIRINE" }] },
+        "extension": [
+          {
+            "url": "http://intersystems.com/fhir/extn/sda3/lib/allergy-entered-at",
+            "valueReference": {
+              "reference": "urn:uuid:7c4849ac-42c1-11ef-89da-0242ac1a0004"
+            }
+          }
+        ],
+        "patient": { "reference": "Patient/14067590" },
+        "reaction": [
+          { "manifestation": [{ "coding": [{ "code": "OEDEME DE QUINCKE" }] }] }
+        ]
+      }
+    },
+    {
+      "request": { "method": "POST", "url": "AllergyIntolerance" },
+      "fullUrl": "urn:uuid:7c494418-42c1-11ef-89da-0242ac1a0004",
+      "resource": {
+        "resourceType": "AllergyIntolerance",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active",
+              "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical"
+            }
+          ]
+        },
+        "code": { "coding": [{ "display": "ARACHIDES" }] },
+        "extension": [
+          {
+            "url": "http://intersystems.com/fhir/extn/sda3/lib/allergy-entered-at",
+            "valueReference": {
+              "reference": "urn:uuid:7c4849ac-42c1-11ef-89da-0242ac1a0004"
+            }
+          }
+        ],
+        "patient": { "reference": "Patient/14067590" },
+        "reaction": [
+          {
+            "manifestation": [{ "coding": [{ "code": "CHOC ANAPHYLACTIQUE" }] }]
+          }
+        ]
+      }
+    },
+    {
+      "request": { "method": "POST", "url": "Condition" },
+      "fullUrl": "urn:uuid:7c497645-42c1-11ef-89da-0242ac1a0004",
+      "resource": {
+        "resourceType": "Condition",
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "encounter-diagnosis",
+                "display": "Encounter Diagnosis",
+                "system": "http://terminology.hl7.org/CodeSystem/condition-category"
+              }
+            ],
+            "text": "Encounter Diagnosis"
+          },
+          { "coding": [{ "code": "A" }] }
+        ],
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active",
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "code": "I21.0",
+              "display": "Infarctus transmural aigu du myocarde, de la paroi antÃ©rieure"
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://intersystems.com/fhir/extn/sda3/lib/diagnosis-entered-at",
+            "valueReference": {
+              "reference": "urn:uuid:7c4849ac-42c1-11ef-89da-0242ac1a0004"
+            }
+          }
+        ],
+        "subject": { "reference": "Patient/14067590" }
+      }
+    },
+    {
+      "request": { "method": "POST", "url": "Condition" },
+      "fullUrl": "urn:uuid:7c49a2a4-42c1-11ef-89da-0242ac1a0004",
+      "resource": {
+        "resourceType": "Condition",
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "encounter-diagnosis",
+                "display": "Encounter Diagnosis",
+                "system": "http://terminology.hl7.org/CodeSystem/condition-category"
+              }
+            ],
+            "text": "Encounter Diagnosis"
+          },
+          { "coding": [{ "code": "C" }] }
+        ],
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active",
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            { "code": "I10", "display": "Hypertension essentielle (primitive)" }
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://intersystems.com/fhir/extn/sda3/lib/diagnosis-entered-at",
+            "valueReference": {
+              "reference": "urn:uuid:7c4849ac-42c1-11ef-89da-0242ac1a0004"
+            }
+          }
+        ],
+        "subject": { "reference": "Patient/14067590" }
+      }
+    },
+    {
+      "request": { "method": "POST", "url": "Condition" },
+      "fullUrl": "urn:uuid:7c49f30e-42c1-11ef-89da-0242ac1a0004",
+      "resource": {
+        "resourceType": "Condition",
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "encounter-diagnosis",
+                "display": "Encounter Diagnosis",
+                "system": "http://terminology.hl7.org/CodeSystem/condition-category"
+              }
+            ],
+            "text": "Encounter Diagnosis"
+          },
+          { "coding": [{ "code": "C" }] }
+        ],
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active",
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "code": "E11.9",
+              "display": "DiabÃ¨te sucrÃ© de type 2 sans complication"
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://intersystems.com/fhir/extn/sda3/lib/diagnosis-entered-at",
+            "valueReference": {
+              "reference": "urn:uuid:7c4849ac-42c1-11ef-89da-0242ac1a0004"
+            }
+          }
+        ],
+        "subject": { "reference": "Patient/14067590" }
+      }
+    },
+    {
+      "request": { "method": "POST", "url": "Procedure" },
+      "fullUrl": "urn:uuid:7c4a1073-42c1-11ef-89da-0242ac1a0004",
+      "resource": {
+        "resourceType": "Procedure",
+        "code": {
+          "coding": [{ "code": "DDQH001", "display": "Coronarographie" }]
+        },
+        "extension": [
+          {
+            "url": "http://intersystems.com/fhir/extn/sda3/lib/procedure-entered-at",
+            "valueReference": {
+              "reference": "urn:uuid:7c4849ac-42c1-11ef-89da-0242ac1a0004"
+            }
+          }
+        ],
+        "status": "unknown",
+        "subject": { "reference": "Patient/14067590" }
+      }
+    },
+    {
+      "request": { "method": "POST", "url": "Observation" },
+      "fullUrl": "urn:uuid:7c4a2b8f-42c1-11ef-89da-0242ac1a0004",
+      "resource": {
+        "resourceType": "Observation",
+        "code": {
+          "coding": [{ "code": "21612-7", "display": "POIDS CORPOREL" }],
+          "extension": [
+            {
+              "url": "http://intersystems.com/fhir/extn/sda3/lib/code-table-detail-observation-observation-value-units",
+              "valueCodeableConcept": { "coding": [{ "code": "kg" }] }
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://intersystems.com/fhir/extn/sda3/lib/observation-observation-value-type",
+            "valueString": "NM"
+          }
+        ],
+        "status": "final",
+        "subject": { "reference": "Patient/14067590" },
+        "valueQuantity": {
+          "code": "kg",
+          "system": "http://unitsofmeasure.org",
+          "value": 70
+        }
+      }
+    },
+    {
+      "request": { "method": "POST", "url": "Observation" },
+      "fullUrl": "urn:uuid:7c4a48bc-42c1-11ef-89da-0242ac1a0004",
+      "resource": {
+        "resourceType": "Observation",
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "vital-signs",
+                "display": "Vital Signs",
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ],
+        "code": {
+          "coding": [{ "code": "8302-2", "display": "TAILLE" }],
+          "extension": [
+            {
+              "url": "http://intersystems.com/fhir/extn/sda3/lib/code-table-detail-observation-observation-value-units",
+              "valueCodeableConcept": { "coding": [{ "code": "cm" }] }
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://intersystems.com/fhir/extn/sda3/lib/observation-observation-value-type",
+            "valueString": "NM"
+          }
+        ],
+        "status": "final",
+        "subject": { "reference": "Patient/14067590" },
+        "valueQuantity": {
+          "code": "cm",
+          "system": "http://unitsofmeasure.org",
+          "value": 167
+        }
+      }
+    },
+    {
+      "request": { "method": "POST", "url": "Observation" },
+      "fullUrl": "urn:uuid:7c4a639d-42c1-11ef-89da-0242ac1a0004",
+      "resource": {
+        "resourceType": "Observation",
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "vital-signs",
+                "display": "Vital Signs",
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ],
+        "code": {
+          "coding": [
+            { "code": "8480-6", "display": "PRESSION ARTERIELLE SYSTOLIQUE" }
+          ],
+          "extension": [
+            {
+              "url": "http://intersystems.com/fhir/extn/sda3/lib/code-table-detail-observation-observation-value-units",
+              "valueCodeableConcept": { "coding": [{ "code": "mm[Hg]" }] }
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://intersystems.com/fhir/extn/sda3/lib/observation-observation-value-type",
+            "valueString": "NM"
+          }
+        ],
+        "status": "final",
+        "subject": { "reference": "Patient/14067590" },
+        "valueQuantity": {
+          "code": "mm[Hg]",
+          "system": "http://unitsofmeasure.org",
+          "value": 145
+        }
+      }
+    },
+    {
+      "request": { "method": "POST", "url": "Observation" },
+      "fullUrl": "urn:uuid:7c4a7e9f-42c1-11ef-89da-0242ac1a0004",
+      "resource": {
+        "resourceType": "Observation",
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "vital-signs",
+                "display": "Vital Signs",
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ],
+        "code": {
+          "coding": [
+            { "code": "8462-4", "display": "PRESSION ARTERIELLE DIASTOLIQUE" }
+          ],
+          "extension": [
+            {
+              "url": "http://intersystems.com/fhir/extn/sda3/lib/code-table-detail-observation-observation-value-units",
+              "valueCodeableConcept": { "coding": [{ "code": "mm[Hg]" }] }
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://intersystems.com/fhir/extn/sda3/lib/observation-observation-value-type",
+            "valueString": "NM"
+          }
+        ],
+        "status": "final",
+        "subject": { "reference": "Patient/14067590" },
+        "valueQuantity": {
+          "code": "mm[Hg]",
+          "system": "http://unitsofmeasure.org",
+          "value": 80
+        }
+      }
+    },
+    {
+      "request": { "method": "POST", "url": "Observation" },
+      "fullUrl": "urn:uuid:7c4a9964-42c1-11ef-89da-0242ac1a0004",
+      "resource": {
+        "resourceType": "Observation",
+        "code": {
+          "coding": [{ "code": "2339-0", "display": "GLUCOSE SANGUIN" }],
+          "extension": [
+            {
+              "url": "http://intersystems.com/fhir/extn/sda3/lib/code-table-detail-observation-observation-value-units",
+              "valueCodeableConcept": { "coding": [{ "code": "mmol/L" }] }
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://intersystems.com/fhir/extn/sda3/lib/observation-observation-value-type",
+            "valueString": "NM"
+          }
+        ],
+        "status": "final",
+        "subject": { "reference": "Patient/14067590" },
+        "valueQuantity": {
+          "code": "mmol/L",
+          "system": "http://unitsofmeasure.org",
+          "value": 6.2
+        }
+      }
+    }
+  ]
+}

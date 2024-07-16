@@ -48,5 +48,19 @@
         "dontExportIfNoChanges": false,
         "maxConcurrentConnections": 0,
         "mapped": true
-    }
+    },
+    "ipm.repositories": [
+        {
+            "name":"Public IPM",
+            "url":"https://pm.community.intersystems.com"
+        },
+        {
+            "name":"Internal Packages",
+            "url":"https://[insert private repo here]"
+        },
+        {
+            "name":"Test Packages",
+            "url":"https://[insert private repo here]"
+        }
+    ]
 }
