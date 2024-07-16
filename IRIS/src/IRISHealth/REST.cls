@@ -357,6 +357,7 @@ ClassMethod list(classname As %String) As %Status
 
 ClassMethod SendFileContent() As %Status
 {
+    set %response.ContentType="application/json"
     If '..GetJSONFromRequest(.obj) {
         Set %response.Status = ..#HTTP400BADREQUEST
         Set error = {"errormessage": "JSON not found"}
