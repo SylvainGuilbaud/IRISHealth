@@ -111,6 +111,7 @@
 
     do ##class(community.csvgen).Generate("/home/irisowner/dev/data/csv/titanic.csv",,"data.TitanicPassenger")
 
-
+    Set ^Ens.Debug("UtilEnsMessages","sql")=1
+    
     zpm "load /home/irisowner/dev/ -dev -v":1:1
     halt
