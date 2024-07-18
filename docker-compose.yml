@@ -30,18 +30,18 @@ services:
       - 24040:8080
       # - 4041:8081
       - 28888:8888
-  # notebook:
-  #   container_name: ${CONTAINER_NAME}-notebook
-  #   # build: 
-  #   #   context: notebook
-  #   image: jupyter-notebook
-  #   ports:
-  #     - "28001:8888"
-  #   volumes:
-  #     - ./notebook/Notebooks:/Notebooks
-  #   command: "start-notebook.sh --NotebookApp.token='' --NotebookApp.password='' --notebook-dir=/Notebooks"
-  #   environment:
-  #     - IRISINSTALLDIR='/usr/irissys'
+  notebook:
+    container_name: ${CONTAINER_NAME}-notebook
+    # build: 
+    #   context: notebook
+    image: jupyter-notebook
+    ports:
+      - "28001:8888"
+    volumes:
+      - ./notebook/Notebooks:/Notebooks
+    command: "start-notebook.sh --NotebookApp.token='' --NotebookApp.password='' --notebook-dir=/Notebooks"
+    environment:
+      - IRISINSTALLDIR='/usr/irissys'
   angular:
     init: true
     container_name: ${CONTAINER_NAME}-workflow-ui
