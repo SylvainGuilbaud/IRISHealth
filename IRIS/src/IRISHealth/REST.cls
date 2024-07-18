@@ -184,7 +184,13 @@ ClassMethod FHIRDELETE(id As %String) As %Status
 
 
         set json.delete=[]
-      
+        set url = "/irisapp/fhir/r4/Patient/" _ id _ "?_hardDelete=true"
+        set st = request.Delete(url)
+        set delete = {}
+        set delete.url = url
+        set delete.Status = request.HttpResponse.StatusCode
+        set delete.date=$zdt($now(-120),3,,6)
+        do json.delete.%Push(delete)
         for resourceType = "Observation","Encounter","Procedure","DiagnosticReport","Claim","ExplanationOfBenefit","Immunization","MedicationRequest","CarePlan" {
             set url = "/irisapp/fhir/r4/" _ resourceType _"?patient=" _ id
             set st = request.Delete(url)

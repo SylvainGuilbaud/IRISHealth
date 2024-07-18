@@ -186,6 +186,14 @@ XData ProductionDefinition
     <Setting Target="Adapter" Name="SSLCheckServerIdentity">0</Setting>
     <Setting Target="Host" Name="ArchiveIO">1</Setting>
   </Item>
+  <Item Name="BloodPressurePlan" Category="" ClassName="Workflow.BP.BloodPressurePlan" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  </Item>
+    <Item Name="ManualBloodPressureRole" Category="" ClassName="EnsLib.Workflow.Operation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+    <Setting Target="Host" Name="AutoCreateRole">0</Setting>
+  </Item>
+  <Item Name="AutomaticBloodPressureRole" Category="" ClassName="EnsLib.Workflow.Operation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+    <Setting Target="Host" Name="AutoCreateRole">0</Setting>
+  </Item>
 </Production>
 }
 
