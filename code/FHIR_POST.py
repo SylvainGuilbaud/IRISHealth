@@ -2,7 +2,7 @@ import requests
 import json
 
 # URL du serveur FHIR
-fhir_server_url = "https://host.docker.internal:28001/irisapp/fhir/r4"
+fhir_server_url = "http://localhost:28001/irisapp/fhir/r4"
 
 # Données du patient à créer
 patient_data = {

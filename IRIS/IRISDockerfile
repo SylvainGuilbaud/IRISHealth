@@ -1,7 +1,7 @@
 ARG IMAGE=containers.intersystems.com/intersystems/irishealth-community:latest-em
 ARG IMAGE=containers.intersystems.com/intersystems/irishealth-ml-community:latest-em
 # ARG IMAGE=containers.intersystems.com/intersystems/irishealth-ml-community:latest-preview
-FROM $IMAGE as builder
+FROM $IMAGE AS builder
 
 USER root
 
@@ -67,7 +67,7 @@ RUN --mount=type=bind,src=.,dst=. \
 	iris session IRIS < iris.script && \
     iris stop IRIS quietly 
 
-FROM $IMAGE as final
+FROM $IMAGE AS final
 ADD --chown=${ISC_PACKAGE_MGRUSER}:${ISC_PACKAGE_IRISGROUP} https://github.com/grongierisc/iris-docker-multi-stage-script/releases/latest/download/copy-data.py /home/irisowner/dev/copy-data.py
 #ADD https://github.com/grongierisc/iris-docker-multi-stage-script/releases/latest/download/copy-data.py /home/irisowner/dev/copy-data.py
 

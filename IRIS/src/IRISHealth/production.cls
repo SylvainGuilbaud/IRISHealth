@@ -7,6 +7,16 @@ ClassMethod OnStart(pTimeStarted As %String) As %Status
   #; do ##class(%File).CopyDir("/data/HL7/test","/data/HL7/validate",1)
   do ##class(Ens.Util.Statistics).EnableStatsForProduction()
   do ##class(Ens.Util.Statistics).EnableSAMForNamespace()
+  set ^%ISCLOG=5
+  for i=1:1:5 {
+    set level = i
+    set category="start"
+    set message= level_"-Production Started SYSLOG"
+    set data=level_"-data:"_$zdt($h,3)
+    $$$SysLog(level,category,message,data)
+
+  }
+
 	return $$$OK
 }
 
