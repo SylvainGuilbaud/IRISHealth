@@ -1,0 +1,299 @@
+{
+	"info": {
+		"_postman_id": "b09dbb25-a26f-4678-87a0-e2068d171ed4",
+		"name": "HealthHarbour",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3919834"
+	},
+	"item": [
+		{
+			"name": "Get user id by phone number",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"phone\": \"555-652-7843\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:32783/api/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "32783",
+					"path": [
+						"api",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get user data with all observations and care plans",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:32783/api/user/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "32783",
+					"path": [
+						"api",
+						"user",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save observations for tracking",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\": 3,\n    \"observations\": [\n        \"29463-7\",\n        \"39156-5\",\n        \"786-4\"\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:32783/api/observation",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "32783",
+					"path": [
+						"api",
+						"observation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get user's observations result",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:32783/api/observation/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "32783",
+					"path": [
+						"api",
+						"observation",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save care plans for tracking",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\": 3,\n    \"careplans\": [\n        \"443402002\",\n        \"698360004\"\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:32783/api/care-plan",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "32783",
+					"path": [
+						"api",
+						"care-plan"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get user's care plans",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:32783/api/care-plan/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "32783",
+					"path": [
+						"api",
+						"care-plan",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save goal",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"userId\": 3,\n  \"name\": \"meditation\",\n  \"isActive\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:32783/api/goal",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "32783",
+					"path": [
+						"api",
+						"goal"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get goals",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:32783/api/goal/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "32783",
+					"path": [
+						"api",
+						"goal",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Change the goal",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n  {\n    \"isActive\": true,\n    \"name\": \"10000 steps\",\n    \"goalId\": 1\n  }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:32783/api/goal",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "32783",
+					"path": [
+						"api",
+						"goal"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save daily progress",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"userId\": 3,\n  \"goals\": [\n    1\n  ],\n  \"date\": \"2024-01-26\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:32783/api/daily-goal",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "32783",
+					"path": [
+						"api",
+						"daily-goal"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get daily progress for the month",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:32783/api/daily-goal/3?dateFrom=2024-01-01&dateTo=2024-01-31",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "32783",
+					"path": [
+						"api",
+						"daily-goal",
+						"3"
+					],
+					"query": [
+						{
+							"key": "dateFrom",
+							"value": "2024-01-01"
+						},
+						{
+							"key": "dateTo",
+							"value": "2024-01-31"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

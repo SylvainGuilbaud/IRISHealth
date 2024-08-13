@@ -1,0 +1,99 @@
+{
+	"info": {
+		"_postman_id": "8c0cf77d-7bfd-4a5e-966d-cf9bc3b86275",
+		"name": "FHIR Adapter Copy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3919834"
+	},
+	"item": [
+		{
+			"name": "Add person",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/fhir+json;",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"resourceType\": \"Patient\",\r\n    \"address\": [\r\n        {\r\n            \"city\": \"SALAMANCA\",\r\n            \"line\": [\r\n                \"CALLE LAMENTOS 2 1ºA\"\r\n            ],\r\n            \"postalCode\": \"45021\"\r\n        }\r\n    ],\r\n    \"birthDate\": \"1988-01-23\",\r\n    \"gender\": \"F\",\r\n    \"identifier\": [\r\n        {\r\n            \"type\": {\r\n                \"text\": \"ID\"\r\n            },\r\n            \"value\": \"4\"\r\n        },\r\n        {\r\n            \"type\": {\r\n                \"text\": \"NHC\"\r\n            },\r\n            \"value\": \"803987\"\r\n        },\r\n        {\r\n            \"type\": {\r\n                \"text\": \"DNI\"\r\n            },\r\n            \"value\": \"87654321F\"\r\n        }\r\n    ],\r\n    \"name\": [\r\n        {\r\n            \"family\": \"SANZ LÓPEZ\",\r\n            \"given\": [\r\n                \"REBECA\"\r\n            ]\r\n        }\r\n    ],\r\n    \"telecom\": [\r\n        {\r\n            \"system\": \"phone\",\r\n            \"value\": \"699850017\"\r\n        },\r\n        {\r\n            \"system\": \"email\",\r\n            \"value\": \"rebek1988@hotmail.com\"\r\n        }\r\n    ]\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:52774/Adapter/r4/Patient",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "52774",
+					"path": [
+						"Adapter",
+						"r4",
+						"Patient"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search person",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:52774/Adapter/r4/Patient/65",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "52774",
+					"path": [
+						"Adapter",
+						"r4",
+						"Patient",
+						"65"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add person bundle",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/fhir+json;",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"resourceType\" : \"Bundle\",\r\n  \"id\" : \"bundle-transaction\",\r\n  \"meta\" : {\r\n    \"lastUpdated\" : \"2014-08-18T01:43:30Z\"\r\n  },\r\n  \"type\" : \"transaction\",\r\n  \"entry\" : [{\r\n      \"resource\" : {\r\n            \"resourceType\" :\"Organization\",\r\n            \"text\" : {\r\n              \"status\" : \"generated\",\r\n              \"div\" : \"<div xmlns=\\\"http://www.w3.org/1999/xhtml\\\"> Hospital Gómez Antracita (HGA), Paseo del Parnaso 21, 27043, Madrid </div>\"\r\n              },\r\n            \"identifier\" : [{\r\n                \"system\" : \"www.sns.es.gov\",\r\n                \"value\" : \"HGA\"\r\n                }],\r\n            \"name\": \"Hospital Gómez Antracita\",\r\n            \"address\": [\r\n                {\r\n                    \"city\": \"MADRID\",\r\n                    \"line\": [\r\n                        \"PASEO DEL PARNASO 21\"\r\n                        ],\r\n                    \"postalCode\": \"45021\",\r\n                    \"state\": \"MA\",\r\n                    \"country\": \"ES\"\r\n                }\r\n            ]\r\n        },\r\n        \"request\" : {\r\n        \"method\" : \"POST\",\r\n        \"url\" : \"Organization\"\r\n        }\r\n    },\r\n    {\r\n        \"resource\": {\r\n            \"resourceType\": \"Patient\",\r\n            \"text\" : {\r\n              \"status\" : \"generated\",\r\n              \"div\" : \"<div xmlns=\\\"http://www.w3.org/1999/xhtml\\\"> MIGUEL ARANDA FLORIDA BLANCA CALLE RUIBARBO 23, 1C 28569 MADRID </div>\"\r\n              },\r\n            \"address\": [\r\n                {\r\n                    \"city\": \"MADRID\",\r\n                    \"line\": [\r\n                        \"CALLE RUIBARBO 23, 1C\"\r\n                    ],\r\n                    \"postalCode\": \"28099\"\r\n                }\r\n            ],\r\n            \"birthDate\": \"1974-12-25\",\r\n            \"gender\": \"M\",\r\n            \"identifier\": [\r\n                {\r\n                    \"type\": {\r\n                        \"text\": \"ID\"\r\n                    },\r\n                    \"value\": \"8\"\r\n                },\r\n                {\r\n                    \"type\": {\r\n                        \"text\": \"NHC\"\r\n                    },\r\n                    \"value\": \"202570\"\r\n                },\r\n                {\r\n                    \"type\": {\r\n                        \"text\": \"DNI\"\r\n                    },\r\n                    \"value\": \"52302021P\"\r\n                }\r\n            ],\r\n            \"name\": [\r\n                {\r\n                    \"family\": \"ARANDA FLORIDABLANCA\",\r\n                    \"given\": [\r\n                        \"MIGUEL\"\r\n                    ]\r\n                }\r\n            ],\r\n            \"telecom\": [\r\n                {\r\n                    \"system\": \"phone\",\r\n                    \"value\": \"600258745\"\r\n                },\r\n                {\r\n                    \"system\": \"email\",\r\n                    \"value\": \"blub242@jmail.com\"\r\n                }\r\n            ]\r\n        },\r\n        \"request\" : {\r\n            \"method\" : \"POST\",\r\n            \"url\" : \"Patient\"\r\n        }\r\n    }]\r\n}\r\n\r\n      ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:52774/Adapter/r4/Bundle",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "52774",
+					"path": [
+						"Adapter",
+						"r4",
+						"Bundle"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
