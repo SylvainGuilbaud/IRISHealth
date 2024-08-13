@@ -97,18 +97,14 @@ Method UpdateBundle(pBundle As %DynamicObject, verbose As %Boolean = 0) As %Dyna
 {
     Set tBundle = pBundle
 
-    // Obtenir un itérateur pour les entrées
     Set entry = tBundle.entry.%GetIterator()
     Set entryKey = "", entryValue = "" 
 
-    // Utiliser l'itérateur pour parcourir les entrées
     While entry.%GetNext(.entryKey, .entryValue) {
         If entryValue.request.method = "POST" {
-            // Générer la requête de recherche
 
             Set tSearchUrl = ..FHIRServer _ ..FHIREndpoint _ "/" _ entryValue.resource.resourceType _ "?identifier=" _ entryValue.resource.identifier.%Get(0).value
             write:verbose tSearchUrl,!
-		    // Effectuer la requête de recherche
             set request = ##class(%Net.HttpRequest).%New()
             set request.ContentType = "application/fhir+json; charset=UTF-8"
             do request.SetHeader("Accept","*/*")
@@ -118,12 +114,11 @@ Method UpdateBundle(pBundle As %DynamicObject, verbose As %Boolean = 0) As %Dyna
             write:verbose response.%ToJSON(),!
 			Set entryValue.request.method = "PUT"
 			Set entryValue.resource.id=$System.Util.CreateGUID()
-            // Si la ressource existe déjà, récupérer son id
+            // If the resource already exists, retrieve its id
             If request.HttpResponse.StatusCode = 200 {
                 write:verbose "entry:" _ response.%IsDefined("entry"),!
                 if response.%IsDefined("entry") {
                     if response.entry.%Get(0).resource.resourceType = entryValue.resource.resourceType {
-                        // Récupérer l'ID de la ressource existante                       
                         write "response:"_response.entry.%Get(0).%ToJSON(),!
                         if response.entry.%Get(0).resource.id '= "" {
                             Set entryValue.resource.id = response.entry.%Get(0).resource.id
