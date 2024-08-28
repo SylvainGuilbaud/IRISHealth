@@ -1,4 +1,16 @@
+[Startup]
+SystemMode=TEST
+
+[config]
+globals=0,0,8192,0,0,0
+routines=0
+jrnbufs=1024
+
 [Actions]
+CreateNamespace:Name=%ALL,Globals=IRISTEMP,Routines=IRISTEMP
+CreateMapPackage:Namespace=%ALL,Name=common,Database=USER
+CreateMapRoutine:Namespace=%ALL,Name=common,Database=USER
+
 CreateResource:Name=%DB_IRISAPP_DATA,Description="IRISAPP_DATA database"
 CreateDatabase:Name=IRISAPP_DATA,Directory=/usr/irissys/mgr/IRISAPP_DATA,Resource=%DB_IRISAPP_DATA
 CreateResource:Name=%DB_IRISAPP_CODE,Description="IRISAPP_CODE database"
