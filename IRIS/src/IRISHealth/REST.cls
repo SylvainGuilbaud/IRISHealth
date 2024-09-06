@@ -13,6 +13,7 @@ XData UrlMap [ XMLNamespace = "http://www.intersystems.com/urlmap" ]
 {
 <Routes>
 <Route Url="/version" Method="GET" Call="version"/>
+<Route Url="/envoi-HL7v2" Method="PATCH" Call="sendHL7v2" Cors="true"/>
 <Route Url="/api/:classname" Method="GET" Call="readAll"/>
 <Route Url="/api/:classname" Method="POST" Call="create"/>
 <Route Url="/api/:classname/:id" Method="GET" Call="read"/>
@@ -33,6 +34,23 @@ XData UrlMap [ XMLNamespace = "http://www.intersystems.com/urlmap" ]
 <Route Url="/list/:classname" Method="GET" Call="list" Cors="true"/>
 <Route Url="/_spec" Method="GET" Call="spec" />
 </Routes>
+}
+
+ClassMethod sendHL7v2() As %Status
+{
+    Set sc = $$$OK
+    set %response.ContentType = ..#CONTENTTYPEJSON
+    set json = {}
+    set source = "/data/HL7/test/2.5.1*001*", target ="/data/HL7/in", verbose = 0
+    set sc = ##class(IRISHealth.utils).sendHL7v2(source,target,verbose)
+    if sc {
+        set json.result = (source _ " files successfully copied into " _ target)
+    } else {
+        set json.error = ($system.Status.GetErrorText(sc))
+    }
+    set json.ts = ($zdt($h,3))
+    do json.%ToJSON()
+    return sc
 }
 
 /// Description

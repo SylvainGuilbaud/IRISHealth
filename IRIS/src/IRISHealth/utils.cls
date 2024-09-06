@@ -41,6 +41,26 @@ ClassMethod createSQLGateway() As %Status
         Return sc
 }
 
+ClassMethod sendHL7v2(source As %String = "/data/HL7/test/*", target As %String = "/data/HL7/in", verbose As %Boolean = 1) As %Status
+{
+    Try {
+        set sc = $$$OK
+        set command="cp"
+        set args($i(args))=source
+        set args($i(args))=target
+        set status=$zf(-100,"/SHELL /LOGCMD /STDOUT=""/tmp/sendHL7v2.log"" /STDERR=""/tmp/sendHL7v2.error""",command,.args)
+        if status=0 {
+            write:verbose "Files successfully copied into " _ target,!
+        } else {
+            write:verbose "ERROR while copying files from " _ source _ " to " _ target _ " : " _ status
+        }
+    }
+    Catch ex {
+        set sc=ex.AsStatus()
+    }
+    return sc
+}
+
 /// Description
 ClassMethod send() As %Status
 {
