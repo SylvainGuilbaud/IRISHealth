@@ -5,6 +5,7 @@
     zpm "install fhir-portal"
     zpm "install swagger-ui"
     zpm "install csvgen"
+    zpm "enable -map -globally"
 
     zn "%SYS"
     do ##class(Security.Users).UnExpireUserPasswords("*")
@@ -53,7 +54,7 @@
     #; Lookup table
     do ##class(Ens.Util.LookupTable).%Import("/home/irisowner/dev/src/gbl/gender.xml")
 
-    zpm "install csvgen"
+    #; zpm "install csvgen"
     Do ##class(community.csvgen).Generate("/home/irisowner/dev/ML/heart-disease.csv",",","dc.data.health.HeartDisease") 
     Do ##class(community.csvgen).Generate("/home/irisowner/dev/ML/breast-cancer.csv",",","dc.data.health.BreastCancer") 
     Do ##class(community.csvgen).Generate("/home/irisowner/dev/ML/diabetes.csv",",","dc.data.health.Diabetes")  

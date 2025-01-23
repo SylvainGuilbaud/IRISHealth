@@ -4,14 +4,13 @@ pandas
 # fhirpy
 # fhir.resources
 geopy
-chronyk
+# chronyk
 requests
-mysql.connector
+# mysql.connector
 folium
 openpyxl
-names
+# names
 postgres
-mysql-connector
 matplotlib
 random-address
 phone-gen
@@ -19,3 +18,4 @@ sqlalchemy-iris
 holidays
 flask
 gunicorn
+# jupyter

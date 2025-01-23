@@ -1,5 +1,6 @@
 ARG IMAGE=containers.intersystems.com/intersystems/irishealth-community:latest-em
 ARG IMAGE=containers.intersystems.com/intersystems/irishealth-ml-community:latest-em
+ARG IMAGE=containers.intersystems.com/intersystems/irishealth-ml-community:latest-preview
 # ARG IMAGE=containers.intersystems.com/intersystems/irishealth-ml-community:latest-preview
 FROM $IMAGE AS builder
 
@@ -7,26 +8,25 @@ USER root
 
 RUN apt-get update && apt-get install -y \
 	nano \
-	python3-pip \
 	python3-venv \
 	sudo && \
 	/bin/echo -e ${ISC_PACKAGE_MGRUSER}\\tALL=\(ALL\)\\tNOPASSWD: ALL >> /etc/sudoers && \
 	sudo -u ${ISC_PACKAGE_MGRUSER} sudo echo enabled passwordless sudo-ing for ${ISC_PACKAGE_MGRUSER}
 
 # i386
-# RUN apt update && apt install -y fontconfig xfonts-75dpi xfonts-base && rm -rf /var/lib/apt/lists/* \
+# RUN apt install -y fontconfig xfonts-75dpi xfonts-base && rm -rf /var/lib/apt/lists/* \
 #   && wget -q -O /tmp/wkhtmltox https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.bionic_i386.deb \
 #   && dpkg -i /tmp/wkhtmltox \
 #   && rm /tmp/wkhtmltox
 
 #AMD64
-# RUN apt update && apt install -y fontconfig xfonts-75dpi xfonts-base && rm -rf /var/lib/apt/lists/* \
+# RUN apt install -y fontconfig xfonts-75dpi xfonts-base && rm -rf /var/lib/apt/lists/* \
 #   && wget -q -O /tmp/wkhtmltox https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-2/wkhtmltox_0.12.6.1-2.jammy_amd64.deb \
 #   && dpkg -i /tmp/wkhtmltox \
 #   && rm /tmp/wkhtmltox
 
 # ARM64
-RUN apt update && apt install -y fontconfig xfonts-75dpi xfonts-base && rm -rf /var/lib/apt/lists/* \
+RUN apt install -y fontconfig xfonts-75dpi xfonts-base && rm -rf /var/lib/apt/lists/* \
   && wget -q -O /tmp/wkhtmltox https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-2/wkhtmltox_0.12.6.1-2.jammy_arm64.deb \
   && dpkg -i /tmp/wkhtmltox \
   && rm /tmp/wkhtmltox
@@ -49,18 +49,22 @@ ENV IRISNAMESPACE "USER"
 # RUN pip3 install /usr/irissys/dev/python/intersystems_irispython-3.2.0-py3-none-any.whl
 
 # Install Jupyter 
-RUN pip3 install jupyter
-RUN mkdir /home/irisowner/.local/share/jupyter/kernels/irispython
-COPY kernels/irispython/* /home/irisowner/.local/share/jupyter/kernels/irispython/
+# RUN python3 -m pip install --upgrade pip && \
+#     pip3 install jupyter
+
+# RUN mkdir /home/irisowner/.local/share/jupyter/kernels/irispython
+# COPY kernels/irispython/* /home/irisowner/.local/share/jupyter/kernels/irispython/
 # Install objectscript kernel
-RUN mkdir /home/irisowner/.local/share/jupyter/kernels/objectscript
-COPY kernels/objectscript/* /home/irisowner/.local/share/jupyter/kernels/objectscript/
+# RUN mkdir /home/irisowner/.local/share/jupyter/kernels/objectscript
+# COPY kernels/objectscript/* /home/irisowner/.local/share/jupyter/kernels/objectscript/
 # Install Native API
 # For now Native API wheel is not embedded in container
 # COPY python/intersystems_iris-3.5.0-py3-none-any.whl /usr/irissys/dev/python/intersystems_iris-3.5.0-py3-none-any.whl
 # RUN pip3 install /usr/irissys/dev/python/intersystems_iris-3.5.0-py3-none-any.whl
 
 RUN --mount=type=bind,src=.,dst=. \
+    python3 -m venv ~/py_envs && \
+    . ~/py_envs/bin/activate && \
     pip3 install -r requirements.txt && \
     iris start IRIS && \
     iris merge IRIS merge.cpf && \
