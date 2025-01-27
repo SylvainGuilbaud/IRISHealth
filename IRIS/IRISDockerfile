@@ -9,6 +9,7 @@ USER root
 RUN apt-get update && apt-get install -y \
 	nano \
 	python3-venv \
+    tzdata \
 	sudo && \
 	/bin/echo -e ${ISC_PACKAGE_MGRUSER}\\tALL=\(ALL\)\\tNOPASSWD: ALL >> /etc/sudoers && \
 	sudo -u ${ISC_PACKAGE_MGRUSER} sudo echo enabled passwordless sudo-ing for ${ISC_PACKAGE_MGRUSER}
@@ -41,6 +42,7 @@ ENV SRC_PATH=/opt/irisapp
 ENV IRISUSERNAME "SuperUser"
 ENV IRISPASSWORD "SYS"
 ENV IRISNAMESPACE "USER"
+ENV TZ=Europe/Paris
 #ENV PATH "/usr/irissys/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/irisowner/bin"
 
 # Install Native API

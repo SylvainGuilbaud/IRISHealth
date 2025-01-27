@@ -628,7 +628,7 @@ ClassMethod version() As %Status
     set sc = $$$OK
     set %response.ContentType = ..#CONTENTTYPEJSON
     set json = {}
-    set json.context="formation-iris-embedded"
+    set json.context="IRISHealth demo"
     set json.version = ($zv)
     set json.date = ($zdt($h,3))
     set json.system = ($System)

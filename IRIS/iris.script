@@ -1,4 +1,8 @@
+    #; set sc = $SYSTEM.OBJ.Load("/home/irisowner/dev/zpm-0.9.1.xml","ck")
+    set step="Install IPM"
     set r=##class(%Net.HttpRequest).%New(),r.Server="pm.community.intersystems.com",r.SSLConfiguration="ISC.FeatureTracker.SSL.Config" d r.Get("/packages/zpm/latest/installer"),$system.OBJ.LoadStream(r.HttpResponse.Data,"c")
+    if 'sc { set ^["USER"]TRACE($zdt($now(),3,,6),step)=$lb($system.Status.GetErrorCodes(sc),$system.Status.GetErrorText(sc))} else { set ^["USER"]TRACE($zdt($now(),3,,6),step)="successful"}
+    zpm "repo -r -n registry -reset-defaults"
     zpm "install webterminal"
     zpm "install classexplorer" 
     zpm "install passwordless"
