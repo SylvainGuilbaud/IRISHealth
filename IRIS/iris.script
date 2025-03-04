@@ -41,6 +41,10 @@
     write ##class(HPRIM.EDI.E1238.SchemaXML).Import("/home/irisowner/dev/src/HPRIM2.2.AST")
     write ##class(HPRIM.EDI.E1238.SchemaXML).Import("/home/irisowner/dev/src/HPRIM2.2Add.AST")
 
+    #; HPRIMXML 2.4
+
+    write ##class(EnsLib.EDI.XML.SchemaXSD).ImportFiles("/home/irisowner/dev/data/HPRIMXML/hprimXmlVs2_4/schema/schemaHprimV2_4/")
+
     do ##class(Ens.Util.Statistics).EnableSAMForNamespace()
     do ##class(Ens.Util.Statistics).EnableStatsForProduction()
 

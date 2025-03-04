@@ -1,6 +1,6 @@
 ARG IMAGE=containers.intersystems.com/intersystems/irishealth-community:latest-em
 ARG IMAGE=containers.intersystems.com/intersystems/irishealth-ml-community:latest-em
-ARG IMAGE=containers.intersystems.com/intersystems/irishealth-ml-community:latest-preview
+ARG IMAGE=containers.intersystems.com/intersystems/irishealth-community:latest-preview
 # ARG IMAGE=containers.intersystems.com/intersystems/irishealth-ml-community:latest-preview
 FROM $IMAGE AS builder
 
@@ -39,9 +39,9 @@ WORKDIR /home/irisowner/dev
 #create Python env
 ENV PYTHON_PATH=/usr/irissys/bin/irispython
 ENV SRC_PATH=/opt/irisapp
-ENV IRISUSERNAME "SuperUser"
-ENV IRISPASSWORD "SYS"
-ENV IRISNAMESPACE "USER"
+ENV IRISUSERNAME="SuperUser"
+ENV IRISPASSWORD="SYS"
+ENV IRISNAMESPACE="USER"
 ENV TZ=Europe/Paris
 #ENV PATH "/usr/irissys/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/irisowner/bin"
 
