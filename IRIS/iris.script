@@ -42,13 +42,9 @@
     write ##class(HPRIM.EDI.E1238.SchemaXML).Import("/home/irisowner/dev/src/HPRIM2.2Add.AST")
 
     #; HPRIMXML 2.4
-
+    set step="Importing HPRIM XML 2.4"
     set sc = ##class(EnsLib.EDI.XML.SchemaXSD).ImportFiles("/home/irisowner/dev/data/HPRIMXML/hprimXmlVs2_4/schema/schemaHprimV2_4/")
-    if $$$ISERR(sc) {
-        do ##class(%SYS.System).WriteToConsoleLog($system.Status.GetErrorText(sc),0,1)
-    } else {
-        do ##class(%SYS.System).WriteToConsoleLog("HPRIM XSD files successfully imported",0,0)
-    }
+    if 'sc { set ^["USER"]TRACE($zdt($now(),3,,6),step)=$lb($system.Status.GetErrorCodes(sc),$system.Status.GetErrorText(sc))} else { set ^["USER"]TRACE($zdt($now(),3,,6),step)="successful"}
 
     do ##class(Ens.Util.Statistics).EnableSAMForNamespace()
     do ##class(Ens.Util.Statistics).EnableStatsForProduction()
