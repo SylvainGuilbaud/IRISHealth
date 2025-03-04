@@ -24,11 +24,11 @@
     do $system.OBJ.Import("/home/irisowner/dev/src/inc/common.inc","ck")
 
     #; HL7v2
-    write ##class(EnsLib.HL7.SchemaXML).Import("/home/irisowner/dev/HL7v2/GEFI.HL7")
-    write ##class(EnsLib.HL7.SchemaXML).Import("/home/irisowner/dev/HL7v2/GEFIReceiver.HL7")
-    write ##class(EnsLib.HL7.SchemaXML).Import("/home/irisowner/dev/HL7v2/HL7v25IHE.HL7")
-    write ##class(EnsLib.HL7.SchemaXML).Import("/home/irisowner/dev/HL7v2/HL7v231IHE.HL7")
-    write ##class(EnsLib.HL7.SchemaXML).Import("/home/irisowner/dev/HL7v2/HPRIMV2.HL7")
+    write ##class(EnsLib.HL7.SchemaXML).Import("/home/irisowner/dev/src/HL7v2/GEFI.HL7")
+    write ##class(EnsLib.HL7.SchemaXML).Import("/home/irisowner/dev/src/HL7v2/GEFIReceiver.HL7")
+    write ##class(EnsLib.HL7.SchemaXML).Import("/home/irisowner/dev/src/HL7v2/HL7v25IHE.HL7")
+    write ##class(EnsLib.HL7.SchemaXML).Import("/home/irisowner/dev/src/HL7v2/HL7v231IHE.HL7")
+    write ##class(EnsLib.HL7.SchemaXML).Import("/home/irisowner/dev/src/HL7v2/HPRIMV2.HL7")
 
     #; HPRIM
     do $system.OBJ.Import("/home/irisowner/dev/src/HPRIME1238.inc","ck")
@@ -43,7 +43,7 @@
 
     #; HPRIMXML 2.4
     set step="Importing HPRIM XML 2.4"
-    set sc = ##class(EnsLib.EDI.XML.SchemaXSD).ImportFiles("/home/irisowner/dev/data/HPRIMXML/hprimXmlVs2_4/schema/schemaHprimV2_4/")
+    set sc = ##class(EnsLib.EDI.XML.SchemaXSD).ImportFiles("/home/irisowner/dev/src/schemaHprimV2_4/")
     if 'sc { set ^["USER"]TRACE($zdt($now(),3,,6),step)=$lb($system.Status.GetErrorCodes(sc),$system.Status.GetErrorText(sc))} else { set ^["USER"]TRACE($zdt($now(),3,,6),step)="successful"}
 
     do ##class(Ens.Util.Statistics).EnableSAMForNamespace()
