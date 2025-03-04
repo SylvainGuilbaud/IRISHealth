@@ -21,7 +21,7 @@
     zn "IRISAPP"
 
     #; common
-    do $system.OBJ.Load("/home/irisowner/dev/src/inc/common.inc","ck")
+    do $system.OBJ.Import("/home/irisowner/dev/src/inc/common.inc","ck")
 
     #; HL7v2
     write ##class(EnsLib.HL7.SchemaXML).Import("/home/irisowner/dev/HL7v2/GEFI.HL7")
@@ -31,10 +31,10 @@
     write ##class(EnsLib.HL7.SchemaXML).Import("/home/irisowner/dev/HL7v2/HPRIMV2.HL7")
 
     #; HPRIM
-    do $system.OBJ.Load("/home/irisowner/dev/src/HPRIME1238.inc","ck")
-    do $system.OBJ.Load("/home/irisowner/dev/src/HPRIME1238Errors.inc","ck")
+    do $system.OBJ.Import("/home/irisowner/dev/src/HPRIME1238.inc","ck")
+    do $system.OBJ.Import("/home/irisowner/dev/src/HPRIME1238Errors.inc","ck")
 
-    set sc = $SYSTEM.OBJ.LoadDir("/home/irisowner/dev/src","ck",,1)
+    set sc = $SYSTEM.OBJ.Import("/home/irisowner/dev/src","ck",,1)
 
     write ##class(EnsLib.EDI.ASTM.SchemaXML).Import("/home/irisowner/dev/src/HPRIM2.2.AST")
     write ##class(EnsLib.EDI.ASTM.SchemaXML).Import("/home/irisowner/dev/src/HPRIM2.2Add.AST")
@@ -43,7 +43,12 @@
 
     #; HPRIMXML 2.4
 
-    write ##class(EnsLib.EDI.XML.SchemaXSD).ImportFiles("/home/irisowner/dev/data/HPRIMXML/hprimXmlVs2_4/schema/schemaHprimV2_4/")
+    set sc = ##class(EnsLib.EDI.XML.SchemaXSD).ImportFiles("/home/irisowner/dev/data/HPRIMXML/hprimXmlVs2_4/schema/schemaHprimV2_4/")
+    if $$$ISERR(sc) {
+        do ##class(%SYS.System).WriteToConsoleLog($system.Status.GetErrorText(sc),0,1)
+    } else {
+        do ##class(%SYS.System).WriteToConsoleLog("HPRIM XSD files successfully imported",0,0)
+    }
 
     do ##class(Ens.Util.Statistics).EnableSAMForNamespace()
     do ##class(Ens.Util.Statistics).EnableStatsForProduction()
