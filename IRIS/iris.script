@@ -43,7 +43,7 @@
 
     #; HPRIMXML 2.4
     set step="Importing HPRIM XML 2.4"
-    set sc = ##class(EnsLib.EDI.XML.SchemaXSD).ImportFiles("/home/irisowner/dev/src/schemaHprimV2_4/")
+    set sc = ##class(EnsLib.EDI.XML.SchemaXSD).ImportFiles("/home/irisowner/dev/src/HPRIMXML/schemaHprimV2_4/")
     if 'sc { set ^["USER"]TRACE($zdt($now(),3,,6),step)=$lb($system.Status.GetErrorCodes(sc),$system.Status.GetErrorText(sc))} else { set ^["USER"]TRACE($zdt($now(),3,,6),step)="successful"}
 
     do ##class(Ens.Util.Statistics).EnableSAMForNamespace()
