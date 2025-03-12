@@ -1,0 +1,25 @@
+<xsd_2:evenementsServeurActes xmlns:xsd_2='http://www.hprim.org/hprimXML' xmlns:xsd_3='http://www.hprim.org/inseeXML'>
+	<xsd_2:enteteMessage>
+		<xsd_2:dateHeureProduction>2025-03-05 09:54:58</xsd_2:dateHeureProduction>
+		<xsd_2:emetteur>
+			<xsd_2:agents>
+				<xsd_2:agent>YoyoWare Gmbh.</xsd_2:agent>
+			</xsd_2:agents>
+		</xsd_2:emetteur>
+		<xsd_2:destinataire>
+			<xsd_2:agents>
+				<xsd_2:agent>Accumo LLC.</xsd_2:agent>
+			</xsd_2:agents>
+		</xsd_2:destinataire>
+	</xsd_2:enteteMessage>
+	<xsd_2:evenementServeurActe>
+		<xsd_2:patient>
+			<xsd_2:personnePhysique>
+				<xsd_2:nomNaissance>Davis</xsd_2:nomNaissance>
+				<xsd_2:prenoms>
+					<xsd_2:prenom>Usha</xsd_2:prenom>
+				</xsd_2:prenoms>
+			</xsd_2:personnePhysique>
+		</xsd_2:patient>
+	</xsd_2:evenementServeurActe>
+</xsd_2:evenementsServeurActes>
