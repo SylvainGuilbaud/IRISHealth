@@ -24,7 +24,7 @@
             "activity dashboard": "http://${host}:${port}/csp/healthshare/irisapp/_DeepSee.UserPortal.DashboardViewer.zen?DASHBOARD=Ens/Analytics/ActivityVolumeAndDuration.dashboard&EMBED=1",
             "monitor metrics ": "http://${host}:${port}/api/monitor/metrics",
             "monitor interop interfaces": "http://${host}:${port}/api/monitor/interop/interfaces",
-            "Production": "http://${host}:${port}/csp/healthshare/irisapp/EnsPortal.ProductionConfig.zen?PRODUCTION=HL7v2toKafka.production",
+            "Production": "http://${host}:${port}/csp/healthshare/irisapp/EnsPortal.ProductionConfig.zen?$NAMESPACE=IRISAPP&PRODUCTION=IRISHealth.production",
             "Rule": "http://${host}:${port}/ui/interop/rule-editor/index.html?$NAMESPACE=IRISAPP&rule=HL7v2toKafka.HL7router.SIU",
             "Visual Trace": "http://${host}:${port}/csp/healthshare/irisapp/EnsPortal.MessageViewer.zen?$NAMESPACE=IRISAPP&$NAMESPACE=IRISAPP&",
             "Kafka Manager TOPICS": "http://${host}:8082/topics",
