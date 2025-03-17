@@ -222,11 +222,24 @@ XData ProductionDefinition
   </Item>
   <Item Name="BloodPressurePlan" Category="" ClassName="Workflow.BP.BloodPressurePlan" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
   </Item>
-    <Item Name="ManualBloodPressureRole" Category="" ClassName="EnsLib.Workflow.Operation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  <Item Name="ManualBloodPressureRole" Category="" ClassName="EnsLib.Workflow.Operation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
     <Setting Target="Host" Name="AutoCreateRole">0</Setting>
   </Item>
   <Item Name="AutomaticBloodPressureRole" Category="" ClassName="EnsLib.Workflow.Operation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
     <Setting Target="Host" Name="AutoCreateRole">0</Setting>
+  </Item>
+  <Item Name="source PHARMA FILE" Category="" ClassName="EnsLib.HL7.Service.FileService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+    <Setting Target="Host" Name="MessageSchemaCategory">2.5:MDM_T02</Setting>
+    <Setting Target="Host" Name="TargetConfigNames">HL7v2 router</Setting>
+    <Setting Target="Adapter" Name="FilePath">/data/HL7/in/MDM</Setting>
+    <Setting Target="Adapter" Name="FileSpec">*.hl7</Setting>
+  </Item>
+  <Item Name="target CR PHARMA FILE" Category="" ClassName="IRISHealth.operations.PDF" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+    <Setting Target="Adapter" Name="FilePath">/data/HL7/out/MDM</Setting>
+    <Setting Target="Adapter" Name="Charset">Native</Setting>
+  </Item>
+  <Item Name="test out FILE" Category="" ClassName="EnsLib.File.PassthroughOperation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+    <Setting Target="Adapter" Name="FilePath">/data/HL7/out</Setting>
   </Item>
 </Production>
 }

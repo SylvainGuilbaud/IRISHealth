@@ -39,6 +39,13 @@ XData RuleDefinition [ XMLNamespace = "http://www.intersystems.com/rule" ]
 <return></return>
 </when>
 </rule>
+<rule name="MDM" disabled="false">
+<constraint name="source" value="source PHARMA FILE"></constraint>
+<constraint name="docCategory" value="2.5"></constraint>
+<when condition="1" comment="">
+<send transform="IRISHealth.transfo.MDMtoPDF" target="target CR PHARMA FILE"></send>
+</when>
+</rule>
 </ruleSet>
 </ruleDefinition>
 }
