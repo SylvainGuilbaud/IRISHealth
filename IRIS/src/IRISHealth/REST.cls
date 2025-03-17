@@ -644,36 +644,6 @@ ClassMethod version() As %Status
     return sc
 }
 
-// ClassMethod spec() As %Status
-
-// {
-
-//  try {
-
-// 	set sc=$$$OK
-
-// 	set %response.ContentType=..#CONTENTTYPEJSON
-
-//     set file = ##class(%File).%New("/data/swagger-crud.json")
-
-//     do file.Open("RS")
-
-//     while 'file.AtEnd{
-
-//         w file.ReadLine()
-
-//     }
-
-// 	} catch e {
-
-// 		throw e
-
-// 	}
-
-// 	return sc
-
-// }
-
 ClassMethod spec() As %Status
 {
   Set tSC = ##class(%REST.API).GetWebRESTApplication($NAMESPACE, %request.Application, .swagger)
