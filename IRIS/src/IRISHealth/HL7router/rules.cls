@@ -42,9 +42,14 @@ XData RuleDefinition [ XMLNamespace = "http://www.intersystems.com/rule" ]
 <rule name="MDM" disabled="false">
 <constraint name="source" value="source PHARMA FILE"></constraint>
 <constraint name="docCategory" value="2.5"></constraint>
-<when condition="1" comment="">
+<constraint name="docName" value="MDM_T01,MDM_T02,MDM_T03,MDM_T04,MDM_T05,MDM_T06,MDM_T07,MDM_T08,MDM_T09,MDM_T10,MDM_T11"></constraint>
+<when condition="(Length(HL7.{OBXgrp(1).OBX:5.1}))&gt;100" comment="">
 <send transform="IRISHealth.transfo.MDMtoPDF" target="target CR PHARMA FILE"></send>
+<trace value="&quot;Document:&quot;_HL7.{OBXgrp(1).OBX:5.1}"></trace>
 </when>
+<otherwise>
+<trace value="&quot;Document missing:&quot;_HL7.{OBXgrp(1).OBX:5.1}"></trace>
+</otherwise>
 </rule>
 </ruleSet>
 </ruleDefinition>

@@ -55,6 +55,7 @@ XData ProductionDefinition
   </Item>
   <Item Name="HL7v2 router" Category="HL7" ClassName="EnsLib.HL7.MsgRouter.RoutingEngine" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
     <Setting Target="Host" Name="BusinessRuleName">IRISHealth.HL7router.rules</Setting>
+    <Setting Target="Host" Name="AlertOnError">1</Setting>
   </Item>
   <Item Name="source HL7 TCP" Category="HL7" ClassName="EnsLib.HL7.Service.TCPService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
     <Setting Target="Host" Name="TargetConfigNames">HL7v2 router</Setting>
@@ -229,7 +230,7 @@ XData ProductionDefinition
     <Setting Target="Host" Name="AutoCreateRole">0</Setting>
   </Item>
   <Item Name="source PHARMA FILE" Category="" ClassName="EnsLib.HL7.Service.FileService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
-    <Setting Target="Host" Name="MessageSchemaCategory">2.5:MDM_T02</Setting>
+    <Setting Target="Host" Name="MessageSchemaCategory">MDM_*=2.5</Setting>
     <Setting Target="Host" Name="TargetConfigNames">HL7v2 router</Setting>
     <Setting Target="Adapter" Name="FilePath">/data/HL7/in/MDM</Setting>
     <Setting Target="Adapter" Name="FileSpec">*.hl7</Setting>
