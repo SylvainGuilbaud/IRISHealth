@@ -56,6 +56,9 @@ XData ProductionDefinition
   <Item Name="HL7v2 router" Category="HL7" ClassName="EnsLib.HL7.MsgRouter.RoutingEngine" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
     <Setting Target="Host" Name="BusinessRuleName">IRISHealth.HL7router.rules</Setting>
     <Setting Target="Host" Name="AlertOnError">1</Setting>
+    <Setting Target="Host" Name="Validation">dmy-z</Setting>
+    <Setting Target="Host" Name="AlertOnBadMessage">1</Setting>
+    <Setting Target="Host" Name="BadMessageHandler">HL7v2 messages erreurs</Setting>
   </Item>
   <Item Name="source HL7 TCP" Category="HL7" ClassName="EnsLib.HL7.Service.TCPService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
     <Setting Target="Host" Name="TargetConfigNames">HL7v2 router</Setting>
@@ -241,6 +244,10 @@ XData ProductionDefinition
   </Item>
   <Item Name="test out FILE" Category="" ClassName="EnsLib.File.PassthroughOperation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
     <Setting Target="Adapter" Name="FilePath">/data/HL7/out</Setting>
+  </Item>
+  <Item Name="HL7v2 messages erreurs" Category="" ClassName="EnsLib.HL7.Operation.FileOperation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+    <Setting Target="Adapter" Name="FilePath">/data/HL7/errors</Setting>
+    <Setting Target="Host" Name="Filename">%f</Setting>
   </Item>
 </Production>
 }
