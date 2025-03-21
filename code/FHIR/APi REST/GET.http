@@ -1,0 +1,104 @@
+
+```http
+### Récupération d'un Patient
+GET http://localhost:28000/irisapp/fhir/r4/Patient/24445670 HTTP/1.1
+Accept: application/fhir+json
+content-type: application/fhir+json
+
+### Récupération des Patients par genre
+GET http://localhost:28000/irisapp/fhir/r4/Patient?gender=female HTTP/1.1
+Accept: application/fhir+json
+content-type: application/fhir+json
+
+### Créer un nouveau patient
+POST http://localhost:28000/irisapp/fhir/r4/Patient HTTP/1.1
+content-type: application/fhir+json
+
+{
+    "resourceType": "Patient",
+    "deceasedBoolean": false,
+    "gender": "male",
+    "identifier": [
+        {
+            "type": {
+                "coding": [
+                    {
+                        "code": "ssn",
+                        "system": "http://hl7.org/fhir/sid/us-ssn"
+                    }
+                ],
+                "text": "ssn"
+            },
+            "value": "121-62-6751"
+        }
+    ],
+    "name": [
+        {
+            "family": "Xenia",
+            "given": [
+                "Juanita"
+            ],
+            "text": "Juanita Xenia",
+            "use": "official"
+        }
+    ],
+    "id": "139"
+}
+
+
+```
+
+```http
+### version
+GET http://_system:SYS@localhost:52773/formation/crud/version
+
+### get all
+GET http://_system:SYS@localhost:52773/formation/crud/api/data.test
+
+### get one
+GET http://_system:SYS@localhost:52773/formation/crud/api/data.test/12
+
+### create 
+POST http://_system:SYS@localhost:52773/formation/crud/api/data.test HTTP/1.1
+content-type: application/json
+
+{   
+    "MT":"TWELVE",
+    "Boolean":true,
+    "Integer":12,
+    "String":"Twelve",
+    "rawString":"Twelve",
+    "Numeric":12.67,
+    "Double":12.788,
+    "Float":12.567,
+    "Date":"2024-04-25",
+    "Timestamp":"2024-04-26T14:44:56",
+    "CStream":"Hello Twelve",
+    "BStream":"Hello Twelve"
+}
+
+### update 
+PUT http://_system:SYS@localhost:52773/formation/crud/api/data.test/12 HTTP/1.1
+content-type: application/json
+
+{   
+    "MT":"TWELVE",
+    "Boolean":true,
+    "Integer":12,
+    "String":"Twelve",
+    "rawString":"Twelve",
+    "Numeric":12.67,
+    "Double":12.788,
+    "Float":12.567,
+    "Date":"2024-04-25",
+    "Timestamp":"2024-04-26T14:44:56",
+    "CStream":"Hello Twelve",
+    "BStream":"Hello Twelve"
+}
+
+### delete
+DELETE http://_system:SYS@localhost:52773/formation/crud/api/data.test/14 HTTP/1.1
+
+```
+
+
