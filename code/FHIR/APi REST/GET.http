@@ -1,5 +1,12 @@
 
 ```http
+
+### Récupération de tous les Patients
+GET http://localhost:28000/irisapp/fhir/r4/Patient HTTP/1.1
+Accept: application/fhir+json
+content-type: application/fhir+json
+
+
 ### Récupération d'un Patient
 GET http://localhost:28000/irisapp/fhir/r4/Patient/24445670 HTTP/1.1
 Accept: application/fhir+json
@@ -12,12 +19,13 @@ content-type: application/fhir+json
 
 ### Créer un nouveau patient
 POST http://localhost:28000/irisapp/fhir/r4/Patient HTTP/1.1
+Accept: application/fhir+json
 content-type: application/fhir+json
 
 {
     "resourceType": "Patient",
     "deceasedBoolean": false,
-    "gender": "male",
+    "gender": "female",
     "identifier": [
         {
             "type": {
@@ -45,6 +53,11 @@ content-type: application/fhir+json
     "id": "139"
 }
 
+
+### Suppression d'un patient
+DELETE http://localhost:28000/irisapp/fhir/r4/Patient/3009 HTTP/1.1
+Accept: application/fhir+json
+content-type: application/fhir+json
 
 ```
 
