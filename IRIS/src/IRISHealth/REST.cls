@@ -9,28 +9,28 @@ Parameter BsName = "source Portail Santé";
 
 Parameter CHARSET = "utf-8";
 
-XData UrlMap [ XMLNamespace = "http://www.intersystems.com/urlmap" ]
-{
-<Routes>
-<Route Url="/version" Method="GET" Call="version"/>
-<Route Url="/envoi-HL7v2" Method="PATCH" Call="sendHL7v2" Cors="true"/>
+/* <Route Url="/envoi-HL7v2" Method="PATCH" Call="sendHL7v2" Cors="true"/>
 <Route Url="/api/:classname" Method="GET" Call="readAll"/>
 <Route Url="/api/:classname" Method="POST" Call="create"/>
 <Route Url="/api/:classname/:id" Method="GET" Call="read"/>
 <Route Url="/api/:classname/:id" Method="PUT" Call="update"/>
 <Route Url="/api/:classname/:id" Method="DELETE" Call="delete"/>
-<Route Url="/sendfile" Method="POST" Call="SendFileContent" Cors="true"/>
-<Route Url="/fhir/r4/Patient" Method="POST" Call="FHIRPOST" Cors="true"/>
+<Route Url="/sendfile" Method="POST" Call="SendFileContent" Cors="true"/> */
+XData UrlMap [ XMLNamespace = "http://www.intersystems.com/urlmap" ]
+{
+<Routes>
+<Route Url="/version" Method="GET" Call="version"/>
+
+<Route Url="/fhir/r4/Patients" Method="GET" Call="FHIRGETPATIENTS" Cors="true"/>
+
+<Route Url="/fhir/r4/Patient/Gender/:gender" Method="GET" Call="FHIRGETPATIENTBYGENDER" Cors="true"/>
 <Route Url="/fhir/r4/Patient/:id" Method="GET" Call="FHIRGETPATIENT" Cors="true"/>
 <Route Url="/fhir/r4/Everything/:id" Method="GET" Call="FHIRGETEVERYTHING" Cors="true"/>
-
+<Route Url="/fhir/r4/Patient" Method="POST" Call="FHIRPOST" Cors="true"/>
+<Route Url="/fhir/r4/Bundle" Method="POST" Call="FHIRBUNDLE" Cors="true" />
 <Route Url="/fhir/r4/Patient/:id" Method="DELETE" Call="FHIRDELETE" Cors="true"/>
 <Route Url="/fhir/r4/Patient/:id" Method="PUT" Call="FHIRPUT" Cors="true"/>
-
 <Route Url="/fhir/r4/Observation/:id" Method="GET" Call="FHIROBSERVATION" Cors="true"/>
-
-<Route Url="/fhir/r4/Bundle" Method="POST" Call="FHIRBUNDLE" Cors="true" />
-
 <Route Url="/list/:classname" Method="GET" Call="list" Cors="true"/>
 <Route Url="/_spec" Method="GET" Call="spec" />
 </Routes>
@@ -83,6 +83,33 @@ ClassMethod FHIRBUNDLE() As %Status
     Return sc
 }
 
+ClassMethod FHIRGETPATIENTS() As %Status
+{
+    Set sc = $$$OK
+    set %response.ContentType = ..#CONTENTTYPEJSON
+    set json = {}
+        try{
+	
+        #dim request as %Net.HttpRequest
+        set request = ##class(%Net.HttpRequest).%New()
+        set request.Server = "IRISHealth"
+        set request.ContentType = "application/fhir+json; charset=UTF-8"
+        do request.SetHeader("Accept","*/*")
+        set request.Port = 52773
+
+	    set st = request.Get("/irisapp/fhir/r4/Patient")
+        if ($$$ISERR(st)) {
+            throw ##class(%Exception.StatusException).CreateFromStatus(st)
+        }
+	    set json = {}.%FromJSON(request.HttpResponse.Data)
+        write json.%ToJSON()
+      
+	} catch exp{
+		set sc = exp.AsStatus()
+	}
+    Return sc
+}
+
 /// Description
 ClassMethod FHIRGETPATIENT(id As %String) As %Status
 {
@@ -99,6 +126,33 @@ ClassMethod FHIRGETPATIENT(id As %String) As %Status
         set request.Port = 52773
 
 	    set st = request.Get("/irisapp/fhir/r4/Patient/" _ id)
+        if ($$$ISERR(st)) {
+            throw ##class(%Exception.StatusException).CreateFromStatus(st)
+        }
+	    set json = {}.%FromJSON(request.HttpResponse.Data)
+        write json.%ToJSON()
+      
+	} catch exp{
+		set sc = exp.AsStatus()
+	}
+    Return sc
+}
+
+ClassMethod FHIRGETPATIENTBYGENDER(gender As %String) As %Status
+{
+    Set sc = $$$OK
+    set %response.ContentType = ..#CONTENTTYPEJSON
+    set json = {}
+        try{
+	
+        #dim request as %Net.HttpRequest
+        set request = ##class(%Net.HttpRequest).%New()
+        set request.Server = "IRISHealth"
+        set request.ContentType = "application/fhir+json; charset=UTF-8"
+        do request.SetHeader("Accept","*/*")
+        set request.Port = 52773
+
+	    set st = request.Get("/irisapp/fhir/r4/Patient?gender=" _ gender)
         if ($$$ISERR(st)) {
             throw ##class(%Exception.StatusException).CreateFromStatus(st)
         }

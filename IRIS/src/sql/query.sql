@@ -1,5 +1,13 @@
 select * from aa.Patient
 
+SELECT 
+p.ID, BirthDate, FamilyName, Gender, GivenName, p.Key, PatientAddressCity, PatientNameUse,al.allergyintolerance
+FROM AA.Patient P
+inner join AA.AllergyIntolerance Al on Al.AllergyIntolerancePatientReference = p.key 
+and al.allergyintolerance is not null
+
+
+
 DROP TABLE AAAA.Location;
 
 CREATE TABLE AAAA.Location (

@@ -13,6 +13,11 @@ Accept: application/fhir+json
 content-type: application/fhir+json
 
 ### Récupération des Patients par genre
+GET http://localhost:28000/irisapp/fhir/r4/Patient?gender=male HTTP/1.1
+Accept: application/fhir+json
+content-type: application/fhir+json
+
+### Récupération des Patients par genre
 GET http://localhost:28000/irisapp/fhir/r4/Patient?gender=female HTTP/1.1
 Accept: application/fhir+json
 content-type: application/fhir+json
