@@ -1,0 +1,1 @@
+docker exec -ti IRISHealth iris merge iris /data/merge/merge.cpf

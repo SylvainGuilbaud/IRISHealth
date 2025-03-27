@@ -6,7 +6,6 @@ GET http://localhost:28000/irisapp/fhir/r4/Patient HTTP/1.1
 Accept: application/fhir+json
 content-type: application/fhir+json
 
-
 ### Récupération d'un Patient
 GET http://localhost:28000/irisapp/fhir/r4/Patient/24445670 HTTP/1.1
 Accept: application/fhir+json

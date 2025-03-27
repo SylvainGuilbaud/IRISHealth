@@ -1,0 +1,134 @@
+{
+  "name": "Analyses T1 projet recherche R1",
+  "scanId": 1,
+  "description": "",
+  "resources": [
+    {
+      "resourceType": "AllergyIntolerance",
+      "columns": [
+        {
+          "name": "AllergyIntolerance",
+          "type": "String",
+          "path": "AllergyIntolerance.code.text",
+          "index": false,
+          "dataIndex": false,
+          "length": 50,
+          "RENAMED": "AllergyIntoleranceCodeText"
+        },
+        {
+          "name": "AllergyIntolerancePatientReference",
+          "type": "String",
+          "path": "AllergyIntolerance.patient.reference",
+          "index": false,
+          "dataIndex": false,
+          "length": 50
+        }
+      ]
+    },
+    {
+      "resourceType": "Patient",
+      "columns": [
+        {
+          "name": "FamilyName",
+          "type": "String",
+          "path": "Patient.name.family",
+          "index": false,
+          "dataIndex": false,
+          "length": 50,
+          "RENAMED": "PatientNameFamily"
+        },
+        {
+          "name": "GivenName",
+          "type": "String",
+          "path": "Patient.name.given",
+          "index": false,
+          "dataIndex": false,
+          "length": 50,
+          "RENAMED": "PatientNameGiven"
+        },
+        {
+          "name": "PatientNameUse",
+          "type": "String",
+          "path": "Patient.name.where(use = 'official').use",
+          "index": false,
+          "dataIndex": false,
+          "length": 10
+        },
+        {
+          "name": "Gender",
+          "type": "String",
+          "path": "Patient.gender",
+          "index": true,
+          "dataIndex": false,
+          "length": 10,
+          "RENAMED": "PatientGender"
+        },
+        {
+          "name": "BirthDate",
+          "type": "String",
+          "path": "Patient.birthDate",
+          "index": false,
+          "dataIndex": false,
+          "length": 10,
+          "RENAMED": "PatientBirthDate"
+        },
+        {
+          "name": "PatientAddressCity",
+          "type": "String",
+          "path": "Patient.address.city",
+          "index": false,
+          "dataIndex": false,
+          "length": 10
+        }
+      ]
+    },
+    {
+      "resourceType": "CarePlan",
+      "columns": [
+        {
+          "name": "CarePlanCategory",
+          "type": "String",
+          "path": "CarePlan.category.text",
+          "index": false,
+          "dataIndex": false,
+          "length": 100,
+          "RENAMED": "CarePlanCategoryText"
+        },
+        {
+          "name": "CarePlanSubjectReference",
+          "type": "String",
+          "path": "CarePlan.subject.reference",
+          "index": false,
+          "dataIndex": false,
+          "length": 10
+        }
+      ]
+    },
+    {
+      "resourceType": "Encounter",
+      "columns": [
+        {
+          "name": "EncounterTypeCodingDisplay",
+          "type": "String",
+          "path": "Encounter.type.coding.display",
+          "index": false,
+          "dataIndex": false,
+          "length": 50
+        },
+        {
+          "name": "EncounterSubjectReference",
+          "type": "String",
+          "path": "Encounter.subject.reference",
+          "index": false,
+          "dataIndex": false,
+          "length": 10
+        }
+      ]
+    }
+  ],
+  "version": 1,
+  "scanStartDateTime": "2025-03-24T14:19:48Z",
+  "scanFHIRRepositoryName": "FHIRREPO",
+  "id": 1,
+  "lastModified": "2025-03-24T14:25:11.34Z"
+}

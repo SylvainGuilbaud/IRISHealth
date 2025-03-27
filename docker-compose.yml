@@ -23,7 +23,7 @@ services:
       - ISC_DATA_DIRECTORY=/volumes/IRIS
       - TINI_SUBREAPER=1
       - TZ=Europe/Paris
-      # - ISC_CPF_MERGE_FILE=/IRIS/mirrorPrimary.conf
+      - ISC_CPF_MERGE_FILE=/data/merge/merge.cpf
     ports:
       - 29720:1972
       - 28000:52773
