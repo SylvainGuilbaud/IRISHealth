@@ -8,6 +8,12 @@ scrape_configs:
       - targets: 
         - 'host.docker.internal:28000'
     scheme: http
+  - job_name: 'interop_metrics'
+    metrics_path: /api/monitor/interop/interfaces
+    static_configs:
+      - targets:
+          - 'host.docker.internal:28000'
+    scheme: http
   - job_name: 'custom_iris_metrics'
     metrics_path: /custom/monitor/metrics
     static_configs:
