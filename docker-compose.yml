@@ -209,7 +209,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_SECURITY_ADMIN_PASSWORD=ADMIN
     volumes:
       - ./grafana:/var/lib/grafana
     depends_on:

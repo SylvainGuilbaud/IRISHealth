@@ -7,7 +7,8 @@
             "internalPort": 52773
         },
         "links": {
-            "Monitor": "http://${host}:9090",
+            "Monitor - Grafana": "http://${host}:3000",
+            "Monitor - Promtheus": "http://${host}:9090",
             "Notebook": "http://${host}:28001",
             "FHIR UI Portal": "http://${host}:${port}/fhir/portal/patientlist.html",
             "FHIR UI Demo": "http://${host}:${port}/fhirUI/FHIRAppDemo.html",

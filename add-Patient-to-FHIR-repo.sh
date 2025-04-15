@@ -1,5 +1,5 @@
-while true
-do
+# while true
+# do
 curl http://localhost:28000/irisapp/fhir/r4/Patient \
     -H "Content-Type: application/fhir+json" \
     -X POST \
@@ -33,4 +33,4 @@ curl http://localhost:28000/irisapp/fhir/r4/Patient \
     ],
     "id": "139"
     }'
-    done
+    # done
