@@ -29,6 +29,9 @@ ClassMethod SetupFHIRServer(ns) As %Status
     set strategy = ##class(HS.FHIRServer.API.InteractionsStrategy).GetStrategyForEndpoint(appKey)
     set config = strategy.GetServiceConfigData()
     set config.DebugMode = 4
+    set config.DefaultSearchPageSize = 1000
+    set config.MaxSearchPageSize = 10000
+    set config.MaxSearchResults = 10000
     do strategy.SaveServiceConfigData(config)
 
     //

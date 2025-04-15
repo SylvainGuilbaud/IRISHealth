@@ -1,6 +1,15 @@
 
 ```http
 
+@baseUrl = https://api.exemple.com
+@auth = Basic X3N5c3RlbTpib3c=
+
+GET {{baseUrl}}/endpoint
+Authorization: {{auth}}
+Content-Type: application/json
+
+
+
 ### Récupération de tous les Patients
 GET http://localhost:28000/irisapp/fhir/r4/Patient HTTP/1.1
 Accept: application/fhir+json
@@ -59,9 +68,9 @@ content-type: application/fhir+json
 
 
 ### Suppression d'un patient
-DELETE http://localhost:28000/irisapp/fhir/r4/Patient/3009 HTTP/1.1
-Accept: application/fhir+json
-content-type: application/fhir+json
+DELETE http://localhost:28000/irisapp/fhir/r4/Patient/5
+Accept: application/json+fhir
+content-type: application/json+fhir
 
 ```
 
