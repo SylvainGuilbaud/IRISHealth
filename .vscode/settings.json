@@ -63,5 +63,21 @@
             "name":"Test Packages",
             "url":"https://[insert private repo here]"
         }
+    ],
+    "sqltools.connections": [
+        {
+            "namespace": "IRISAPP",
+            "connectionMethod": "Server and Port",
+            "showSystem": false,
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 28000,
+            "https": false,
+            "askForPassword": false,
+            "driver": "InterSystems IRIS",
+            "name": "IRISHealth",
+            "username": "_system",
+            "password": "SYS"
+        }
     ]
 }
