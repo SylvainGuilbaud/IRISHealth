@@ -8,7 +8,7 @@
         },
         "links": {
             "Monitor - Grafana": "http://${host}:3000",
-            "Monitor - Promtheus": "http://${host}:9090",
+            "Monitor - Prometheus": "http://${host}:9090",
             "docs - metrics": "https://docs.intersystems.com/irisforhealthlatest/csp/docbook/Doc.View.cls?KEY=GCM_rest#GCM_rest_metrics",
             "Notebook": "http://${host}:28001",
             "FHIR UI Portal": "http://${host}:${port}/fhir/portal/patientlist.html",
