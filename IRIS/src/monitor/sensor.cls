@@ -33,6 +33,10 @@ Method GetSensors() As %Status
         do ..SetSensorLabels("nb",nb,.Labels)
       }
     }   
+    do ..SetSensor("nb_alerts",..alerts("FTP"),"FTP")
+    do ..SetSensor("nb_alerts",..alerts("error"),"error")
+     do ..SetSensor("nb_alerts",..alerts("SFT"),"SFT")
+    do ..SetSensor("nb_alerts",..alerts("error"),"error")
    return $$$OK
 }
 
@@ -49,6 +53,14 @@ ClassMethod nbMessages(configName As %String = "HL7v2 messages erreurs", nbHours
     )
     
     return nb
+}
+
+/// Description
+ClassMethod alerts(text As %String = "FTP") As %Integer
+{
+    set nb=0    
+    &sql(SELECT count(*) INTO :nb FROM Ens.AlertRequest where alerttext [ :text)
+	return nb
 }
 
 }
