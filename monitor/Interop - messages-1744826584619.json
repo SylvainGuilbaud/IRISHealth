@@ -304,7 +304,6 @@
     }
   ],
   "preload": false,
-  "refresh": "auto",
   "schemaVersion": 41,
   "tags": [],
   "templating": {
@@ -325,7 +324,7 @@
     ]
   },
   "time": {
-    "from": "now-15m",
+    "from": "now-6h",
     "to": "now"
   },
   "timepicker": {},

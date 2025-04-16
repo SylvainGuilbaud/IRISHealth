@@ -175,7 +175,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "changes(iris_interop_messages[24h])",
+          "expr": "iris_interop_messages",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "legendFormat": "{{host}}",
@@ -189,6 +189,7 @@
     }
   ],
   "preload": false,
+  "refresh": "auto",
   "schemaVersion": 41,
   "tags": [],
   "templating": {
@@ -202,5 +203,5 @@
   "timezone": "browser",
   "title": "nb messages dernières 24h",
   "uid": "eej3hdc7z711ce",
-  "version": 12
+  "version": 13
 }
