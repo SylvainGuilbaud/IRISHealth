@@ -57,8 +57,8 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 4,
-        "w": 12,
+        "h": 3,
+        "w": 17,
         "x": 0,
         "y": 0
       },
@@ -136,9 +136,9 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 4,
+        "h": 3,
         "w": 7,
-        "x": 12,
+        "x": 17,
         "y": 0
       },
       "id": 4,
@@ -239,7 +239,7 @@
         "h": 24,
         "w": 24,
         "x": 0,
-        "y": 4
+        "y": 3
       },
       "id": 3,
       "options": {
@@ -283,12 +283,12 @@
     "list": []
   },
   "time": {
-    "from": "now-15m",
+    "from": "now-30m",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "browser",
   "title": "Interop - messages",
   "uid": "messages",
-  "version": 9
+  "version": 10
 }
