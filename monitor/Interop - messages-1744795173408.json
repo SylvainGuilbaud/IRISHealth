@@ -19,7 +19,32 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 11,
-  "links": [],
+  "links": [
+    {
+      "asDropdown": false,
+      "icon": "external link",
+      "includeVars": true,
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Production Configuration",
+      "tooltip": "",
+      "type": "link",
+      "url": "http://localhost:28000/ui/interop/interop-editor/index.html?$NAMESPACE=IRISAPP&$PRODUCTION=IRISHealth.production"
+    },
+    {
+      "asDropdown": false,
+      "icon": "external link",
+      "includeVars": true,
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Visual Trace",
+      "tooltip": "",
+      "type": "link",
+      "url": "http://localhost:28000/csp/healthshare/irisapp/EnsPortal.MessageViewer.zen"
+    }
+  ],
   "panels": [
     {
       "datasource": {
@@ -40,7 +65,7 @@
                 "color": "green"
               },
               {
-                "color": "#EAB839",
+                "color": "light-blue",
                 "value": 5
               },
               {
@@ -280,7 +305,21 @@
   "schemaVersion": 41,
   "tags": [],
   "templating": {
-    "list": []
+    "list": [
+      {
+        "current": {
+          "text": "",
+          "value": ""
+        },
+        "label": "NAMESPACE",
+        "name": "query0",
+        "options": [],
+        "query": "",
+        "refresh": 1,
+        "regex": "",
+        "type": "query"
+      }
+    ]
   },
   "time": {
     "from": "now-30m",
@@ -290,5 +329,5 @@
   "timezone": "browser",
   "title": "Interop - messages",
   "uid": "messages",
-  "version": 10
+  "version": 14
 }
