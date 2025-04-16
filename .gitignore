@@ -6,6 +6,5 @@ volumes
 data/LabResult/pdf
 **/IRIS.DAT
 **/iris.lck
-grafana
-prometheus
+
 

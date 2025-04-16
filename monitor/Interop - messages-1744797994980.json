@@ -189,16 +189,19 @@
         {
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "iris_interop_messages{host=\"HL7v2 messages erreurs\"}",
+          "exemplar": false,
+          "expr": "changes(iris_interop_messages{host=\"HL7v2 messages erreurs\"}[1h])",
+          "format": "time_series",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
+          "instant": false,
           "legendFormat": "__auto",
           "range": true,
           "refId": "A",
           "useBackend": false
         }
       ],
-      "title": "Message HL7 en erreur",
+      "title": "Message HL7 en erreur sur la dernière heure",
       "type": "stat"
     },
     {
@@ -322,12 +325,12 @@
     ]
   },
   "time": {
-    "from": "now-30m",
+    "from": "now-15m",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "browser",
   "title": "Interop - messages",
   "uid": "messages",
-  "version": 14
+  "version": 25
 }

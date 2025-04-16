@@ -201,7 +201,7 @@ services:
       - "9090:9090"
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
-      - ./prometheus:/prometheus
+      - ./volumes/prometheus:/prometheus
 
   grafana:
     image: grafana/grafana:latest
@@ -212,7 +212,7 @@ services:
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=ADMIN
     volumes:
-      - ./grafana:/var/lib/grafana
+      - ./volumes/grafana:/var/lib/grafana
     depends_on:
       - prometheus
  
