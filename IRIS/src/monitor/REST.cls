@@ -1,4 +1,4 @@
-Class CustomMetrics.REST Extends %CSP.REST
+Class monitor.REST Extends %CSP.REST
 {
 
 /// Enable CORS for the REST service

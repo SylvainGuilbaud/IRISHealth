@@ -56,7 +56,7 @@
         ]
       },
       "gridPos": {
-        "h": 8,
+        "h": 6,
         "w": 12,
         "x": 0,
         "y": 0
@@ -122,7 +122,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
+        "h": 6,
         "w": 12,
         "x": 12,
         "y": 0
@@ -164,15 +164,45 @@
         "type": "prometheus",
         "uid": "prometheus"
       },
-      "description": "This shows disk percentage full for the disk that IRIS is installed on \n\n**Note:** GB remaining is much more important!",
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
           },
           "mappings": [],
-          "max": 100,
-          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -184,41 +214,29 @@
                 "value": 80
               }
             ]
-          },
-          "unit": "percent"
+          }
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 3,
+        "h": 6,
         "w": 9,
         "x": 0,
-        "y": 8
+        "y": 6
       },
-      "id": 43,
+      "id": 38,
       "options": {
-        "displayMode": "gradient",
         "legend": {
           "calcs": [],
           "displayMode": "list",
           "placement": "bottom",
-          "showLegend": false
+          "showLegend": true
         },
-        "maxVizHeight": 300,
-        "minVizHeight": 16,
-        "minVizWidth": 8,
-        "namePlacement": "auto",
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showUnfilled": true,
-        "sizing": "auto",
-        "valueMode": "color"
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
       },
       "pluginVersion": "11.6.0",
       "targets": [
@@ -227,14 +245,14 @@
             "uid": "grafana"
           },
           "editorMode": "code",
-          "expr": "iris_disk_percent_full{id=\"IRISSYS\",instance=\"host.docker.internal:28000\"}",
-          "legendFormat": "IRIS Disk Percent",
+          "expr": "iris_cpu_usage",
+          "legendFormat": "CPU Utilization",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "IRIS Disk Percent",
-      "type": "bargauge"
+      "title": "CPU Utilization",
+      "type": "timeseries"
     },
     {
       "datasource": {
@@ -270,10 +288,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 5,
+        "h": 9,
         "w": 3,
         "x": 9,
-        "y": 8
+        "y": 6
       },
       "id": 49,
       "options": {
@@ -367,10 +385,10 @@
         ]
       },
       "gridPos": {
-        "h": 5,
-        "w": 12,
+        "h": 3,
+        "w": 6,
         "x": 12,
-        "y": 8
+        "y": 6
       },
       "id": 22,
       "options": {
@@ -411,200 +429,15 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "aeizz8kky0s1sa"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "fieldMinMax": false,
-          "links": [
-            {
-              "targetBlank": true,
-              "title": "Alerts.log",
-              "url": "http://localhost:28000/csp/sys/op/UtilSysConsoleLog.csp"
-            }
-          ],
-          "mappings": [],
-          "max": 50,
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              },
-              {
-                "color": "#EAB839",
-                "value": 1
-              },
-              {
-                "color": "semi-dark-red",
-                "value": 5
-              },
-              {
-                "color": "red",
-                "value": 10
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 3,
-        "x": 0,
-        "y": 11
-      },
-      "id": 50,
-      "options": {
-        "minVizHeight": 75,
-        "minVizWidth": 75,
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showThresholdLabels": true,
-        "showThresholdMarkers": true,
-        "sizing": "auto"
-      },
-      "pluginVersion": "11.6.0",
-      "targets": [
-        {
-          "disableTextWrap": false,
-          "editorMode": "builder",
-          "expr": "changes(ALERTS{alertstate=\"firing\"}[10m])",
-          "fullMetaSearch": false,
-          "includeNullMetadata": true,
-          "legendFormat": "__auto",
-          "range": true,
-          "refId": "A",
-          "useBackend": false
-        }
-      ],
-      "title": "Alertes",
-      "type": "gauge"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
         "uid": "prometheus"
       },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 6,
-        "x": 3,
-        "y": 11
-      },
-      "id": 38,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "11.6.0",
-      "targets": [
-        {
-          "datasource": {
-            "uid": "grafana"
-          },
-          "editorMode": "code",
-          "expr": "iris_cpu_usage",
-          "legendFormat": "CPU Utilization",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "CPU Utilization",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "description": "The number of alerts posted to the messages log since system startup.",
       "fieldConfig": {
         "defaults": {
           "color": {
             "fixedColor": "rgb(31, 120, 193)",
             "mode": "fixed"
           },
-          "links": [
-            {
-              "targetBlank": true,
-              "title": "System Alerts",
-              "url": "http://localhost:28000/csp/sys/op/UtilSysConsoleLog.csp"
-            }
-          ],
+          "decimals": 2,
           "mappings": [
             {
               "options": {
@@ -628,17 +461,17 @@
               }
             ]
           },
-          "unit": "none"
+          "unit": "decmbytes"
         },
         "overrides": []
       },
       "gridPos": {
         "h": 3,
-        "w": 3,
-        "x": 9,
-        "y": 13
+        "w": 6,
+        "x": 18,
+        "y": 6
       },
-      "id": 8,
+      "id": 34,
       "maxDataPoints": 100,
       "options": {
         "colorMode": "none",
@@ -664,16 +497,12 @@
             "uid": "grafana"
           },
           "editorMode": "code",
-          "expr": "iris_system_alerts{instance=\"host.docker.internal:28000\"}",
-          "format": "time_series",
-          "intervalFactor": 2,
-          "metric": "iris_system_alerts",
+          "expr": "iris_jrn_size{id=\"primary\",instance=\"host.docker.internal:28000\"}",
           "range": true,
-          "refId": "A",
-          "step": 30
+          "refId": "A"
         }
       ],
-      "title": "System Alerts",
+      "title": "Total Pri Jnl Size",
       "type": "stat"
     },
     {
@@ -719,10 +548,10 @@
         ]
       },
       "gridPos": {
-        "h": 5,
-        "w": 12,
+        "h": 3,
+        "w": 6,
         "x": 12,
-        "y": 13
+        "y": 9
       },
       "id": 45,
       "options": {
@@ -758,6 +587,321 @@
         }
       ],
       "title": "IRIS Database Latency",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "rgb(31, 120, 193)",
+            "mode": "fixed"
+          },
+          "decimals": 2,
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "decmbytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 6,
+        "x": 18,
+        "y": 9
+      },
+      "id": 47,
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.6.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "grafana"
+          },
+          "editorMode": "code",
+          "expr": "iris_jrn_free_space{id=\"WIJ\",instance=\"host.docker.internal:28000\"}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "WIJ Free",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "description": "This shows disk percentage full for the disk that IRIS is installed on \n\n**Note:** GB remaining is much more important!",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 9,
+        "x": 0,
+        "y": 12
+      },
+      "id": 43,
+      "options": {
+        "displayMode": "gradient",
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "maxVizHeight": 300,
+        "minVizHeight": 16,
+        "minVizWidth": 8,
+        "namePlacement": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "sizing": "auto",
+        "valueMode": "color"
+      },
+      "pluginVersion": "11.6.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "grafana"
+          },
+          "editorMode": "code",
+          "expr": "iris_disk_percent_full{id=\"IRISSYS\",instance=\"host.docker.internal:28000\"}",
+          "legendFormat": "IRIS Disk Percent",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "IRIS Disk Percent",
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "rgb(31, 120, 193)",
+            "mode": "fixed"
+          },
+          "decimals": 2,
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "decmbytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 6,
+        "x": 12,
+        "y": 12
+      },
+      "id": 33,
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.6.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "grafana"
+          },
+          "editorMode": "code",
+          "expr": "iris_jrn_free_space{id=\"primary\",instance=\"host.docker.internal:28000\"}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Pri Jnl Free",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "description": "MB remaining is much more important than %!",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "rgb(31, 120, 193)",
+            "mode": "fixed"
+          },
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "decmbytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 6,
+        "x": 18,
+        "y": 12
+      },
+      "id": 44,
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.6.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "grafana"
+          },
+          "editorMode": "code",
+          "expr": "iris_directory_space{id=\"IRISSYS\",instance=\"host.docker.internal:28000\"}",
+          "legendFormat": "IRIS Space Remaining",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "IRIS Disk Remaining",
       "type": "stat"
     },
     {
@@ -955,7 +1099,7 @@
         "h": 5,
         "w": 12,
         "x": 0,
-        "y": 16
+        "y": 15
       },
       "id": 19,
       "options": {
@@ -1001,165 +1145,6 @@
       ],
       "title": "Glorefs",
       "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "description": "MB remaining is much more important than %!",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "rgb(31, 120, 193)",
-            "mode": "fixed"
-          },
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "decmbytes"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 3,
-        "w": 6,
-        "x": 12,
-        "y": 18
-      },
-      "id": 44,
-      "maxDataPoints": 100,
-      "options": {
-        "colorMode": "none",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "11.6.0",
-      "targets": [
-        {
-          "datasource": {
-            "uid": "grafana"
-          },
-          "editorMode": "code",
-          "expr": "iris_directory_space{id=\"IRISSYS\",instance=\"host.docker.internal:28000\"}",
-          "legendFormat": "IRIS Space Remaining",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "IRIS Disk Remaining",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "rgb(31, 120, 193)",
-            "mode": "fixed"
-          },
-          "decimals": 2,
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "decmbytes"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 3,
-        "w": 6,
-        "x": 18,
-        "y": 18
-      },
-      "id": 34,
-      "maxDataPoints": 100,
-      "options": {
-        "colorMode": "none",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "11.6.0",
-      "targets": [
-        {
-          "datasource": {
-            "uid": "grafana"
-          },
-          "editorMode": "code",
-          "expr": "iris_jrn_size{id=\"primary\",instance=\"host.docker.internal:28000\"}",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Total Pri Jnl Size",
-      "type": "stat"
     },
     {
       "datasource": {
@@ -1224,10 +1209,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 3,
+        "h": 5,
         "w": 12,
-        "x": 0,
-        "y": 21
+        "x": 12,
+        "y": 15
       },
       "id": 15,
       "options": {
@@ -1272,13 +1257,20 @@
         "type": "prometheus",
         "uid": "prometheus"
       },
+      "description": "The number of alerts posted to the messages log since system startup.",
       "fieldConfig": {
         "defaults": {
           "color": {
             "fixedColor": "rgb(31, 120, 193)",
             "mode": "fixed"
           },
-          "decimals": 2,
+          "links": [
+            {
+              "targetBlank": true,
+              "title": "System Alerts",
+              "url": "http://localhost:28000/csp/sys/op/UtilSysConsoleLog.csp"
+            }
+          ],
           "mappings": [
             {
               "options": {
@@ -1302,17 +1294,17 @@
               }
             ]
           },
-          "unit": "decmbytes"
+          "unit": "none"
         },
         "overrides": []
       },
       "gridPos": {
         "h": 3,
-        "w": 6,
-        "x": 12,
-        "y": 21
+        "w": 24,
+        "x": 0,
+        "y": 20
       },
-      "id": 33,
+      "id": 8,
       "maxDataPoints": 100,
       "options": {
         "colorMode": "none",
@@ -1338,91 +1330,16 @@
             "uid": "grafana"
           },
           "editorMode": "code",
-          "expr": "iris_jrn_free_space{id=\"primary\",instance=\"host.docker.internal:28000\"}",
+          "expr": "iris_system_alerts{instance=\"host.docker.internal:28000\"}",
+          "format": "time_series",
+          "intervalFactor": 2,
+          "metric": "iris_system_alerts",
           "range": true,
-          "refId": "A"
+          "refId": "A",
+          "step": 30
         }
       ],
-      "title": "Pri Jnl Free",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "rgb(31, 120, 193)",
-            "mode": "fixed"
-          },
-          "decimals": 2,
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "decmbytes"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 3,
-        "w": 6,
-        "x": 18,
-        "y": 21
-      },
-      "id": 47,
-      "maxDataPoints": 100,
-      "options": {
-        "colorMode": "none",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "11.6.0",
-      "targets": [
-        {
-          "datasource": {
-            "uid": "grafana"
-          },
-          "editorMode": "code",
-          "expr": "iris_jrn_free_space{id=\"WIJ\",instance=\"host.docker.internal:28000\"}",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "WIJ Free",
+      "title": "System Alerts",
       "type": "stat"
     }
   ],
@@ -1458,12 +1375,12 @@
     ]
   },
   "time": {
-    "from": "now-6h",
+    "from": "now-24h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "browser",
   "title": "InterSystems IRIS for Health",
   "uid": "1",
-  "version": 16
+  "version": 18
 }
