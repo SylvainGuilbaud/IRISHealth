@@ -11,7 +11,7 @@ Method log(pRequest As Ens.AlertRequest, Output pResponse As %Persistent) As %St
 
     $$$TRACE("ALERT TEXT:" _ pRequest.AlertText)
 
-    set sc = ##class(%SYS.System).WriteToConsoleLog("{{" _ ..Label _"}}"  _ pRequest.AlertText,1)
+    set sc = ##class(%SYS.System).WriteToConsoleLog("<<" _ ..Label _">> "  _ pRequest.AlertText,,1)
 
 	return sc
 }
