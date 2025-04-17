@@ -86,6 +86,7 @@ XData UrlMap
 {
 <Routes>
     <Route Url="/metrics" Method="GET" Call="Metrics"/>
+<Route Url="/rofim" Method="GET" Call="Metrics"/>
 </Routes>
 }
 

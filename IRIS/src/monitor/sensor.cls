@@ -37,6 +37,7 @@ Method GetSensors() As %Status
     do ..SetSensor("nb_alerts",..alerts("error"),"error")
      do ..SetSensor("nb_alerts",..alerts("SFT"),"SFT")
     do ..SetSensor("nb_alerts",..alerts("error"),"error")
+    o ..SetSensor("nb_alerts",..alerts("email"),"error")
    return $$$OK
 }
 

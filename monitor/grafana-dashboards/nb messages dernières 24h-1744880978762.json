@@ -29,6 +29,102 @@
       "fieldConfig": {
         "defaults": {
           "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 3,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.6.0",
+      "targets": [
+        {
+          "disableTextWrap": false,
+          "editorMode": "code",
+          "expr": "messages_24h_nb_alerts>0",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "legendFormat": "{{id}}",
+          "range": true,
+          "refId": "A",
+          "useBackend": false
+        }
+      ],
+      "title": "Alerts on Text",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "aeizz8kky0s1sa"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
             "mode": "thresholds"
           },
           "mappings": [],
@@ -59,7 +155,7 @@
         "h": 13,
         "w": 24,
         "x": 0,
-        "y": 0
+        "y": 4
       },
       "id": 2,
       "options": {
@@ -139,7 +235,7 @@
         "h": 18,
         "w": 24,
         "x": 0,
-        "y": 13
+        "y": 17
       },
       "id": 1,
       "options": {
@@ -174,8 +270,8 @@
             "uid": "aeizz8kky0s1sa"
           },
           "disableTextWrap": false,
-          "editorMode": "builder",
-          "expr": "iris_interop_messages",
+          "editorMode": "code",
+          "expr": "changes(iris_interop_messages[1h])>0",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "legendFormat": "{{host}}",
@@ -203,5 +299,5 @@
   "timezone": "browser",
   "title": "nb messages dernières 24h",
   "uid": "eej3hdc7z711ce",
-  "version": 13
+  "version": 18
 }
