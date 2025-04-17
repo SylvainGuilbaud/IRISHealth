@@ -8,13 +8,19 @@ XData RuleDefinition [ XMLNamespace = "http://www.intersystems.com/rule" ]
 {
 <ruleDefinition alias="" context="EnsLib.MsgRouter.RoutingEngine" production="IRISHealth.production">
 <ruleSet name="" effectiveBegin="" effectiveEnd="">
+<rule name="Send ALL ALERTS to Loki" disabled="false">
+<constraint name="source" value=""></constraint>
+<when condition="1" comment="">
+<send transform="" target="Message Log to Loki - Grafana"></send>
+</when>
+</rule>
 <rule name="planning astreintes">
 <constraint name="msgClass" value="Ens.AlertRequest"></constraint>
 <when condition="Document.AlertText[&quot;error&quot;" comment="">
 <send transform="" target=",planningastreintes"></send>
 </when>
 </rule>
-<rule name="" disabled="false">
+<rule name="HL7 v2 messages" disabled="false">
 <constraint name="source" value="HL7v2 router"></constraint>
 <when condition="1" comment="">
 <send transform="" target="Alerte Email"></send>
@@ -26,7 +32,6 @@ XData RuleDefinition [ XMLNamespace = "http://www.intersystems.com/rule" ]
 <send transform="" target=",planningastreintes"></send>
 </when>
 </rule>
-<send transform="" target="Message Log to Loki - Grafana"></send>
 </ruleSet>
 </ruleDefinition>
 }
