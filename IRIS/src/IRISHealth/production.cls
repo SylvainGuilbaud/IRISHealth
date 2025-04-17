@@ -101,7 +101,7 @@ XData ProductionDefinition
     <Setting Target="Host" Name="TargetConfigNames">validate</Setting>
     <Setting Target="Host" Name="MessageSchemaCategory">2.5.1,MDM_*=2.5,ORM_*=2.5</Setting>
   </Item>
-  <Item Name="Ens.Activity.Operation.Local" Category="" ClassName="Ens.Activity.Operation.Local" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  <Item Name="Ens.Activity.Operation.Local" Category="" ClassName="Ens.Activity.Operation.Local" PoolSize="1" Enabled="false" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
   </Item>
   <Item Name="source HPRIM FILE" Category="" ClassName="HPRIM.EDI.E1238.Service.FileService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
     <Setting Target="Adapter" Name="FilePath">/data/HPRIM/in/</Setting>
@@ -128,7 +128,7 @@ XData ProductionDefinition
     <Setting Target="Host" Name="FailureTimeout">-1</Setting>
   </Item>
   <Item Name="target HPRIM FTP" Category="" ClassName="HPRIM.EDI.E1238.Operation.FTPOperation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
-    <Setting Target="Adapter" Name="FTPServer">IRISHealth-ftp</Setting>
+    <Setting Target="Adapter" Name="FTPServer">IRISHealth-ftpaaa</Setting>
     <Setting Target="Adapter" Name="Credentials">ftp</Setting>
     <Setting Target="Adapter" Name="FilePath">./ftp/out</Setting>
     <Setting Target="Adapter" Name="FTPPort"></Setting>
@@ -248,6 +248,8 @@ XData ProductionDefinition
   <Item Name="HL7v2 messages erreurs" Category="" ClassName="EnsLib.HL7.Operation.FileOperation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
     <Setting Target="Adapter" Name="FilePath">/data/HL7/errors</Setting>
     <Setting Target="Host" Name="Filename">%f</Setting>
+  </Item>
+  <Item Name="Message Log to Loki - Grafana" Category="" ClassName="monitor.messageLog" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
   </Item>
 </Production>
 }

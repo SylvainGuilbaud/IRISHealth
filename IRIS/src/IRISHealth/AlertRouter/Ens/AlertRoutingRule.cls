@@ -26,6 +26,7 @@ XData RuleDefinition [ XMLNamespace = "http://www.intersystems.com/rule" ]
 <send transform="" target=",planningastreintes"></send>
 </when>
 </rule>
+<send transform="" target="Message Log to Loki - Grafana"></send>
 </ruleSet>
 </ruleDefinition>
 }
