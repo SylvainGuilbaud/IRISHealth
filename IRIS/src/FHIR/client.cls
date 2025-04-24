@@ -15,7 +15,6 @@ Method get(pRequest As FHIR.request, Output pResponse As FHIR.response) As %Libr
   
         set FHIRInstance = ##class(HS.FHIRServer.RestClient.FHIRService).CreateInstance(..FHIREndpoint)
 
-
         set FHIRRequest = FHIRInstance.MakeRequest("GET",,pRequest.RequestPath,pRequest.QueryString)
 
         set FHIRResponse = FHIRInstance.InvokeRequest(FHIRRequest)
