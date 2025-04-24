@@ -2,6 +2,9 @@
 Class HPRIMXML.process.FHIRContentAugmentation Extends Ens.BusinessProcessBPL
 {
 
+/// Used ti determine if the FHIR Model should be used
+/// 1 = use the FHIR Model
+/// 0 = do not use the FHIR Model
 Property FHIRModel As %Boolean [ InitialExpression = 1 ];
 
 Parameter SETTINGS = "FHIRModel:FHIR";
