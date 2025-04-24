@@ -17,6 +17,10 @@ XData DTL [ XMLNamespace = "http://www.intersystems.com/dtl" ]
 <assign value='source.sendingApp' property='target.{enteteMessage.emetteur(1)}' action='set' />
 <assign value='source.receivingApp' property='target.{enteteMessage.destinataire(1)}' action='set' />
 <assign value='source.eventDate' property='target.{enteteMessage.dateHeureProduction}' action='set' />
+<assign value='"925287F4-20A4-11F0-B7B4-EA3B43076670"' property='target.{choice.evenementServeurActe.patient.identifiant.numeroIdentifiantSante.identifiant}' action='set' />
+<assign value='"925287F4-20A4-11F0-B7B4-EA3B43076670"' property='target.{choice.evenementServeurActe.patient.identifiant.numeroIdentifiantPatients(1).identifiant}' action='set' />
+<assign value='"http://hospital.smarthealthit.org"' property='target.{choice.evenementServeurActe.patient.identifiant.numeroIdentifiantPatients(1).autorite.nom}' action='set' />
+<assign value='$zd($h-$random(10000),3)' property='target.{choice.evenementServeurActe.patient.personnePhysique.dateNaissance.date}' action='set' />
 </transform>
 }
 

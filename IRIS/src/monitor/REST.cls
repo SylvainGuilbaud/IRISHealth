@@ -4,6 +4,14 @@ Class monitor.REST Extends %CSP.REST
 /// Enable CORS for the REST service
 Parameter HandleCorsRequest = 1;
 
+/// Configure web methods to handle requests
+XData UrlMap
+{
+<Routes>
+    <Route Url="/metrics" Method="GET" Call="Metrics"/>
+</Routes>
+}
+
 /// This method handles GET requests to the /metrics endpoint
 ClassMethod Metrics() As %Status
 {
@@ -79,15 +87,6 @@ ClassMethod ConvertUptimeToSeconds(uptime As %String) As %Integer
         Set totalSeconds = totalSeconds + (minutes * 60)
     }
     Quit totalSeconds
-}
-
-/// Configure web methods to handle requests
-XData UrlMap
-{
-<Routes>
-    <Route Url="/metrics" Method="GET" Call="Metrics"/>
-<Route Url="/rofim" Method="GET" Call="Metrics"/>
-</Routes>
 }
 
 }

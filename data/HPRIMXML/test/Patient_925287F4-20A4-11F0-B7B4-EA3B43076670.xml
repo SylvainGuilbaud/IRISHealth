@@ -1,0 +1,41 @@
+<xsd_2:evenementsServeurActes xmlns:xsd_2='http://www.hprim.org/hprimXML' xmlns:xsd_3='http://www.hprim.org/inseeXML'>
+	<xsd_2:enteteMessage>
+		<xsd_2:dateHeureProduction>2025-04-24 01:22:44</xsd_2:dateHeureProduction>
+		<xsd_2:emetteur>
+			<xsd_2:agents>
+				<xsd_2:agent>GigaComp Partners</xsd_2:agent>
+			</xsd_2:agents>
+		</xsd_2:emetteur>
+		<xsd_2:destinataire>
+			<xsd_2:agents>
+				<xsd_2:agent>MacroNet Corp.</xsd_2:agent>
+			</xsd_2:agents>
+		</xsd_2:destinataire>
+	</xsd_2:enteteMessage>
+	<xsd_2:evenementServeurActe>
+		<xsd_2:patient>
+			<xsd_2:identifiant>
+				<xsd_2:numeroIdentifiantSante>
+					<xsd_2:identifiant>925287F4-20A4-11F0-B7B4-EA3B43076670</xsd_2:identifiant>
+				</xsd_2:numeroIdentifiantSante>
+				<xsd_2:numeroIdentifiantPatients>
+					<xsd_2:numeroIdentifiantPatient>
+						<xsd_2:identifiant>925287F4-20A4-11F0-B7B4-EA3B43076670</xsd_2:identifiant>
+						<xsd_2:autorite>
+							<xsd_2:nom>http://hospital.smarthealthit.org</xsd_2:nom>
+						</xsd_2:autorite>
+					</xsd_2:numeroIdentifiantPatient>
+				</xsd_2:numeroIdentifiantPatients>
+			</xsd_2:identifiant>
+			<xsd_2:personnePhysique>
+				<xsd_2:nomNaissance>Chadwick</xsd_2:nomNaissance>
+				<xsd_2:prenoms>
+					<xsd_2:prenom>Zeke</xsd_2:prenom>
+				</xsd_2:prenoms>
+				<xsd_2:dateNaissance>
+					<xsd_2:date>2013-12-12</xsd_2:date>
+				</xsd_2:dateNaissance>
+			</xsd_2:personnePhysique>
+		</xsd_2:patient>
+	</xsd_2:evenementServeurActe>
+</xsd_2:evenementsServeurActes>

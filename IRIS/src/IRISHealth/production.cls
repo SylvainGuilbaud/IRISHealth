@@ -150,6 +150,7 @@ XData ProductionDefinition
   <Item Name="HS.FHIRServer.Interop.Operation" Category="" ClassName="HS.FHIRServer.Interop.Operation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
   </Item>
   <Item Name="HS.FHIRServer.Interop.Service" Category="" ClassName="HS.FHIRServer.Interop.Service" PoolSize="0" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+    <Setting Target="Host" Name="TargetConfigName">HS.FHIRServer.Interop.Operation</Setting>
   </Item>
   <Item Name="de Résultats de Laboratoire" Category="Résultats de Laboratoire" ClassName="EnsLib.HL7.Service.FileService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
     <Setting Target="Host" Name="MessageSchemaCategory">2.3</Setting>
@@ -262,6 +263,21 @@ XData ProductionDefinition
     <Setting Target="Host" Name="Filename">%f</Setting>
   </Item>
   <Item Name="Message Log to Loki - Grafana" Category="" ClassName="monitor.messageLog" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  </Item>
+  <Item Name="FHIR GET /irisapp/fhir/r4" Category="HPRIM XML" ClassName="FHIR.client" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  </Item>
+  <Item Name="source HPRIM XML 2.4" Category="HPRIM XML" ClassName="EnsLib.EDI.XML.Service.FileService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+    <Setting Target="Host" Name="DocSchemaCategory">msgEvenementsServeurActes2_4</Setting>
+    <Setting Target="Adapter" Name="ArchivePath">/data/HPRIMXML/archive</Setting>
+    <Setting Target="Adapter" Name="FilePath">/data/HPRIMXML/in</Setting>
+    <Setting Target="Adapter" Name="WorkPath">/data/HPRIMXML/work</Setting>
+    <Setting Target="Host" Name="TargetConfigNames">HPRIM XML</Setting>
+  </Item>
+  <Item Name="target HPRIMXML 2.4" Category="HPRIM XML" ClassName="EnsLib.EDI.XML.Operation.FileOperation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+    <Setting Target="Host" Name="Filename">%f_%Q.xml</Setting>
+    <Setting Target="Adapter" Name="FilePath">/data/HPRIMXML/out</Setting>
+  </Item>
+  <Item Name="HPRIM XML" Category="HPRIM XML" ClassName="IRISHealth.process.HPRIMXML" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
   </Item>
 </Production>
 }

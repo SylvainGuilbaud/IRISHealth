@@ -1,0 +1,74 @@
+<evenementsServeurActes xmlns="http://www.hprim.org/hprimXML">
+  <enteteMessage>
+    <identifiantMessage>MSG123456</identifiantMessage>
+    <dateHeureProduction>2025-04-24T01:54:00+02:00</dateHeureProduction>
+    <emetteur>
+      <agents>
+        <agent categorie="application">
+          <code>APP01</code>
+          <libelle>ServeurActes</libelle>
+        </agent>
+      </agents>
+    </emetteur>
+    <destinataire>
+      <agents>
+        <agent categorie="application">
+          <code>APP02</code>
+          <libelle>Facturation</libelle>
+        </agent>
+      </agents>
+    </destinataire>
+  </enteteMessage>
+  <patient>
+    <identifiant>
+      <valeur>9a0d7938-4f49-43f6-8eea-b22e1bbe1b74</valeur>
+      <autorite>
+        <type>URI</type>
+        <nom>http://hospital.smarthealthit.org</nom>
+      </autorite>
+    </identifiant>
+    <personnePhysique sexe="F" informationQualifiee="oui">
+      <nomNaissance>Durand</nomNaissance>
+      <prenoms>
+        <prenom>Marie</prenom>
+      </prenoms>
+      <dateNaissance dateIncertaine="non">1980-05-12</dateNaissance>
+    </personnePhysique>
+  </patient>
+  <venue confidentiel="non" anonyme="non" etat="encours" facturable="oui" prive="non">
+    <identifiant>
+      <valeur>VENUE001</valeur>
+    </identifiant>
+    <natureVenueHprim>ext</natureVenueHprim>
+    <dateEntree>2025-04-01</dateEntree>
+    <dateSortie>2025-04-02</dateSortie>
+  </venue>
+  <prescription>
+    <datePrescription>2025-04-01</datePrescription>
+    <prescripteur>
+      <identifiant>MED123</identifiant>
+      <nom>Martin</nom>
+      <prenom>Paul</prenom>
+    </prescripteur>
+  </prescription>
+  <actesNGAP>
+    <acteNGAP action="creation" facturable="oui" valide="oui" facture="oui">
+      <dateAction>2025-04-01T10:00:00+02:00</dateAction>
+      <identifiant>ACTE001</identifiant>
+      <emetteur>DMN01</emetteur>
+      <lettreCle>TVA</lettreCle>
+      <coefficient>1</coefficient>
+      <quantite>1</quantite>
+      <execute>2025-04-01</execute>
+      <date>2025-04-30</date>
+      <prestataire>PREST01</prestataire>
+      <medecins>
+        <medecin lien="exec">
+          <identifiant>MED123</identifiant>
+          <nom>Martin</nom>
+          <prenom>Paul</prenom>
+        </medecin>
+      </medecins>
+    </acteNGAP>
+  </actesNGAP>
+</evenementsServeurActes>
