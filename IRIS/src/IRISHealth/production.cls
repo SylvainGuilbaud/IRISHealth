@@ -268,9 +268,9 @@ XData ProductionDefinition
   </Item>
   <Item Name="source HPRIM XML 2.4" Category="HPRIM XML" ClassName="EnsLib.EDI.XML.Service.FileService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
     <Setting Target="Host" Name="DocSchemaCategory">msgEvenementsServeurActes2_4</Setting>
-    <Setting Target="Adapter" Name="ArchivePath">/data/HPRIMXML/archive</Setting>
+    <Setting Target="Adapter" Name="ArchivePath"></Setting>
     <Setting Target="Adapter" Name="FilePath">/data/HPRIMXML/in</Setting>
-    <Setting Target="Adapter" Name="WorkPath">/data/HPRIMXML/work</Setting>
+    <Setting Target="Adapter" Name="WorkPath"></Setting>
     <Setting Target="Host" Name="TargetConfigNames">HPRIM XML</Setting>
   </Item>
   <Item Name="target HPRIMXML 2.4" Category="HPRIM XML" ClassName="EnsLib.EDI.XML.Operation.FileOperation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
