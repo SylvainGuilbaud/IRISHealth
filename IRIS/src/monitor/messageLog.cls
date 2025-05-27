@@ -3,7 +3,7 @@ Class monitor.messageLog Extends Ens.BusinessOperation
 
 Property Label As %String(MAXLEN = 255) [ InitialExpression = "MESSAGE FROM INTEROP PRODUCTION" ];
 
-Parameter SETTINGS = "Label";
+Parameter SETTINGS = "Label:advanced";
 
 Method log(pRequest As Ens.AlertRequest, Output pResponse As %Persistent) As %Status
 {

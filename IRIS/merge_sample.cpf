@@ -1,0 +1,66 @@
+[Actions]
+; === ES1 ===
+CreateResource:Name=%DB_ES1_CODE,Description="Base routines ES1"
+CreateDatabase:Name=ES1_CODE,Directory=/irisdb/ES1/code,CreateDirectory=1,Resource=%DB_ES1_CODE
+
+CreateResource:Name=%DB_ES1_DATA,Description="Base globales ES1"
+CreateDatabase:Name=ES1_DATA,Directory=/irisdb/ES1/data,CreateDirectory=1,Resource=%DB_ES1_DATA
+
+CreateNamespace:Name=ES1,Globals=ES1_DATA,Routines=ES1_CODE
+
+; === ES2 ===
+CreateResource:Name=%DB_ES2_CODE,Description="Base routines ES2"
+CreateDatabase:Name=ES2_CODE,Directory=/irisdb/ES2/code,CreateDirectory=1,Resource=%DB_ES2_CODE
+
+CreateResource:Name=%DB_ES2_DATA,Description="Base globales ES2"
+CreateDatabase:Name=ES2_DATA,Directory=/irisdb/ES2/data,CreateDirectory=1,Resource=%DB_ES2_DATA
+
+CreateNamespace:Name=ES2,Globals=ES2_DATA,Routines=ES2_CODE
+
+; === ES3 ===
+CreateResource:Name=%DB_ES3_CODE,Description="Base routines ES3"
+CreateDatabase:Name=ES3_CODE,Directory=/irisdb/ES3/code,CreateDirectory=1,Resource=%DB_ES3_CODE
+
+CreateResource:Name=%DB_ES3_DATA,Description="Base globales ES3"
+CreateDatabase:Name=ES3_DATA,Directory=/irisdb/ES3/data,CreateDirectory=1,Resource=%DB_ES3_DATA
+
+CreateNamespace:Name=ES3,Globals=ES3_DATA,Routines=ES3_CODE
+
+; === ES4 ===
+CreateResource:Name=%DB_ES4_CODE,Description="Base routines ES4"
+CreateDatabase:Name=ES4_CODE,Directory=/irisdb/ES4/code,CreateDirectory=1,Resource=%DB_ES4_CODE
+
+CreateResource:Name=%DB_ES4_DATA,Description="Base globales ES4"
+CreateDatabase:Name=ES4_DATA,Directory=/irisdb/ES4/data,CreateDirectory=1,Resource=%DB_ES4_DATA
+
+CreateNamespace:Name=ES4,Globals=ES4_DATA,Routines=ES4_CODE
+
+; === ES5 ===
+CreateResource:Name=%DB_ES5_CODE,Description="Base routines ES5"
+CreateDatabase:Name=ES5_CODE,Directory=/irisdb/ES5/code,CreateDirectory=1,Resource=%DB_ES5_CODE
+
+CreateResource:Name=%DB_ES5_DATA,Description="Base globales ES5"
+CreateDatabase:Name=ES5_DATA,Directory=/irisdb/ES5/data,CreateDirectory=1,Resource=%DB_ES5_DATA
+
+CreateNamespace:Name=ES5,Globals=ES5_DATA,Routines=ES5_CODE
+
+; === Rôles et droits associés ===
+CreateRole:Name=Writer_ES1,Resources=%DB_ES1_DATA:RW,%DB_ES1_CODE:RW
+CreateRole:Name=Reader_ES1,Resources=%DB_ES1_DATA:R,%DB_ES1_CODE:R
+
+CreateRole:Name=Writer_ES2,Resources=%DB_ES2_DATA:RW,%DB_ES2_CODE:RW
+CreateRole:Name=Reader_ES2,Resources=%DB_ES2_DATA:R,%DB_ES2_CODE:R
+
+CreateRole:Name=Writer_ES3,Resources=%DB_ES3_DATA:RW,%DB_ES3_CODE:RW
+CreateRole:Name=Reader_ES3,Resources=%DB_ES3_DATA:R,%DB_ES3_CODE:R
+
+CreateRole:Name=Writer_ES4,Resources=%DB_ES4_DATA:RW,%DB_ES4_CODE:RW
+CreateRole:Name=Reader_ES4,Resources=%DB_ES4_DATA:R,%DB_ES4_CODE:R
+
+CreateRole:Name=Writer_ES5,Resources=%DB_ES5_DATA:RW,%DB_ES5_CODE:RW
+CreateRole:Name=Reader_ES5,Resources=%DB_ES5_DATA:R,%DB_ES5_CODE:R
+
+; === Utilisateurs et attribution des rôles ===
+CreateUser:Name=User1,Password=MotDePasse1,Roles=Writer_ES1,Writer_ES2,Writer_ES3,Writer_ES4,Writer_ES5
+CreateUser:Name=User2,Password=MotDePasse2,Roles=Writer_ES1,Writer_ES2,Writer_ES3,Writer_ES4,Writer_ES5
+CreateUser:Name=User3,Password=MotDePasse3,Roles=Writer_ES1,Writer_ES2,Writer_ES3,Reader_ES4,Reader_ES5

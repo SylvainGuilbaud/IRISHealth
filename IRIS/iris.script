@@ -9,6 +9,7 @@
     zpm "install fhir-portal"
     zpm "install swagger-ui"
     zpm "install csvgen"
+    zpm "install readonly-interoperability"
     zpm "enable -map -globally"
 
     zn "%SYS"

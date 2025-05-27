@@ -20,7 +20,6 @@ XData UrlMap [ XMLNamespace = "http://www.intersystems.com/urlmap" ]
 {
 <Routes>
 <Route Url="/version" Method="GET" Call="version"/>
-<Route Url="/updateBow" Method="GET" Call="version"/>
 
 <Route Url="/fhir/r4/Patients" Method="GET" Call="FHIRGETPATIENTS" Cors="true"/>
 
@@ -401,7 +400,7 @@ ClassMethod list(classname As %String) As %Status
         write header,!
         set tableName = class.SqlTableName
         set:tableName="" tableName = classname
-        set sql = "select * from " _ tableName
+        set sql = "select top 1234 * from " _ tableName
         set result = ##class(%SQL.Statement).%ExecDirect(,sql)
         if result.%SQLCODE = 0 {
             set i = 0
