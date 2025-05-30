@@ -1,6 +1,6 @@
 /// THIS IS GENERATED CODE. DO NOT EDIT.<br/>
 /// RECORDMAP: Generated from RecordMap 'GDT.Segment5100'
-/// on 2025-05-30 at 14:15:25.851 [2025-05-30 13:15:25.851 UTC]
+/// on 2025-05-30 at 14:42:16.050 [2025-05-30 13:42:16.050 UTC]
 /// by user SuperUser
 Class GDT.Segment5100.Record Extends (%Persistent, %XML.Adaptor, Ens.Request, EnsLib.RecordMap.Base) [ Inheritance = right, ProcedureBlock ]
 {
@@ -11,7 +11,7 @@ Property NumExam As %String [ SqlColumnNumber = 3 ];
 
 Property TypeExam As %String(MAXLEN = "") [ SqlColumnNumber = 4 ];
 
-Property DateExamen As %String [ SqlColumnNumber = 5 ];
+Property DateExamen As %Date(FORMAT = 8) [ SqlColumnNumber = 5 ];
 
 Property HeureExam As %String [ SqlColumnNumber = 6 ];
 

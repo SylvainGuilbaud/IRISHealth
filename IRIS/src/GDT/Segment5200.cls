@@ -1,5 +1,5 @@
 /// RECORDMAP: Modified during compilation of RecordMap 'GDT.Segment5200'
-/// on 2025-05-30 at 14:07:55.037 [2025-05-30 13:07:55.037 UTC]
+/// on 2025-05-30 at 14:43:01.290 [2025-05-30 13:43:01.290 UTC]
 /// by user SuperUser
 Class GDT.Segment5200 Extends EnsLib.RecordMap.RecordMap
 {
@@ -99,7 +99,7 @@ ClassMethod GetRecord(pStream As %IO.DeviceStream, pObject As %RegisteredObject,
 	}
 	Do ..checkMerge(.tCurrChunk, .tRecordData, .tCurrString, $char(124), .tTopPiece)
 	If pGetTopFields {
-		Set pObject.NumExam = tCurrString
+		Set pObject.NumExam =  pObject.NumExamDisplayToLogical(tCurrString)
 	}
 	If '$data(tRecordData(tCurrChunk, "block")) {
 		Set tCurrString = $piece(tRecordData(tCurrChunk), $char(124), tTopPiece)
@@ -119,7 +119,7 @@ ClassMethod PutRecord(pStream As %IO.DeviceStream, pObject As %RegisteredObject,
 	Set tmpStream=##class(%Stream.TmpBinary).%New()
 	Set tStatus = tmpStream.Write("5200|")
 	If $$$ISERR(tStatus) Quit tStatus
-	Do tmpStream.Write($select(pHasTopFields: ..Escape(pObject.NumExam, $lb($char(124)),"quote",$char(34)),1: ""))
+	Do tmpStream.Write($select(pHasTopFields: ..Escape(pObject.NumExamLogicalToDisplay(pObject.NumExam), $lb($char(124)),"quote",$char(34)),1: ""))
 	Do tmpStream.Write($char(124) _ $select(pHasTopFields: ..Escape(pObject.Fichier, $lb($char(124)),"quote",$char(34)),1: ""))
 	Set tStatus = tmpStream.Write($char(10))
 	If $$$ISERR(tStatus) Quit tStatus
@@ -151,9 +151,9 @@ XData RecordMap [ XMLNamespace = "http://www.intersystems.com/Ensemble/RecordMap
   <Separators>
     <Separator>|</Separator>
   </Separators>
-  <Field name="NumExam" required="0" ignored="0" datatype="%String" params="MAXLEN=&quot;&quot;" sqlColumn="3" repeating="0">
+  <Field name="NumExam" required="0" ignored="0" datatype="%Integer" sqlColumn="3" repeating="0">
   </Field>
-  <Field name="Fichier" required="0" ignored="0" datatype="%String" params="MAXLEN=&quot;&quot;" sqlColumn="4" repeating="0">
+  <Field name="Fichier" required="0" ignored="0" datatype="%String" params="MAXLEN=500" sqlColumn="4" repeating="0">
   </Field>
 </Record>
 }

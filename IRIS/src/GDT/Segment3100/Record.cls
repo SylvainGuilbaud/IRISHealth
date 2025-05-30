@@ -1,27 +1,27 @@
 /// THIS IS GENERATED CODE. DO NOT EDIT.<br/>
 /// RECORDMAP: Generated from RecordMap 'GDT.Segment3100'
-/// on 2025-05-30 at 14:14:39.096 [2025-05-30 13:14:39.096 UTC]
+/// on 2025-05-30 at 14:42:29.896 [2025-05-30 13:42:29.896 UTC]
 /// by user SuperUser
 Class GDT.Segment3100.Record Extends (%Persistent, %XML.Adaptor, Ens.Request, EnsLib.RecordMap.Base) [ Inheritance = right, ProcedureBlock ]
 {
 
 Parameter INCLUDETOPFIELDS = 1;
 
-Property Nom As %String(MAXLEN = "") [ SqlColumnNumber = 3 ];
+Property Nom As %String(MAXLEN = 100) [ SqlColumnNumber = 3 ];
 
-Property Prenom As %String(MAXLEN = "") [ SqlColumnNumber = 4 ];
+Property Prenom As %String(MAXLEN = 100) [ SqlColumnNumber = 4 ];
 
-Property DateNaissance As %String [ SqlColumnNumber = 5 ];
+Property DateNaissance As %Date(FORMAT = 8) [ SqlColumnNumber = 5 ];
 
-Property Sexe As %String [ SqlColumnNumber = 6 ];
+Property Sexe As %String(MAXLEN = 1) [ SqlColumnNumber = 6 ];
 
-Property Adresse As %String(MAXLEN = "") [ SqlColumnNumber = 7 ];
+Property Adresse As %String(MAXLEN = 250) [ SqlColumnNumber = 7 ];
 
-Property CodePostal As %String [ SqlColumnNumber = 8 ];
+Property CodePostal As %String(MAXLEN = 5) [ SqlColumnNumber = 8 ];
 
-Property Ville As %String(MAXLEN = "") [ SqlColumnNumber = 9 ];
+Property Ville As %String(MAXLEN = 100) [ SqlColumnNumber = 9 ];
 
-Property Pays As %String(MAXLEN = "") [ SqlColumnNumber = 10 ];
+Property Pays As %String(MAXLEN = 100) [ SqlColumnNumber = 10 ];
 
 Parameter RECORDMAPGENERATED = 1;
 

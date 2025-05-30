@@ -1,5 +1,5 @@
 /// RECORDMAP: Modified during compilation of RecordMap 'GDT.Segment8000'
-/// on 2025-05-30 at 14:14:55.398 [2025-05-30 13:14:55.398 UTC]
+/// on 2025-05-30 at 14:43:40.516 [2025-05-30 13:43:40.516 UTC]
 /// by user SuperUser
 Class GDT.Segment8000 Extends EnsLib.RecordMap.RecordMap
 {
@@ -99,21 +99,21 @@ ClassMethod GetRecord(pStream As %IO.DeviceStream, pObject As %RegisteredObject,
 	}
 	Do ..checkMerge(.tCurrChunk, .tRecordData, .tCurrString, $char(124), .tTopPiece)
 	If pGetTopFields {
-		Set pObject.Version = tCurrString
+		Set pObject.Version =  pObject.VersionDisplayToLogical(tCurrString)
 	}
 	If '$data(tRecordData(tCurrChunk, "block")) {
 		Set tCurrString = $piece(tRecordData(tCurrChunk), $char(124), tTopPiece)
 	}
 	Do ..checkMerge(.tCurrChunk, .tRecordData, .tCurrString, $char(124), .tTopPiece)
 	If pGetTopFields {
-		Set pObject.DateCreation = tCurrString
+		Set pObject.DateCreation =  pObject.DateCreationDisplayToLogical(tCurrString)
 	}
 	If '$data(tRecordData(tCurrChunk, "block")) {
 		Set tCurrString = $piece(tRecordData(tCurrChunk), $char(124), tTopPiece)
 	}
 	Do ..checkMerge(.tCurrChunk, .tRecordData, .tCurrString, $char(124), .tTopPiece)
 	If pGetTopFields {
-		Set pObject.NumEnr = tCurrString
+		Set pObject.NumEnr =  pObject.NumEnrDisplayToLogical(tCurrString)
 	}
 	Quit tStatus
 }
@@ -126,9 +126,9 @@ ClassMethod PutRecord(pStream As %IO.DeviceStream, pObject As %RegisteredObject,
 	Set tmpStream=##class(%Stream.TmpBinary).%New()
 	Set tStatus = tmpStream.Write("8000|")
 	If $$$ISERR(tStatus) Quit tStatus
-	Do tmpStream.Write($select(pHasTopFields: ..Escape(pObject.Version, $lb($char(124)),"quote",$char(34)),1: ""))
-	Do tmpStream.Write($char(124) _ $select(pHasTopFields: ..Escape(pObject.DateCreation, $lb($char(124)),"quote",$char(34)),1: ""))
-	Do tmpStream.Write($char(124) _ $select(pHasTopFields: ..Escape(pObject.NumEnr, $lb($char(124)),"quote",$char(34)),1: ""))
+	Do tmpStream.Write($select(pHasTopFields: ..Escape(pObject.VersionLogicalToDisplay(pObject.Version), $lb($char(124)),"quote",$char(34)),1: ""))
+	Do tmpStream.Write($char(124) _ $select(pHasTopFields: ..Escape(pObject.DateCreationLogicalToDisplay(pObject.DateCreation), $lb($char(124)),"quote",$char(34)),1: ""))
+	Do tmpStream.Write($char(124) _ $select(pHasTopFields: ..Escape(pObject.NumEnrLogicalToDisplay(pObject.NumEnr), $lb($char(124)),"quote",$char(34)),1: ""))
 	Set tStatus = tmpStream.Write($char(10))
 	If $$$ISERR(tStatus) Quit tStatus
 	Do pStream.CopyFrom(tmpStream,,0,.tStatus)
@@ -159,11 +159,11 @@ XData RecordMap [ XMLNamespace = "http://www.intersystems.com/Ensemble/RecordMap
   <Separators>
     <Separator>|</Separator>
   </Separators>
-  <Field name="Version" datatype="%String" sqlColumn="3">
+  <Field name="Version" required="0" ignored="0" datatype="%Integer" sqlColumn="3" repeating="0">
   </Field>
-  <Field name="DateCreation" datatype="%String" sqlColumn="4">
+  <Field name="DateCreation" required="0" ignored="0" datatype="%Date" params="FORMAT=8" sqlColumn="4" repeating="0">
   </Field>
-  <Field name="NumEnr" datatype="%String" sqlColumn="5">
+  <Field name="NumEnr" required="0" ignored="0" datatype="%Integer" sqlColumn="5" repeating="0">
   </Field>
 </Record>
 }

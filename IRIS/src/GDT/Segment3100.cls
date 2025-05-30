@@ -1,5 +1,5 @@
 /// RECORDMAP: Modified during compilation of RecordMap 'GDT.Segment3100'
-/// on 2025-05-30 at 14:14:39.102 [2025-05-30 13:14:39.102 UTC]
+/// on 2025-05-30 at 14:42:29.902 [2025-05-30 13:42:29.902 UTC]
 /// by user SuperUser
 Class GDT.Segment3100 Extends EnsLib.RecordMap.RecordMap
 {
@@ -113,7 +113,7 @@ ClassMethod GetRecord(pStream As %IO.DeviceStream, pObject As %RegisteredObject,
 	}
 	Do ..checkMerge(.tCurrChunk, .tRecordData, .tCurrString, $char(124), .tTopPiece)
 	If pGetTopFields {
-		Set pObject.DateNaissance = tCurrString
+		Set pObject.DateNaissance =  pObject.DateNaissanceDisplayToLogical(tCurrString)
 	}
 	If '$data(tRecordData(tCurrChunk, "block")) {
 		Set tCurrString = $piece(tRecordData(tCurrChunk), $char(124), tTopPiece)
@@ -163,7 +163,7 @@ ClassMethod PutRecord(pStream As %IO.DeviceStream, pObject As %RegisteredObject,
 	If $$$ISERR(tStatus) Quit tStatus
 	Do tmpStream.Write($select(pHasTopFields: ..Escape(pObject.Nom, $lb($char(124)),"quote",$char(34)),1: ""))
 	Do tmpStream.Write($char(124) _ $select(pHasTopFields: ..Escape(pObject.Prenom, $lb($char(124)),"quote",$char(34)),1: ""))
-	Do tmpStream.Write($char(124) _ $select(pHasTopFields: ..Escape(pObject.DateNaissance, $lb($char(124)),"quote",$char(34)),1: ""))
+	Do tmpStream.Write($char(124) _ $select(pHasTopFields: ..Escape(pObject.DateNaissanceLogicalToDisplay(pObject.DateNaissance), $lb($char(124)),"quote",$char(34)),1: ""))
 	Do tmpStream.Write($char(124) _ $select(pHasTopFields: ..Escape(pObject.Sexe, $lb($char(124)),"quote",$char(34)),1: ""))
 	Do tmpStream.Write($char(124) _ $select(pHasTopFields: ..Escape(pObject.Adresse, $lb($char(124)),"quote",$char(34)),1: ""))
 	Do tmpStream.Write($char(124) _ $select(pHasTopFields: ..Escape(pObject.CodePostal, $lb($char(124)),"quote",$char(34)),1: ""))
@@ -199,21 +199,21 @@ XData RecordMap [ XMLNamespace = "http://www.intersystems.com/Ensemble/RecordMap
   <Separators>
     <Separator>|</Separator>
   </Separators>
-  <Field name="Nom" required="0" ignored="0" datatype="%String" params="MAXLEN=&quot;&quot;" sqlColumn="3" repeating="0">
+  <Field name="Nom" required="0" ignored="0" datatype="%String" params="MAXLEN=100" sqlColumn="3" repeating="0">
   </Field>
-  <Field name="Prenom" required="0" ignored="0" datatype="%String" params="MAXLEN=&quot;&quot;" sqlColumn="4" repeating="0">
+  <Field name="Prenom" required="0" ignored="0" datatype="%String" params="MAXLEN=100" sqlColumn="4" repeating="0">
   </Field>
-  <Field name="DateNaissance" datatype="%String" sqlColumn="5">
+  <Field name="DateNaissance" required="0" ignored="0" datatype="%Date" params="FORMAT=8" sqlColumn="5" repeating="0">
   </Field>
-  <Field name="Sexe" datatype="%String" sqlColumn="6">
+  <Field name="Sexe" required="0" ignored="0" datatype="%String" params="MAXLEN=1" sqlColumn="6" repeating="0">
   </Field>
-  <Field name="Adresse" required="0" ignored="0" datatype="%String" params="MAXLEN=&quot;&quot;" sqlColumn="7" repeating="0">
+  <Field name="Adresse" required="0" ignored="0" datatype="%String" params="MAXLEN=250" sqlColumn="7" repeating="0">
   </Field>
-  <Field name="CodePostal" datatype="%String" sqlColumn="8">
+  <Field name="CodePostal" required="0" ignored="0" datatype="%String" params="MAXLEN=5" sqlColumn="8" repeating="0">
   </Field>
-  <Field name="Ville" required="0" ignored="0" datatype="%String" params="MAXLEN=&quot;&quot;" sqlColumn="9" repeating="0">
+  <Field name="Ville" required="0" ignored="0" datatype="%String" params="MAXLEN=100" sqlColumn="9" repeating="0">
   </Field>
-  <Field name="Pays" required="0" ignored="0" datatype="%String" params="MAXLEN=&quot;&quot;" sqlColumn="10" repeating="0">
+  <Field name="Pays" required="0" ignored="0" datatype="%String" params="MAXLEN=100" sqlColumn="10" repeating="0">
   </Field>
 </Record>
 }

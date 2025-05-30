@@ -1,17 +1,17 @@
 /// THIS IS GENERATED CODE. DO NOT EDIT.<br/>
 /// RECORDMAP: Generated from RecordMap 'GDT.Segment8000'
-/// on 2025-05-30 at 14:14:55.394 [2025-05-30 13:14:55.394 UTC]
+/// on 2025-05-30 at 14:43:40.512 [2025-05-30 13:43:40.512 UTC]
 /// by user SuperUser
 Class GDT.Segment8000.Record Extends (%Persistent, %XML.Adaptor, Ens.Request, EnsLib.RecordMap.Base) [ Inheritance = right, ProcedureBlock ]
 {
 
 Parameter INCLUDETOPFIELDS = 1;
 
-Property Version As %String [ SqlColumnNumber = 3 ];
+Property Version As %Integer [ SqlColumnNumber = 3 ];
 
-Property DateCreation As %String [ SqlColumnNumber = 4 ];
+Property DateCreation As %Date(FORMAT = 8) [ SqlColumnNumber = 4 ];
 
-Property NumEnr As %String [ SqlColumnNumber = 5 ];
+Property NumEnr As %Integer [ SqlColumnNumber = 5 ];
 
 Parameter RECORDMAPGENERATED = 1;
 

@@ -1,5 +1,5 @@
 /// RECORDMAP: Modified during compilation of RecordMap 'GDT.Segment5100'
-/// on 2025-05-30 at 14:15:25.857 [2025-05-30 13:15:25.857 UTC]
+/// on 2025-05-30 at 14:42:16.054 [2025-05-30 13:42:16.054 UTC]
 /// by user SuperUser
 Class GDT.Segment5100 Extends EnsLib.RecordMap.RecordMap
 {
@@ -113,7 +113,7 @@ ClassMethod GetRecord(pStream As %IO.DeviceStream, pObject As %RegisteredObject,
 	}
 	Do ..checkMerge(.tCurrChunk, .tRecordData, .tCurrString, $char(124), .tTopPiece)
 	If pGetTopFields {
-		Set pObject.DateExamen = tCurrString
+		Set pObject.DateExamen =  pObject.DateExamenDisplayToLogical(tCurrString)
 	}
 	If '$data(tRecordData(tCurrChunk, "block")) {
 		Set tCurrString = $piece(tRecordData(tCurrChunk), $char(124), tTopPiece)
@@ -142,7 +142,7 @@ ClassMethod PutRecord(pStream As %IO.DeviceStream, pObject As %RegisteredObject,
 	If $$$ISERR(tStatus) Quit tStatus
 	Do tmpStream.Write($select(pHasTopFields: ..Escape(pObject.NumExam, $lb($char(124)),"quote",$char(34)),1: ""))
 	Do tmpStream.Write($char(124) _ $select(pHasTopFields: ..Escape(pObject.TypeExam, $lb($char(124)),"quote",$char(34)),1: ""))
-	Do tmpStream.Write($char(124) _ $select(pHasTopFields: ..Escape(pObject.DateExamen, $lb($char(124)),"quote",$char(34)),1: ""))
+	Do tmpStream.Write($char(124) _ $select(pHasTopFields: ..Escape(pObject.DateExamenLogicalToDisplay(pObject.DateExamen), $lb($char(124)),"quote",$char(34)),1: ""))
 	Do tmpStream.Write($char(124) _ $select(pHasTopFields: ..Escape(pObject.HeureExam, $lb($char(124)),"quote",$char(34)),1: ""))
 	Do tmpStream.Write($char(124) _ $select(pHasTopFields: ..Escape(pObject.MedecinReferent, $lb($char(124)),"quote",$char(34)),1: ""))
 	Set tStatus = tmpStream.Write($char(10))
@@ -179,9 +179,9 @@ XData RecordMap [ XMLNamespace = "http://www.intersystems.com/Ensemble/RecordMap
   </Field>
   <Field name="TypeExam" required="0" ignored="0" datatype="%String" params="MAXLEN=&quot;&quot;" sqlColumn="4" repeating="0">
   </Field>
-  <Field name="DateExamen" datatype="%String" sqlColumn="5">
+  <Field name="DateExamen" required="0" ignored="0" datatype="%Date" params="FORMAT=8" sqlColumn="5" repeating="0">
   </Field>
-  <Field name="HeureExam" datatype="%String" sqlColumn="6">
+  <Field name="HeureExam" required="0" ignored="0" datatype="%String" sqlColumn="6" repeating="0">
   </Field>
   <Field name="MedecinReferent" required="0" ignored="0" datatype="%String" params="MAXLEN=&quot;&quot;" sqlColumn="7" repeating="0">
   </Field>
