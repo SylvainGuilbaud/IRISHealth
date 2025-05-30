@@ -52,6 +52,7 @@ XData ProductionDefinition
   <Item Name="source HL7 FILE" Category="HL7" ClassName="EnsLib.HL7.Service.FileService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
     <Setting Target="Adapter" Name="FileSpec">*.hl7</Setting>
     <Setting Target="Host" Name="TargetConfigNames">HL7v2 router</Setting>
+    <Setting Target="Adapter" Name="FilePath">/data/HL7/in</Setting>
   </Item>
   <Item Name="HL7v2 router" Category="HL7" ClassName="EnsLib.HL7.MsgRouter.RoutingEngine" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
     <Setting Target="Host" Name="BusinessRuleName">IRISHealth.HL7router.rules</Setting>
@@ -263,6 +264,7 @@ XData ProductionDefinition
     <Setting Target="Host" Name="Filename">%f</Setting>
   </Item>
   <Item Name="Message Log to Loki - Grafana" Category="" ClassName="monitor.messageLog" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+    <Setting Target="Host" Name="Label">ALERTES MESSAGE FROM INTEROP PRODUCTION</Setting>
   </Item>
   <Item Name="FHIR GET /irisapp/fhir/r4" Category="HPRIM XML" ClassName="FHIR.client" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
   </Item>
@@ -278,6 +280,21 @@ XData ProductionDefinition
     <Setting Target="Adapter" Name="FilePath">/data/HPRIMXML/out</Setting>
   </Item>
   <Item Name="HPRIM XML" Category="HPRIM XML" ClassName="HPRIMXML.process.FHIRContentAugmentation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+    <Setting Target="Host" Name="FHIRModel">1</Setting>
+  </Item>
+  <Item Name="source GDT" Category="" ClassName="EnsLib.RecordMap.Service.ComplexBatchFileService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+    <Setting Target="Adapter" Name="FilePath">/data/GDT/in</Setting>
+    <Setting Target="Adapter" Name="FileSpec">*.txt</Setting>
+    <Setting Target="Host" Name="TargetConfigNames">GDT</Setting>
+    <Setting Target="Host" Name="ComplexMap">GDT.GDT</Setting>
+  </Item>
+  <Item Name="target GDT" Category="" ClassName="EnsLib.RecordMap.Operation.ComplexBatchFileOperation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+    <Setting Target="Adapter" Name="FilePath">/data/GDT/out</Setting>
+    <Setting Target="Host" Name="ComplexMap">GDT.GDT</Setting>
+    <Setting Target="Host" Name="Filename">GDT_%Q.txt</Setting>
+  </Item>
+  <Item Name="GDT" Category="" ClassName="EnsLib.MsgRouter.RoutingEngine" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+    <Setting Target="Host" Name="BusinessRuleName">GDT.rules.GDT</Setting>
   </Item>
 </Production>
 }
