@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+
+<Category name="GDT" description="GDT - Gerätedatentransfer - intégration entre logiciels de gestion de cabinet et appareils médicaux (ECG, laboratoires, etc.).">
+
+<DocumentStructure name='GDT' definition='8000~3100~5100~[~{~5200~}~]' description='GDT Information'/>
+
+<SegmentStructure name='8000' description='Segment d’identification du fichier'>
+    <SegmentSubStructure piece='1' description='version du fichier' required='O'/>
+    <SegmentSubStructure piece='2' description='date de création (AAAA/MM/JJ)' length='10' required='O'/>
+    <SegmentSubStructure piece='3' description='numéro d’enregistrement' required='O'/>
+</SegmentStructure>
+<SegmentStructure name='3100' description='Segment de données patient'>
+    <SegmentSubStructure piece='1' description='nom' length='100' required='O'/>
+    <SegmentSubStructure piece='2' description='prénom' length='100' required='O' />
+    <SegmentSubStructure piece='3' description='date de naissance (AAAA/MM/JJ)' length='10' required='O'/>
+    <SegmentSubStructure piece='4' description='sexe' length='1' required='O' />
+    <SegmentSubStructure piece='5' description='adresse' length='500' required='O'/>
+    <SegmentSubStructure piece='6' description='code postal' length='100' required='O'/>
+    <SegmentSubStructure piece='7' description='ville' length='100' required='O'/>
+    <SegmentSubStructure piece='8' description='pays' length='100' required='O'/>
+</SegmentStructure>
+<SegmentStructure name='5100' description='Segment de données d’examen ECG'>
+    <SegmentSubStructure piece='1' description='numéro d’examen' length='100' required='O'/>
+    <SegmentSubStructure piece='2' description='type d’examen' length='100' required='O' />
+    <SegmentSubStructure piece='3' description='date de l’examen (AAAAMMJJ)' length='8' required='O'/>
+    <SegmentSubStructure piece='4' description='heure de l’examen (HHMMSS)' length='6' required='O' />
+    <SegmentSubStructure piece='5' description='médecin référent' length='100' required='O'/>
+</SegmentStructure>
+<SegmentStructure name='5200' description='Segment de données du fichier ECG'>
+    <SegmentSubStructure piece='1' description='numéro d’examen' length='100' required='O'/>
+    <SegmentSubStructure piece='2' description='répertoire du fichier PDF' length='1000' required='O' />
+</SegmentStructure>
+</Category>
