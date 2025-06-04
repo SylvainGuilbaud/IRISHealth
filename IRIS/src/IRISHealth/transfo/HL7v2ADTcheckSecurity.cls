@@ -15,14 +15,6 @@ XData DTL [ XMLNamespace = "http://www.intersystems.com/dtl" ]
 <if condition='source.{MSH:Security}=""' >
 <true>
 <assign value='aux.RuleUserData' property='target.{MSH:Security}' action='set' />
-<if condition='$ISOBJECT(aux.RuleUserData)' disabled='1' >
-<true>
-<assign value='aux.RuleUserData' property='target.{MSH:Security}' action='set' />
-</true>
-<false>
-<assign value='"undefined"' property='target.{MSH:Security}' action='set' />
-</false>
-</if>
 </true>
 </if>
 </transform>
