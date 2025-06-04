@@ -1,5 +1,8 @@
 ## import and compile source files into the IRIS database via the iris terminal command
-iris terminal iris "##class(%SYSTEM.OBJ).Import(\"/app/src/\",\"ck\")" < /data/scripts/login.key
+# iris terminal iris "##class(%SYSTEM.OBJ).Import(\"/app/src/\",\"ck\")" < /data/scripts/login.key
+# iris terminal iris "##class(%SYSTEM.OBJ).Import(\"/app/src/\",\"ck\")"
+iris merge iris /data/merge/mergeImport.cpf < /data/scripts/login.key
+
 ## check if the import was successful
 status=$?
 if [ $status -eq 0 ]; then
