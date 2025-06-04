@@ -2,22 +2,35 @@
 Class IRISHealth.HL7router.rules Extends Ens.Rule.Definition
 {
 
+Property RuleUserData As %String [ InitialExpression = "security-check" ];
+
 Parameter RuleAssistClass = "EnsLib.HL7.MsgRouter.RuleAssist";
 
 XData RuleDefinition [ XMLNamespace = "http://www.intersystems.com/rule" ]
 {
 <ruleDefinition alias="" context="EnsLib.HL7.MsgRouter.RoutingEngine" production="IRISHealth.production">
 <ruleSet name="" effectiveBegin="" effectiveEnd="">
+<rule name="check Security" disabled="false">
+<constraint name="docCategory" value="2.3.1"></constraint>
+<constraint name="docName" value="ADT_A01"></constraint>
+<when condition="HL7.{MSH:Security}=&quot;&quot;" comment="">
+<assign property="RuleUserData" value="getSecurity(HL7.{MSH:7})"></assign>
+<send transform="IRISHealth.transfo.HL7v2ADTcheckSecurity" target="HL7v2 router"></send>
+<return></return>
+</when>
+</rule>
+<rule name="HL7v2 to SDA" disabled="false">
+<constraint name="source" value=""></constraint>
+<when condition="1" comment="">
+<send transform="" target=",HL7v2toSDA"></send>
+<return></return>
+</when>
+</rule>
 <rule name="HL7v2 to SDA" disabled="false">
 <constraint name="source" value="validate"></constraint>
 <when condition="1" comment="">
 <send transform="" target=",HL7v2toSDA"></send>
-</when>
-</rule>
-<rule name="HL7v2 to SDA" disabled="false">
-<constraint name="source" value="source HL7 FILE"></constraint>
-<when condition="1" comment="">
-<send transform="" target=",HL7v2toSDA"></send>
+<return></return>
 </when>
 </rule>
 <rule name="SIU FILE">
@@ -46,9 +59,11 @@ XData RuleDefinition [ XMLNamespace = "http://www.intersystems.com/rule" ]
 <when condition="(Length(HL7.{OBXgrp(1).OBX:5.1}))&gt;100" comment="">
 <send transform="IRISHealth.transfo.MDMtoPDF" target="target CR PHARMA FILE"></send>
 <trace value="&quot;Document:&quot;_HL7.{OBXgrp(1).OBX:5.1}"></trace>
+<return></return>
 </when>
 <otherwise>
 <trace value="&quot;Document missing:&quot;_HL7.{OBXgrp(1).OBX:5.1}"></trace>
+<return></return>
 </otherwise>
 </rule>
 </ruleSet>
