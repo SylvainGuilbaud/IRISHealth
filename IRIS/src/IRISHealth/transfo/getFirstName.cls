@@ -7,10 +7,12 @@ Parameter REPORTERRORS = 1;
 
 Parameter TREATEMPTYREPEATINGFIELDASNULL = 0;
 
+Parameter GENERATEEMPTYSEGMENTS = 0;
+
 XData DTL [ XMLNamespace = "http://www.intersystems.com/dtl" ]
 {
-<transform sourceClass='EnsLib.HL7.Message' targetClass='HTTP.msg.genderRequest' sourceDocType='2.3.1:SIU_S12' create='new' language='objectscript' >
-<assign value='source.{PIDgrp(1).PID:PatientName().givenname}' property='target.firstName' action='set' />
+<transform sourceClass='EnsLib.HL7.Message' targetClass='HTTP.msg.genderRequest' sourceDocType='2.8.2:ADT_A01' create='new' language='objectscript' >
+<assign value='source.{PID:PatientName().GivenName}' property='target.firstName' action='set' />
 </transform>
 }
 
