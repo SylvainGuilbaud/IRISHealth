@@ -5,7 +5,7 @@ echo "Freezing the system..."
 # The login script is used to authenticate the operation
 # The exit codes are checked to determine the status of the freeze operation
 # Exit code 5 indicates the system is frozen, 3 indicates failure
-iris terminal iris -U%SYS "##Class(Backup.General).ExternalFreeze()" < /data/scripts/login.sh
+iris terminal iris -U%SYS "##Class(Backup.General).ExternalFreeze()" < /data/scripts/login.key
 ## check if the freeze was successful
 ## The exit code is captured and checked
 status=$?
@@ -41,7 +41,7 @@ if [ $status -eq 5 ]; then
     # The exit codes are checked to determine the status of the unfreeze operation
     # Exit code 5 indicates the system is still frozen, 3 indicates failure
     # Exit code 0 indicates success
-    iris terminal iris -U%SYS "##Class(Backup.General).ExternalThaw()" < /data/scripts/login.sh
+    iris terminal iris -U%SYS "##Class(Backup.General).ExternalThaw()" < /data/scripts/login.key
 
     ## check if the unfreeze was successful
     status=$?
