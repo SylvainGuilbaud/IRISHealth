@@ -1,0 +1,3 @@
+
+[Actions]
+Execute:Namespace="APP",ClassName="%SYSTEM.OBJ",MethodName="Import",Arg1="/data/src",Arg2="ck"
