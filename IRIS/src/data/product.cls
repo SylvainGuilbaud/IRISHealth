@@ -1,7 +1,9 @@
 Class data.product Extends %Persistent
 {
 
-Property SKU As %String;
+Index SKUIndex On SKU [ Unique ];
+
+Property SKU As %String [ Required ];
 
 Property Description As %String(MAXLEN = "");
 
