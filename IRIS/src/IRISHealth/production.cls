@@ -156,7 +156,7 @@ XData ProductionDefinition
   <Item Name="de Résultats de Laboratoire" Category="Résultats de Laboratoire" ClassName="EnsLib.HL7.Service.FileService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
     <Setting Target="Host" Name="MessageSchemaCategory">2.3</Setting>
     <Setting Target="Host" Name="TargetConfigNames">LABO</Setting>
-    <Setting Target="Adapter" Name="FilePath">/data/LabResult/in</Setting>
+    <Setting Target="Adapter" Name="FilePath">/aaadata/LabResult/in</Setting>
     <Setting Target="Adapter" Name="ArchivePath"></Setting>
     <Setting Target="Adapter" Name="FileSpec">*.hl7</Setting>
     <Setting Target="Host" Name="ArchiveIO">0</Setting>
@@ -295,6 +295,28 @@ XData ProductionDefinition
   </Item>
   <Item Name="GDT" Category="GDT" ClassName="EnsLib.MsgRouter.RoutingEngine" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
     <Setting Target="Host" Name="BusinessRuleName">GDT.rules.GDT</Setting>
+  </Item>
+  <Item Name="source produits" Category="" ClassName="EnsLib.RecordMap.Service.BatchFileService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+    <Setting Target="Host" Name="RecordMap">RecordMap.produit</Setting>
+    <Setting Target="Adapter" Name="FilePath">/data/produits/batch</Setting>
+    <Setting Target="Host" Name="BatchClass">RecordMap.produit.Batch</Setting>
+    <Setting Target="Host" Name="TargetConfigNames">routeur</Setting>
+    <Setting Target="Host" Name="BatchHandling">Whole</Setting>
+    <Setting Target="Adapter" Name="Charset">utf-8</Setting>
+    <Setting Target="Adapter" Name="FileSpec">*.csv</Setting>
+  </Item>
+  <Item Name="routeur" Category="" ClassName="EnsLib.MsgRouter.RoutingEngine" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+    <Setting Target="Host" Name="BusinessRuleName">RecordMap.routeur</Setting>
+  </Item>
+  <Item Name="source produit" Category="" ClassName="EnsLib.RecordMap.Service.FileService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+    <Setting Target="Host" Name="RecordMap">RecordMap.produit</Setting>
+    <Setting Target="Host" Name="TargetConfigNames">routeur</Setting>
+    <Setting Target="Adapter" Name="FilePath">/data/produits/in/</Setting>
+    <Setting Target="Adapter" Name="FileSpec">*.csv</Setting>
+    <Setting Target="Host" Name="HeaderCount">1</Setting>
+    <Setting Target="Adapter" Name="Charset">utf-8</Setting>
+  </Item>
+  <Item Name="target products" Category="" ClassName="operations.product" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
   </Item>
 </Production>
 }
