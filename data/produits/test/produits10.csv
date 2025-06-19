@@ -1,0 +1,11 @@
+SKU,Description,Categorie,Poids,Options,Status
+SKU001,"Produit A","Catégorie 1",1.25,"taille:M;couleur:rouge","actif"
+SKU002,"Produit B","Catégorie 2",0.85,"taille:L;couleur:bleu","brouillon"
+SKU003,"Produit C","Catégorie 1",2.00,"taille:S;couleur:vert","archivé"
+SKU004,"Produit D","Catégorie 3",1.50,"taille:M;couleur:jaune","actif"
+SKU005,"Produit E","Catégorie 2",0.75,"taille:L;couleur:rouge","brouillon"
+SKU006,"Produit F","Catégorie 1",1.10,"taille:S;couleur:bleu","actif"
+SKU007,"Produit G","Catégorie 3",1.30,"taille:M;couleur:vert","brouillon"
+SKU008,"Produit H","Catégorie 2",0.95,"taille:L;couleur:jaune","actif"
+SKU009,"Produit I","Catégorie 1",1.20,"taille:S;couleur:rouge","archivé"
+SKU010,"Produit J","Catégorie 3",1.40,"taille:M;couleur:bleu","actif"
