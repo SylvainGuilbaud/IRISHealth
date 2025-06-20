@@ -47,12 +47,12 @@ ClassMethod globalSize(minSizeMB As %Integer = 1, Directory As %String = "/volum
             }
         }
 
-        set query = "SELECT database, globalname, sizeallocated, sizeused FROM monitor.size WHERE database = ? ORDER BY database, sizeallocated DESC"
+        set query = "SELECT database, globalname, sizeallocated, sizeused FROM monitor.size WHERE database = ? AND sizeallocated > ? ORDER BY database, sizeallocated DESC"
         set statement = ##class(%SQL.Statement).%New()
-        set preparedStatus = statement.%Prepare(query)
+        set preparedStatus = statement.%Prepare(.query)
         if preparedStatus'=1 {write "%Prepare failed:" do $System.Status.DisplayError(preparedStatus) quit}
 
-        set rs = statement.%Execute(Directory)
+        set rs = statement.%Execute(Directory,minSizeMB)
         if rs.%SQLCODE'=0 {write "%Execute failed:" do $System.Status.DisplayError(rs.%SQLCODE) quit}       
         write "Database | Global Name | Size Allocated | Size Used ",!
         while rs.%Next() {
