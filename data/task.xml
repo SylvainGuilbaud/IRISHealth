@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tasks><Task>
+  <Name>Enable Async Subtask Polling</Name>
+  <RunAsUser>_Ensemble</RunAsUser>
+  <EmailOutput>false</EmailOutput>
+  <Expires>true</Expires>
+  <OpenOutputFile>false</OpenOutputFile>
+  <OutputFileIsBinary>true</OutputFileIsBinary>
+  <SuspendOnError>false</SuspendOnError>
+  <SuspendTerminated>false</SuspendTerminated>
+  <Suspended>0</Suspended>
+  <Priority>0</Priority>
+  <TaskClass>HS.HC.SubTaskMgr.Task</TaskClass>
+  <IsBatch>false</IsBatch>
+  <NameSpace>HSSYS</NameSpace>
+  <TimePeriod>0</TimePeriod>
+  <TimePeriodEvery>1</TimePeriodEvery>
+  <DailyFrequency>1</DailyFrequency>
+  <DailyFrequencyTime>0</DailyFrequencyTime>
+  <DailyIncrement>10</DailyIncrement>
+  <DailyStartTime>00:00:00</DailyStartTime>
+  <DailyEndTime>00:00:00</DailyEndTime>
+  <JobGUID>64759847-FEE5-11EF-831C-86C888EEA2F4</JobGUID>
+  <StartDate>2025-03-12</StartDate>
+  <LastSchedule>67396,34800</LastSchedule>
+  <LastStarted>67396,34800</LastStarted>
+  <LastFinished>67396,34800</LastFinished>
+  <MirrorStatus>1</MirrorStatus>
+  <Type>2</Type>
+  <RescheduleOnStart>false</RescheduleOnStart>
+  <DeleteAfterRun>false</DeleteAfterRun>
+  <Description>Enable Async Subtask Polling</Description>
+</Task>
+
+<Task>
+  <Name>FHIR Purge Expired Search Results Task</Name>
+  <RunAsUser>_Ensemble</RunAsUser>
+  <EmailOutput>false</EmailOutput>
+  <Expires>false</Expires>
+  <OpenOutputFile>false</OpenOutputFile>
+  <OutputFileIsBinary>true</OutputFileIsBinary>
+  <SuspendOnError>false</SuspendOnError>
+  <SuspendTerminated>false</SuspendTerminated>
+  <Suspended>0</Suspended>
+  <Priority>0</Priority>
+  <TaskClass>HS.FHIRServer.Util.PurgeExpiredSearchResultsTask</TaskClass>
+  <Settings>DwFNaW51dGVzVG9LZWVwAwQ8</Settings>
+  <IsBatch>false</IsBatch>
+  <NameSpace>HSSYS</NameSpace>
+  <TimePeriod>0</TimePeriod>
+  <TimePeriodEvery>1</TimePeriodEvery>
+  <DailyFrequency>1</DailyFrequency>
+  <DailyFrequencyTime>1</DailyFrequencyTime>
+  <DailyIncrement>1</DailyIncrement>
+  <DailyStartTime>00:00:00</DailyStartTime>
+  <DailyEndTime>00:00:00</DailyEndTime>
+  <JobGUID>2A99635C-19E3-11F0-8695-AAB4FB3C0400</JobGUID>
+  <StartDate>2025-04-16</StartDate>
+  <LastSchedule>67396,32400</LastSchedule>
+  <LastStarted>67396,32400</LastStarted>
+  <LastFinished>67396,32400</LastFinished>
+  <MirrorStatus>1</MirrorStatus>
+  <Type>2</Type>
+  <RescheduleOnStart>true</RescheduleOnStart>
+  <DeleteAfterRun>false</DeleteAfterRun>
+  <Description>Periodically checks for cached FHIR Search results that have have exceeded the configured duration s</Description>
+</Task>
+<Task>
+  <Name>HS.HC.FHIRSQL.Utils.IndicesTask</Name>
+  <RunAsUser>SuperUser</RunAsUser>
+  <EmailOutput>false</EmailOutput>
+  <Expires>true</Expires>
+  <OpenOutputFile>false</OpenOutputFile>
+  <OutputFileIsBinary>true</OutputFileIsBinary>
+  <SuspendOnError>false</SuspendOnError>
+  <SuspendTerminated>false</SuspendTerminated>
+  <Suspended>0</Suspended>
+  <Priority>0</Priority>
+  <TaskClass>HS.HC.FHIRSQL.Utils.IndicesTask</TaskClass>
+  <IsBatch>false</IsBatch>
+  <NameSpace>IRISAPP</NameSpace>
+  <TimePeriod>0</TimePeriod>
+  <TimePeriodEvery>1</TimePeriodEvery>
+  <DailyFrequency>1</DailyFrequency>
+  <DailyFrequencyTime>0</DailyFrequencyTime>
+  <DailyIncrement>5</DailyIncrement>
+  <DailyStartTime>00:00:00</DailyStartTime>
+  <DailyEndTime>00:00:00</DailyEndTime>
+  <JobGUID>22DD060F-19F3-11F0-919A-72E3C71E0C86</JobGUID>
+  <StartDate>2025-05-26</StartDate>
+  <LastSchedule>67396,35100</LastSchedule>
+  <LastStarted>67396,35100</LastStarted>
+  <LastFinished>67396,35100</LastFinished>
+  <MirrorStatus>1</MirrorStatus>
+  <Type>2</Type>
+  <RescheduleOnStart>false</RescheduleOnStart>
+  <DeleteAfterRun>false</DeleteAfterRun>
+  <Description>Keep FHIRSQL indices up to date</Description>
+</Task>
+</Tasks>
