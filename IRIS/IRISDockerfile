@@ -83,4 +83,5 @@ RUN --mount=type=bind,source=/,target=/builder/root,from=builder \
     python3 /home/irisowner/dev/copy-data.py -c /usr/irissys/iris.cpf -d /builder/root/ 
 
 COPY entrypoint.sh /home/irisowner/dev/entrypoint.sh
+COPY .iris_init /home/irisowner/.iris_init
 ENTRYPOINT [ "/tini", "--", "/home/irisowner/dev/entrypoint.sh" ]

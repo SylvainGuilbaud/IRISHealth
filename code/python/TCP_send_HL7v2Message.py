@@ -1,17 +1,30 @@
 import socket
 # --- TCP client configuration ---
 SERVER_IP = '127.0.0.1'  # Change to your HL7 receiver IP
-SERVER_PORT = 19000       # Standard MLLP port (can be different)
+SERVER_PORT = 19002     # MLLP port
 
 # Encodage MLLP (Minimal Lower Layer Protocol)
 START_BLOCK = '\x0b'   # VT (vertical tab)
 END_BLOCK = '\x1c'     # FS (file separator)
 CARRIAGE_RETURN = '\x0d'
 
+def check_port_open(host=SERVER_IP, port=SERVER_PORT, timeout=1):
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.settimeout(timeout)
+    result = s.connect_ex((host, port))
+    s.close()
+    return result == 0
+
+if check_port_open(SERVER_IP, SERVER_PORT):
+    print(f"Le port {SERVER_PORT} sur {SERVER_IP} est ouvert et accessible.")
+else:
+    print(f"Le port {SERVER_PORT} sur {SERVER_IP} est fermé ou non accessible.")
+    exit(1)
+    
 hl7_message = (
     "MSH|^~\\&|REGADT|MCM|IFENG||199601061253||ADT^A01|000001|P|2.5.1|1||\r"
     "EVN|A01|199601061000|199601101400|1\r"
-    "PID|||24445670^^^HOPITAL^MRN~FR123456^^^DLNUM^DL|253763|CLAUDEL^Camille^A||19641208|F|||77 Rue de Varenne^^PARIS^75^75007^||(01)554437765|(06)098866543|FRENCH|S|C|10199925|1641202898334566\r"
+    "PID|||24445670^^^HOPITAL^MRN~FR123456^^^DLNUM^DL|253763|GUILBAUD^Sylvain^A||19641208|F|||77 Rue de Varenne^^PARIS^75^75007^||(01)554437765|(06)098866543|FRENCH|S|C|10199925|1641202898334566\r"
     "NK1|1|DUPONT^MARIE^|EPOUSE||||ERSONNE A PREVENIR||\r"
     "PV1|1|H|CARDIO^CHAMBRE201^LIT1||||004777^MARTIN^SOPHIE^DR|||CARDIO|||||ADM|A0|\r"
     "PV2|||^Chirurgie Programmée||||||||||||||||||||||||||||||||||||||20240712\r"
@@ -38,16 +51,25 @@ CARRIAGE_RETURN = CARRIAGE_RETURN.encode('utf-8')
 
 message = START_BLOCK + hl7_message.encode('utf-8') + END_BLOCK + CARRIAGE_RETURN
 
-def send_hl7_message(host=SERVER_IP, port=SERVER_PORT):
+def send_hl7_message(host, port):
     try:
-        with socket.create_connection((host, port)) as sock:
-            sock.sendall(message)
-            print("Message HL7 envoyé avec succès")
-            # Attente de la réponse ACK (optionnel)
-            response = sock.recv(4096)
-            print("Réponse du serveur :", response.decode(errors='ignore'))
+        # Create a TCP socket and connect to the HL7 server
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        sock.setsockopt(socket.SOL_SOCKET, socket.SO_KEEPALIVE, 1)
+        sock.settimeout(5)  # Set a timeout for the connection
+        print(f"Envoi du message HL7 vers {host}:{port}...")
+        # Connect to the server and send the message
+        sock.connect((host, port))
+        sock.sendall(message)
+        print("Message HL7 envoyé avec succès")
+        # Optionally wait for an ACK response
+        response = sock.recv(4096)
+        print("Réponse du serveur :", response.decode(errors='ignore'))
+        # sock.close()
+    except socket.error as e:
+        print(f"Erreur de socket : {e}")
     except Exception as e:
-        print("Erreur lors de l'envoi :", e)
+        print(f"Erreur lors de l'envoi du message : {e}")
 
 if __name__ == "__main__":
-    send_hl7_message()
+    send_hl7_message(SERVER_IP, SERVER_PORT)

@@ -25,6 +25,8 @@ services:
       - 24040:8080
       # - 4041:8081
       - 28888:8888
+      - 19000-19100:19000-19100
+
   notebook:
     container_name: ${CONTAINER_NAME}-notebook
     # build: 

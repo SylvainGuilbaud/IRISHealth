@@ -1,11 +1,10 @@
 {
+    
     "objectscript.conn": {
         "active": true,
         "ns": "IRISAPP",
-        "docker-compose": {
-            "service": "iris",
-            "internalPort": 52773
-        },
+        "server": "irishealth",
+    
         "links": {
             "Monitor - Grafana": "http://${host}:3000",
             "Monitor - Prometheus": "http://${host}:9090",
@@ -37,9 +36,11 @@
             "Message Generator": "http://${host}:7001/",
             "XML Wizard": "${serverUrl}/isc/studio/templates/%25ZEN.Template.AddInWizard.XMLSchemaWizard.cls?Namespace=${namespace}${serverAuth}",
             "SOAP Wizard": "${serverUrl}/isc/studio/templates/%25ZEN.Template.AddInWizard.SOAPWizard.cls?Namespace=${namespace}${serverAuth}"
-        },
-        "server": "irishealth-container"
+        }
     },
+    "objectscript.autoShowTerminal": true,
+    "objectscript.compileOnSave": true,
+    "objectscript.webSocketTerminal.syntaxColoring": true,
     "objectscript.export": {
         "folder": "IRIS/src",
         "addCategory": false,
