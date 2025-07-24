@@ -1,10 +1,9 @@
 {
     
     "objectscript.conn": {
-        "active": true,
+        "active": false,
         "ns": "IRISAPP",
         "server": "irishealth",
-    
         "links": {
             "Monitor - Grafana": "http://${host}:3000",
             "Monitor - Prometheus": "http://${host}:9090",

@@ -1,7 +1,7 @@
 import socket
 # --- TCP client configuration ---
 SERVER_IP = '127.0.0.1'  # Change to your HL7 receiver IP
-SERVER_PORT = 19002     # MLLP port
+SERVER_PORT = 2575     # MLLP port
 
 # Encodage MLLP (Minimal Lower Layer Protocol)
 START_BLOCK = '\x0b'   # VT (vertical tab)

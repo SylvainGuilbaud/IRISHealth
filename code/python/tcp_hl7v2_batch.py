@@ -19,7 +19,7 @@ def run_batch_requests(num_requests):
         print(f"Envoi #{i+1} : {lastname} {firstname} ({sex})")
 
         cmd = [
-            "python3", "tcp_hl7v2_message.py",
+            "python3", "tcp_hl7v2_message_v1.py",
             "--lastname", lastname,
             "--firstname", firstname,
             "--sex", sex

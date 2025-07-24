@@ -1,0 +1,27 @@
+<div *ngIf="storageService.isLoggedIn() !== false">
+  <mat-toolbar *ngIf="storageService.isLoggedIn() !== false" color="primary" class="example-header">
+    <button (click)="sidenav.toggle()" mat-icon-button class="example-icon" aria-label="Task Manager">
+    <mat-icon>menu</mat-icon>
+    </button>
+    <h1>Workflow UI</h1>
+    <span class="example-spacer"></span>
+    <span>{{storageService.getUsername()}}</span>
+    <span>
+      <button mat-icon-button class="example-icon" aria-label="Logout" (click)="logout()">
+        <mat-icon>logout</mat-icon>
+      </button>
+    </span>
+  </mat-toolbar>
+</div>
+<mat-sidenav-container class="example-sidenav-container">
+  <mat-sidenav #sidenav [mode]="mobileQuery.matches ? 'over' : 'side'" 
+    [fixedInViewport]="true" fixedTopGap="56">
+    <mat-nav-list *ngIf="storageService.isLoggedIn()">
+      <a mat-list-item routerLink="tasks"><span class="item-menu"><mat-icon>assessment</mat-icon><label class="label-menu">Tasks</label></span></a>      
+    </mat-nav-list>
+  </mat-sidenav>
+  
+  <mat-sidenav-content [style.marginTop.px]="storageService.isLoggedIn() ? (mobileQuery.matches ? 56 : 64) : 0">        
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

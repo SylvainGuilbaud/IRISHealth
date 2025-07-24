@@ -1,0 +1,10 @@
+<form (ngSubmit)="onSubmit()" #userForm="ngForm">
+  <input name="prenom" [(ngModel)]="formData.prenom" placeholder="Prénom" required>
+  <input name="nom" [(ngModel)]="formData.nom" placeholder="Nom" required>
+  <select name="sex" [(ngModel)]="formData.sex" required>
+    <option value="H">Homme</option>
+    <option value="F">Femme</option>
+  </select>
+  <input type="date" name="dob" [(ngModel)]="formData.dob" required>
+  <button type="submit">Envoyer</button>
+</form>
