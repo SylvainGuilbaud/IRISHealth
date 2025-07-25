@@ -13,7 +13,6 @@
     zpm "enable -map -globally"
 
     zn "%SYS"
-    do ##class(Security.Users).UnExpireUserPasswords("*")
     do ##class(%SQL.Statement).%ExecDirect(,"update security.events set enabled=1")
 
     do ##class(Security.SSLConfigs).Create("API")
