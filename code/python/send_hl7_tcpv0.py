@@ -7,7 +7,6 @@ from tkcalendar import DateEntry
 from tkinter import ttk
 import logging
 from datetime import date
-import re
 
 # --- TCP client configuration ---
 SERVER_IP = '127.0.0.1'
@@ -148,13 +147,7 @@ translations = {
         "error_fields": "Veuillez remplir tous les champs.",
         "error_date": "Format de date invalide. Utilisez JJ/MM/AAAA.",
         "success": "Message HL7 envoyé avec succès.",
-        "network_error": "Erreur lors de l'envoi du message HL7 : ",
-        "port_open": f"Le port {SERVER_PORT} sur {SERVER_IP} est ouvert et accessible.",
-        "port_closed": f"Le port {SERVER_PORT} sur {SERVER_IP} est fermé ou non accessible.",
-        "hl7_generated": "Message HL7 généré:",
-        "send_error":"Erreur lors de l'envoi HL7 :",
-        "response_received": "réponse reçue:"
-        
+        "network_error": "Erreur lors de l'envoi du message HL7 : "
     },
     "en": {
         "title": "Patient Record Form",
@@ -166,36 +159,13 @@ translations = {
         "error_fields": "Please fill in all fields.",
         "error_date": "Invalid date format. Use DD/MM/YYYY.",
         "success": "HL7 message sent successfully.",
-        "network_error": "Error sending HL7 message: ",
-        "port_open": f"Port {SERVER_PORT} on {SERVER_IP} is open and accessible.",
-        "port_closed": f"Port {SERVER_PORT} on {SERVER_IP} is closed or not accessible.",
-        "hl7_generated": "HL7 message generated:",
-        "send_error":"Error sending HL7 :",
-        "response_received": "response received:"
-    },
-    "es": {
-        "title": "Formulario de Registro de Paciente",
-        "first_name": "Nombre",
-        "last_name": "Apellido",
-        "dob": "Fecha de nacimiento (DD/MM/AAAA)",
-        "gender": "Género",
-        "send": "Enviar mensaje HL7",
-        "error_fields": "Por favor complete todos los campos.",
-        "error_date": "Formato de fecha inválido. Use DD/MM/AAAA.",
-        "success": "Mensaje HL7 enviado con éxito.",
-        "network_error": "Error al enviar el mensaje HL7: ",
-        "port_open": f"El puerto {SERVER_PORT} en {SERVER_IP} está abierto y accesible.",
-        "port_closed": f"El puerto {SERVER_PORT} en {SERVER_IP} está cerrado o no es accesible.",
-        "hl7_generated": "Mensaje HL7 generado:",
-        "send_error":"Error al enviar HL7 :",
-        "response_received": "respuesta recibida:" 
+        "network_error": "Error sending HL7 message: "
     }
 }
 
 gender_options_dict = {
     "fr": ["homme", "femme", "autre"],
-    "en": ["male", "female", "other"],
-    "es": ["hombre", "mujer", "otro"]
+    "en": ["male", "female", "other"]
 }
 
 gender_code_dict = {
@@ -208,13 +178,10 @@ gender_code_dict = {
         "male": "M",
         "female": "F",
         "other": "X"
-    },
-    "es": {
-    "hombre": "M",
-    "mujer": "F",
-    "otro": "X"
+    }
 }
-}
+
+
     
 def send_hl7_message():
     first_name = entry_first_name.get()
@@ -270,41 +237,37 @@ IN1|1|SECURITE SOCIALE|1|CPAM|||||||||||||||||||||||||||||||||||||||||||"""
     try:
         
         if check_port_open(SERVER_IP, SERVER_PORT):
-            message = translations[current_language]["port_open"]
-
+            message= f"Le port {SERVER_PORT} sur {SERVER_IP} est ouvert et accessible."
             logging.info(message)
             append_to_log_console(message)
         else:
-            message = translations[current_language]["port_closed"]
+            message=f"Le port {SERVER_PORT} sur {SERVER_IP} est fermé ou non accessible."
             logging.info(message)
             append_to_log_console(message)
             exit(1)
 
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-                
-            logging.info("%s:\n%s", translations[current_language]["hl7_generated"], hl7_message.replace("\r", "\n"))
-            append_to_log_console(translations[current_language]["hl7_generated"] + hl7_message.replace("\r", "\n"))
             
+            logging.info("Message HL7 généré :\n%s", hl7_message.replace("\r", "\n"))
+            append_to_log_console("Message HL7 généré :\n" + hl7_message.replace("\r", "\n"))
             s.setsockopt(socket.SOL_SOCKET, socket.SO_KEEPALIVE, 1)
             s.connect((SERVER_IP, SERVER_PORT))
             s.sendall(hl7_message_wrapped)
             response = s.recv(1024).decode()
-            response_clean = re.sub(r'[^\x20-\x7E\r\n\t]', '\n', response)
             # messagebox.showinfo("", f"{translations[current_language]['success']}\n{response}")
             
-            logging.info("%s:\n%s", translations[current_language]["response_received"], response_clean.replace("\r", "\n"))
-            append_to_log_console(translations[current_language]["response_received"] + response_clean.replace("\r", "\n"))
+            logging.info("réponse reçue :\n%s", response.replace("\r", "\n"))
+            append_to_log_console("réponse reçue :\n" + response.replace("\r", "\n"))
 
     except Exception as e:
-        logging.error("%s:\n%s", translations[current_language]["send_error"], str(e))
-        append_to_log_console(translations[current_language]["send_error"] + str(e))
+        logging.error("Erreur lors de l'envoi HL7 : %s", str(e))
+        append_to_log_console("Erreur : " + str(e))
         # messagebox.showerror("", translations[current_language]["network_error"] + str(e))
 
-languages = ["fr", "en", "es"]    
+
 def switch_language():
     global current_language
-    index = languages.index(current_language)
-    current_language = languages[(index + 1) % len(languages)]
+    current_language = "en" if current_language == "fr" else "fr"
     update_labels()
     
 def update_labels():
@@ -314,14 +277,9 @@ def update_labels():
     label_dob.config(text=translations[current_language]["dob"])
     label_gender.config(text=translations[current_language]["gender"])
     btn_send.config(text=translations[current_language]["send"])
-
-    # Mettre à jour le drapeau 🇫🇷 / 🇬🇧 / 🇪🇸
-    flag_map = {"fr": "🇫🇷", "en": "🇬🇧", "es": "🇪🇸"}
-    btn_lang.config(text=flag_map[current_language])
-
-    # Mise à jour des options du genre
+    btn_lang.config(text="🇬🇧" if current_language == "fr" else "🇫🇷")
     entry_gender['values'] = gender_options_dict[current_language]
-    gender_var.set(gender_options_dict[current_language][1])
+    gender_var.set(gender_options_dict[current_language][0])  
 
 # Fenêtre principale
 window = tk.Tk()
@@ -368,7 +326,8 @@ label_gender = tk.Label(window, bg="#70B8EA", font=("Avenir", 23))
 
 gender_var = tk.StringVar()
 entry_gender = ttk.Combobox(window, textvariable=gender_var, state="readonly", font=("Avenir", 23))
-entry_gender.set(gender_options_dict[current_language][1]) 
+entry_gender.set(gender_options_dict[current_language][1])  # valeur par défaut
+
 
 btn_send = tk.Button(window, bg="#03045C", text="", command=send_hl7_message, font=("Avenir", 15))
 btn_lang = tk.Button(window, bg="#03045C",text="🇬🇧", command=switch_language, font=("Avenir", 23))
