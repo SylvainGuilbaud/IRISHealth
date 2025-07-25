@@ -263,16 +263,6 @@ def switch_language():
     global current_language
     current_language = "en" if current_language == "fr" else "fr"
     update_labels()
-
-# def update_labels():
-#     window.title(translations[current_language]["title"])
-#     label_first_name.config(text=translations[current_language]["first_name"])
-#     label_last_name.config(text=translations[current_language]["last_name"])
-#     label_dob.config(text=translations[current_language]["dob"])
-#     label_gender.config(text=translations[current_language]["gender"])
-#     btn_send.config(text=translations[current_language]["send"])
-#     btn_lang.config(text="🇬🇧" if current_language == "fr" else "🇫🇷")
-#     entry_gender['values'] = gender_options_dict[current_language]
     
 def update_labels():
     window.title(translations[current_language]["title"])
@@ -283,8 +273,7 @@ def update_labels():
     btn_send.config(text=translations[current_language]["send"])
     btn_lang.config(text="🇬🇧" if current_language == "fr" else "🇫🇷")
     entry_gender['values'] = gender_options_dict[current_language]
-    gender_var.set(gender_options_dict[current_language][0])  # <-- nouvelle ligne importante
-
+    gender_var.set(gender_options_dict[current_language][0])  
 
 # Fenêtre principale
 window = tk.Tk()
@@ -299,14 +288,14 @@ canvas.pack(fill="both", expand=True)
 bg_image = Image.open("hopital.jpg").resize((800, 600))
 bg_photo = ImageTk.PhotoImage(bg_image)
 
-# logo_image = Image.open("croix_rouge.png").resize((80, 80))
+logo_image = Image.open("IS_logo.jpg").resize((200, 64))
 
-# logo_photo = ImageTk.PhotoImage(logo_image)
+logo_photo = ImageTk.PhotoImage(logo_image)
 
 # Ajout fond
 canvas.create_image(928, 0, image=bg_photo, anchor="nw")
 
-# canvas.create_image(715, 10, image=logo_photo, anchor="nw")
+canvas.create_image(1525, 984, image=logo_photo, anchor="nw")
 
 # Widgets sur canvas
 entry = tk.Entry(window, font=("Avenir", 23))
@@ -367,12 +356,10 @@ log_text.tag_config(
 # Style pour les champs importants (nom, prénom, etc.)
 log_text.tag_config("important_value", underline=True, foreground="red")
 
-
 # Définir des styles de surlignage
 log_text.tag_config("error", background="misty rose", foreground="red")
 log_text.tag_config("ack", background="light green", foreground="dark green")
 log_text.tag_config("message", background="light yellow", foreground="black")
-
 
 log_text.place(x=20, y=600)
 # log_text.configure(state="disabled")  # lecture seule
