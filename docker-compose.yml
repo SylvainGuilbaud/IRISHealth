@@ -171,32 +171,7 @@ services:
   #   volumes:
   #     - ./:/irisdev/app
   #     - ./init.db/:/docker-entrypoint-initdb.d/
-  # lorah:
-  #   build: 
-  #     context: fhir_server/.
-  #     dockerfile: Dockerfile
-  #   image: fhir_server
-  #   restart: always
-  #   command: 
-  #     --check-caps false
-  #   ports: 
-  #     - 1973
-  #     - 28004:52773
-  #     - 53774
-  #   volumes:
-  #     - ./:/irisdev/app
 
-  # oscar:
-  #   image: fhir_server
-  #   restart: always
-  #   command: 
-  #     --check-caps false
-  #   ports: 
-  #     - 1973
-  #     - 28005:52773
-  #     - 53774
-  #   volumes:
-  #     - ./:/irisdev/app
   prometheus:
     image: prom/prometheus:latest
     container_name: prometheus
