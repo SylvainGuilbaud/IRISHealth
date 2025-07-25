@@ -75,36 +75,43 @@ def highlight_pid_segment():
         end = f"{pos} lineend"
         log_text.tag_add("pid_segment", pos, end)
 
-        # Extraire le contenu de la ligne PID
         line_content = log_text.get(pos, end)
         fields = line_content.split("|")
 
-        # Nom et prénom (champ 5)
+        # Construire un index caractère → champ
+        field_start_indices = []
+        cursor = 0
+        for field in fields:
+            field_start_indices.append(cursor)
+            cursor += len(field) + 1  # +1 pour le séparateur "|"
+
+        # Marquer le champ 5 : Nom^Prénom
         if len(fields) > 5:
             name_field = fields[5]
-            name_pos = line_content.find(name_field)
-            if name_pos != -1:
-                name_start = f"{pos}+{name_pos}c"
-                name_end = f"{name_start}+{len(name_field)}c"
-                log_text.tag_add("important_value", name_start, name_end)
+            subfields = name_field.split("^")
+            if subfields:
+                field_start = field_start_indices[5]
+                current_offset = 0
+                for part in subfields:
+                    if part:
+                        part_start = field_start + current_offset
+                        part_end = part_start + len(part)
+                        tag_start = f"{pos}+{part_start}c"
+                        tag_end = f"{pos}+{part_end}c"
+                        log_text.tag_add("important_value", tag_start, tag_end)
+                    current_offset += len(part) + 1  # +1 for the "^"
 
-        # Date de naissance (champ 7)
-        if len(fields) > 7:
-            dob = fields[7]
-            dob_pos = line_content.find(dob)
-            if dob_pos != -1:
-                dob_start = f"{pos}+{dob_pos}c"
-                dob_end = f"{dob_start}+{len(dob)}c"
-                log_text.tag_add("important_value", dob_start, dob_end)
+        # Marquer le champ 7 : Date de naissance
+        if len(fields) > 7 and fields[7]:
+            dob_start = field_start_indices[7]
+            dob_end = dob_start + len(fields[7])
+            log_text.tag_add("important_value", f"{pos}+{dob_start}c", f"{pos}+{dob_end}c")
 
-        # Sexe (champ 8)
-        if len(fields) > 8:
-            sex = fields[8]
-            sex_pos = line_content.find(sex)
-            if sex_pos != -1:
-                sex_start = f"{pos}+{sex_pos}c"
-                sex_end = f"{sex_start}+{len(sex)}c"
-                log_text.tag_add("important_value", sex_start, sex_end)
+        # Marquer le champ 8 : Sexe
+        if len(fields) > 8 and fields[8]:
+            sex_start = field_start_indices[8]
+            sex_end = sex_start + len(fields[8])
+            log_text.tag_add("important_value", f"{pos}+{sex_start}c", f"{pos}+{sex_end}c")
 
         start = end
 
@@ -177,6 +184,7 @@ gender_code_dict = {
 
     
 def send_hl7_message():
+    print("send_hl7_message() déclenchée")
     first_name = entry_first_name.get()
     last_name = entry_last_name.get()
     dob = entry_dob.get()
@@ -315,7 +323,7 @@ entry_gender = ttk.Combobox(window, textvariable=gender_var, state="readonly", f
 entry_gender.set(gender_options_dict[current_language][1])  # valeur par défaut
 
 
-btn_send = tk.Button(window, bg="#03045C", command=send_hl7_message, font=("Avenir", 15))
+btn_send = tk.Button(window, bg="#03045C", text="", command=send_hl7_message, font=("Avenir", 15))
 btn_lang = tk.Button(window, bg="#03045C",text="🇬🇧", command=switch_language, font=("Avenir", 23))
 
 label_first_name.place(x=50, y=100)
@@ -346,7 +354,7 @@ log_text.tag_config(
 
 
 # Style pour les champs importants (nom, prénom, etc.)
-log_text.tag_config("important_value", underline=True)
+log_text.tag_config("important_value", underline=True, foreground="red")
 
 
 # Définir des styles de surlignage
@@ -360,7 +368,7 @@ log_text.place(x=20, y=600)
 
 log_text.tag_config("highlight", background="yellow", foreground="black")
 
-log_text.tag_add("highlight", "3.0", "3.20")  # surligne les 20 premiers caractères de la ligne 3
+# log_text.tag_add("highlight", "1.0", "1.20")  # surligne les 20 premiers caractères de la ligne 3
 
 highlight_lines_with("PID")
 
