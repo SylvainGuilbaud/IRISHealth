@@ -5,6 +5,7 @@ if [ -z $ISC_DATA_DIRECTORY ]; then
     exit 1
 fi
 # Create the directory chain specified by $ISC_DATA_DIRECTORY if it does not exist
+echo "Creating directory chain: $ISC_DATA_DIRECTORY"
 mkdir -p $ISC_DATA_DIRECTORY
 # Change permissions to rwxrwxrwx (777) for ./InterSystems directory and all its subdirectories
 chmod -R 777 "$ISC_DATA_DIRECTORY"
