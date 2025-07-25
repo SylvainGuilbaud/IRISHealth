@@ -1,0 +1,418 @@
+ROUTINE AAA.Base.1 [Type=INT,Generated]
+ ;AAA.Base.1
+ ;Generated for class AAA.Base.  Do NOT edit. 05/26/2025 02:27:28PM
+ ;;39573449;AAA.Base
+ ;
+SQLUPPER(v,l) { quit $zu(28,v,7,$g(l,32767)) }
+ALPHAUP(v,r) { quit $zu(28,v,6) }
+STRING(v,l) { quit $zu(28,v,9,$g(l,32767)) }
+SQLSTRING(v,l) { quit $zu(28,v,8,$g(l,32767)) }
+UPPER(v) { quit $zu(28,v,5) }
+MVR(v) { quit $zu(28,v,2) }
+TRUNCATE(v,l) { quit $e(v,1,$g(l,3641144)) }
+%BuildIndices(pIndexList="",pAutoPurge=1,pLockFlag=0,pJournalFlag="",pStartID="",pEndID="",pIgnoreIndexList="",pKeepSelectability=0) methodimpl {
+	try {
+		set journal=$$CURRENT^%SYS.NOJRN()
+		if ($ll(pIndexList)=1)&&($lg(pIndexList)="") { return 1 }
+		set locked=0,sc=1,ptr=0
+		While $listnext(pIndexList,ptr,tIndex) {
+			continue:tIndex=""
+			If '$d(^oddCOM($classname(),"i",tIndex)) {
+				Set sc=$select(+sc:$$Error^%apiOBJ(5066,$classname()_"::"_tIndex),1:$$AppendStatus^%occSystem(sc,$$Error^%apiOBJ(5066,$classname()_"::"_tIndex)))
+			}
+		}
+		If ('sc) { Throw ##class(%Exception.StatusException).ThrowIfInterrupt(sc) }
+		if pJournalFlag=0,journal { try { do DISABLE^%SYS.NOJRN() } catch { Throw ##class(%Exception.StatusException).ThrowIfInterrupt($$Error^%apiOBJ(1151)) } }
+		if pJournalFlag=1,'journal { try { do ENABLE^%SYS.NOJRN() } catch { Throw ##class(%Exception.StatusException).ThrowIfInterrupt($$Error^%apiOBJ(1151)) } }
+		if pLockFlag = 1||(pLockFlag=3) { set SQLCODE=0 do ..%SQLAcquireTableLock($select(pLockFlag=3:1,1:0),.SQLCODE) if SQLCODE { Throw ##class(%Exception.StatusException).ThrowIfInterrupt($$Error^%apiOBJ(5540,SQLCODE,$g(%msg))) } else { set locked=1 } }
+		if $system.CLS.IsMthd("%OnBeforeBuildIndices") { set sc=..%OnBeforeBuildIndices(.pIndexList) if ('sc) { Throw ##class(%Exception.StatusException).ThrowIfInterrupt(sc) } }
+		if ($ll(pIndexList)'=1)||($lg(pIndexList)'="") {
+			if pAutoPurge,pStartID="",pEndID="" { set sc = ..%PurgeIndices(pIndexList,,pIgnoreIndexList) if ('sc) { Throw ##class(%Exception.StatusException).ThrowIfInterrupt(sc) } }
+			set sc=..%SQLBuildIndices(pIndexList,pLockFlag,pStartID,pEndID,pIgnoreIndexList,pKeepSelectability) if ('sc) { Throw ##class(%Exception.StatusException).ThrowIfInterrupt(sc) }
+			if $system.CLS.IsMthd("%OnAfterBuildIndices") { set sc=..%OnAfterBuildIndices(.pIndexList) if ('sc) { Throw ##class(%Exception.StatusException).ThrowIfInterrupt(sc) } }
+		}
+	}
+	catch tException {
+		set sc = tException.AsStatus()
+	}
+	if locked { do ..%SQLReleaseTableLock($select(pLockFlag=3:1,1:0)) }
+	if $$CURRENT^%SYS.NOJRN()'=journal { if journal { do ENABLE^%SYS.NOJRN() } else { do DISABLE^%SYS.NOJRN() } }
+	quit sc }
+%CheckConstraints(pID,pConstraintList="",pCheckDisabled=0,pErrorInfo) methodimpl {
+	if (''..%OnDetermineClass($select(pID="":"",1:$listbuild(pID_"")),.tMSTC)) && (tMSTC '= $classname()) { quit $classmethod(tMSTC,"%CheckConstraints",pID,pConstraintList) } else { quit 1 } }
+%CheckConstraintsForExtent(pConstraintList="",pCheckDisabled=0,pErrorLog) [ SQLCODE,tID ] methodimpl { New %ROWCOUNT,%ROWID,%msg,SQLCODE,tID 
+	kill pErrorLog set tStatusAll = 1, pErrorLog = 0 if '$listvalid(pConstraintList) { set pConstraintList = $listfromstring(pConstraintList) }
+	 ;---&sql(declare ext cursor for select %ID into :tID FROM %NOPARALLEL AAA.Base)
+ 	 ;--- ** SQL PUBLIC Variables: %ROWCOUNT, %ROWID, %msg, SQLCODE, tID
+	 
+	 ;---&sql(open ext)
+	if $g(%ext03535)'="" { s SQLCODE=-101 } else { try { s %ext03535="%sqlcq."_$tr($namespace,"%_-$@:/\[]^ .","pudssssssssss")_$case($zu(115,2),0:".u",1:".x",3:".v",:"."_$zu(115,2))_"EHgwoTWyy15WXPz8GbroR3GTL8g",%ext03535=$classmethod(%ext03535,"%New") } catch { if ($ze'["<CLASS DOES NOT EXIST>"&&($ze'["<NOROUTINE>")||($ze'[%ext03535)),$ze'["<ZSQLU>" { throw } } if '$isobject(%ext03535) { s %ext03535=$$%0dsqlA() } }
+	if SQLCODE '< 0 {
+		for {
+			 ;---&sql(fetch ext)
+ 			 ;--- ** SQL PUBLIC Variables: %ROWCOUNT, %ROWID, %msg, SQLCODE
+			if $isobject($g(%ext03535))'=1 { s SQLCODE=-102 } else { do %ext03535.FET() }
+			if SQLCODE { if SQLCODE=100 { quit } elseif SQLCODE<0 { set tStatusAll = $select(+tStatusAll:$$Error^%apiOBJ(5521,SQLCODE,$Get(%msg)),1:$$AppendStatus^%occSystem(tStatusAll,$$Error^%apiOBJ(5521,SQLCODE,$Get(%msg)))) quit } }
+			set tStatus = ..%CheckConstraints(tID,pConstraintList,pCheckDisabled,.tErrorInfo)
+			if ('tStatus) { set tStatusAll = $select(+tStatusAll:tStatus,1:$$AppendStatus^%occSystem(tStatusAll,tStatus)) set:pErrorLog<1000 pErrorLog = pErrorLog + 1, pErrorLog(pErrorLog) = tErrorInfo _ $Listbuild(tStatus) }
+		}
+		 ;---&sql(close ext)
+		if '$isobject($get(%ext03535)) { set SQLCODE=-102 } else { set SQLCODE=0 kill %ext03535 }
+	}
+	quit tStatusAll }
+ q
+%0dsqlA()	n %xxsql,%xxoref
+	s %xxsql("S",1)="DECLARE ext CURSOR FOR SELECT %ID INTO :tID FROM %NOPARALLEL AAA . Base"
+	s %xxsql("M","%occSqlfuncinc")=$c(1),%xxsql("M","ALLOCGVEC")=$c(1),%xxsql("M","CACHENAMES")="",%xxsql("M","DEBUG")=$c(1),%xxsql("M","FORKNETDMN")=$c(1)
+	s %xxsql("M","HASHLOCK")=$c(1),%xxsql("M","NETNEWHASH")=$c(1),%xxsql("M","USEDIRCACHE")=$c(1),%xxsql("M","USEGCNT")=2,%xxsql("M","USEGOFF")=$c(1)
+	s %xxsql("M","USELOST")=$c(1),%xxsql("M","ZVERSION")=$c(1),%xxsql("I","%occSqlfunc")="",%xxsql("I","%sySystem")="",%xxsql("I","%systemInclude")=""
+	s %xxsql("I","Ensemble")="",%xxsql("I","HS.HC.FHIRSQL.Errors")="",%xxsql("NS")="IRISAPP",%xxsql("PToolsCTI")=$LB(,"-1:0:0::0:1")
+	s %xxoref=$$BuildQuery^%SYS.SQLSRV(.%xxsql,$lb("Logical","","","AAA",0,"",),",0,ext,","AAA.Base.CLS",1)
+	i $g(SQLCODE) { s tID="" }
+	q %xxoref
+%ComposeOid(id) methodimpl {
+	set tSC = ..%OnDetermineClass(id,.tClass)
+	quit $Select((''tSC):$select(id="":"",1:$listbuild(id_"",tClass)),1:"") }
+%DeleteData(id,concurrency) methodimpl
+	Quit $$Error^%apiOBJ(5762,$classname())
+%Exists(oid="") methodimpl
+	Quit $isobject(..%OpenId($listget(oid),0))
+%InitExtentData() methodimpl {
+	RETURN $$Error^%apiOBJ(5758,"%Storage::%InitExtentData") }
+%KillExtentData(killstreams=0,reinitialize=0) methodimpl {
+	RETURN $$Error^%apiOBJ(5758,"%Storage.SQL::%KillExtentData, in order to call %KillExtent() on a class using %Storage.SQL, %KillExtentData must be overridden and implemented in this class") }
+%LoadData(id) methodimpl
+ n %ROWCOUNT,%ROWID,%msg,%ok,%sc,SQLCODE,temp0
+ Set %sc=0
+ If i%%Concurrency=4 If '..%SQLAcquireLock(id) Quit $$Error^%apiOBJ(5803,$classname())
+ If i%%Concurrency'=4,i%%Concurrency>1 If '..%SQLAcquireLock(id,1) Quit $$Error^%apiOBJ(5804,$classname())
+  ;---&sql(SELECT %ID,%FHIR,Key
+   ;--- 	   INTO :temp0,:i%%FHIR,:i%Key
+   ;--- 	   FROM AAA.Base
+   ;--- 	  WHERE %ID=:id)
+   ;--- ** SQL PUBLIC Variables: %ROWCOUNT, %ROWID, %msg, SQLCODE, id, temp0
+ d %0dsqlF
+ If SQLCODE Set i%%FHIR="",i%Key=""
+ Else  Do
+ . Set %sc=1
+ If i%%Concurrency=2 Do ..%SQLReleaseLock(id,1)
+ Quit $Select((''%sc):1,1:$$Error^%apiOBJ(5809,$classname(),id))
+%0dsqlD	n %xxsql
+	s %xxsql("S",1)="SELECT %ID , %FHIR , Key INTO :temp0 , :sqltmp2 , :sqltmp3 FROM AAA . Base WHERE %ID = :id"
+	s %xxsql("M","%occSqlfuncinc")=$c(1),%xxsql("M","ALLOCGVEC")=$c(1),%xxsql("M","CACHENAMES")="",%xxsql("M","DEBUG")=$c(1),%xxsql("M","FORKNETDMN")=$c(1)
+	s %xxsql("M","HASHLOCK")=$c(1),%xxsql("M","NETNEWHASH")=$c(1),%xxsql("M","USEDIRCACHE")=$c(1),%xxsql("M","USEGCNT")=2,%xxsql("M","USEGOFF")=$c(1)
+	s %xxsql("M","USELOST")=$c(1),%xxsql("M","ZVERSION")=$c(1),%xxsql("I","%occSqlfunc")="",%xxsql("I","%sySystem")="",%xxsql("I","%systemInclude")=""
+	s %xxsql("I","Ensemble")="",%xxsql("I","HS.HC.FHIRSQL.Errors")="",%xxsql("NS")="IRISAPP",%xxsql("PToolsCTI")=$LB(,"-1:0:0::0:1")
+	do BuildQuery^%SYS.SQLSRV(.%xxsql,$lb("Logical","","","AAA",0,"",$lb("AAA.Base","L")),,"AAA.Base.CLS")
+	return:$g(%IRISSQLCachedCompileOnly)
+	if $g(SQLCODE) { try { set temp0="",i%%FHIR="",i%Key="" } catch {} }
+	return
+%0dsqlF	n sqltmp2,sqltmp3
+	try { d $classmethod("%sqlcq."_$tr($namespace,"%_-$@:/\[]^ .","pudssssssssss")_$case($zu(115,2),0:".u",1:".x",3:".v",:"."_$zu(115,2))_"Ew156ns9PQNUT7QXMbATpN8LSf8","%New") } catch { if ($ze["<CLASS DOES NOT EXIST>"||($ze["<NOROUTINE>"))&&($ze[("%sqlcq."_$tr($namespace,"%_-$@:/\[]^ .","pudssssssssss")_$case($zu(115,2),0:".u",1:".x",3:".v",:"."_$zu(115,2))_"Ew156ns9PQNUT7QXMbATpN8LSf8"))||($ze["<ZSQLU>") { d %0dsqlD } else { throw } }
+	try { s i%%FHIR=$g(sqltmp2),i%Key=$g(sqltmp3) } catch { s SQLCODE=-400,%msg="Runtime error setting INTO values: "_$zerror }
+	q
+%LockExtent(shared=0) methodimpl {
+	Quit $Select(..%SQLAcquireTableLock(shared):1,1:$$Error^%apiOBJ($Select('shared:5803,1:5804),$classname())) }
+%LockId(id,shared=0,timeout) methodimpl {
+	If id="" Quit $$Error^%apiOBJ(5812)
+	If $get(timeout)'="" Set oldtimeout=$zutil(115,4,timeout)
+	Try { Set rc=..%SQLAcquireLock(id,shared) Do:$get(timeout)'="" $zutil(115,4,oldtimeout) } Catch { Do:$get(timeout)'="" $zutil(115,4,oldtimeout) Throw }
+	If 'rc Quit $$Error^%apiOBJ($Select('shared:5803,1:5804),id_":"_$classname())
+	Quit 1 }
+%NormalizeObject() methodimpl {
+	If '$system.CLS.GetModified() Quit 1
+	If m%%FHIR Set:i%%FHIR'="" i%%FHIR=(..%FHIRNormalize(i%%FHIR))
+	If m%Key Set:i%Key'="" i%Key=(..KeyNormalize(i%Key))
+	Quit 1 }
+%PurgeIndices(idxlist="",lockExtent=0,pIgnoreIndexList="") methodimpl {
+	if ($listlength(idxlist)=1)&&($listget(idxlist)="") { return 1 }
+	s $ZTrap="CatchError",locked=0,sc=1
+	i lockExtent { d ..%SQLAcquireTableLock(0,.SQLCODE) i SQLCODE { q $$Error^%apiOBJ(5540,SQLCODE,$g(%msg)) } else { s locked=1 } }
+	if $system.CLS.IsMthd("%OnBeforePurgeIndices") { set sc=..%OnBeforePurgeIndices(.idxlist) i (('sc))||(($ll(idxlist)=1)&&($lg(idxlist)="")) { i locked { d ..%SQLReleaseTableLock(0) } quit sc } }
+	s sc=..%SQLPurgeIndices(idxlist,lockExtent,pIgnoreIndexList)
+	if $system.CLS.IsMthd("%OnAfterPurgeIndices") { set sc=..%OnAfterPurgeIndices(.idxlist) }
+	i locked { d ..%SQLReleaseTableLock(0) }
+	q sc
+CatchError	s $ZTrap="" i $ZE'="" { s sc = $$Error^%apiOBJ(5002,$ZE) } i locked { d ..%SQLReleaseLock(0) } q sc }
+%SQLAcquireLock(%rowid,s=0,unlockref=0) methodimpl
+	new %d,gotlock
+	set %d(1)=%rowid set s=$e("S",s)
+	lock +^HSF01R.RsrcD(%d(1))#s:$zu(115,4) set gotlock=$t
+	set:gotlock&&unlockref unlockref=unlockref+1,unlockref(unlockref)=$lb($name(^HSF01R.RsrcD(%d(1))),"AAA.Base",s_"D")
+	QUIT gotlock
+%SQLAcquireTableLock(s=0,SQLCODE,to="") methodimpl
+	set s=$e("S",s) set:to="" to=$zu(115,4) lock +^HSF01R.RsrcD#s:to QUIT:$t 1 set SQLCODE=-110 if s="S" { set %msg=$$FormatMessage^%occMessages(,"%SQL.Filer","SQLFiler35",,"AAA"_"."_"Base") } else { set %msg=$$FormatMessage^%occMessages(,"%SQL.Filer","SQLFiler36",,"AAA"_"."_"Base") } QUIT 0
+	Return
+%SQLCheckUnique(pFromOrig=0,%pID,%pVals...) methodimpl
+	 ;---&sql(SELECT ID FROM AAA.Base WHERE  ID=:%pVals(1) AND (%ID <> :%pID OR :%pID IS NULL)) QUIT SQLCODE=100
+ 	 ;--- ** SQL PUBLIC Variables: %ROWCOUNT, %ROWID, %msg, %pID, %pVals, SQLCODE
+	try { d $classmethod("%sqlcq."_$tr($namespace,"%_-$@:/\[]^ .","pudssssssssss")_$case($zu(115,2),0:".u",1:".x",3:".v",:"."_$zu(115,2))_"EwCcVzQr2gxCUKVxutiILrLf4Xm","%New") } catch { if ($ze["<CLASS DOES NOT EXIST>"||($ze["<NOROUTINE>"))&&($ze[("%sqlcq."_$tr($namespace,"%_-$@:/\[]^ .","pudssssssssss")_$case($zu(115,2),0:".u",1:".x",3:".v",:"."_$zu(115,2))_"EwCcVzQr2gxCUKVxutiILrLf4Xm"))||($ze["<ZSQLU>") { d %0dsqlH } else { throw } } QUIT SQLCODE=100
+ q
+%0dsqlH	n %xxsql
+	s %xxsql("S",1)="SELECT ID FROM AAA . Base WHERE ID = :%pVals(1) AND ( %ID <> :%pID OR :%pID IS NULL )"
+	s %xxsql("M","%occSqlfuncinc")=$c(1),%xxsql("M","ALLOCGVEC")=$c(1),%xxsql("M","CACHENAMES")="",%xxsql("M","DEBUG")=$c(1),%xxsql("M","FORKNETDMN")=$c(1)
+	s %xxsql("M","HASHLOCK")=$c(1),%xxsql("M","NETNEWHASH")=$c(1),%xxsql("M","USEDIRCACHE")=$c(1),%xxsql("M","USEGCNT")=2,%xxsql("M","USEGOFF")=$c(1)
+	s %xxsql("M","USELOST")=$c(1),%xxsql("M","ZVERSION")=$c(1),%xxsql("I","%occSqlfunc")="",%xxsql("I","%sySystem")="",%xxsql("I","%systemInclude")=""
+	s %xxsql("I","Ensemble")="",%xxsql("I","HS.HC.FHIRSQL.Errors")="",%xxsql("NS")="IRISAPP",%xxsql("PToolsCTI")=$LB(,"-1:0:0::0:1")
+	do BuildQuery^%SYS.SQLSRV(.%xxsql,$lb("Logical","","","AAA",0,"",),,"AAA.Base.CLS")
+	return
+%SQLCheckUniqueIndices(pIndices,pOK) methodimpl
+	new d,g,n,o set d=0
+	set pOK=1 QUIT
+%SQLDefineiDjVars(%d,subs,master) methodimpl
+	QUIT
+%SQLDelete(%rowid,%check,%tstart=1,%mv=0,%polymorphic=0,%bufferedColumns=0) methodimpl
+	// SQL DELETE method for table AAA.Base
+	set SQLCODE=-115,%msg=$$FormatMessage^%occMessages(,"%SQL.Filer","SQLFiler1",,"AAA"_"."_"Base") QUIT
+ERRORDelete	set $zt="",SQLCODE=-415,%msg=$s($g(%msg)'="":%msg_" -- ",1:"")_$$FormatMessage^%occMessages(,"%SQL.Filer","SQLFiler51",,%oper,"AAA"_"."_"Base",$ze) if $ze["<FRAMESTACK>" { set %msg=$$FormatMessage^%occMessages(,"%SQL.Filer","SQLFiler52",,$ze,%oper,"AAA"_"."_"Base") do ##Class(%SYS.System).WriteToConsoleLog(%msg) if ($zu(67,10,$j)=1)||($zu(67,10,$j)=3) { write !,%msg h 3 } HALT  } do ..%SQLEExit() QUIT
+	Return
+%SQLExists(pLockOnly=0,pUnlockRef,%pVal...) methodimpl
+	// SQL Foreign Key validation entry point for Key %1.  Called by FKeys that reference this Key to see if the row is defined
+	if pLockOnly>=0 { new id set id=%pVal(1) }
+	if pLockOnly>=0 { if '..%SQLGetLock(id,1,.pUnlockRef) { set sqlcode=-114,%msg=$$FormatMessage^%occMessages(,"%SQL.Filer","SQLFiler39",,"AAA"_"."_"Base"_":"_"%1") RETURN 0 } }
+	if pLockOnly<1 {
+		new exists set exists='..%SQLCheckUnique(0,,%pVal(1)) RETURN:pLockOnly=-1 exists
+		do:'$g(pUnlockRef) ..%SQLReleaseLock(id,1) RETURN exists
+	}
+	else { do:'$g(pUnlockRef) ..%SQLReleaseLock(id,1) RETURN 1 }
+	Return
+%SQLGetLock(pRowId,pShared=0,pUnlockRef) methodimpl
+	if $tlevel,$i(%0CacheLock("AAA.Base"))>$zu(156,50,1) { new s set s=$e("S",pShared) lock +^HSF01R.RsrcD#s:$zu(115,4) lock:$t -^HSF01R.RsrcD#s QUIT $s($t:2,1:0) } 
+	QUIT ..%SQLAcquireLock(pRowId,pShared,.pUnlockRef)
+%SQLInsert(%d,%check,%inssel,%vco,%tstart=1,%mv=0,%bufferedColumns=0) methodimpl
+	// SQL INSERT method for table AAA.Base
+	set SQLCODE=-115,%msg=$$FormatMessage^%occMessages(,"%SQL.Filer","SQLFiler5",,"AAA"_"."_"Base") RETURN ""
+	RETURN ""
+%SQLQuickLoad(%rowid,%nolock=0,pkey=0,qq=0) methodimpl
+	// Get fields from row where SQLRowID=%rowid
+	new d,i,il,subs set:%nolock=2 %nolock=1
+	if %nolock=0 { if '..%SQLAcquireLock(%rowid) { set %qrc=114,%msg=$$FormatMessage^%occMessages(,"%SQL.Filer","SQLFiler45",,"AAA"_"."_"Base",%rowid),%ROWCOUNT=0 QUIT  } set:$zu(115,2) il=$zu(115,2,0) }
+	 ;---&sql(SELECT %INTERNAL(ID),%FHIR,Key,RowNum INTO :d(1),:d(2),:d(3),:d(4) FROM AAA.Base WHERE %ID = :%rowid)
+ 	 ;--- ** SQL PUBLIC Variables: %ROWCOUNT, %ROWID, %msg, %rowid, SQLCODE, d
+	try { d $classmethod("%sqlcq."_$tr($namespace,"%_-$@:/\[]^ .","pudssssssssss")_$case($zu(115,2),0:".u",1:".x",3:".v",:"."_$zu(115,2))_"Ef3vccNYyeNQiGanBmJgE9jog8f","%New") } catch { if ($ze["<CLASS DOES NOT EXIST>"||($ze["<NOROUTINE>"))&&($ze[("%sqlcq."_$tr($namespace,"%_-$@:/\[]^ .","pudssssssssss")_$case($zu(115,2),0:".u",1:".x",3:".v",:"."_$zu(115,2))_"Ef3vccNYyeNQiGanBmJgE9jog8f"))||($ze["<ZSQLU>") { d %0dsqlJ } else { throw } }
+	if SQLCODE { if %nolock=0 { do ..%SQLReleaseLock(%rowid,0,1) do:$g(il) $zu(115,2,il) } set %ROWCOUNT=0 set:SQLCODE<0 SQLCODE=-SQLCODE set %qrc=SQLCODE QUIT  }
+	if %nolock=0 { if $zu(115,1)=1 { TSTART  } elseIf '$TLEVEL,$zu(115,1)=2 { TSTART  }}
+	set:qq d=$zobjexport("AAA.Base",18),d=4,d=$zobjexport(d,18) set i=-1 for  { set i=$o(d(i)) quit:i=""  set d=$zobjexport(d(i),18) } set %qrc=0,%ROWCOUNT=1 if %nolock=0 { d ..%SQLReleaseLock(%rowid,0,0) do:$g(il) $zu(115,2,il) } quit
+	Return
+ q
+%0dsqlJ	n %xxsql
+	s %xxsql("S",1)="SELECT %INTERNAL ( ID ) , %FHIR , Key , RowNum INTO :d(1) , :d(2) , :d(3) , :d(4) FROM AAA . Base WHERE %ID = :%rowid"
+	s %xxsql("M","%occSqlfuncinc")=$c(1),%xxsql("M","ALLOCGVEC")=$c(1),%xxsql("M","CACHENAMES")="",%xxsql("M","DEBUG")=$c(1),%xxsql("M","FORKNETDMN")=$c(1)
+	s %xxsql("M","HASHLOCK")=$c(1),%xxsql("M","NETNEWHASH")=$c(1),%xxsql("M","USEDIRCACHE")=$c(1),%xxsql("M","USEGCNT")=2,%xxsql("M","USEGOFF")=$c(1)
+	s %xxsql("M","USELOST")=$c(1),%xxsql("M","ZVERSION")=$c(1),%xxsql("I","%occSqlfunc")="",%xxsql("I","%sySystem")="",%xxsql("I","%systemInclude")=""
+	s %xxsql("I","Ensemble")="",%xxsql("I","HS.HC.FHIRSQL.Errors")="",%xxsql("NS")="IRISAPP",%xxsql("PToolsCTI")=$LB(,"-1:0:0::0:1")
+	do BuildQuery^%SYS.SQLSRV(.%xxsql,$lb("ODBC","","","AAA",0,"",),,"AAA.Base.CLS")
+	return:$g(%IRISSQLCachedCompileOnly)
+	if $g(SQLCODE) { try { set d(1)="",d(2)="",d(3)="",d(4)="" } catch {} }
+	return
+%SQLReleaseLock(%rowid,s=0,i=0,e="") methodimpl
+	new %d
+	set %d(1)=%rowid set s=$e("S",s)_$e("D",i)
+	lock -^HSF01R.RsrcD(%d(1))#s
+	set:i&&($g(%0CacheLock("AAA.Base"))) %0CacheLock("AAA.Base")=%0CacheLock("AAA.Base")-1
+	QUIT
+%SQLReleaseTableLock(s=0,i=0) methodimpl
+	set s=$e("S",s)_$e("D",i) lock -^HSF01R.RsrcD#s QUIT 1
+	Return
+%SQLUpdate(%rowid,%check,%d,%vco,%tstart=1,%mv=0,%polymorphic=0,%soid,%bufferedColumns=0,%bufferedColumnsDel=0) methodimpl
+	// SQL UPDATE method for table AAA.Base
+	set SQLCODE=-115,%msg=$$FormatMessage^%occMessages(,"%SQL.Filer","SQLFiler14",,"AAA"_"."_"Base") QUIT
+ERRORUpdate	set $zt="",SQLCODE=-415,%msg=$s($g(%msg)'="":%msg_" -- ",1:"")_$$FormatMessage^%occMessages(,"%SQL.Filer","SQLFiler51",,%oper,"AAA"_"."_"Base",$ze) if $ze["<FRAMESTACK>" { set %msg=$$FormatMessage^%occMessages(,"%SQL.Filer","SQLFiler52",,$ze,%oper,"AAA"_"."_"Base") do ##Class(%SYS.System).WriteToConsoleLog(%msg) if ($zu(67,10,$j)=1)||($zu(67,10,$j)=3) { write !,%msg h 3 } HALT  } do ..%SQLEExit() QUIT  
+	Return
+%SaveData(id) methodimpl
+	Quit $$Error^%apiOBJ(5762,$classname())
+%UnlockExtent(shared=0,immediate=0) methodimpl {
+	Quit $Select(..%SQLReleaseTableLock(shared,immediate):1,1:$$Error^%apiOBJ(5540,SQLCODE,%msg)) }
+%UnlockId(id,shared=0,immediate=0) methodimpl {
+	Do ..%SQLReleaseLock(id,shared,immediate)
+	Quit 1 }
+%ValidateIndices(idxList="",autoCorrect=0,lockOption=1,multiProcess=1,mapList,verbose=1,errors) methodimpl
+	if '$listvalid(idxList) { QUIT $$Error^%apiOBJ(5591,"##class(AAA.Base).%ValidateIndices()","idxList",""""" or a $list of index names") }
+	if $case(autoCorrect,1:0,0:0,:1) { QUIT $$Error^%apiOBJ(5591,"##class(AAA.Base).%ValidateIndices()","autoCorrect","'0' or '1'") }
+	if $case(lockOption,2:0,1:0,0:0,:1) { QUIT $$Error^%apiOBJ(5591,"##class(AAA.Base).%ValidateIndices()","lockOption","'0', '1' or '2'") }
+	if $case(multiProcess,1:0,0:0,:1) { QUIT $$Error^%apiOBJ(5591,"##class(AAA.Base).%ValidateIndices()","multiProcess","'0' or '1'") }
+	if $case(verbose,1:0,0:0,:1) { QUIT $$Error^%apiOBJ(5591,"##class(AAA.Base).%ValidateIndices()","verbose","'0' or '1'") }
+	new mapList QUIT $$ValidateIndices^%SYS.SECURITY("AAA.Base",idxList,autoCorrect,lockOption,multiProcess,,verbose,.errors)
+%ValidateObject(unused=0,checkserial=1) methodimpl {
+	set sc=1
+	If '$system.CLS.GetModified() Quit sc
+	Set iv=..%FHIR If iv="" Set rc=$$Error^%apiOBJ(5659,$classname()_"::%FHIR("_$this_",ID="_..%Id()_")"),sc=$select(+sc:rc,1:$$AppendStatus^%occSystem(sc,rc))
+	If m%%FHIR Set rc=(..%FHIRIsValid(iv)) If ('rc) Set sc=$$EmbedErr^%occSystem(sc,rc,5802,"%FHIR",iv)
+	If m%Key Set iv=..Key If iv'="" Set rc=(..KeyIsValid(iv)) If ('rc) Set sc=$$EmbedErr^%occSystem(sc,rc,5802,"Key",iv)
+	Quit sc }
+BitNext(pResourceType,pL1) methodimpl {
+	Set node = (pL1\64000)+1,pos=pL1#64000+1
+	Set pL1=""
+	For {
+		Set pos=$bitfind(^HSF01R.RsrcI("ResourceTypeIndex",pResourceType,node),1,pos+1) 
+		if 'pos {
+			Set node=$O(^HSF01R.RsrcI("ResourceTypeIndex",pResourceType,node)) 
+			Quit:node=""
+			Set pos=0
+		} Else {
+			Set pL1 = ((node-1)*64000)+pos-1
+			Quit
+		}
+	}
+	Quit pL1 }
+%FHIRLogicalToDisplay(%val) methodimpl {
+    quit $s($isobject(%val):%val.%ToJSON(), 1:%val) }
+zRowNumCompute(%id) methodimpl
+	New %tException,%val set %val = ""
+	try {
+	 Set %val = %id 
+	} catch %tException { throw %tException }
+	Quit %val
+RowNumDisplayToLogical(%val) methodimpl {
+	Q $select(%val="":"",%val=$c(0)&&$zu(115,13):"",1:$s($in(%val,"","")'="":+$in(%val,"",%val),1:%val)) }
+RowNumGet() methodimpl {
+	Quit ..RowNumCompute($listget(i%"%%OID")) }
+RowNumIsValid(%val) methodimpl {
+	Quit $select(%val=$c(0)&&$zu(115,13):1,$isvalidnum(%val,0):1,1:$$Error^%apiOBJ(7207,%val)) }
+RowNumNormalize(%val) methodimpl {
+	Quit $select(%val=$c(0)&&$zu(115,13):"",1:%val\1) }
+zRowNumSQLCompute() methodimpl
+	Quit
+ExtentClose(%qHandle) [ SQLCODE ] methodimpl {
+	New SQLCODE Set SQLCODE=0
+	Do:$isobject($get(%qHandle)) %qHandle.%Destruct() Kill %qHandle
+	If SQLCODE { Set:$isobject($g(%sqlcontext)) %sqlcontext.%SQLCODE=SQLCODE,%sqlcontext.%Message=$g(%msg) Set sc=$$Error^%apiOBJ(5540,SQLCODE,$get(%msg)) } Else { Set sc=1 }
+	Quit sc }
+ExtentExecute(%qHandle) [ SQLCODE ] methodimpl { New %ROWCOUNT,%ROWID,%msg,SQLCODE 
+	Set sc=1
+	 ;---&sql(DECLARE QExtent CURSOR FOR
+ 	 ;---		 SELECT ID FROM %NOPARALLEL AAA.Base)
+ 	 ;--- ** SQL PUBLIC Variables: %ROWCOUNT, %ROWID, %msg, SQLCODE
+	 
+	 ;---&sql(OPEN QExtent)
+	if $g(%qHandle)'="" { s SQLCODE=-101 } else { try { s %qHandle="%sqlcq."_$tr($namespace,"%_-$@:/\[]^ .","pudssssssssss")_$case($zu(115,2),0:".u",1:".x",3:".v",:"."_$zu(115,2))_"EPJwMmUST2IrxLDXirX5WMVDX2v",%qHandle=$classmethod(%qHandle,"%New") } catch { if ($ze'["<CLASS DOES NOT EXIST>"&&($ze'["<NOROUTINE>")||($ze'[%qHandle)),$ze'["<ZSQLU>" { throw } } if '$isobject(%qHandle) { s %qHandle=$$%0dsqlL() } }
+	If SQLCODE { Set:$isobject($g(%sqlcontext)) %sqlcontext.%SQLCODE=SQLCODE,%sqlcontext.%Message=$g(%msg) Set sc=$$Error^%apiOBJ(5821,"SQLCODE = "_SQLCODE_" %msg = "_$g(%msg)) } Else { Set sc=1 }
+	Quit sc }
+ExtentFetch(%qHandle,Row,AtEnd=0) [ SQLCODE ] methodimpl { New %ROWCOUNT,%ROWID,%msg,SQLCODE 
+	Set Row="",AtEnd=0
+	 ;---&sql(FETCH QExtent INTO :c1)
+ 	 ;--- ** SQL PUBLIC Variables: %ROWCOUNT, %ROWID, %msg, SQLCODE
+	if $isobject($g(%qHandle))'=1 { s SQLCODE=-102 } else { do %qHandle.FET() i SQLCODE=0 { s c1=%qHandle.sqlcol1 } }
+	If 'SQLCODE { Set Row=$lb(c1) Set sc=1 }
+	ElseIf SQLCODE=100 { Set AtEnd=1,sc=1 Set:$isobject($g(%sqlcontext)) %sqlcontext.%SQLCODE=SQLCODE,%sqlcontext.%ROWCOUNT=$g(%ROWCOUNT) }
+	Else { Set:$isobject($g(%sqlcontext)) %sqlcontext.%SQLCODE=SQLCODE,%sqlcontext.Message=$g(%msg) Set AtEnd=1,sc=$$Error^%apiOBJ(5540,SQLCODE,$get(%msg)) }
+	QUIT sc }
+ExtentFetchRows(%qHandle,FetchCount=0,RowSet,ReturnCount,AtEnd) [ SQLCODE ] methodimpl { New %ROWCOUNT,%ROWID,%msg,SQLCODE 
+	Set RowSet="",ReturnCount=0,AtEnd=0
+	For {
+		 ;---&sql(FETCH QExtent INTO :c1)
+ 		 ;--- ** SQL PUBLIC Variables: %ROWCOUNT, %ROWID, %msg, SQLCODE
+		if $isobject($g(%qHandle))'=1 { s SQLCODE=-102 } else { do %qHandle.FET() i SQLCODE=0 { s c1=%qHandle.sqlcol1 } }
+		If 'SQLCODE { Set RowSet=RowSet_$lb(c1),ReturnCount=ReturnCount+1 Quit:(ReturnCount=FetchCount)||(($l(RowSet)+($l(RowSet)\ReturnCount))>30000) } Else { Set AtEnd=1 Quit }
+	}
+	If 'SQLCODE { Set sc=1 } ElseIf SQLCODE=100 { Set sc=1 Set:$isobject($g(%sqlcontext)) %sqlcontext.%SQLCODE=SQLCODE,%sqlcontext.%ROWCOUNT=$g(%ROWCOUNT) } Else { Set:$isobject($g(%sqlcontext)) %sqlcontext.%SQLCODE=SQLCODE,%sqlcontext.Message=$g(%msg) Set sc=$$Error^%apiOBJ(5540,SQLCODE,$get(%msg)) }
+	Quit sc }
+ExtentSendODBC(%qHandle,array,qacn,%qrc,piece,ColumnCount) [ SQLCODE ] methodimpl { New %ROWCOUNT,%ROWID,%msg,SQLCODE 
+	set %qrc=0,piece=0
+	for {
+		set rc=..ExtentFetch(.%qHandle,.row,.atend)
+		if ('rc) { set %qrc=-400 set:$isobject($get(%sqlcontext)) %sqlcontext.SQLCode=-400,%sqlcontext.Message=$g(%msg) do ProcessError^%ourProcedure(rc,$get(%sqlcontext),.%qrc,.%msg),Logerr^%SYS.SQLSRV(%qrc,"","SP",.%msg) RETURN  }
+		if row="" { set %qrc=100 set:$isobject($get(%sqlcontext)) %sqlcontext.SQLCode=100 RETURN  }
+		RETURN:$zobjexport(row,60)
+	}
+	RETURN }
+ q
+%0dsqlL()	n %xxsql,%xxoref
+	s %xxsql("S",1)="DECLARE QExtent CURSOR FOR SELECT ID "
+	s %xxsql("S",2)="INTO  :i%sqlcol1"
+	s %xxsql("S",3)="FROM %NOPARALLEL AAA . Base"
+	s %xxsql("M","%occSqlfuncinc")=$c(1),%xxsql("M","ALLOCGVEC")=$c(1),%xxsql("M","CACHENAMES")="",%xxsql("M","DEBUG")=$c(1),%xxsql("M","FORKNETDMN")=$c(1)
+	s %xxsql("M","HASHLOCK")=$c(1),%xxsql("M","NETNEWHASH")=$c(1),%xxsql("M","USEDIRCACHE")=$c(1),%xxsql("M","USEGCNT")=2,%xxsql("M","USEGOFF")=$c(1)
+	s %xxsql("M","USELOST")=$c(1),%xxsql("M","ZVERSION")=$c(1),%xxsql("I","%occSqlfunc")="",%xxsql("I","%sySystem")="",%xxsql("I","%systemInclude")=""
+	s %xxsql("I","Ensemble")="",%xxsql("I","HS.HC.FHIRSQL.Errors")="",%xxsql("NS")="IRISAPP",%xxsql("PToolsCTI")=$LB(,"-1:0:0::0:1")
+	s %xxoref=$$BuildQuery^%SYS.SQLSRV(.%xxsql,$lb("Runtime","","","AAA",0,"",),",1,QExtent,","AAA.Base.CLS",1)
+	q %xxoref
+ExtentFunc() methodimpl {
+	try {
+		set tSchemaPath = ##class(%SQL.Statement).%ClassPath($classname())
+			set tStatement = ##class(%SQL.Statement).%New(,tSchemaPath)
+			do tStatement.prepare(" SELECT ID FROM %NOPARALLEL AAA . Base /*#OPTIONS {""DynamicSQL"":1} */")
+		set tResult = tStatement.%Execute()
+	}
+	catch tException { if '$Isobject($Get(tResult)) { set tResult = ##class(%SQL.StatementResult).%New() } set tResult.%SQLCODE=tException.AsSQLCODE(),tResult.%Message=tException.AsSQLMessage() }
+	Quit tResult }
+ExtentGetInfo(colinfo,parminfo,idinfo,%qHandle,extoption=0,extinfo) methodimpl {
+ s parminfo=""
+	s:'($d(^oddCOM($classname(),"q","Extent",21),clientinfo)#2)&&'$s($d(^(2),clientinfo)#2&&(clientinfo'=$classname()):$d(^oddCOM(clientinfo,"q","Extent",21),clientinfo)#2||($d(^oddDEF(clientinfo,"q","Extent",21),clientinfo)#2),1:$d(^oddDEF($classname(),"q","Extent",21),clientinfo)#2) clientinfo=""
+	Set:extoption extinfo=$s($d(^oddCOM($classname(),"q","Extent",38))#2:^(38),$d(^oddCOM($g(^(2),$classname()),"q","Extent",38))#2:^(38),1:$s($d(^oddDEF($g(^oddCOM($classname(),"q","Extent",2),$classname()),"q","Extent",38))#2:^(38),1:""))
+	If clientinfo'="" Set colinfo=$listget(clientinfo,1),parminfo=$listget(clientinfo,2),idinfo=$listget(clientinfo,3) Quit 1
+	Set colinfo="",parminfo="",idinfo=$listbuild(0)
+	Set sc=$$externaltype^%apiOLE("%Library.Integer",.exttypes,"0")
+	Quit:('sc) sc
+	s:'($d(^oddCOM($classname(),"q","Extent",23),names)#2)&&'$s($d(^(2),names)#2&&(names'=$classname()):$d(^oddCOM(names,"q","Extent",23),names)#2||($d(^oddDEF(names,"q","Extent",23),names)#2),1:$d(^oddDEF($classname(),"q","Extent",23),names)#2) names=""
+	s:'($d(^oddCOM($classname(),"q","Extent",22),captions)#2)&&'$s($d(^(2),captions)#2&&(captions'=$classname()):$d(^oddCOM(captions,"q","Extent",22),captions)#2||($d(^oddDEF(captions,"q","Extent",22),captions)#2),1:$d(^oddDEF($classname(),"q","Extent",22),captions)#2) captions=""
+	For i=1:1:1 Set colinfo=colinfo_$listbuild($listbuild($listget(names,i),$piece(exttypes,",",i),$listget(captions,i)))
+	Set idinfo=$listbuild(1,$classname())
+	s ^oddCOM($classname(),"q","Extent",21)=$listbuild(colinfo,parminfo,idinfo)
+	Quit 1 }
+zExtentGetODBCInfo(colinfo,parminfo,qHandle) methodimpl
+	Set metadata=$lb(1,1,"ID",4,10,0,2,"ID","Base","AAA","",$c(0,0,0,0,0,0,0,0,0,0,0,1,0),0)
+	Set colcount=$li(metadata,2),cmdlen=colcount*10,parmcount=$li(metadata,3+cmdlen),pmdlen=parmcount*6,parminfo=$li(metadata,cmdlen+3,cmdlen+pmdlen+3)
+	Set colinfo=$li(metadata,2,2+cmdlen)
+	Quit 1
+IDKEYCheck(K1,lockonly=0,concurrency=-1) methodimpl {
+	s id=K1,exists=..%ExistsId(id) q:'exists $s('lockonly:$$Error^%apiOBJ(5797,$classname(),"IDKEY",id),1:1) s:concurrency=-1 concurrency=$select(..#DEFAULTCONCURRENCY="$zu(115,10)":$zu(115,10),1:$xecute("q "_..#DEFAULTCONCURRENCY)) if concurrency { s status=..%LockId(id,1) q:('status) status } if 'lockonly { s exists=..%ExistsId(id) d:concurrency ..%UnlockId(id,1,0) quit $s('exists:$$Error^%apiOBJ(5797,$classname(),"IDKEY",id),1:1) } else { d:concurrency ..%UnlockId(id,1,0) q 1 }
+}
+IDKEYDelete(K1,concurrency=-1) methodimpl {
+	Quit ..%DeleteId(.K1,concurrency) }
+IDKEYExists(K1,id="") methodimpl {
+	s id=K1 q ..%ExistsId(K1) }
+IDKEYOpen(K1,concurrency=-1,sc) methodimpl { s:'($d(sc)#2) sc=1
+	Quit ..%OpenId(.K1,concurrency,.sc) }
+zIDKEYSQLCheckUnique(pFromOrig=0,%pID,%pVals...) methodimpl
+	 ;---&sql(SELECT ID FROM AAA.Base WHERE  ID=:%pVals(1) AND (%ID <> :%pID OR :%pID IS NULL)) QUIT SQLCODE=100
+ 	 ;--- ** SQL PUBLIC Variables: %ROWCOUNT, %ROWID, %msg, %pID, %pVals, SQLCODE
+	try { d $classmethod("%sqlcq."_$tr($namespace,"%_-$@:/\[]^ .","pudssssssssss")_$case($zu(115,2),0:".u",1:".x",3:".v",:"."_$zu(115,2))_"EwCcVzQr2gxCUKVxutiILrLf4Xm","%New") } catch { if ($ze["<CLASS DOES NOT EXIST>"||($ze["<NOROUTINE>"))&&($ze[("%sqlcq."_$tr($namespace,"%_-$@:/\[]^ .","pudssssssssss")_$case($zu(115,2),0:".u",1:".x",3:".v",:"."_$zu(115,2))_"EwCcVzQr2gxCUKVxutiILrLf4Xm"))||($ze["<ZSQLU>") { d %0dsqlP } else { throw } } QUIT SQLCODE=100
+ q
+%0dsqlP	n %xxsql
+	s %xxsql("S",1)="SELECT ID FROM AAA . Base WHERE ID = :%pVals(1) AND ( %ID <> :%pID OR :%pID IS NULL )"
+	s %xxsql("M","%occSqlfuncinc")=$c(1),%xxsql("M","ALLOCGVEC")=$c(1),%xxsql("M","CACHENAMES")="",%xxsql("M","DEBUG")=$c(1),%xxsql("M","FORKNETDMN")=$c(1)
+	s %xxsql("M","HASHLOCK")=$c(1),%xxsql("M","NETNEWHASH")=$c(1),%xxsql("M","USEDIRCACHE")=$c(1),%xxsql("M","USEGCNT")=2,%xxsql("M","USEGOFF")=$c(1)
+	s %xxsql("M","USELOST")=$c(1),%xxsql("M","ZVERSION")=$c(1),%xxsql("I","%occSqlfunc")="",%xxsql("I","%sySystem")="",%xxsql("I","%systemInclude")=""
+	s %xxsql("I","Ensemble")="",%xxsql("I","HS.HC.FHIRSQL.Errors")="",%xxsql("NS")="IRISAPP",%xxsql("PToolsCTI")=$LB(,"-1:0:0::0:1")
+	do BuildQuery^%SYS.SQLSRV(.%xxsql,$lb("Logical","","","AAA",0,"",),,"AAA.Base.CLS")
+	return
+zIDKEYSQLExists(pLockOnly=0,pUnlockRef,%pVal...) methodimpl
+	// SQL Foreign Key validation entry point for Key IDKEY.  Called by FKeys that reference this Key to see if the row is defined
+	if pLockOnly>=0 { new id set id=%pVal(1) }
+	if pLockOnly>=0 { if '..%SQLGetLock(id,1,.pUnlockRef) { set sqlcode=-114,%msg=$$FormatMessage^%occMessages(,"%SQL.Filer","SQLFiler39",,"AAA"_"."_"Base"_":"_"IDKEY") RETURN 0 } }
+	if pLockOnly<1 {
+		new exists set exists='..IDKEYSQLCheckUnique(0,,%pVal(1)) RETURN:pLockOnly=-1 exists
+		do:'$g(pUnlockRef) ..%SQLReleaseLock(id,1) RETURN exists
+	}
+	else { do:'$g(pUnlockRef) ..%SQLReleaseLock(id,1) RETURN 1 }
+	Return
+zIDKEYSQLFindPKeyByConstraint(%con) methodimpl
+ QUIT $$Error^%apiOBJ(5758,"%Persistent::IDKEYSQLFindPKeyByConstraint")
+zIDKEYSQLFindRowIDByConstraint(%con,pInternal=0) methodimpl
+ QUIT $$Error^%apiOBJ(5758,"%Persistent::IDKEYSQLFindRowIDByConstraint")
+KeyIndexExists(K1,id="") [ K1,SQLCODE,id ] methodimpl { New %ROWCOUNT,%ROWID,%msg,SQLCODE 
+	 ;---&sql(SELECT %ID INTO :id FROM AAA.Base WHERE (:K1 is not null and Key = :K1) OR (:K1 IS NULL AND Key IS NULL))
+ 	 ;--- ** SQL PUBLIC Variables: %ROWCOUNT, %ROWID, %msg, K1, SQLCODE, id
+	try { d $classmethod("%sqlcq."_$tr($namespace,"%_-$@:/\[]^ .","pudssssssssss")_$case($zu(115,2),0:".u",1:".x",3:".v",:"."_$zu(115,2))_"E0GDgTgFJerjOwj6SucOnBz33Fn","%New") } catch { if ($ze["<CLASS DOES NOT EXIST>"||($ze["<NOROUTINE>"))&&($ze[("%sqlcq."_$tr($namespace,"%_-$@:/\[]^ .","pudssssssssss")_$case($zu(115,2),0:".u",1:".x",3:".v",:"."_$zu(115,2))_"E0GDgTgFJerjOwj6SucOnBz33Fn"))||($ze["<ZSQLU>") { d %0dsqlR } else { throw } }
+	Quit $select('SQLCODE:1,1:0) }
+ q
+%0dsqlR	n %xxsql
+	s %xxsql("S",1)="SELECT %ID INTO :id FROM AAA . Base WHERE ( :K1 IS NOT NULL AND Key = :K1 ) OR ( :K1 IS NULL AND Key IS NULL )"
+	s %xxsql("M","%occSqlfuncinc")=$c(1),%xxsql("M","ALLOCGVEC")=$c(1),%xxsql("M","CACHENAMES")="",%xxsql("M","DEBUG")=$c(1),%xxsql("M","FORKNETDMN")=$c(1)
+	s %xxsql("M","HASHLOCK")=$c(1),%xxsql("M","NETNEWHASH")=$c(1),%xxsql("M","USEDIRCACHE")=$c(1),%xxsql("M","USEGCNT")=2,%xxsql("M","USEGOFF")=$c(1)
+	s %xxsql("M","USELOST")=$c(1),%xxsql("M","ZVERSION")=$c(1),%xxsql("I","%occSqlfunc")="",%xxsql("I","%sySystem")="",%xxsql("I","%systemInclude")=""
+	s %xxsql("I","Ensemble")="",%xxsql("I","HS.HC.FHIRSQL.Errors")="",%xxsql("NS")="IRISAPP",%xxsql("PToolsCTI")=$LB(,"-1:0:0::0:1")
+	do BuildQuery^%SYS.SQLSRV(.%xxsql,$lb("Logical","","","AAA",0,"",),,"AAA.Base.CLS")
+	return:$g(%IRISSQLCachedCompileOnly)
+	if $g(SQLCODE) { try { set id="" } catch {} }
+	return
+zChangesExecute(%oper=0,pNew,pOld,pChanged,%ok,%msg) methodimpl
+	Set SQLCODE=-115
+	Set %msg = "<Cannot INSERT/UPDATE/DELETE on a read only table>"
+	Set %ok = 0
+	Return %msg
+	QUIT
+%sqllistUCQ(t) public	{
+	s t("%0dsqlA")="",t("%0dsqlD")="",t("%0dsqlH")="",t("%0dsqlJ")="",t("%0dsqlL")="",t("%0dsqlP")="",t("%0dsqlR")=""
+}

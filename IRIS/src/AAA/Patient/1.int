@@ -1,0 +1,738 @@
+ROUTINE AAA.Patient.1 [Type=INT,Generated]
+ ;AAA.Patient.1
+ ;Generated for class AAA.Patient.  Do NOT edit. 05/26/2025 02:27:28PM
+ ;;68484134;AAA.Patient
+ ;
+SQLUPPER(v,l) { quit $zu(28,v,7,$g(l,32767)) }
+ALPHAUP(v,r) { quit $zu(28,v,6) }
+STRING(v,l) { quit $zu(28,v,9,$g(l,32767)) }
+SQLSTRING(v,l) { quit $zu(28,v,8,$g(l,32767)) }
+UPPER(v) { quit $zu(28,v,5) }
+MVR(v) { quit $zu(28,v,2) }
+TRUNCATE(v,l) { quit $e(v,1,$g(l,3641144)) }
+%BuildIndices(pIndexList="",pAutoPurge=1,pLockFlag=0,pJournalFlag="",pStartID="",pEndID="",pIgnoreIndexList="",pKeepSelectability=0) methodimpl {
+	try {
+		set journal=$$CURRENT^%SYS.NOJRN()
+		if ($ll(pIndexList)=1)&&($lg(pIndexList)="") { return 1 }
+		set locked=0,sc=1,ptr=0
+		While $listnext(pIndexList,ptr,tIndex) {
+			continue:tIndex=""
+			If $s($d(^oddCOM($classname(),"i",tIndex,2))#2:^(2),$d(^oddCOM($g(^(2),$classname()),"i",tIndex,2))#2:^(2),1:$s($d(^oddDEF($g(^oddCOM($classname(),"i",tIndex,2),$classname()),"i",tIndex,2))#2:^(2),1:""))'=$classname() {
+				Set sc=$select(+sc:$$Error^%apiOBJ(5066,$classname()_"::"_tIndex),1:$$AppendStatus^%occSystem(sc,$$Error^%apiOBJ(5066,$classname()_"::"_tIndex)))
+			}
+		}
+		If ('sc) { Throw ##class(%Exception.StatusException).ThrowIfInterrupt(sc) }
+		if pJournalFlag=0,journal { try { do DISABLE^%SYS.NOJRN() } catch { Throw ##class(%Exception.StatusException).ThrowIfInterrupt($$Error^%apiOBJ(1151)) } }
+		if pJournalFlag=1,'journal { try { do ENABLE^%SYS.NOJRN() } catch { Throw ##class(%Exception.StatusException).ThrowIfInterrupt($$Error^%apiOBJ(1151)) } }
+		if pLockFlag = 1||(pLockFlag=3) { set SQLCODE=0 do ..%SQLAcquireTableLock($select(pLockFlag=3:1,1:0),.SQLCODE) if SQLCODE { Throw ##class(%Exception.StatusException).ThrowIfInterrupt($$Error^%apiOBJ(5540,SQLCODE,$g(%msg))) } else { set locked=1 } }
+		if $system.CLS.IsMthd("%OnBeforeBuildIndices") { set sc=..%OnBeforeBuildIndices(.pIndexList) if ('sc) { Throw ##class(%Exception.StatusException).ThrowIfInterrupt(sc) } }
+		if ($ll(pIndexList)'=1)||($lg(pIndexList)'="") {
+			if pAutoPurge,pStartID="",pEndID="" { set sc = ..%PurgeIndices(pIndexList,,pIgnoreIndexList) if ('sc) { Throw ##class(%Exception.StatusException).ThrowIfInterrupt(sc) } }
+			set sc=..%SQLBuildIndices(pIndexList,pLockFlag,pStartID,pEndID,pIgnoreIndexList,pKeepSelectability) if ('sc) { Throw ##class(%Exception.StatusException).ThrowIfInterrupt(sc) }
+			if $system.CLS.IsMthd("%OnAfterBuildIndices") { set sc=..%OnAfterBuildIndices(.pIndexList) if ('sc) { Throw ##class(%Exception.StatusException).ThrowIfInterrupt(sc) } }
+		}
+	}
+	catch tException {
+		set sc = tException.AsStatus()
+	}
+	if locked { do ..%SQLReleaseTableLock($select(pLockFlag=3:1,1:0)) }
+	if $$CURRENT^%SYS.NOJRN()'=journal { if journal { do ENABLE^%SYS.NOJRN() } else { do DISABLE^%SYS.NOJRN() } }
+	quit sc }
+%CheckConstraintsForExtent(pConstraintList="",pCheckDisabled=0,pErrorLog) [ SQLCODE,tID ] methodimpl { New %ROWCOUNT,%ROWID,%msg,SQLCODE,tID 
+	kill pErrorLog set tStatusAll = 1, pErrorLog = 0 if '$listvalid(pConstraintList) { set pConstraintList = $listfromstring(pConstraintList) }
+	 ;---&sql(declare ext cursor for select %ID into :tID FROM %NOPARALLEL AAA.Patient)
+ 	 ;--- ** SQL PUBLIC Variables: %ROWCOUNT, %ROWID, %msg, SQLCODE, tID
+	 
+	 ;---&sql(open ext)
+	if $g(%ext03542)'="" { s SQLCODE=-101 } else { try { s %ext03542="%sqlcq."_$tr($namespace,"%_-$@:/\[]^ .","pudssssssssss")_$case($zu(115,2),0:".u",1:".x",3:".v",:"."_$zu(115,2))_"E3MeOvEZ2Zfr7XrY5ypUB8oHFiA",%ext03542=$classmethod(%ext03542,"%New") } catch { if ($ze'["<CLASS DOES NOT EXIST>"&&($ze'["<NOROUTINE>")||($ze'[%ext03542)),$ze'["<ZSQLU>" { throw } } if '$isobject(%ext03542) { s %ext03542=$$%0dsqlA() } }
+	if SQLCODE '< 0 {
+		for {
+			 ;---&sql(fetch ext)
+ 			 ;--- ** SQL PUBLIC Variables: %ROWCOUNT, %ROWID, %msg, SQLCODE
+			if $isobject($g(%ext03542))'=1 { s SQLCODE=-102 } else { do %ext03542.FET() }
+			if SQLCODE { if SQLCODE=100 { quit } elseif SQLCODE<0 { set tStatusAll = $select(+tStatusAll:$$Error^%apiOBJ(5521,SQLCODE,$Get(%msg)),1:$$AppendStatus^%occSystem(tStatusAll,$$Error^%apiOBJ(5521,SQLCODE,$Get(%msg)))) quit } }
+			set tStatus = ..%CheckConstraints(tID,pConstraintList,pCheckDisabled,.tErrorInfo)
+			if ('tStatus) { set tStatusAll = $select(+tStatusAll:tStatus,1:$$AppendStatus^%occSystem(tStatusAll,tStatus)) set:pErrorLog<1000 pErrorLog = pErrorLog + 1, pErrorLog(pErrorLog) = tErrorInfo _ $Listbuild(tStatus) }
+		}
+		 ;---&sql(close ext)
+		if '$isobject($get(%ext03542)) { set SQLCODE=-102 } else { set SQLCODE=0 kill %ext03542 }
+	}
+	quit tStatusAll }
+ q
+%0dsqlA()	n %xxsql,%xxoref
+	s %xxsql("S",1)="DECLARE ext CURSOR FOR SELECT %ID INTO :tID FROM %NOPARALLEL AAA . Patient"
+	s %xxsql("M","%occSqlfuncinc")=$c(1),%xxsql("M","ALLOCGVEC")=$c(1),%xxsql("M","CACHENAMES")="",%xxsql("M","DEBUG")=$c(1),%xxsql("M","FORKNETDMN")=$c(1)
+	s %xxsql("M","HASHLOCK")=$c(1),%xxsql("M","NETNEWHASH")=$c(1),%xxsql("M","USEDIRCACHE")=$c(1),%xxsql("M","USEGCNT")=2,%xxsql("M","USEGOFF")=$c(1)
+	s %xxsql("M","USELOST")=$c(1),%xxsql("M","ZVERSION")=$c(1),%xxsql("I","%occSqlfunc")="",%xxsql("I","%sySystem")="",%xxsql("I","%systemInclude")=""
+	s %xxsql("I","Ensemble")="",%xxsql("I","HS.HC.FHIRSQL.Errors")="",%xxsql("NS")="IRISAPP",%xxsql("PToolsCTI")=$LB(,"-1:0:0::0:1")
+	s %xxoref=$$BuildQuery^%SYS.SQLSRV(.%xxsql,$lb("Logical","","","AAA",0,"",),",0,ext,","AAA.Patient.CLS",1)
+	i $g(SQLCODE) { s tID="" }
+	q %xxoref
+%DeleteData(id,concurrency) methodimpl
+ Quit:id="" $$Error^%apiOBJ(5812) New %sc Set %sc=1
+ If concurrency>1 If '..%SQLAcquireLock(id) Quit $$Error^%apiOBJ(5803,$classname())
+ n %ROWCOUNT,%ROWID,%msg,%ok,SQLCODE
+  ;---&sql(DELETE %OBJECTFILER FROM AAA.Patient WHERE %ID=:id)
+   ;--- ** SQL PUBLIC Variables: %ROWCOUNT, %ROWID, %msg, SQLCODE, id
+ try { d $classmethod("%sqlcq."_$tr($namespace,"%_-$@:/\[]^ .","pudssssssssss")_$case($zu(115,2),0:".u",1:".x",3:".v",:"."_$zu(115,2))_"EwYqr0DHnwpyjfgjABRgaHz1Jqx","%New") } catch { if ($ze["<CLASS DOES NOT EXIST>"||($ze["<NOROUTINE>"))&&($ze[("%sqlcq."_$tr($namespace,"%_-$@:/\[]^ .","pudssssssssss")_$case($zu(115,2),0:".u",1:".x",3:".v",:"."_$zu(115,2))_"EwYqr0DHnwpyjfgjABRgaHz1Jqx"))||($ze["<ZSQLU>") { d %0dsqlD } else { throw } }
+ if SQLCODE = 100 { set %sc=$$Error^%apiOBJ(5810,$classname(),id) } elseif SQLCODE { Set %sc=$$Error^%apiOBJ(5521,SQLCODE,$g(%msg)) }
+ If concurrency>1 Do ..%SQLReleaseLock(id)
+ Quit %sc
+%0dsqlD	n %xxsql
+	s %xxsql("S",1)="DELETE %OBJECTFILER FROM AAA . Patient WHERE %ID = :id"
+	s %xxsql("M","%occSqlfuncinc")=$c(1),%xxsql("M","ALLOCGVEC")=$c(1),%xxsql("M","CACHENAMES")="",%xxsql("M","DEBUG")=$c(1),%xxsql("M","FORKNETDMN")=$c(1)
+	s %xxsql("M","HASHLOCK")=$c(1),%xxsql("M","NETNEWHASH")=$c(1),%xxsql("M","USEDIRCACHE")=$c(1),%xxsql("M","USEGCNT")=2,%xxsql("M","USEGOFF")=$c(1)
+	s %xxsql("M","USELOST")=$c(1),%xxsql("M","ZVERSION")=$c(1),%xxsql("I","%occSqlfunc")="",%xxsql("I","%sySystem")="",%xxsql("I","%systemInclude")=""
+	s %xxsql("I","Ensemble")="",%xxsql("I","HS.HC.FHIRSQL.Errors")="",%xxsql("NS")="IRISAPP",%xxsql("PToolsCTI")=$LB(,"-1:0:0::0:1")
+	do BuildQuery^%SYS.SQLSRV(.%xxsql,$lb("Logical","","","AAA",0,"",$lb("AAA.Patient","D")),,"AAA.Patient.CLS")
+	return
+%Exists(oid="") methodimpl
+	New SQLCODE,id,id2,%ROWCOUNT,%ROWID,%msg
+	Set id=$listget(oid)
+	 ;---&sql(SELECT %ID INTO :id2 FROM AAA.Patient WHERE %ID=:id)
+ 	 ;--- ** SQL PUBLIC Variables: %ROWCOUNT, %ROWID, %msg, SQLCODE, id, id2
+	try { d $classmethod("%sqlcq."_$tr($namespace,"%_-$@:/\[]^ .","pudssssssssss")_$case($zu(115,2),0:".u",1:".x",3:".v",:"."_$zu(115,2))_"EQjDWRg2no0V4jsGW2UXhIfyGQy","%New") } catch { if ($ze["<CLASS DOES NOT EXIST>"||($ze["<NOROUTINE>"))&&($ze[("%sqlcq."_$tr($namespace,"%_-$@:/\[]^ .","pudssssssssss")_$case($zu(115,2),0:".u",1:".x",3:".v",:"."_$zu(115,2))_"EQjDWRg2no0V4jsGW2UXhIfyGQy"))||($ze["<ZSQLU>") { d %0dsqlF } else { throw } }
+	Quit $select(SQLCODE:0,id'=id2:0,1:1)
+ q
+%0dsqlF	n %xxsql
+	s %xxsql("S",1)="SELECT %ID INTO :id2 FROM AAA . Patient WHERE %ID = :id"
+	s %xxsql("M","%occSqlfuncinc")=$c(1),%xxsql("M","ALLOCGVEC")=$c(1),%xxsql("M","CACHENAMES")="",%xxsql("M","DEBUG")=$c(1),%xxsql("M","FORKNETDMN")=$c(1)
+	s %xxsql("M","HASHLOCK")=$c(1),%xxsql("M","NETNEWHASH")=$c(1),%xxsql("M","USEDIRCACHE")=$c(1),%xxsql("M","USEGCNT")=2,%xxsql("M","USEGOFF")=$c(1)
+	s %xxsql("M","USELOST")=$c(1),%xxsql("M","ZVERSION")=$c(1),%xxsql("I","%occSqlfunc")="",%xxsql("I","%sySystem")="",%xxsql("I","%systemInclude")=""
+	s %xxsql("I","Ensemble")="",%xxsql("I","HS.HC.FHIRSQL.Errors")="",%xxsql("NS")="IRISAPP",%xxsql("PToolsCTI")=$LB(,"-1:0:0::0:1")
+	do BuildQuery^%SYS.SQLSRV(.%xxsql,$lb("Logical","","","AAA",0,"",),,"AAA.Patient.CLS")
+	return:$g(%IRISSQLCachedCompileOnly)
+	if $g(SQLCODE) { try { set id2="" } catch {} }
+	return
+%LoadData(id) methodimpl
+ n %ROWCOUNT,%ROWID,%msg,%ok,%sc,SQLCODE,temp0
+ Set %sc=0
+ If i%%Concurrency=4 If '..%SQLAcquireLock(id) Quit $$Error^%apiOBJ(5803,$classname())
+ If i%%Concurrency'=4,i%%Concurrency>1 If '..%SQLAcquireLock(id,1) Quit $$Error^%apiOBJ(5804,$classname())
+  ;---&sql(SELECT %ID,%FHIR,Key
+   ;--- 	   INTO :temp0,:i%%FHIR,:i%Key
+   ;--- 	   FROM AAA.Patient
+   ;--- 	  WHERE %ID=:id)
+   ;--- ** SQL PUBLIC Variables: %ROWCOUNT, %ROWID, %msg, SQLCODE, id, temp0
+ d %0dsqlJ
+ If SQLCODE Set i%%FHIR="",i%Key=""
+ Else  Do
+ . Set %sc=1
+ If i%%Concurrency=2 Do ..%SQLReleaseLock(id,1)
+ Quit $Select((''%sc):1,1:$$Error^%apiOBJ(5809,$classname(),id))
+%0dsqlH	n %xxsql
+	s %xxsql("S",1)="SELECT %ID , %FHIR , Key INTO :temp0 , :sqltmp2 , :sqltmp3 FROM AAA . Patient WHERE %ID = :id"
+	s %xxsql("M","%occSqlfuncinc")=$c(1),%xxsql("M","ALLOCGVEC")=$c(1),%xxsql("M","CACHENAMES")="",%xxsql("M","DEBUG")=$c(1),%xxsql("M","FORKNETDMN")=$c(1)
+	s %xxsql("M","HASHLOCK")=$c(1),%xxsql("M","NETNEWHASH")=$c(1),%xxsql("M","USEDIRCACHE")=$c(1),%xxsql("M","USEGCNT")=2,%xxsql("M","USEGOFF")=$c(1)
+	s %xxsql("M","USELOST")=$c(1),%xxsql("M","ZVERSION")=$c(1),%xxsql("I","%occSqlfunc")="",%xxsql("I","%sySystem")="",%xxsql("I","%systemInclude")=""
+	s %xxsql("I","Ensemble")="",%xxsql("I","HS.HC.FHIRSQL.Errors")="",%xxsql("NS")="IRISAPP",%xxsql("PToolsCTI")=$LB(,"-1:0:0::0:1")
+	do BuildQuery^%SYS.SQLSRV(.%xxsql,$lb("Logical","","","AAA",0,"",$lb("AAA.Patient","L")),,"AAA.Patient.CLS")
+	return:$g(%IRISSQLCachedCompileOnly)
+	if $g(SQLCODE) { try { set temp0="",i%%FHIR="",i%Key="" } catch {} }
+	return
+%0dsqlJ	n sqltmp2,sqltmp3
+	try { d $classmethod("%sqlcq."_$tr($namespace,"%_-$@:/\[]^ .","pudssssssssss")_$case($zu(115,2),0:".u",1:".x",3:".v",:"."_$zu(115,2))_"EE6WE9DSMiFipBfNPoEWpUOD7D1","%New") } catch { if ($ze["<CLASS DOES NOT EXIST>"||($ze["<NOROUTINE>"))&&($ze[("%sqlcq."_$tr($namespace,"%_-$@:/\[]^ .","pudssssssssss")_$case($zu(115,2),0:".u",1:".x",3:".v",:"."_$zu(115,2))_"EE6WE9DSMiFipBfNPoEWpUOD7D1"))||($ze["<ZSQLU>") { d %0dsqlH } else { throw } }
+	try { s i%%FHIR=$g(sqltmp2),i%Key=$g(sqltmp3) } catch { s SQLCODE=-400,%msg="Runtime error setting INTO values: "_$zerror }
+	q
+%OnBeforeBuildIndices(pIndexList="") methodimpl {
+	Quit $$Error^%apiOBJ("<FHIRSQLErr>NothingToBuild") }
+%OnBeforePurgeIndices(pIndexList="") methodimpl {
+	Quit $$Error^%apiOBJ("<FHIRSQLErr>NothingToPurge") }
+%SQLAcquireLock(%rowid,s=0,unlockref=0) methodimpl
+	new %d,gotlock
+	set %d(1)=%rowid set s=$e("S",s)
+	lock +^HSF01R.RsrcD(%d(1))#s:$zu(115,4) set gotlock=$t
+	set:gotlock&&unlockref unlockref=unlockref+1,unlockref(unlockref)=$lb($name(^HSF01R.RsrcD(%d(1))),"AAA.Patient",s_"D")
+	QUIT gotlock
+%SQLAcquireTableLock(s=0,SQLCODE,to="") methodimpl
+	set s=$e("S",s) set:to="" to=$zu(115,4) lock +^HSF01R.RsrcD#s:to QUIT:$t 1 set SQLCODE=-110 if s="S" { set %msg=$$FormatMessage^%occMessages(,"%SQL.Filer","SQLFiler35",,"AAA"_"."_"Patient") } else { set %msg=$$FormatMessage^%occMessages(,"%SQL.Filer","SQLFiler36",,"AAA"_"."_"Patient") } QUIT 0
+	Return
+%SQLBeforeTriggers() methodimpl
+	new %ok,pChanged,pNew,pOld set %ok=1 //  'BEFORE' trigger(s)
+	if ("INSERT/UPDATE/DELETE"[%oper) { do ..ChangesExecute(%oper,.pNew,.pOld,.pChanged,.%ok,.%msg) if '%ok { set sqlcode=-13_$s(%oper="INSERT":0,%oper="UPDATE":2,1:4) quit  }}	// Call Trigger Changes
+	RETURN
+%SQLBuildIndices(pIndices="",pLockFlag=0,pStartID="",pEndID="",pIgnoreIndexList="",pKeepSelectability=0) methodimpl
+	RETURN ..%SQLBuildPurgeIndices(pIndices,1,pLockFlag,pStartID,pEndID,pIgnoreIndexList)
+%SQLBuildPurgeIndexForRow(pIndices="",pActions="BP",pLockRow=1,%d,%e,pIgnoreIndexList="") methodimpl
+	// Purge and build index nodes for a single row using given values, return Status Code
+	new sn,tSC,tLock set tSC=1,pActions=$zcvt(pActions,"U")
+	try {
+		if $g(%d(1))="" { set tSC=$select(+tSC:$$Error^%apiOBJ(5521,-108,"RowID value must be specified in %d(1) when calling %SQLBuildPurgeIndexForRow for table 'AAA.Patient'"),1:$$AppendStatus^%occSystem(tSC,$$Error^%apiOBJ(5521,-108,"RowID value must be specified in %d(1) when calling %SQLBuildPurgeIndexForRow for table 'AAA.Patient'"))) RETURN tSC }
+		if pLockRow { if '..%SQLAcquireLock(%d(1)) { set tSC=$select(+tSC:$$Error^%apiOBJ(5521,-114,"Unable to lock row in table 'AAA.Patient' with %ID = '"_%d(1)_"'"),1:$$AppendStatus^%occSystem(tSC,$$Error^%apiOBJ(5521,-114,"Unable to lock row in table 'AAA.Patient' with %ID = '"_%d(1)_"'"))) RETURN tSC  } else { set tLock=1 }}
+		set %i=%d(1)\64000+1,%o=%d(1)#64000+1
+		if ((pIndices="")||($lf(pIndices,"$Patient"))),'$listfind(pIgnoreIndexList,"$Patient") {
+			if pActions["P" {
+				set $bit(^HSF01R.RsrcI("ResourceTypeIndex","Patient",%i),%o)=0
+			}
+			if pActions["B" {
+				set $bit(^HSF01R.RsrcI("ResourceTypeIndex","Patient",%i),%o)=1
+			}
+		}
+		if ((pIndices="")||($lf(pIndices,"KeyIndex"))),'$listfind(pIgnoreIndexList,"KeyIndex") {
+			if pActions["P" {
+				set sn(1)=%e(3) set:sn(1)="" sn(1)=-1E14 set sn(2)=%d(1) k ^HSF01R.RsrcI("KeyIdx",sn(1),sn(2))
+			}
+			if pActions["B" {
+				set sn(1)=%d(3) set:sn(1)="" sn(1)=-1E14 set sn(2)=%d(1) set ^HSF01R.RsrcI("KeyIdx",sn(1),sn(2))=""
+			}
+		}
+		if pLockRow { do ..%SQLReleaseLock(%d(1),0,0) set tLock=0 }
+	}
+	catch {
+		if $g(tLock) { do ..%SQLReleaseLock(%d(1),0,0) }
+		set tSC=$select(+tSC:$$Error^%apiOBJ(5594,$ze),1:$$AppendStatus^%occSystem(tSC,$$Error^%apiOBJ(5594,$ze)))
+	}
+	QUIT tSC
+%SQLBuildPurgeIndices(pIndices="",pBuild,pLockFlag=0,pStartID="",pEndID="",pIgnoreIndexList="") methodimpl
+		// Create/Delete data from index global(s), return Status Code
+	new tSC,tLock,sc
+	try {
+		new %d,%e,%i,%o,row,%ROWCOUNT,%ROWID,rset,sn,sql,SQLCODE,sqlcode,stmt set sqlcode=0,SQLCODE=0
+		set stmt=##class(%SQL.Statement).%New()
+		if pStartID'="" {
+			if pEndID'="" {
+				set sql="SELECT %NORUNTIME ID,Key FROM %IGNOREINDICES * AAA.Patient WHERE (%ID >= '"_pStartID_"') AND (%ID <= '"_pEndID_"')"
+			} else {
+				set sql="SELECT %NORUNTIME ID,Key FROM %IGNOREINDICES * AAA.Patient WHERE (%ID >= '"_pStartID_"')"
+			}
+		} else {
+			if pEndID'="" {
+				set sql="SELECT %NORUNTIME ID,Key FROM %IGNOREINDICES * AAA.Patient WHERE (%ID <= '"_pEndID_"')"
+			} else {
+				set sql="SELECT %NORUNTIME ID,Key FROM %IGNOREINDICES * AAA.Patient"
+			}
+		}
+		set tSC=stmt.%Prepare(sql) quit:('tSC)
+		set stmt.%SelectMode=0
+		set rset=stmt.%Execute()
+		if rset.%SQLCODE<0 { set tSC=$$Error^%apiOBJ(5521,rset.%SQLCODE,rset.%Message) quit  }
+		for  {
+			try  {
+				quit:'rset.%GetRow(.row,.sc)  quit:('sc)
+				set $lg(%d(1),%d(3))=row
+				if pLockFlag=2 { if '..%SQLAcquireLock(%d(1),1) { set tSC=$select(+tSC:$$Error^%apiOBJ(5521,-114,"Unable to lock row in table 'AAA.Patient' with %ID = '"_%d(1)_"'"),1:$$AppendStatus^%occSystem(tSC,$$Error^%apiOBJ(5521,-114,"Unable to lock row in table 'AAA.Patient' with %ID = '"_%d(1)_"'"))) continue  } else { set tLock=1 }}
+				set %i=%d(1)\64000+1,%o=%d(1)#64000+1
+				if pBuild=1 {  // Build
+					if (pIndices=""||($lf(pIndices,"$Patient"))),'$listfind(pIgnoreIndexList,"$Patient") { set $bit(^HSF01R.RsrcI("ResourceTypeIndex","Patient",%i),%o)=1 }
+					if (pIndices=""||($lf(pIndices,"KeyIndex"))),'$listfind(pIgnoreIndexList,"KeyIndex") { set sn(1)=%d(3) set:sn(1)="" sn(1)=-1E14 set sn(2)=%d(1) set ^HSF01R.RsrcI("KeyIdx",sn(1),sn(2))="" }
+				}
+				else {  // Purge
+					kill %e merge %e=%d
+					if (pIndices=""||($lf(pIndices,"$Patient"))),'$listfind(pIgnoreIndexList,"$Patient") { set $bit(^HSF01R.RsrcI("ResourceTypeIndex","Patient",%i),%o)=0 }
+					if (pIndices=""||($lf(pIndices,"KeyIndex"))),'$listfind(pIgnoreIndexList,"KeyIndex") { set sn(1)=%e(3) set:sn(1)="" sn(1)=-1E14 set sn(2)=%d(1) k ^HSF01R.RsrcI("KeyIdx",sn(1),sn(2)) }
+				}
+				if pLockFlag=2 { do ..%SQLReleaseLock(%d(1),1,1) set tLock=0 }
+			}
+			catch {
+				if pLockFlag=2,$g(tLock) { do ..%SQLReleaseLock(%d(1),1,1) set tLock=0 }
+				set tSC=$select(+tSC:$$Error^%apiOBJ(5581,$ze),1:$$AppendStatus^%occSystem(tSC,$$Error^%apiOBJ(5581,$ze)))
+			}
+			quit:rset.%SQLCODE
+		}
+		set rset="",stmt=""
+	}
+	catch {	// Error
+		set rset="",stmt="",tSC=$$Error^%apiOBJ(5581,$ze)
+	}
+	RETURN tSC
+%SQLCheckUnique(pFromOrig=0,%pID,%pVals...) methodimpl
+	 ;---&sql(SELECT ID FROM AAA.Patient WHERE  ID=:%pVals(1) AND (%ID <> :%pID OR :%pID IS NULL)) QUIT SQLCODE=100
+ 	 ;--- ** SQL PUBLIC Variables: %ROWCOUNT, %ROWID, %msg, %pID, %pVals, SQLCODE
+	try { d $classmethod("%sqlcq."_$tr($namespace,"%_-$@:/\[]^ .","pudssssssssss")_$case($zu(115,2),0:".u",1:".x",3:".v",:"."_$zu(115,2))_"EoJIi9Cfvv0kisgkZLvDg1jWhsx","%New") } catch { if ($ze["<CLASS DOES NOT EXIST>"||($ze["<NOROUTINE>"))&&($ze[("%sqlcq."_$tr($namespace,"%_-$@:/\[]^ .","pudssssssssss")_$case($zu(115,2),0:".u",1:".x",3:".v",:"."_$zu(115,2))_"EoJIi9Cfvv0kisgkZLvDg1jWhsx"))||($ze["<ZSQLU>") { d %0dsqlL } else { throw } } QUIT SQLCODE=100
+ q
+%0dsqlL	n %xxsql
+	s %xxsql("S",1)="SELECT ID FROM AAA . Patient WHERE ID = :%pVals(1) AND ( %ID <> :%pID OR :%pID IS NULL )"
+	s %xxsql("M","%occSqlfuncinc")=$c(1),%xxsql("M","ALLOCGVEC")=$c(1),%xxsql("M","CACHENAMES")="",%xxsql("M","DEBUG")=$c(1),%xxsql("M","FORKNETDMN")=$c(1)
+	s %xxsql("M","HASHLOCK")=$c(1),%xxsql("M","NETNEWHASH")=$c(1),%xxsql("M","USEDIRCACHE")=$c(1),%xxsql("M","USEGCNT")=2,%xxsql("M","USEGOFF")=$c(1)
+	s %xxsql("M","USELOST")=$c(1),%xxsql("M","ZVERSION")=$c(1),%xxsql("I","%occSqlfunc")="",%xxsql("I","%sySystem")="",%xxsql("I","%systemInclude")=""
+	s %xxsql("I","Ensemble")="",%xxsql("I","HS.HC.FHIRSQL.Errors")="",%xxsql("NS")="IRISAPP",%xxsql("PToolsCTI")=$LB(,"-1:0:0::0:1")
+	do BuildQuery^%SYS.SQLSRV(.%xxsql,$lb("Logical","","","AAA",0,"",),,"AAA.Patient.CLS")
+	return
+%SQLCheckUniqueIndices(pIndices,pOK) methodimpl
+	new d,g,n,o set d=0
+	set pOK=1 QUIT
+%SQLCopyNameIntoIcol() methodimpl
+	k %d,%e set:$d(%f("ID"))#2 %d(1)=%f("ID") set:$d(%f("%FHIR"))#2 %d(2)=%f("%FHIR") set:$d(%f("Key"))#2 %d(3)=%f("Key") set:$d(%f("PatientBirthDate"))#2 %d(4)=%f("PatientBirthDate") set:$d(%f("PatientGender"))#2 %d(5)=%f("PatientGender") set:$d(%f("PatientNameFamily"))#2 %d(6)=%f("PatientNameFamily") set:$d(%f("Prenom"))#2 %d(7)=%f("Prenom") set:$d(%f("RowNum"))#2 %d(8)=%f("RowNum")  kill %f QUIT
+%SQLDefineiDjVars(%d,subs,master) methodimpl
+	QUIT
+%SQLDelete(%rowid,%check,%tstart=1,%mv=0,%polymorphic=0,%bufferedColumns=0) methodimpl
+	// SQL DELETE method for table AAA.Patient
+	if %polymorphic { do ..%SQLCopyNameIntoIcol() set %d(1)=%rowid,%e(1)=%rowid  goto %SQLDeletePD }
+	new bva,ce,%d,dc,%e,%ele,%itm,%key,%l,%nc,omcall,%oper,%pos,%s,sn,sqlcode,subs,%SkipFiling set %oper="DELETE",sqlcode=0,%ROWID=%rowid,%d(1)=%rowid,%e(1)=%rowid,%l=$c(0)
+	if '$d(%0CacheSQLRA) { new %0CacheSQLRA set omcall=1 }
+	if '$a(%check,2) { new %ls if $tlevel,$i(%0CacheLock("AAA.Patient"))>$zu(156,50,1) { lock +^HSF01R.RsrcD:$zu(115,4) lock:$t -^HSF01R.RsrcD set %ls=$s($t:2,1:0) } else { lock +^HSF01R.RsrcD(%d(1)):$zu(115,4) set %ls=$t } set:%ls=2 $e(%check,2)=$c(1) set:%ls=1 $e(%l)=$c(1) if '%ls { set SQLCODE=-110,%msg=$$FormatMessage^%occMessages(,"%SQL.Filer","SQLFiler40",,%oper,"AAA"_"."_"Patient",$g(%d(1))) RETURN  }} if %tstart { TSTART:($zu(115,1)=1)||('$TLEVEL&&($zu(115,1)=2))  }
+	set $zt="ERRORDelete"
+%SQLDeletePD	// Entry point for Polymorphic Dispatch from a super-table
+	do ..%SQLGetOld(%rowid,.%d,.%e,.sqlcode) if sqlcode { set SQLCODE=-106,%msg=$$FormatMessage^%occMessages(,"%SQL.Filer","SQLFiler58",,"AAA"_"."_"Patient",%rowid) do ..%SQLEExit() QUIT  }
+	if '$a(%check),'$zu(115,7) do  if sqlcode set SQLCODE=sqlcode do ..%SQLEExit() QUIT  
+	. new %fk,%k,%p,%st,%t,%z set %k="",%p("%1")="%d(1),",%p("IDKEY")="%d(1),"
+	. for  quit:sqlcode<0  set %k=$o(^rINDEXEXT("F","AAA.Patient",%k)) quit:%k=""  set %t="" for  set %t=$o(^rINDEXEXT("F","AAA.Patient",%k,"f",%t)) quit:%t=""  set %st=(%t="AAA.Patient") set %fk="" for  set %fk=$o(^rINDEXEXT("F","AAA.Patient",%k,"f",%t,%fk)) quit:%fk=""  x "set %z=$classmethod(%t,%fk_""SQLFKeyRefAction"",%st,%k,$a(%check,2),"_%p(%k)_")" if %z set sqlcode=-124 quit  
+	if '$a(%check,4) { do ..%SQLBeforeTriggers() if sqlcode { set SQLCODE=sqlcode do ..%SQLEExit() QUIT }}
+	set ce="" for  { set ce=$order(^oddSQL("AAA","Patient","DC",ce)) quit:ce=""   do $classmethod(ce,"%SQLDeleteChildren",%d(1),%check,.sqlcode) quit:sqlcode<0  } if sqlcode<0 { set SQLCODE=sqlcode do ..%SQLEExit() QUIT } // Delete any children
+	set ce="" for  { set ce=$order(^oddSQL("AAA","Base","DC",ce)) quit:ce=""   do $classmethod(ce,"%SQLDeleteChildren",%d(1),%check,.sqlcode) quit:sqlcode<0  } if sqlcode<0 { set SQLCODE=sqlcode do ..%SQLEExit() QUIT } // Delete any children of the root extent
+	if '$a(%check,3),'$g(%SkipFiling) {
+		new %i,%o set %i=%d(1)\64000+1,%o=%d(1)#64000+1
+		set $bit(^HSF01R.RsrcI("ResourceTypeIndex","Patient",%i),%o)=0
+		set sn(1)=%e(3) set:sn(1)="" sn(1)=-1E14 set sn(2)=%d(1) k ^HSF01R.RsrcI("KeyIdx",sn(1),sn(2))
+	}
+	goto:$g(%SkipFiling) %SQLDeleteSkip
+	kill ^HSF01R.RsrcD(%d(1))
+%SQLDeleteSkip	//
+	do ..%SQLUnlock() TCOMMIT:%tstart&&($zu(115,1)=1)
+	set SQLCODE=0 kill:$g(omcall) %0CacheSQLRA
+	QUIT
+ERRORDelete	set $zt="",SQLCODE=-415,%msg=$s($g(%msg)'="":%msg_" -- ",1:"")_$$FormatMessage^%occMessages(,"%SQL.Filer","SQLFiler51",,%oper,"AAA"_"."_"Patient",$ze) if $ze["<FRAMESTACK>" { set %msg=$$FormatMessage^%occMessages(,"%SQL.Filer","SQLFiler52",,$ze,%oper,"AAA"_"."_"Patient") do ##Class(%SYS.System).WriteToConsoleLog(%msg) if ($zu(67,10,$j)=1)||($zu(67,10,$j)=3) { write !,%msg h 3 } HALT  } do ..%SQLEExit() QUIT
+	Return
+%SQLDeleteTempStreams() methodimpl
+	// Delete all temporary streams
+	QUIT
+%SQLEExit() methodimpl
+	do ..%SQLUnlock() 
+	if %tstart,$zu(115,1)=1,$TLEVEL { set %tstart=0 TROLLBACK 1 } kill:$g(omcall) %0CacheSQLRA QUIT  
+	Return
+%SQLExists(pLockOnly=0,pUnlockRef,%pVal...) methodimpl
+	// SQL Foreign Key validation entry point for Key %1.  Called by FKeys that reference this Key to see if the row is defined
+	if pLockOnly>=0 { new id set id=%pVal(1) }
+	if pLockOnly>=0 { if '..%SQLGetLock(id,1,.pUnlockRef) { set sqlcode=-114,%msg=$$FormatMessage^%occMessages(,"%SQL.Filer","SQLFiler39",,"AAA"_"."_"Patient"_":"_"%1") RETURN 0 } }
+	if pLockOnly<1 {
+		new exists set exists='..%SQLCheckUnique(0,,%pVal(1)) RETURN:pLockOnly=-1 exists
+		do:'$g(pUnlockRef) ..%SQLReleaseLock(id,1) RETURN exists
+	}
+	else { do:'$g(pUnlockRef) ..%SQLReleaseLock(id,1) RETURN 1 }
+	Return
+%SQLGetLock(pRowId,pShared=0,pUnlockRef) methodimpl
+	if $tlevel,$i(%0CacheLock("AAA.Patient"))>$zu(156,50,1) { new s set s=$e("S",pShared) lock +^HSF01R.RsrcD#s:$zu(115,4) lock:$t -^HSF01R.RsrcD#s QUIT $s($t:2,1:0) } 
+	QUIT ..%SQLAcquireLock(pRowId,pShared,.pUnlockRef)
+%SQLGetOld(%rowid,%d,%e,sqlcode) methodimpl
+	// Get old data values
+	new SQLCODE,%ROWCOUNT
+	 ;---&sql(SELECT Key INTO :%e() FROM %IGNOREINDEX * AAA.Patient WHERE ID=:%rowid)
+ 	 ;--- ** SQL PUBLIC Variables: %ROWCOUNT, %ROWID, %e, %msg, %rowid, SQLCODE
+	try { d $classmethod("%sqlcq."_$tr($namespace,"%_-$@:/\[]^ .","pudssssssssss")_$case($zu(115,2),0:".u",1:".x",3:".v",:"."_$zu(115,2))_"EWRNJT0c7dGgCKwa2Qlax6i13xC","%New") } catch { if ($ze["<CLASS DOES NOT EXIST>"||($ze["<NOROUTINE>"))&&($ze[("%sqlcq."_$tr($namespace,"%_-$@:/\[]^ .","pudssssssssss")_$case($zu(115,2),0:".u",1:".x",3:".v",:"."_$zu(115,2))_"EWRNJT0c7dGgCKwa2Qlax6i13xC"))||($ze["<ZSQLU>") { d %0dsqlN } else { throw } }
+	set sqlcode=SQLCODE RETURN:sqlcode'=0
+	RETURN
+ q
+%0dsqlN	n %xxsql
+	s %xxsql("S",1)="SELECT Key INTO :%e() FROM %IGNOREINDEX * AAA . Patient WHERE ID = :%rowid"
+	s %xxsql("M","%occSqlfuncinc")=$c(1),%xxsql("M","ALLOCGVEC")=$c(1),%xxsql("M","CACHENAMES")="",%xxsql("M","DEBUG")=$c(1),%xxsql("M","FORKNETDMN")=$c(1)
+	s %xxsql("M","HASHLOCK")=$c(1),%xxsql("M","NETNEWHASH")=$c(1),%xxsql("M","USEDIRCACHE")=$c(1),%xxsql("M","USEGCNT")=2,%xxsql("M","USEGOFF")=$c(1)
+	s %xxsql("M","USELOST")=$c(1),%xxsql("M","ZVERSION")=$c(1),%xxsql("I","%occSqlfunc")="",%xxsql("I","%sySystem")="",%xxsql("I","%systemInclude")=""
+	s %xxsql("I","Ensemble")="",%xxsql("I","HS.HC.FHIRSQL.Errors")="",%xxsql("NS")="IRISAPP",%xxsql("PToolsCTI")=$LB(,"-1:0:0::0:1")
+	do BuildQuery^%SYS.SQLSRV(.%xxsql,$lb("Logical","","","AAA",0,"",),,"AAA.Patient.CLS")
+	return
+%SQLGetOldAll() methodimpl
+	// Get all old data values
+	new SQLCODE,%ROWCOUNT
+	 ;---&sql(SELECT %FHIR,Key,PatientBirthDate,PatientGender,PatientNameFamily,Prenom,RowNum INTO :%e() FROM %IGNOREINDEX * AAA.Patient WHERE ID=:%rowid)
+ 	 ;--- ** SQL PUBLIC Variables: %ROWCOUNT, %ROWID, %e, %msg, %rowid, SQLCODE
+	try { d $classmethod("%sqlcq."_$tr($namespace,"%_-$@:/\[]^ .","pudssssssssss")_$case($zu(115,2),0:".u",1:".x",3:".v",:"."_$zu(115,2))_"EPGHxwHlqHtNz5gxrLiV7S2Kkmt","%New") } catch { if ($ze["<CLASS DOES NOT EXIST>"||($ze["<NOROUTINE>"))&&($ze[("%sqlcq."_$tr($namespace,"%_-$@:/\[]^ .","pudssssssssss")_$case($zu(115,2),0:".u",1:".x",3:".v",:"."_$zu(115,2))_"EPGHxwHlqHtNz5gxrLiV7S2Kkmt"))||($ze["<ZSQLU>") { d %0dsqlP } else { throw } }
+	set sqlcode=SQLCODE RETURN:sqlcode'=0
+	RETURN
+ q
+%0dsqlP	n %xxsql
+	s %xxsql("S",1)="SELECT %FHIR , Key , PatientBirthDate , PatientGender , PatientNameFamily , Prenom , RowNum INTO :%e() FROM %IGNOREINDEX * AAA . Patient WHERE ID = :%rowid"
+	s %xxsql("M","%occSqlfuncinc")=$c(1),%xxsql("M","ALLOCGVEC")=$c(1),%xxsql("M","CACHENAMES")="",%xxsql("M","DEBUG")=$c(1),%xxsql("M","FORKNETDMN")=$c(1)
+	s %xxsql("M","HASHLOCK")=$c(1),%xxsql("M","NETNEWHASH")=$c(1),%xxsql("M","USEDIRCACHE")=$c(1),%xxsql("M","USEGCNT")=2,%xxsql("M","USEGOFF")=$c(1)
+	s %xxsql("M","USELOST")=$c(1),%xxsql("M","ZVERSION")=$c(1),%xxsql("I","%occSqlfunc")="",%xxsql("I","%sySystem")="",%xxsql("I","%systemInclude")=""
+	s %xxsql("I","Ensemble")="",%xxsql("I","HS.HC.FHIRSQL.Errors")="",%xxsql("NS")="IRISAPP",%xxsql("PToolsCTI")=$LB(,"-1:0:0::0:1")
+	do BuildQuery^%SYS.SQLSRV(.%xxsql,$lb("Logical","","","AAA",0,"",),,"AAA.Patient.CLS")
+	return
+%SQLGetOldIndex(%rowid,%e,pF=0,sqlcode,%buffervector=0,fld="") methodimpl
+	// Get index old data values
+	new SQLCODE,%ROWCOUNT
+	 ;---&sql(SELECT Key INTO :%d() FROM %IGNOREINDEX * AAA.Patient WHERE ID=:%rowid)
+ 	 ;--- ** SQL PUBLIC Variables: %ROWCOUNT, %ROWID, %d, %msg, %rowid, SQLCODE
+	try { d $classmethod("%sqlcq."_$tr($namespace,"%_-$@:/\[]^ .","pudssssssssss")_$case($zu(115,2),0:".u",1:".x",3:".v",:"."_$zu(115,2))_"EbyGy86f721qfbXcbxD1NLA4CpQ","%New") } catch { if ($ze["<CLASS DOES NOT EXIST>"||($ze["<NOROUTINE>"))&&($ze[("%sqlcq."_$tr($namespace,"%_-$@:/\[]^ .","pudssssssssss")_$case($zu(115,2),0:".u",1:".x",3:".v",:"."_$zu(115,2))_"EbyGy86f721qfbXcbxD1NLA4CpQ"))||($ze["<ZSQLU>") { d %0dsqlR } else { throw } }
+	if pF { set:$d(%d(3)) pF("Key")=%d(3)  }
+	set sqlcode=SQLCODE RETURN:sqlcode'=0
+	RETURN
+ q
+%0dsqlR	n %xxsql
+	s %xxsql("S",1)="SELECT Key INTO :%d() FROM %IGNOREINDEX * AAA . Patient WHERE ID = :%rowid"
+	s %xxsql("M","%occSqlfuncinc")=$c(1),%xxsql("M","ALLOCGVEC")=$c(1),%xxsql("M","CACHENAMES")="",%xxsql("M","DEBUG")=$c(1),%xxsql("M","FORKNETDMN")=$c(1)
+	s %xxsql("M","HASHLOCK")=$c(1),%xxsql("M","NETNEWHASH")=$c(1),%xxsql("M","USEDIRCACHE")=$c(1),%xxsql("M","USEGCNT")=2,%xxsql("M","USEGOFF")=$c(1)
+	s %xxsql("M","USELOST")=$c(1),%xxsql("M","ZVERSION")=$c(1),%xxsql("I","%occSqlfunc")="",%xxsql("I","%sySystem")="",%xxsql("I","%systemInclude")=""
+	s %xxsql("I","Ensemble")="",%xxsql("I","HS.HC.FHIRSQL.Errors")="",%xxsql("NS")="IRISAPP",%xxsql("PToolsCTI")=$LB(,"-1:0:0::0:1")
+	do BuildQuery^%SYS.SQLSRV(.%xxsql,$lb("Logical","","","AAA",0,"",),,"AAA.Patient.CLS")
+	return
+%SQLInsert(%d,%check,%inssel,%vco,%tstart=1,%mv=0,%bufferedColumns=0) methodimpl
+	// SQL INSERT method for table AAA.Patient
+	new bva,%ele,%itm,%key,%f,%l,%n,%nc,%oper,%pos,%s,sqlcode,sn,subs,%SkipFiling,icol set %oper="INSERT",sqlcode=0,%l=$c(0,0,0)
+	if $a(%check,7) { new %diu merge %diu=%d }
+	if $d(%d(1)),'$zu(115,11) { if %d(1)'="" { set SQLCODE=-111,%msg=$$FormatMessage^%occMessages(,"%SQL.Filer","SQLFiler6",,"ID","AAA"_"."_"Patient") RETURN ""  } kill %d(1) } 
+	if '$a(%check),'..%SQLValidateFields(.sqlcode) { set SQLCODE=sqlcode RETURN "" }
+	do:'$a(%check,8) ..%SQLNormalizeFields()
+	if %tstart { TSTART:($zu(115,1)=1)||('$TLEVEL&&($zu(115,1)=2))  } set $zt="ERRORInsert"
+	set %d(1)=%ROWID
+	if '$a(%check) {
+		do {
+			if $g(%vco)'="" { do ..%SQLInsertComputes(1) d @%vco quit:sqlcode<0  }
+			do:$g(%d(2))="" ..%SQLnBuild():'$d(%n),..%SQLMissing($lg(%n,3)) 
+			quit:sqlcode<0		// A required field was missing
+		} while 0
+		if sqlcode<0 { set SQLCODE=sqlcode do ..%SQLEExit() RETURN "" }		// A constraint failed
+	}
+	set:'($d(%d(3))#2) %d(3)=""
+	if '$a(%check,2) { new %ls if $tlevel,$i(%0CacheLock("AAA.Patient"))>$zu(156,50,1) { lock +^HSF01R.RsrcD:$zu(115,4) lock:$t -^HSF01R.RsrcD set %ls=$s($t:2,1:0) } else { lock +^HSF01R.RsrcD(%d(1)):$zu(115,4) set %ls=$t } set:%ls=2 $e(%check,2)=$c(1) set:%ls=1 $e(%l)=$c(1) if '%ls set SQLCODE=-110,%msg=$$FormatMessage^%occMessages(,"%SQL.Filer","SQLFiler40",,%oper,"AAA"_"."_"Patient",$g(%d(1))) do ..%SQLEExit() RETURN ""  }
+	if '$a(%check,4) { do ..%SQLBeforeTriggers() if sqlcode { set SQLCODE=sqlcode do ..%SQLEExit() RETURN "" }}
+	GOTO:$g(%SkipFiling) %insertSkip
+	set ^HSF01R.RsrcD(%d(1))=""
+	if '$a(%check,3) {
+		new %i,%o set %i=%d(1)\64000+1,%o=%d(1)#64000+1
+		set $bit(^HSF01R.RsrcI("ResourceTypeIndex","Patient",%i),%o)=1
+		set sn(1)=%d(3) set:sn(1)="" sn(1)=-1E14 set sn(2)=%d(1) set ^HSF01R.RsrcI("KeyIdx",sn(1),sn(2))=""
+	}
+%insertSkip	//
+	lock:$a(%l) -^HSF01R.RsrcD(%d(1))
+	TCOMMIT:%tstart&&($zu(115,1)=1)
+	set SQLCODE=0
+	QUIT %d(1) 			// %SQLInsert
+ERRORInsert	set $zt="",SQLCODE=-415,%msg=$s($g(%msg)'="":%msg_" -- ",1:"")_$$FormatMessage^%occMessages(,"%SQL.Filer","SQLFiler51",,%oper,"AAA"_"."_"Patient",$ze)
+	if $ze["<FRAMESTACK>" { set %msg=$$FormatMessage^%occMessages(,"%SQL.Filer","SQLFiler52",,$ze,%oper,"AAA"_"."_"Patient") do ##Class(%SYS.System).WriteToConsoleLog(%msg) if ($zu(67,10,$j)=1)||($zu(67,10,$j)=3) { write !,%msg h 3 } HALT  }
+	do ..%SQLEExit()
+	RETURN ""
+%SQLInsertComputes(view=0) methodimpl
+	if 'view {
+	}
+	else {
+	set %d(4)="" do ..PatientBirthDateSQLCompute()
+	set %d(5)="" do ..PatientGenderSQLCompute()
+	set %d(6)="" do ..PatientNameFamilySQLCompute()
+	set %d(7)="" do ..PrenomSQLCompute()
+	set %d(8)="" do ..RowNumSQLCompute()
+	}
+	QUIT
+%SQLInvalid(pIcol,pVal) methodimpl {
+	set:$l($g(pVal))>40 pVal=$e(pVal,1,40)_"..." do:'$d(%n) ..%SQLnBuild() set %msg=$s($g(%msg)'="":%msg_$c(13,10),1:"")_$$FormatMessage^%occMessages(,"%SQL.Filer","SQLFiler37",,"AAA"_"."_"Patient"_"."_$lg(%n,pIcol),$s($g(pVal)'="":$s(pVal="":"<NULL>",pVal=$c(0):"<EMPTY STRING>",1:"'"_pVal_"'"),1:"")),sqlcode=$s(%oper="INSERT":-104,1:-105)
+	QUIT sqlcode }
+%SQLMissing(fname) methodimpl
+	set sqlcode=-108,%msg=$$FormatMessage^%occMessages(,"%SQL.Filer","SQLFiler47",,fname,"AAA"_"."_"Patient") quit
+%SQLNormalizeFields() methodimpl
+	set:$g(%d(8))'="" %d(8)=$select(%d(8)=$c(0)&&$zu(115,13):"",1:%d(8)\1)
+	QUIT
+%SQLPurgeIndices(pIndices="",pLockExtent=0,pIgnoreIndexList="") methodimpl
+	RETURN ..%SQLBuildPurgeIndices(pIndices,0,,,,pIgnoreIndexList)
+%SQLQuickLoad(%rowid,%nolock=0,pkey=0,qq=0) methodimpl
+	// Get fields from row where SQLRowID=%rowid
+	new d,i,il,subs set:%nolock=2 %nolock=1
+	if %nolock=0 { if '..%SQLAcquireLock(%rowid) { set %qrc=114,%msg=$$FormatMessage^%occMessages(,"%SQL.Filer","SQLFiler45",,"AAA"_"."_"Patient",%rowid),%ROWCOUNT=0 QUIT  } set:$zu(115,2) il=$zu(115,2,0) }
+	 ;---&sql(SELECT %INTERNAL(ID),%FHIR,Key,PatientBirthDate,PatientGender,PatientNameFamily,Prenom,RowNum INTO :d(1),:d(2),:d(3),:d(4),:d(5),:d(6),:d(7),:d(8) FROM AAA.Patient WHERE %ID = :%rowid)
+ 	 ;--- ** SQL PUBLIC Variables: %ROWCOUNT, %ROWID, %msg, %rowid, SQLCODE, d
+	try { d $classmethod("%sqlcq."_$tr($namespace,"%_-$@:/\[]^ .","pudssssssssss")_$case($zu(115,2),0:".u",1:".x",3:".v",:"."_$zu(115,2))_"EMb7x1WRwMjbGJ3jT3EHrFOgv1O","%New") } catch { if ($ze["<CLASS DOES NOT EXIST>"||($ze["<NOROUTINE>"))&&($ze[("%sqlcq."_$tr($namespace,"%_-$@:/\[]^ .","pudssssssssss")_$case($zu(115,2),0:".u",1:".x",3:".v",:"."_$zu(115,2))_"EMb7x1WRwMjbGJ3jT3EHrFOgv1O"))||($ze["<ZSQLU>") { d %0dsqlT } else { throw } }
+	if SQLCODE { if %nolock=0 { do ..%SQLReleaseLock(%rowid,0,1) do:$g(il) $zu(115,2,il) } set %ROWCOUNT=0 set:SQLCODE<0 SQLCODE=-SQLCODE set %qrc=SQLCODE QUIT  }
+	if %nolock=0 { if $zu(115,1)=1 { TSTART  } elseIf '$TLEVEL,$zu(115,1)=2 { TSTART  }}
+	set:qq d=$zobjexport("AAA.Patient",18),d=8,d=$zobjexport(d,18) set i=-1 for  { set i=$o(d(i)) quit:i=""  set d=$zobjexport(d(i),18) } set %qrc=0,%ROWCOUNT=1 if %nolock=0 { d ..%SQLReleaseLock(%rowid,0,0) do:$g(il) $zu(115,2,il) } quit
+	Return
+ q
+%0dsqlT	n %xxsql
+	s %xxsql("S",1)="SELECT %INTERNAL ( ID ) , %FHIR , Key , PatientBirthDate , PatientGender , PatientNameFamily , Prenom , RowNum INTO :d(1) , :d(2) , :d(3) , :d(4) , :d(5) , :d(6) , :d(7) , :d(8) FROM AAA . Patient WHERE %ID = :%rowid"
+	s %xxsql("M","%occSqlfuncinc")=$c(1),%xxsql("M","ALLOCGVEC")=$c(1),%xxsql("M","CACHENAMES")="",%xxsql("M","DEBUG")=$c(1),%xxsql("M","FORKNETDMN")=$c(1)
+	s %xxsql("M","HASHLOCK")=$c(1),%xxsql("M","NETNEWHASH")=$c(1),%xxsql("M","USEDIRCACHE")=$c(1),%xxsql("M","USEGCNT")=2,%xxsql("M","USEGOFF")=$c(1)
+	s %xxsql("M","USELOST")=$c(1),%xxsql("M","ZVERSION")=$c(1),%xxsql("I","%occSqlfunc")="",%xxsql("I","%sySystem")="",%xxsql("I","%systemInclude")=""
+	s %xxsql("I","Ensemble")="",%xxsql("I","HS.HC.FHIRSQL.Errors")="",%xxsql("NS")="IRISAPP",%xxsql("PToolsCTI")=$LB(,"-1:0:0::0:1")
+	do BuildQuery^%SYS.SQLSRV(.%xxsql,$lb("ODBC","","","AAA",0,"",),,"AAA.Patient.CLS")
+	return:$g(%IRISSQLCachedCompileOnly)
+	if $g(SQLCODE) { try { set d(1)="",d(2)="",d(3)="",d(4)="",d(5)="",d(6)="",d(7)="",d(8)="" } catch {} }
+	return
+%SQLReleaseLock(%rowid,s=0,i=0,e="") methodimpl
+	new %d
+	set %d(1)=%rowid set s=$e("S",s)_$e("D",i)
+	lock -^HSF01R.RsrcD(%d(1))#s
+	set:i&&($g(%0CacheLock("AAA.Patient"))) %0CacheLock("AAA.Patient")=%0CacheLock("AAA.Patient")-1
+	QUIT
+%SQLReleaseTableLock(s=0,i=0) methodimpl
+	set s=$e("S",s)_$e("D",i) lock -^HSF01R.RsrcD#s QUIT 1
+	Return
+%SQLUnlock() methodimpl
+	lock:$a(%l) -^HSF01R.RsrcD(%d(1))
+	QUIT
+%SQLUnlockError(cname) methodimpl
+	set sqlcode=-110 if %oper="DELETE" { set %msg=$$FormatMessage^%occMessages(,"%SQL.Filer","SQLFiler48",,"AAA"_"."_"Patient",cname) } else { set %msg=$$FormatMessage^%occMessages(,"%SQL.Filer","SQLFiler49",,"AAA"_"."_"Patient",cname) } quit
+	Return
+%SQLUpdate(%rowid,%check,%d,%vco,%tstart=1,%mv=0,%polymorphic=0,%soid,%bufferedColumns=0,%bufferedColumnsDel=0) methodimpl
+	// SQL UPDATE method for table AAA.Patient
+	if %polymorphic { do ..%SQLCopyNameIntoIcol() set %d(1)=%rowid,%e(1)=%rowid,$e(%e,1)=$c(0) new icol for icol=2:1:8 { set $e(%e,icol)=$c($d(%d(icol))) }  goto %SQLUpdatePD }
+	new %e,bva,%ele,%itm,%key,%f,%l,%n,%nc,%oper,%pos,%s,icol,omcall,s,sn,sqlcode,subs,t,%SkipFiling set %oper="UPDATE",sqlcode=0,%ROWID=%rowid,$e(%e,1)=$c(0),%l=$c(0,0,0)
+	if '$d(%0CacheSQLRA) { new %0CacheSQLRA set omcall=1 }
+	if '$a(%check),'$a(%check,7),'..%SQLValidateFields(.sqlcode) { set SQLCODE=sqlcode QUIT  }
+	do:'$a(%check,8) ..%SQLNormalizeFields()
+	if $d(%d(1)),%d(1)'=%rowid { set SQLCODE=-107,%msg=$$FormatMessage^%occMessages(,"%SQL.Filer","SQLFiler16",,"ID","AAA"_"."_"Patient") QUIT  }
+	for icol=2:1:8 { set $e(%e,icol)=$c($d(%d(icol))) }
+	set %d(1)=%rowid,%e(1)=%rowid
+	if '$a(%check,2) { new %ls if $tlevel,$i(%0CacheLock("AAA.Patient"))>$zu(156,50,1) { lock +^HSF01R.RsrcD:$zu(115,4) lock:$t -^HSF01R.RsrcD set %ls=$s($t:2,1:0) } else { lock +^HSF01R.RsrcD(%d(1)):$zu(115,4) set %ls=$t } set:%ls=2 $e(%check,2)=$c(1) set:%ls=1 $e(%l)=$c(1) if '%ls { set SQLCODE=-110,%msg=$$FormatMessage^%occMessages(,"%SQL.Filer","SQLFiler40",,%oper,"AAA"_"."_"Patient",$g(%d(1))) RETURN  }} if %tstart { TSTART:($zu(115,1)=1)||('$TLEVEL&&($zu(115,1)=2))  }
+	set $zt="ERRORUpdate"
+%SQLUpdatePD		// Entry point for Polymorphic Dispatch from a super-table
+	if $g(%vco)="" { do ..%SQLGetOld(%rowid,.%d,.%e,.sqlcode) i sqlcode { s SQLCODE=-109,%msg=$$FormatMessage^%occMessages(,"%SQL.Filer","SQLFiler59",,"AAA"_"."_"Patient",%rowid) do ..%SQLEExit() QUIT  } set:'$d(%d(3)) %d(3)=%e(3) set:%d(3)=%e(3) $e(%e,3)=$c(0) } else { do ..%SQLGetOldAll() if sqlcode { set SQLCODE=-109,%msg=$$FormatMessage^%occMessages(,"%SQL.Filer","SQLFiler59",,"AAA"_"."_"Patient",%rowid) do ..%SQLEExit() QUIT  } for icol=2,3,4,5,6,7,8 { set:'$d(%d(icol)) %d(icol)=%e(icol) set:%d(icol)=%e(icol) $e(%e,icol)=$c(0) }}
+	if '$a(%check) {
+		do {
+			if $g(%vco)'="" { do ..%SQLInsertComputes(1) d @%vco quit:sqlcode<0  }
+			if $a(%e,2),$g(%d(2))="" { do ..%SQLnBuild():'$d(%n),..%SQLMissing($lg(%n,3)) }
+			quit:sqlcode
+		} while 0
+		if sqlcode { set SQLCODE=sqlcode do ..%SQLEExit() QUIT  }
+	}
+	if '$a(%check,4) { do ..%SQLBeforeTriggers() if sqlcode { set SQLCODE=sqlcode do ..%SQLEExit() QUIT  }}
+	if '$a(%check,3),'$g(%SkipFiling) { 
+		new %i,%o s %i=%d(1)\64000+1,%o=%d(1)#64000+1
+	}
+	GOTO:$g(%SkipFiling) %updateSkip
+	if '$a(%check,3) { new %i,%o s %i=%d(1)\64000+1,%o=%d(1)#64000+1 
+		if $a(%e,3) { 	// KeyIndex index map
+			set sn(1)=%e(3) set:sn(1)="" sn(1)=-1E14 set sn(2)=%d(1) k ^HSF01R.RsrcI("KeyIdx",sn(1),sn(2))
+			set sn(1)=%d(3) set:sn(1)="" sn(1)=-1E14 set sn(2)=%d(1) set ^HSF01R.RsrcI("KeyIdx",sn(1),sn(2))=""
+		}
+	}
+%updateSkip		//
+	do ..%SQLUnlock() TCOMMIT:%tstart&&($zu(115,1)=1)
+	set SQLCODE=0 kill:$g(omcall) %0CacheSQLRA
+	QUIT
+ERRORUpdate	set $zt="",SQLCODE=-415,%msg=$s($g(%msg)'="":%msg_" -- ",1:"")_$$FormatMessage^%occMessages(,"%SQL.Filer","SQLFiler51",,%oper,"AAA"_"."_"Patient",$ze) if $ze["<FRAMESTACK>" { set %msg=$$FormatMessage^%occMessages(,"%SQL.Filer","SQLFiler52",,$ze,%oper,"AAA"_"."_"Patient") do ##Class(%SYS.System).WriteToConsoleLog(%msg) if ($zu(67,10,$j)=1)||($zu(67,10,$j)=3) { write !,%msg h 3 } HALT  } do ..%SQLEExit() QUIT  
+	Return
+%SQLValidateCompFields(sqlcode) methodimpl
+	QUIT 'sqlcode
+%SQLValidateFields(sqlcode) methodimpl
+	if $g(%d(8))'="",'($select(%d(8)=$c(0)&&$zu(115,13):1,$isvalidnum(%d(8),0):1,1:$$Error^%apiOBJ(7207,%d(8)))) { set sqlcode=..%SQLInvalid(8+1,%d(8)) } 
+	new %f for %f=4,5 { if $g(%d(%f))'="",'(($l(%d(%f))'>10)) set sqlcode=..%SQLInvalid(%f+1,$g(%d(%f))) quit  } 
+	for %f=2,3,6,7 { if $g(%d(%f))'="",'(($l(%d(%f))'>50)) set sqlcode=..%SQLInvalid(%f+1,$g(%d(%f))) quit  } 
+	QUIT 'sqlcode
+%SQLnBuild() methodimpl {
+	set %n=$lb(,"ID","%FHIR","Key","PatientBirthDate","PatientGender","PatientNameFamily","Prenom","RowNum")
+	QUIT }
+%SaveData(id) methodimpl
+	New %ROWCOUNT,%ROWID,%msg,%ok,%sc,SQLCODE,lock,notexist,temp
+	Set id=$listget(i%"%%OID") If id'="" Goto saveDataUpdate
+saveDataInsert	Set lock=0,%sc=1
+	 ;---&sql(INSERT %OBJECTFILER INTO AAA.Patient(%FHIR,Key)
+ 	 ;---	             VALUES (:i%%FHIR,:i%Key))
+ 	 ;--- ** SQL PUBLIC Variables: %ROWCOUNT, %ROWID, %msg, SQLCODE
+	d %0dsqlX
+	If SQLCODE Quit $$Error^%apiOBJ(5521,SQLCODE,$get(%msg))
+	Set id=%ROWID Set %sc=..%IdSet(id) Throw:('%sc) ##class(%Exception.StatusException).ThrowIfInterrupt(%sc)
+	Set:$g(%objtxSTATUS)=2 %objtxOIDASSIGNED(+$this)=""
+	If i%%Concurrency=4 If '..%SQLAcquireLock(id) Quit $$Error^%apiOBJ(5803,id_":"_$classname())
+	If i%%Concurrency=3 If '..%SQLAcquireLock(id,1) Quit $$Error^%apiOBJ(5804,id_":"_$classname())
+	If lock Do ..%SQLReleaseLock(id)
+	Quit %sc
+saveDataUpdate	Set lock=0,notexist=0,%sc=1
+	If i%%Concurrency>1 Set lock=..%SQLAcquireLock(id) If 'lock Set %sc=$$Error^%apiOBJ(5803,id_":"_$classname()) Quit %sc
+	 ;---&sql(UPDATE %OBJECTFILER AAA.Patient SET %FHIR = :i%%FHIR,Key = :i%Key WHERE %ID=:id)
+ 	 ;--- ** SQL PUBLIC Variables: %ROWCOUNT, %ROWID, %msg, SQLCODE, id
+	d %0dsql1
+	If SQLCODE=100 { s notexist=1 } ElseIf SQLCODE { Set %sc=$$Error^%apiOBJ(5521,SQLCODE,$g(%msg)) }
+	If notexist { If lock { Do ..%SQLReleaseLock(id) } Goto saveDataInsert }
+	If lock Do ..%SQLReleaseLock(id)
+	Quit %sc
+ q
+%0dsqlV	n %xxsql
+	s %xxsql("S",1)="INSERT %OBJECTFILER INTO AAA . Patient ( %FHIR , Key ) VALUES ( :sqltmp1 , :sqltmp2 )"
+	s %xxsql("M","%occSqlfuncinc")=$c(1),%xxsql("M","ALLOCGVEC")=$c(1),%xxsql("M","CACHENAMES")="",%xxsql("M","DEBUG")=$c(1),%xxsql("M","FORKNETDMN")=$c(1)
+	s %xxsql("M","HASHLOCK")=$c(1),%xxsql("M","NETNEWHASH")=$c(1),%xxsql("M","USEDIRCACHE")=$c(1),%xxsql("M","USEGCNT")=2,%xxsql("M","USEGOFF")=$c(1)
+	s %xxsql("M","USELOST")=$c(1),%xxsql("M","ZVERSION")=$c(1),%xxsql("I","%occSqlfunc")="",%xxsql("I","%sySystem")="",%xxsql("I","%systemInclude")=""
+	s %xxsql("I","Ensemble")="",%xxsql("I","HS.HC.FHIRSQL.Errors")="",%xxsql("NS")="IRISAPP",%xxsql("PToolsCTI")=$LB(,"-1:0:0::0:1")
+	do BuildQuery^%SYS.SQLSRV(.%xxsql,$lb("Logical","","","AAA",0,"",$lb("AAA.Patient","SDI")),,"AAA.Patient.CLS")
+	return
+%0dsqlX	n sqltmp1,sqltmp2
+	s sqltmp1=i%%FHIR,sqltmp2=i%Key
+	try { d $classmethod("%sqlcq."_$tr($namespace,"%_-$@:/\[]^ .","pudssssssssss")_$case($zu(115,2),0:".u",1:".x",3:".v",:"."_$zu(115,2))_"EtSchG54DryQMFgGXjXWRfnfT5B","%New") } catch { if ($ze["<CLASS DOES NOT EXIST>"||($ze["<NOROUTINE>"))&&($ze[("%sqlcq."_$tr($namespace,"%_-$@:/\[]^ .","pudssssssssss")_$case($zu(115,2),0:".u",1:".x",3:".v",:"."_$zu(115,2))_"EtSchG54DryQMFgGXjXWRfnfT5B"))||($ze["<ZSQLU>") { d %0dsqlV } else { throw } }
+	q
+%0dsqlZ	n %xxsql
+	s %xxsql("S",1)="UPDATE %OBJECTFILER AAA . Patient SET %FHIR = :sqltmp1 , Key = :sqltmp2 WHERE %ID = :id"
+	s %xxsql("M","%occSqlfuncinc")=$c(1),%xxsql("M","ALLOCGVEC")=$c(1),%xxsql("M","CACHENAMES")="",%xxsql("M","DEBUG")=$c(1),%xxsql("M","FORKNETDMN")=$c(1)
+	s %xxsql("M","HASHLOCK")=$c(1),%xxsql("M","NETNEWHASH")=$c(1),%xxsql("M","USEDIRCACHE")=$c(1),%xxsql("M","USEGCNT")=2,%xxsql("M","USEGOFF")=$c(1)
+	s %xxsql("M","USELOST")=$c(1),%xxsql("M","ZVERSION")=$c(1),%xxsql("I","%occSqlfunc")="",%xxsql("I","%sySystem")="",%xxsql("I","%systemInclude")=""
+	s %xxsql("I","Ensemble")="",%xxsql("I","HS.HC.FHIRSQL.Errors")="",%xxsql("NS")="IRISAPP",%xxsql("PToolsCTI")=$LB(,"-1:0:0::0:1")
+	do BuildQuery^%SYS.SQLSRV(.%xxsql,$lb("Logical","","","AAA",0,"",$lb("AAA.Patient","SU")),,"AAA.Patient.CLS")
+	return
+%0dsql1	n sqltmp1,sqltmp2
+	s sqltmp1=i%%FHIR,sqltmp2=i%Key
+	try { d $classmethod("%sqlcq."_$tr($namespace,"%_-$@:/\[]^ .","pudssssssssss")_$case($zu(115,2),0:".u",1:".x",3:".v",:"."_$zu(115,2))_"ESlpBaJw6KpqeRWKt0rcxGtiH8f","%New") } catch { if ($ze["<CLASS DOES NOT EXIST>"||($ze["<NOROUTINE>"))&&($ze[("%sqlcq."_$tr($namespace,"%_-$@:/\[]^ .","pudssssssssss")_$case($zu(115,2),0:".u",1:".x",3:".v",:"."_$zu(115,2))_"ESlpBaJw6KpqeRWKt0rcxGtiH8f"))||($ze["<ZSQLU>") { d %0dsqlZ } else { throw } }
+	q
+%ValidateIndices(idxList="",autoCorrect=0,lockOption=1,multiProcess=1,mapList,verbose=1,errors) methodimpl
+	if '$listvalid(idxList) { QUIT $$Error^%apiOBJ(5591,"##class(AAA.Patient).%ValidateIndices()","idxList",""""" or a $list of index names") }
+	if $case(autoCorrect,1:0,0:0,:1) { QUIT $$Error^%apiOBJ(5591,"##class(AAA.Patient).%ValidateIndices()","autoCorrect","'0' or '1'") }
+	if $case(lockOption,2:0,1:0,0:0,:1) { QUIT $$Error^%apiOBJ(5591,"##class(AAA.Patient).%ValidateIndices()","lockOption","'0', '1' or '2'") }
+	if $case(multiProcess,1:0,0:0,:1) { QUIT $$Error^%apiOBJ(5591,"##class(AAA.Patient).%ValidateIndices()","multiProcess","'0' or '1'") }
+	if $case(verbose,1:0,0:0,:1) { QUIT $$Error^%apiOBJ(5591,"##class(AAA.Patient).%ValidateIndices()","verbose","'0' or '1'") }
+	new mapList QUIT $$ValidateIndices^%SYS.SECURITY("AAA.Patient",idxList,autoCorrect,lockOption,multiProcess,,verbose,.errors)
+LazyLoad(pID,pStorage) methodimpl {
+	If $G(pStorage)="" {
+		Set pStorage =..GetFHIRData(pID,..#GLOBAL)
+	}
+	Quit pStorage }
+UpdateIndices(pKey,pAdd=1) methodimpl {
+	Quit 1 }
+zPatientBirthDateCompute(%id,%d1) methodimpl
+	New %tException,%val set %val = ""
+	try {
+	New temp Set temp=%d1 set %val = ##class(AAA.Patient).ExtractFHIR(##class(AAA.Patient).LazyLoad(%id,.temp),"Patient.birthDate",,$lb("hl7.fhir.r4.core@4.0.1")) Set %d1=temp
+	} catch %tException { throw %tException }
+	Quit %val
+PatientBirthDateGet() methodimpl {
+	Quit ..PatientBirthDateCompute($listget(i%"%%OID"),..%FHIR) }
+zPatientBirthDateSQLCompute() methodimpl
+	// Compute code for field PatientBirthDate
+ New temp Set temp=%d(2) set %d(4) = ##class(AAA.Patient).ExtractFHIR(##class(AAA.Patient).LazyLoad(%d(1),.temp),"Patient.birthDate",,$lb("hl7.fhir.r4.core@4.0.1")) Set %d(2)=temp
+ QUIT
+zPatientGenderCompute(%id,%d1) methodimpl
+	New %tException,%val set %val = ""
+	try {
+	New temp Set temp=%d1 set %val = ##class(AAA.Patient).ExtractFHIR(##class(AAA.Patient).LazyLoad(%id,.temp),"Patient.gender",,$lb("hl7.fhir.r4.core@4.0.1")) Set %d1=temp
+	} catch %tException { throw %tException }
+	Quit %val
+PatientGenderGet() methodimpl {
+	Quit ..PatientGenderCompute($listget(i%"%%OID"),..%FHIR) }
+zPatientGenderSQLCompute() methodimpl
+	// Compute code for field PatientGender
+ New temp Set temp=%d(2) set %d(5) = ##class(AAA.Patient).ExtractFHIR(##class(AAA.Patient).LazyLoad(%d(1),.temp),"Patient.gender",,$lb("hl7.fhir.r4.core@4.0.1")) Set %d(2)=temp
+ QUIT
+zPatientNameFamilyCompute(%id,%d1) methodimpl
+	New %tException,%val set %val = ""
+	try {
+	New temp Set temp=%d1 set %val = ##class(AAA.Patient).ExtractFHIR(##class(AAA.Patient).LazyLoad(%id,.temp),"Patient.name.family",,$lb("hl7.fhir.r4.core@4.0.1")) Set %d1=temp
+	} catch %tException { throw %tException }
+	Quit %val
+PatientNameFamilyGet() methodimpl {
+	Quit ..PatientNameFamilyCompute($listget(i%"%%OID"),..%FHIR) }
+zPatientNameFamilySQLCompute() methodimpl
+	// Compute code for field PatientNameFamily
+ New temp Set temp=%d(2) set %d(6) = ##class(AAA.Patient).ExtractFHIR(##class(AAA.Patient).LazyLoad(%d(1),.temp),"Patient.name.family",,$lb("hl7.fhir.r4.core@4.0.1")) Set %d(2)=temp
+ QUIT
+zPrenomCompute(%id,%d1) methodimpl
+	New %tException,%val set %val = ""
+	try {
+	New temp Set temp=%d1 set %val = ##class(AAA.Patient).ExtractFHIR(##class(AAA.Patient).LazyLoad(%id,.temp),"Patient.name.given",,$lb("hl7.fhir.r4.core@4.0.1")) Set %d1=temp
+	} catch %tException { throw %tException }
+	Quit %val
+PrenomGet() methodimpl {
+	Quit ..PrenomCompute($listget(i%"%%OID"),..%FHIR) }
+zPrenomSQLCompute() methodimpl
+	// Compute code for field Prenom
+ New temp Set temp=%d(2) set %d(7) = ##class(AAA.Patient).ExtractFHIR(##class(AAA.Patient).LazyLoad(%d(1),.temp),"Patient.name.given",,$lb("hl7.fhir.r4.core@4.0.1")) Set %d(2)=temp
+ QUIT
+zRowNumSQLCompute() methodimpl
+	// Compute code for field RowNum
+ Set %d(8) = %d(1) 
+ QUIT
+ExtentExecute(%qHandle) [ SQLCODE ] methodimpl { New %ROWCOUNT,%ROWID,%msg,SQLCODE 
+	Set sc=1
+	 ;---&sql(DECLARE QExtent CURSOR FOR
+ 	 ;---		 SELECT ID FROM %NOPARALLEL AAA.Patient)
+ 	 ;--- ** SQL PUBLIC Variables: %ROWCOUNT, %ROWID, %msg, SQLCODE
+	 
+	 ;---&sql(OPEN QExtent)
+	if $g(%qHandle)'="" { s SQLCODE=-101 } else { try { s %qHandle="%sqlcq."_$tr($namespace,"%_-$@:/\[]^ .","pudssssssssss")_$case($zu(115,2),0:".u",1:".x",3:".v",:"."_$zu(115,2))_"EzwoDPnRdGYZ9Zg1LHWuzArrqMs",%qHandle=$classmethod(%qHandle,"%New") } catch { if ($ze'["<CLASS DOES NOT EXIST>"&&($ze'["<NOROUTINE>")||($ze'[%qHandle)),$ze'["<ZSQLU>" { throw } } if '$isobject(%qHandle) { s %qHandle=$$%0dsql3() } }
+	If SQLCODE { Set:$isobject($g(%sqlcontext)) %sqlcontext.%SQLCODE=SQLCODE,%sqlcontext.%Message=$g(%msg) Set sc=$$Error^%apiOBJ(5821,"SQLCODE = "_SQLCODE_" %msg = "_$g(%msg)) } Else { Set sc=1 }
+	Quit sc }
+ExtentFetch(%qHandle,Row,AtEnd=0) [ SQLCODE ] methodimpl { New %ROWCOUNT,%ROWID,%msg,SQLCODE 
+	Set Row="",AtEnd=0
+	 ;---&sql(FETCH QExtent INTO :c1)
+ 	 ;--- ** SQL PUBLIC Variables: %ROWCOUNT, %ROWID, %msg, SQLCODE
+	if $isobject($g(%qHandle))'=1 { s SQLCODE=-102 } else { do %qHandle.FET() i SQLCODE=0 { s c1=%qHandle.sqlcol1 } }
+	If 'SQLCODE { Set Row=$lb(c1) Set sc=1 }
+	ElseIf SQLCODE=100 { Set AtEnd=1,sc=1 Set:$isobject($g(%sqlcontext)) %sqlcontext.%SQLCODE=SQLCODE,%sqlcontext.%ROWCOUNT=$g(%ROWCOUNT) }
+	Else { Set:$isobject($g(%sqlcontext)) %sqlcontext.%SQLCODE=SQLCODE,%sqlcontext.Message=$g(%msg) Set AtEnd=1,sc=$$Error^%apiOBJ(5540,SQLCODE,$get(%msg)) }
+	QUIT sc }
+ExtentFetchRows(%qHandle,FetchCount=0,RowSet,ReturnCount,AtEnd) [ SQLCODE ] methodimpl { New %ROWCOUNT,%ROWID,%msg,SQLCODE 
+	Set RowSet="",ReturnCount=0,AtEnd=0
+	For {
+		 ;---&sql(FETCH QExtent INTO :c1)
+ 		 ;--- ** SQL PUBLIC Variables: %ROWCOUNT, %ROWID, %msg, SQLCODE
+		if $isobject($g(%qHandle))'=1 { s SQLCODE=-102 } else { do %qHandle.FET() i SQLCODE=0 { s c1=%qHandle.sqlcol1 } }
+		If 'SQLCODE { Set RowSet=RowSet_$lb(c1),ReturnCount=ReturnCount+1 Quit:(ReturnCount=FetchCount)||(($l(RowSet)+($l(RowSet)\ReturnCount))>30000) } Else { Set AtEnd=1 Quit }
+	}
+	If 'SQLCODE { Set sc=1 } ElseIf SQLCODE=100 { Set sc=1 Set:$isobject($g(%sqlcontext)) %sqlcontext.%SQLCODE=SQLCODE,%sqlcontext.%ROWCOUNT=$g(%ROWCOUNT) } Else { Set:$isobject($g(%sqlcontext)) %sqlcontext.%SQLCODE=SQLCODE,%sqlcontext.Message=$g(%msg) Set sc=$$Error^%apiOBJ(5540,SQLCODE,$get(%msg)) }
+	Quit sc }
+ExtentSendODBC(%qHandle,array,qacn,%qrc,piece,ColumnCount) [ SQLCODE ] methodimpl { New %ROWCOUNT,%ROWID,%msg,SQLCODE 
+	set %qrc=0,piece=0
+	for {
+		set rc=..ExtentFetch(.%qHandle,.row,.atend)
+		if ('rc) { set %qrc=-400 set:$isobject($get(%sqlcontext)) %sqlcontext.SQLCode=-400,%sqlcontext.Message=$g(%msg) do ProcessError^%ourProcedure(rc,$get(%sqlcontext),.%qrc,.%msg),Logerr^%SYS.SQLSRV(%qrc,"","SP",.%msg) RETURN  }
+		if row="" { set %qrc=100 set:$isobject($get(%sqlcontext)) %sqlcontext.SQLCode=100 RETURN  }
+		RETURN:$zobjexport(row,60)
+	}
+	RETURN }
+ q
+%0dsql3()	n %xxsql,%xxoref
+	s %xxsql("S",1)="DECLARE QExtent CURSOR FOR SELECT ID "
+	s %xxsql("S",2)="INTO  :i%sqlcol1"
+	s %xxsql("S",3)="FROM %NOPARALLEL AAA . Patient"
+	s %xxsql("M","%occSqlfuncinc")=$c(1),%xxsql("M","ALLOCGVEC")=$c(1),%xxsql("M","CACHENAMES")="",%xxsql("M","DEBUG")=$c(1),%xxsql("M","FORKNETDMN")=$c(1)
+	s %xxsql("M","HASHLOCK")=$c(1),%xxsql("M","NETNEWHASH")=$c(1),%xxsql("M","USEDIRCACHE")=$c(1),%xxsql("M","USEGCNT")=2,%xxsql("M","USEGOFF")=$c(1)
+	s %xxsql("M","USELOST")=$c(1),%xxsql("M","ZVERSION")=$c(1),%xxsql("I","%occSqlfunc")="",%xxsql("I","%sySystem")="",%xxsql("I","%systemInclude")=""
+	s %xxsql("I","Ensemble")="",%xxsql("I","HS.HC.FHIRSQL.Errors")="",%xxsql("NS")="IRISAPP",%xxsql("PToolsCTI")=$LB(,"-1:0:0::0:1")
+	s %xxoref=$$BuildQuery^%SYS.SQLSRV(.%xxsql,$lb("Runtime","","","AAA",0,"",),",1,QExtent,","AAA.Patient.CLS",1)
+	q %xxoref
+ExtentFunc() methodimpl {
+	try {
+		set tSchemaPath = ##class(%SQL.Statement).%ClassPath($classname())
+			set tStatement = ##class(%SQL.Statement).%New(,tSchemaPath)
+			do tStatement.prepare(" SELECT ID FROM %NOPARALLEL AAA . Patient /*#OPTIONS {""DynamicSQL"":1} */")
+		set tResult = tStatement.%Execute()
+	}
+	catch tException { if '$Isobject($Get(tResult)) { set tResult = ##class(%SQL.StatementResult).%New() } set tResult.%SQLCODE=tException.AsSQLCODE(),tResult.%Message=tException.AsSQLMessage() }
+	Quit tResult }
+zExtentGetODBCInfo(colinfo,parminfo,qHandle) methodimpl
+	Set metadata=$lb(1,1,"ID",4,10,0,2,"ID","Patient","AAA","",$c(0,0,0,0,0,0,0,0,0,0,0,1,0),0)
+	Set colcount=$li(metadata,2),cmdlen=colcount*10,parmcount=$li(metadata,3+cmdlen),pmdlen=parmcount*6,parminfo=$li(metadata,cmdlen+3,cmdlen+pmdlen+3)
+	Set colinfo=$li(metadata,2,2+cmdlen)
+	Quit 1
+zIDKEYSQLCheckUnique(pFromOrig=0,%pID,%pVals...) methodimpl
+	 ;---if pFromOrig &sql(SELECT ID FROM AAA.Base WHERE  ID=:%pVals(1) AND (%ID <> :%pID OR :%pID IS NULL)) QUIT SQLCODE=100
+ 	 ;--- ** SQL PUBLIC Variables: %ROWCOUNT, %ROWID, %msg, %pID, %pVals, SQLCODE
+	if pFromOrig try { d $classmethod("%sqlcq."_$tr($namespace,"%_-$@:/\[]^ .","pudssssssssss")_$case($zu(115,2),0:".u",1:".x",3:".v",:"."_$zu(115,2))_"EG8Fibcd1Q2IPYyjaHjmgbqvPQQ","%New") } catch { if ($ze["<CLASS DOES NOT EXIST>"||($ze["<NOROUTINE>"))&&($ze[("%sqlcq."_$tr($namespace,"%_-$@:/\[]^ .","pudssssssssss")_$case($zu(115,2),0:".u",1:".x",3:".v",:"."_$zu(115,2))_"EG8Fibcd1Q2IPYyjaHjmgbqvPQQ"))||($ze["<ZSQLU>") { d %0dsql7 } else { throw } } QUIT SQLCODE=100
+	 ;---&sql(SELECT ID FROM AAA.Patient WHERE  ID=:%pVals(1) AND (%ID <> :%pID OR :%pID IS NULL)) QUIT SQLCODE=100
+ 	 ;--- ** SQL PUBLIC Variables: %ROWCOUNT, %ROWID, %msg, %pID, %pVals, SQLCODE
+	try { d $classmethod("%sqlcq."_$tr($namespace,"%_-$@:/\[]^ .","pudssssssssss")_$case($zu(115,2),0:".u",1:".x",3:".v",:"."_$zu(115,2))_"EoJIi9Cfvv0kisgkZLvDg1jWhsx","%New") } catch { if ($ze["<CLASS DOES NOT EXIST>"||($ze["<NOROUTINE>"))&&($ze[("%sqlcq."_$tr($namespace,"%_-$@:/\[]^ .","pudssssssssss")_$case($zu(115,2),0:".u",1:".x",3:".v",:"."_$zu(115,2))_"EoJIi9Cfvv0kisgkZLvDg1jWhsx"))||($ze["<ZSQLU>") { d %0dsql9 } else { throw } } QUIT SQLCODE=100
+ q
+%0dsql7	n %xxsql
+	s %xxsql("S",1)="SELECT ID FROM AAA . Base WHERE ID = :%pVals(1) AND ( %ID <> :%pID OR :%pID IS NULL )"
+	s %xxsql("M","%occSqlfuncinc")=$c(1),%xxsql("M","ALLOCGVEC")=$c(1),%xxsql("M","CACHENAMES")="",%xxsql("M","DEBUG")=$c(1),%xxsql("M","FORKNETDMN")=$c(1)
+	s %xxsql("M","HASHLOCK")=$c(1),%xxsql("M","NETNEWHASH")=$c(1),%xxsql("M","USEDIRCACHE")=$c(1),%xxsql("M","USEGCNT")=2,%xxsql("M","USEGOFF")=$c(1)
+	s %xxsql("M","USELOST")=$c(1),%xxsql("M","ZVERSION")=$c(1),%xxsql("I","%occSqlfunc")="",%xxsql("I","%sySystem")="",%xxsql("I","%systemInclude")=""
+	s %xxsql("I","Ensemble")="",%xxsql("I","HS.HC.FHIRSQL.Errors")="",%xxsql("NS")="IRISAPP",%xxsql("PToolsCTI")=$LB(,"-1:0:0::0:1")
+	do BuildQuery^%SYS.SQLSRV(.%xxsql,$lb("Logical","","","AAA",0,"",),,"AAA.Patient.CLS")
+	return
+%0dsql9	n %xxsql
+	s %xxsql("S",1)="SELECT ID FROM AAA . Patient WHERE ID = :%pVals(1) AND ( %ID <> :%pID OR :%pID IS NULL )"
+	s %xxsql("M","%occSqlfuncinc")=$c(1),%xxsql("M","ALLOCGVEC")=$c(1),%xxsql("M","CACHENAMES")="",%xxsql("M","DEBUG")=$c(1),%xxsql("M","FORKNETDMN")=$c(1)
+	s %xxsql("M","HASHLOCK")=$c(1),%xxsql("M","NETNEWHASH")=$c(1),%xxsql("M","USEDIRCACHE")=$c(1),%xxsql("M","USEGCNT")=2,%xxsql("M","USEGOFF")=$c(1)
+	s %xxsql("M","USELOST")=$c(1),%xxsql("M","ZVERSION")=$c(1),%xxsql("I","%occSqlfunc")="",%xxsql("I","%sySystem")="",%xxsql("I","%systemInclude")=""
+	s %xxsql("I","Ensemble")="",%xxsql("I","HS.HC.FHIRSQL.Errors")="",%xxsql("NS")="IRISAPP",%xxsql("PToolsCTI")=$LB(,"-1:0:0::0:1")
+	do BuildQuery^%SYS.SQLSRV(.%xxsql,$lb("Logical","","","AAA",0,"",),,"AAA.Patient.CLS")
+	return
+zIDKEYSQLExists(pLockOnly=0,pUnlockRef,%pVal...) methodimpl
+	// SQL Foreign Key validation entry point for Key IDKEY.  Called by FKeys that reference this Key to see if the row is defined
+	if pLockOnly>=0 { new id set id=%pVal(1) }
+	if pLockOnly>=0 { if '..%SQLGetLock(id,1,.pUnlockRef) { set sqlcode=-114,%msg=$$FormatMessage^%occMessages(,"%SQL.Filer","SQLFiler39",,"AAA"_"."_"Patient"_":"_"IDKEY") RETURN 0 } }
+	if pLockOnly<1 {
+		new exists set exists='..IDKEYSQLCheckUnique(0,,%pVal(1)) RETURN:pLockOnly=-1 exists
+		do:'$g(pUnlockRef) ..%SQLReleaseLock(id,1) RETURN exists
+	}
+	else { do:'$g(pUnlockRef) ..%SQLReleaseLock(id,1) RETURN 1 }
+	Return
+KeyIndexExists(K1,id="") [ K1,SQLCODE,id ] methodimpl { New %ROWCOUNT,%ROWID,%msg,SQLCODE 
+	 ;---&sql(SELECT %ID INTO :id FROM AAA.Patient WHERE (:K1 is not null and Key = :K1) OR (:K1 IS NULL AND Key IS NULL))
+ 	 ;--- ** SQL PUBLIC Variables: %ROWCOUNT, %ROWID, %msg, K1, SQLCODE, id
+	try { d $classmethod("%sqlcq."_$tr($namespace,"%_-$@:/\[]^ .","pudssssssssss")_$case($zu(115,2),0:".u",1:".x",3:".v",:"."_$zu(115,2))_"EnTJ5rDhvtzpnfLfgYiqa6siLbZ","%New") } catch { if ($ze["<CLASS DOES NOT EXIST>"||($ze["<NOROUTINE>"))&&($ze[("%sqlcq."_$tr($namespace,"%_-$@:/\[]^ .","pudssssssssss")_$case($zu(115,2),0:".u",1:".x",3:".v",:"."_$zu(115,2))_"EnTJ5rDhvtzpnfLfgYiqa6siLbZ"))||($ze["<ZSQLU>") { d %0dsqlb } else { throw } }
+	Quit $select('SQLCODE:1,1:0) }
+ q
+%0dsqlb	n %xxsql
+	s %xxsql("S",1)="SELECT %ID INTO :id FROM AAA . Patient WHERE ( :K1 IS NOT NULL AND Key = :K1 ) OR ( :K1 IS NULL AND Key IS NULL )"
+	s %xxsql("M","%occSqlfuncinc")=$c(1),%xxsql("M","ALLOCGVEC")=$c(1),%xxsql("M","CACHENAMES")="",%xxsql("M","DEBUG")=$c(1),%xxsql("M","FORKNETDMN")=$c(1)
+	s %xxsql("M","HASHLOCK")=$c(1),%xxsql("M","NETNEWHASH")=$c(1),%xxsql("M","USEDIRCACHE")=$c(1),%xxsql("M","USEGCNT")=2,%xxsql("M","USEGOFF")=$c(1)
+	s %xxsql("M","USELOST")=$c(1),%xxsql("M","ZVERSION")=$c(1),%xxsql("I","%occSqlfunc")="",%xxsql("I","%sySystem")="",%xxsql("I","%systemInclude")=""
+	s %xxsql("I","Ensemble")="",%xxsql("I","HS.HC.FHIRSQL.Errors")="",%xxsql("NS")="IRISAPP",%xxsql("PToolsCTI")=$LB(,"-1:0:0::0:1")
+	do BuildQuery^%SYS.SQLSRV(.%xxsql,$lb("Logical","","","AAA",0,"",),,"AAA.Patient.CLS")
+	return:$g(%IRISSQLCachedCompileOnly)
+	if $g(SQLCODE) { try { set id="" } catch {} }
+	return
+zChangesExecute(%oper=0,pNew,pOld,pChanged,%ok,%msg) methodimpl
+	Set SQLCODE=-115
+	Set %msg = "<Cannot INSERT/UPDATE/DELETE on a read only table>"
+	Set %ok = 0
+	Return %msg
+	QUIT
+%sqllistUCQ(t) public	{
+	s t("%0dsql3")="",t("%0dsql7")="",t("%0dsql9")="",t("%0dsqlA")="",t("%0dsqlD")="",t("%0dsqlF")="",t("%0dsqlH")="",t("%0dsqlL")=""
+	s t("%0dsqlN")="",t("%0dsqlP")="",t("%0dsqlR")="",t("%0dsqlT")="",t("%0dsqlV")="",t("%0dsqlZ")="",t("%0dsqlb")=""
+}

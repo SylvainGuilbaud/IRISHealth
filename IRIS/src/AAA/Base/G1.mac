@@ -1,0 +1,13 @@
+ROUTINE AAA.Base.G1 [Generated]
+	;AAA.Base.G1
+	;(C)InterSystems, method generator for class AAA.Base.  Do NOT edit.
+	Quit
+	;
+#include %systemInclude
+#include %systemInclude
+#classcontext AAA.Base
+#generator
+#classmethod FHIRCORE
+pFHIRCORE(%class,%parameter) public { New %classname Set %classname=%class
+ Quit $lb("hl7.fhir.r4.core@4.0.1")
+}
