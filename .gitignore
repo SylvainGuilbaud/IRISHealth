@@ -2,6 +2,7 @@
 **/.DS_Store
 **/*archive*
 volumes
+InterSystems/storage/IRIS
 **/out
 data/LabResult/pdf
 **/IRIS.DAT
