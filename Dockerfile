@@ -1,7 +1,7 @@
 ARG IMAGE=containers.intersystems.com/intersystems/irishealth-community:latest-em
 ARG IMAGE=containers.intersystems.com/intersystems/irishealth-ml-community:latest-em
 ARG IMAGE=containers.intersystems.com/intersystems/irishealth-community:latest-preview
-ARG IMAGE=localhost/intersystems/irishealth-community-arm64:2025.1.0.223.0
+# ARG IMAGE=localhost/intersystems/irishealth-community-arm64:2025.1.0.223.0
 # ARG IMAGE=containers.intersystems.com/intersystems/irishealth-ml-community:latest-preview
 FROM $IMAGE AS builder
 

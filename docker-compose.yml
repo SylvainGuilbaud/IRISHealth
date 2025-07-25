@@ -1,8 +1,13 @@
 services:
   iris:
+    # get the latest version of InterSystems IRIS Community Edition
+    # image: $IMAGE_IRIS_EM
+    # image: $IMAGE_IRIS_CD
+    # image: $IMAGE_IRIS_PREVIEW
+    image: $IMAGE_IRIS
     build:
       context: ./IRIS
-      dockerfile: IRISDockerfile
+      dockerfile: Dockerfile
     init: true
     container_name: ${CONTAINER_NAME}
     hostname: ${CONTAINER_NAME}
