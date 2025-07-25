@@ -64,6 +64,7 @@ XData ProductionDefinition
   <Item Name="source HL7 TCP" Category="HL7" ClassName="EnsLib.HL7.Service.TCPService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
     <Setting Target="Host" Name="TargetConfigNames">HL7v2 router</Setting>
     <Setting Target="Host" Name="LocalFacilityApplication">ISC:IRISHL7</Setting>
+    <Setting Target="Adapter" Name="JobPerConnection">1</Setting>
   </Item>
   <Item Name="target HL7 TCP" Category="HL7" ClassName="EnsLib.HL7.Operation.TCPOperation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
   </Item>
