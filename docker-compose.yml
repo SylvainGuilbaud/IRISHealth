@@ -4,7 +4,7 @@ services:
     # image: $IMAGE_IRIS_EM
     # image: $IMAGE_IRIS_CD
     # image: $IMAGE_IRIS_PREVIEW
-    image: $IMAGE_IRIS
+    image: $IMAGE_IRISHEALTH
     build:
       context: ./IRIS
       dockerfile: Dockerfile
@@ -19,13 +19,13 @@ services:
     # - "/etc/localtime:/etc/localtime:ro"
     # command: -a /IRIS/configure.sh
     environment:
-      - ISC_DATA_DIRECTORY=/volumes/IRIS
+      - ISC_DATA_DIRECTORY=$ISC_DATA_DIRECTORY
       - TINI_SUBREAPER=1
       - TZ=Europe/Paris
-      - ISC_CPF_MERGE_FILE=/data/merge/merge.cpf
+      - ISC_CPF_MERGE_FILE=$ISC_CPF_MERGE_FILE
     ports:
-      - 29720:1972
-      - 28000:52773
+      - $IRIS_MGR_PORT:1972
+      - $IRIS_WEB_PORT:52773
       # - 10001:10001
       - 24040:8080
       # - 4041:8081
