@@ -1,0 +1,4 @@
+8000|1|20250530|2
+3100|DUBOIS|Jeanne|19800102|F|123 Avenue Exemple|75000|Paris|France
+5100|1|ECG de repos|20250531|083002|Dr. Martine
+5200|1|C:\Rapports\ECG_20250530_00002.pdf
