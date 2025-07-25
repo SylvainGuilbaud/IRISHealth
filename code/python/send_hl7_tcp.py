@@ -187,6 +187,11 @@ def send_hl7_message():
     first_name = entry_first_name.get()
     last_name = entry_last_name.get()
     dob = entry_dob.get()
+    
+    # log_text.configure(state="normal")
+    # log_text.delete("1.0", tk.END)
+    # log_text.configure(state="disabled")
+    
     # gender = entry_gender.get()
     # Extrait juste la première lettre (code HL7) : "M", "F", ou "X"
     
@@ -242,6 +247,7 @@ IN1|1|SECURITE SOCIALE|1|CPAM|||||||||||||||||||||||||||||||||||||||||||"""
             exit(1)
 
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            
             logging.info("Message HL7 généré :\n%s", hl7_message.replace("\r", "\n"))
             append_to_log_console("Message HL7 généré :\n" + hl7_message.replace("\r", "\n"))
             s.setsockopt(socket.SOL_SOCKET, socket.SO_KEEPALIVE, 1)
@@ -250,8 +256,8 @@ IN1|1|SECURITE SOCIALE|1|CPAM|||||||||||||||||||||||||||||||||||||||||||"""
             response = s.recv(1024).decode()
             # messagebox.showinfo("", f"{translations[current_language]['success']}\n{response}")
             
-            logging.info("ACK reçu du serveur :\n%s", response)
-            append_to_log_console("ACK reçu :\n" + response)
+            logging.info("réponse reçue :\n%s", response.replace("\r", "\n"))
+            append_to_log_console("réponse reçue :\n" + response.replace("\r", "\n"))
 
     except Exception as e:
         logging.error("Erreur lors de l'envoi HL7 : %s", str(e))
@@ -342,7 +348,7 @@ btn_send.place(x=550, y=310, width=200)
 btn_lang.place(x=0, y=0, width=50)
 
 # Zone de log affichée dans l'interface
-log_text = tk.Text(window, height=30, width=200, bg="#190554", font=("Monaco", 11))
+log_text = tk.Text(window, height=30, width=212, bg="#190554", font=("Monaco", 11))
 
 # Style pour le segment PID
 log_text.tag_config(
@@ -352,14 +358,12 @@ log_text.tag_config(
     font=("Monaco", 12, "bold")         # police fixe + gras
 )
 
-
 # Style pour les champs importants (nom, prénom, etc.)
 log_text.tag_config("important_value", underline=True, foreground="red")
 
 # Définir des styles de surlignage
 log_text.tag_config("error", background="misty rose", foreground="red")
 log_text.tag_config("ack", background="light green", foreground="dark green")
-log_text.tag_config("message", background="light yellow", foreground="black")
 
 log_text.place(x=20, y=600)
 # log_text.configure(state="disabled")  # lecture seule
