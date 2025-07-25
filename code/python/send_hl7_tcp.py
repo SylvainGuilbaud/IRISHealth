@@ -184,7 +184,6 @@ gender_code_dict = {
 
     
 def send_hl7_message():
-    print("send_hl7_message() déclenchée")
     first_name = entry_first_name.get()
     last_name = entry_last_name.get()
     dob = entry_dob.get()
