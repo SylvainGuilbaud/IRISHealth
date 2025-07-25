@@ -4,8 +4,10 @@ services:
     # image: $IMAGE_IRIS_EM
     # image: $IMAGE_IRIS_CD
     # image: $IMAGE_IRIS_PREVIEW
-    image: $IMAGE_IRISHEALTH
+    # image: $IMAGE_IRISHEALTH
     build:
+      args:
+        IMAGE: $IMAGE_IRISHEALTH
       context: ./IRIS
       dockerfile: Dockerfile
     init: true
