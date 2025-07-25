@@ -265,6 +265,16 @@ def switch_language():
     current_language = "en" if current_language == "fr" else "fr"
     update_labels()
 
+# def update_labels():
+#     window.title(translations[current_language]["title"])
+#     label_first_name.config(text=translations[current_language]["first_name"])
+#     label_last_name.config(text=translations[current_language]["last_name"])
+#     label_dob.config(text=translations[current_language]["dob"])
+#     label_gender.config(text=translations[current_language]["gender"])
+#     btn_send.config(text=translations[current_language]["send"])
+#     btn_lang.config(text="🇬🇧" if current_language == "fr" else "🇫🇷")
+#     entry_gender['values'] = gender_options_dict[current_language]
+    
 def update_labels():
     window.title(translations[current_language]["title"])
     label_first_name.config(text=translations[current_language]["first_name"])
@@ -274,6 +284,8 @@ def update_labels():
     btn_send.config(text=translations[current_language]["send"])
     btn_lang.config(text="🇬🇧" if current_language == "fr" else "🇫🇷")
     entry_gender['values'] = gender_options_dict[current_language]
+    gender_var.set(gender_options_dict[current_language][0])  # <-- nouvelle ligne importante
+
 
 # Fenêtre principale
 window = tk.Tk()
