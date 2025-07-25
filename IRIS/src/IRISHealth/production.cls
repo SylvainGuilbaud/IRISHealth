@@ -156,7 +156,6 @@ XData ProductionDefinition
   <Item Name="de Résultats de Laboratoire" Category="Résultats de Laboratoire" ClassName="EnsLib.HL7.Service.FileService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
     <Setting Target="Host" Name="MessageSchemaCategory">2.3</Setting>
     <Setting Target="Host" Name="TargetConfigNames">LABO</Setting>
-    <Setting Target="Adapter" Name="FilePath">/aaadata/LabResult/in</Setting>
     <Setting Target="Adapter" Name="ArchivePath"></Setting>
     <Setting Target="Adapter" Name="FileSpec">*.hl7</Setting>
     <Setting Target="Host" Name="ArchiveIO">0</Setting>

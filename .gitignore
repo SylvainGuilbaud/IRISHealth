@@ -9,5 +9,7 @@ data/LabResult/pdf
 # Ignore all python bytecode files
 **/*.pyc
 **/*.pyo
-
+# Ignore .int, *.mac from objectscript
+**/*.int
+**/*.mac
 
