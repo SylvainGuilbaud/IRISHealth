@@ -12,7 +12,6 @@
       <Resource Name="msg.PKG"/>
       <Resource Name="HTTP.PKG"/>
       <Resource Name="SQLConnection.GBL"/>
-      <Resource Name="settings.GBL"/>
       <Resource Name="LookupTable.GBL"/>
       <Invoke Class="%SYSTEM.OBJ" Method="Delete" >
          <Arg>IRISAPPPKG.FoundationProduction.cls</Arg>
