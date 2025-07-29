@@ -1,5 +1,8 @@
-.DS_Store
 **/.DS_Store
+**/*.tar
+**/*.tgz
+**/*.gz
+**/PyGUI*
 volumes
 InterSystems/storage/IRIS
 data/LabResult/pdf

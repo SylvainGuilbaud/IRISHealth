@@ -3,7 +3,7 @@ ARG IMAGE=containers.intersystems.com/intersystems/irishealth-ml-community:lates
 ARG IMAGE=containers.intersystems.com/intersystems/irishealth-community:latest-preview
 # ARG IMAGE=localhost/intersystems/irishealth-community-arm64:2025.1.0.223.0
 # ARG IMAGE=containers.intersystems.com/intersystems/irishealth-ml-community:latest-preview
-FROM $IMAGE AS builder
+FROM $IMAGE 
 
 USER root
 
@@ -35,6 +35,7 @@ RUN apt install -y fontconfig xfonts-75dpi xfonts-base && rm -rf /var/lib/apt/li
 
 USER ${ISC_PACKAGE_MGRUSER}  
 COPY .iris_init /home/irisowner/.iris_init
+
 WORKDIR /home/irisowner/dev
 
 #create Python env
@@ -43,45 +44,15 @@ ENV SRC_PATH=/opt/irisapp
 ENV IRISUSERNAME="SuperUser"
 ENV IRISPASSWORD="SYS"
 ENV IRISNAMESPACE="USER"
-ENV TZ=Europe/Paris
-#ENV PATH "/usr/irissys/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/irisowner/bin"
-
-# Install Native API
-# For now Native API wheel is not embedded in container
-# COPY misc/intersystems_irispython-3.2.0-py3-none-any.whl /usr/irissys/dev/python/intersystems_irispython-3.2.0-py3-none-any.whl
-# RUN pip3 install /usr/irissys/dev/python/intersystems_irispython-3.2.0-py3-none-any.whl
-
-# Install Jupyter 
-# RUN python3 -m pip install --upgrade pip && \
-#     pip3 install jupyter
-
-# RUN mkdir /home/irisowner/.local/share/jupyter/kernels/irispython
-# COPY kernels/irispython/* /home/irisowner/.local/share/jupyter/kernels/irispython/
-# Install objectscript kernel
-# RUN mkdir /home/irisowner/.local/share/jupyter/kernels/objectscript
-# COPY kernels/objectscript/* /home/irisowner/.local/share/jupyter/kernels/objectscript/
-# Install Native API
-# For now Native API wheel is not embedded in container
-# COPY python/intersystems_iris-3.5.0-py3-none-any.whl /usr/irissys/dev/python/intersystems_iris-3.5.0-py3-none-any.whl
-# RUN pip3 install /usr/irissys/dev/python/intersystems_iris-3.5.0-py3-none-any.whl
 
 RUN --mount=type=bind,src=.,dst=. \
-    python3 -m venv ~/py_envs && \
-    . ~/py_envs/bin/activate && \
+    python3 -m venv ~/py_venv && \
+    . ~/py_venv/bin/activate && \
     pip3 install -r requirements.txt && \
+    pip3 install python_fhir_converter-0.4.5-py3-none-any.whl && \
     iris start IRIS && \
     iris merge IRIS merge.cpf && \
 	iris session IRIS < iris.script && \
     iris stop IRIS quietly 
 
-FROM $IMAGE AS final
-ADD --chown=${ISC_PACKAGE_MGRUSER}:${ISC_PACKAGE_IRISGROUP} https://github.com/grongierisc/iris-docker-multi-stage-script/releases/latest/download/copy-data.py /home/irisowner/dev/copy-data.py
-#ADD https://github.com/grongierisc/iris-docker-multi-stage-script/releases/latest/download/copy-data.py /home/irisowner/dev/copy-data.py
-
-RUN --mount=type=bind,source=/,target=/builder/root,from=builder \
-    cp -f /builder/root/usr/irissys/iris.cpf /usr/irissys/iris.cpf && \
-    python3 /home/irisowner/dev/copy-data.py -c /usr/irissys/iris.cpf -d /builder/root/ 
-
-COPY entrypoint.sh /home/irisowner/dev/entrypoint.sh
-COPY .iris_init /home/irisowner/.iris_init
-ENTRYPOINT [ "/tini", "--", "/home/irisowner/dev/entrypoint.sh" ]
+ENV PATH="/home/irisowner/py_venv/bin:$PATH"

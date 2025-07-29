@@ -19,3 +19,7 @@ holidays
 flask
 gunicorn
 # jupyter
+iris-pex-embedded-python>=3.0.0
+hl7apy>=1.0.0
+jsonpath-ng>=1.5.2
+pytest
