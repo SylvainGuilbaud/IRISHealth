@@ -19,6 +19,8 @@ XData UrlMap [ XMLNamespace = "http://www.intersystems.com/urlmap" ]
 {
 <Routes>
 <Route Url="/" Method="GET" Call="version"/>
+<Route Url="/env/:env" Method="GET" Call="getEnv"/>
+<Route Url="/pyenv/:env" Method="GET" Call="pyEnv"/>
 <Route Url="/pop/:classname/:nb" Method="GET" Call="pop"/>
 <Route Url="/add" Method="POST" Call="add"/>
 <Route Url="/initdb" Method="POST" Call="initdb "/>
@@ -40,6 +42,41 @@ XData UrlMap [ XMLNamespace = "http://www.intersystems.com/urlmap" ]
 <Route Url="/__spec/:filename" Method="GET" Call="fileSpec" />
 <Route Url="/dump" Method="GET" Call="dump" />
 </Routes>
+}
+
+/// Description
+ClassMethod getEnv(env As %String) As %Status
+{
+    Set sc = $$$OK
+    set %response.ContentType=..#CONTENTTYPEJSON
+    Set json = {}
+    ; check if env parameter is defined
+    If env = "" {
+        set sc = $SYSTEM.Status.Error(4001, "Environment parameter is missing")
+        Set json.error = "Environment parameter is missing"     
+    } else {
+        Set json.env = env
+        Set json.value = ($System.Util.GetEnviron(env))
+    }
+    Do json.%ToJSON()
+    Return sc
+}
+
+ClassMethod pyEnv(env As %String) As %Status
+{
+    Set sc = $$$OK
+    set %response.ContentType=..#CONTENTTYPEJSON
+    Set json = {}
+    ; check if env parameter is defined
+    If env = "" {
+        set sc = $SYSTEM.Status.Error(4001, "Environment parameter is missing")
+        Set json.error = "Environment parameter is missing"     
+    } else {
+        Set json.env = env
+        Set json.value = (##class(%SYS.Python).Import("os").getenv(env))
+    }
+    Do json.%ToJSON()
+    Return sc
 }
 
 ClassMethod fileSpec(filename As %String) As %Status

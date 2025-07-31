@@ -19,7 +19,7 @@ services:
     - ./$ISC_DATA_DIRECTORY:/$ISC_DATA_DIRECTORY
     # - "/etc/timezone:/etc/timezone:ro"
     # - "/etc/localtime:/etc/localtime:ro"
-    # command: -a /IRIS/configure.sh
+    # command: -a /IRIS/FHIR-converter/entrypoint.sh
     environment:
       - ISC_DATA_DIRECTORY=$ISC_DATA_DIRECTORY
       - TINI_SUBREAPER=1
