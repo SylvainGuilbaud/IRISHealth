@@ -18,6 +18,8 @@
     do ##class(Security.SSLConfigs).Create("API")
     do ##class(Security.Applications).Import("/home/irisowner/dev/webapp.xml",.n) 
 
+    do $system.OBJ.Import("/home/irisowner/dev/src/%ZSTART.mac","ck")
+
     zn "IRISAPP"
 
     #; common
