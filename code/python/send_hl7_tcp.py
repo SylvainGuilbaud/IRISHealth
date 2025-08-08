@@ -20,7 +20,6 @@ START_BLOCK = '\x0b'
 END_BLOCK = '\x1c'
 CARRIAGE_RETURN = '\x0d'
 
-
 def generate_random_hl7_message():
     patient_id = entry_patient_id.get()
     first_name = entry_first_name.get()
@@ -28,6 +27,8 @@ def generate_random_hl7_message():
     dob = entry_dob.get()
     selected_label = gender_var.get()  # exemple: "femme"
     gender = gender_code_dict[current_language][selected_label]
+    weight = entry_weight.get()
+    height = entry_height.get()
 
     if not all([patient_id, first_name, last_name, dob, gender]):
         messagebox.showwarning("", translations[current_language]["error_fields"])
@@ -41,22 +42,22 @@ def generate_random_hl7_message():
 
     timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
     # Génération des données aléatoires   
-    poids = round(random.uniform(50, 100), 1)
-    taille = random.randint(150, 200)
+    
     pas = random.randint(110, 180)
     pad = random.randint(60, 100)
     glucose = round(random.uniform(4.0, 8.0), 1)
     glucose_flag = "H" if glucose > 5.7 else "N"
 
     # Construction du message HL7
+    
     hl7_message = f"""MSH|^~\\&|REGADT|MCM|IFENG||{timestamp}||ADT^A01|000001|P|2.5.1|1||
 EVN|A01|{timestamp}|{timestamp}|1
 PID|||{patient_id}^^^HOPITAL^MRN~FR{random.randint(100000,999999)}^^^DLNUM^DL|253763|{last_name}^{first_name}||{dob_formatted}|{gender}|||77 Rue de Varenne^^PARIS^75^75007^||(01)554437765|(06)098866543|FRENCH|S|C|10199925|1641202898334566
 NK1|1|DUPONT^MARIE^|EPOUSE||||PERSONNE A PREVENIR||
 PV1|1|H|CARDIO^CHAMBRE201^LIT1||||004777^MARTIN^SOPHIE^DR|||CARDIO|||||ADM|A0|
 PV2|||^Chirurgie Programmée||||||||||||||||||||||||||||||||||||||20240712
-OBX|1|NM|21612-7^POIDS CORPOREL||{poids}|kg|||||F
-OBX|2|NM|8302-2^TAILLE||{taille}|cm|||||F
+OBX|1|NM|21612-7^weight CORPOREL||{weight}|kg|||||F
+OBX|2|NM|8302-2^height||{height}|cm|||||F
 OBX|3|NM|8480-6^PRESSION ARTERIELLE SYSTOLIQUE||{pas}|mm[Hg]|||||F
 OBX|4|NM|8462-4^PRESSION ARTERIELLE DIASTOLIQUE||{pad}|mm[Hg]|||||F
 OBX|5|NM|2339-0^GLUCOSE SANGUIN||{glucose}|mmol/L|3.5-5.7|{glucose_flag}|||F
@@ -115,6 +116,12 @@ def on_generate_data():
     entry_dob.insert(0, generate_random_dob())
     entry_gender.delete(0, tk.END)
     entry_gender.insert(0, generate_random_gender())
+    weight = round(random.uniform(50, 100), 1)
+    height = random.randint(150, 200)
+    entry_weight.delete(0, tk.END)
+    entry_weight.insert(0, weight)
+    entry_height.delete(0, tk.END)
+    entry_height.insert(0, height)
 
 def highlight_lines_with(keyword, tag="highlight"):
     log_text.configure(state="normal")
@@ -216,6 +223,73 @@ def highlight_pid_segment():
 
     log_text.configure(state="disabled")
 
+def highlight_obx_1_segment():
+    # log_text.configure(state="normal")
+    log_text.tag_remove("obx_1_segment", "1.0", tk.END)
+    # log_text.tag_remove("important_value", "1.0", tk.END)
+
+    start = "1.0"
+    while True:
+        pos = log_text.search("OBX|1", start, stopindex=tk.END)
+        if not pos:
+            break
+        end = f"{pos} lineend"
+        log_text.tag_add("obx_1_segment", pos, end)
+
+        line_content = log_text.get(pos, end)
+        fields = line_content.split("|")
+
+        # Construire un index caractère → champ
+        field_start_indices = []
+        cursor = 0
+        for field in fields:
+            field_start_indices.append(cursor)
+            cursor += len(field) + 1  # +1 pour le séparateur "|"
+
+
+        # Marquer le champ 5 : Poids
+        if len(fields) > 5 and fields[5]:
+            weight_start = field_start_indices[5]
+            weight_end = weight_start + len(fields[5])
+            log_text.tag_add("important_value", f"{pos}+{weight_start}c", f"{pos}+{weight_end}c")
+
+        start = end
+
+    log_text.configure(state="disabled")
+    
+def highlight_obx_2_segment():
+    # log_text.configure(state="normal")
+    log_text.tag_remove("obx_2_segment", "1.0", tk.END)
+    # log_text.tag_remove("important_value", "1.0", tk.END)
+
+    start = "1.0"
+    while True:
+        pos = log_text.search("OBX|2", start, stopindex=tk.END)
+        if not pos:
+            break
+        end = f"{pos} lineend"
+        log_text.tag_add("obx_2_segment", pos, end)
+
+        line_content = log_text.get(pos, end)
+        fields = line_content.split("|")
+
+        # Construire un index caractère → champ
+        field_start_indices = []
+        cursor = 0
+        for field in fields:
+            field_start_indices.append(cursor)
+            cursor += len(field) + 1  # +1 pour le séparateur "|"
+
+
+        # Marquer le champ 5 : Taille
+        if len(fields) > 5 and fields[5]:
+            height_start = field_start_indices[5]
+            height_end = height_start + len(fields[5])
+            log_text.tag_add("important_value", f"{pos}+{height_start}c", f"{pos}+{height_end}c")
+
+        start = end
+
+    log_text.configure(state="disabled")
     
 def append_to_log_console(text):
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -225,6 +299,8 @@ def append_to_log_console(text):
     log_text.configure(state="disabled")
     highlight_log_keywords() 
     highlight_pid_segment()  
+    highlight_obx_1_segment()
+    highlight_obx_2_segment()
 
 def check_port_open(host=SERVER_IP, port=SERVER_PORT, timeout=1):
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -252,7 +328,9 @@ translations = {
         "hl7_generated": "Message HL7 généré:",
         "send_error":"Erreur lors de l'envoi HL7 :",
         "response_received": "réponse reçue:",
-        "patient_id": "Identifiant du patient"
+        "patient_id": "Identifiant du patient",
+        "weight": "Poids (kg)",
+        "height": "Taille (cm)"
 
     },
     "en": {
@@ -271,7 +349,9 @@ translations = {
         "hl7_generated": "HL7 message generated:",
         "send_error":"Error sending HL7 :",
         "response_received": "response received:",
-        "patient_id": "Patient ID"
+        "patient_id": "Patient ID",
+        "weight": "Weight (kg)",
+        "height": "Height (cm)"
 
     },
     "es": {
@@ -290,7 +370,9 @@ translations = {
         "hl7_generated": "Mensaje HL7 generado:",
         "send_error":"Error al enviar HL7 :",
         "response_received": "respuesta recibida:",
-        "patient_id": "Identificador del paciente"
+        "patient_id": "Identificador del paciente",
+        "weight": "Peso (kg)",
+        "height": "Talla (cm)"
     }
 }
 
@@ -327,8 +409,8 @@ def send_hl7_message():
 # NK1|1|DUPONT^MARIE^|EPOUSE||||ERSONNE A PREVENIR||
 # PV1|1|H|CARDIO^CHAMBRE201^LIT1||||004777^MARTIN^SOPHIE^DR|||CARDIO|||||ADM|A0|
 # PV2|||^Chirurgie Programmée||||||||||||||||||||||||||||||||||||||20240712
-# OBX|1|NM|21612-7^POIDS CORPOREL||52|kg|||||F
-# OBX|2|NM|8302-2^TAILLE||163|cm|||||F
+# OBX|1|NM|21612-7^weight CORPOREL||52|kg|||||F
+# OBX|2|NM|8302-2^height||163|cm|||||F
 # OBX|3|NM|8480-6^PRESSION ARTERIELLE SYSTOLIQUE||154|mm[Hg]|||||F
 # OBX|4|NM|8462-4^PRESSION ARTERIELLE DIASTOLIQUE||87|mm[Hg]|||||F
 # OBX|5|NM|2339-0^GLUCOSE SANGUIN||6.2|mmol/L|3.5-5.7|H|||F
@@ -393,6 +475,8 @@ def update_labels():
     label_last_name.config(text=translations[current_language]["last_name"])
     label_dob.config(text=translations[current_language]["dob"])
     label_gender.config(text=translations[current_language]["gender"])
+    label_weight.config(text=translations[current_language]["weight"])
+    label_height.config(text=translations[current_language]["height"])
     btn_send.config(text=translations[current_language]["send"])
 
     # Mettre à jour le drapeau 🇫🇷 / 🇬🇧 / 🇪🇸
@@ -442,6 +526,7 @@ entry_last_name = tk.Entry(window,bg="#03045C", font=("Avenir", 23))
 entry_last_name.insert(0,"MUNRO")
 
 label_dob = tk.Label(window, bg="#70B8EA", font=("Avenir", 23))
+
 # entry_dob = tk.Entry(window,bg="#03045C", font=("Avenir", 23))
 
 entry_dob = DateEntry(window, date_pattern='dd/mm/yyyy', locale='fr_FR', font=("Avenir", 23), width=12)
@@ -454,6 +539,14 @@ label_gender = tk.Label(window, bg="#70B8EA", font=("Avenir", 23))
 gender_var = tk.StringVar()
 entry_gender = ttk.Combobox(window, textvariable=gender_var, state="readonly", font=("Avenir", 23))
 entry_gender.set(gender_options_dict[current_language][1]) 
+
+label_weight = tk.Label(window, bg="#70B8EA", font=("Avenir", 23))
+entry_weight = tk.Entry(window, bg="#03045C", font=("Avenir", 23))
+entry_weight.insert(0, round(random.uniform(50, 100), 1))
+
+label_height = tk.Label(window, bg="#70B8EA", font=("Avenir", 23))
+entry_height = tk.Entry(window, bg="#03045C", font=("Avenir", 23))
+entry_height.insert(0, random.randint(150, 200))
 
 btn_send = tk.Button(window, bg="#03045C", text="", command=send_hl7_message, font=("Avenir", 15))
 btn_lang = tk.Button(window, bg="#03045C",text="🇬🇧", command=switch_language, font=("Avenir", 23))
@@ -474,7 +567,14 @@ entry_dob.place(x=550, y=200, width=200)
 label_gender.place(x=50, y=250)
 entry_gender.place(x=550, y=250, width=200)
 
-btn_send.place(x=550, y=310, width=200)
+label_weight.place(x=50, y=300)
+entry_weight.place(x=550, y=300, width=200)
+
+label_height.place(x=50, y=350)
+entry_height.place(x=550, y=350, width=200)
+
+
+btn_send.place(x=550, y=400, width=200)
 btn_lang.place(x=0, y=0, width=50)
 
 # Zone de log affichée dans l'interface
@@ -489,7 +589,7 @@ log_text.tag_config(
 )
 
 # Style pour les champs importants (nom, prénom, etc.)
-log_text.tag_config("important_value", underline=True, foreground="red")
+log_text.tag_config("important_value", underline=True, foreground="red", background="white")
 
 # Définir des styles de surlignage
 log_text.tag_config("error", background="misty rose", foreground="red")
@@ -502,7 +602,8 @@ log_text.tag_config("highlight", background="yellow", foreground="black")
 
 # log_text.tag_add("highlight", "1.0", "1.20")  # surligne les 20 premiers caractères de la ligne 3
 
-highlight_lines_with("PID")
+# highlight_lines_with("PID")
+# highlight_lines_with("OBX")
 
 update_labels()
 window.mainloop()
