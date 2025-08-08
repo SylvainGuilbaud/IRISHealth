@@ -8,6 +8,8 @@ from tkinter import ttk
 import logging
 from datetime import date
 import re
+import random
+import string
 
 # --- TCP client configuration ---
 SERVER_IP = '127.0.0.1'
@@ -19,6 +21,59 @@ END_BLOCK = '\x1c'
 CARRIAGE_RETURN = '\x0d'
 
 
+def generate_random_hl7_message():
+    patient_id = entry_patient_id.get()
+    first_name = entry_first_name.get()
+    last_name = entry_last_name.get()
+    dob = entry_dob.get()
+    selected_label = gender_var.get()  # exemple: "femme"
+    gender = gender_code_dict[current_language][selected_label]
+
+    if not all([patient_id, first_name, last_name, dob, gender]):
+        messagebox.showwarning("", translations[current_language]["error_fields"])
+        return
+
+    try:
+        dob_formatted = datetime.strptime(dob, "%d/%m/%Y").strftime("%Y%m%d")
+    except ValueError:
+        messagebox.showerror("", translations[current_language]["error_date"])
+        return
+
+    timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
+    # Génération des données aléatoires   
+    poids = round(random.uniform(50, 100), 1)
+    taille = random.randint(150, 200)
+    pas = random.randint(110, 180)
+    pad = random.randint(60, 100)
+    glucose = round(random.uniform(4.0, 8.0), 1)
+    glucose_flag = "H" if glucose > 5.7 else "N"
+
+    # Construction du message HL7
+    hl7_message = f"""MSH|^~\\&|REGADT|MCM|IFENG||{timestamp}||ADT^A01|000001|P|2.5.1|1||
+EVN|A01|{timestamp}|{timestamp}|1
+PID|||{patient_id}^^^HOPITAL^MRN~FR{random.randint(100000,999999)}^^^DLNUM^DL|253763|{last_name}^{first_name}||{dob_formatted}|{gender}|||77 Rue de Varenne^^PARIS^75^75007^||(01)554437765|(06)098866543|FRENCH|S|C|10199925|1641202898334566
+NK1|1|DUPONT^MARIE^|EPOUSE||||PERSONNE A PREVENIR||
+PV1|1|H|CARDIO^CHAMBRE201^LIT1||||004777^MARTIN^SOPHIE^DR|||CARDIO|||||ADM|A0|
+PV2|||^Chirurgie Programmée||||||||||||||||||||||||||||||||||||||20240712
+OBX|1|NM|21612-7^POIDS CORPOREL||{poids}|kg|||||F
+OBX|2|NM|8302-2^TAILLE||{taille}|cm|||||F
+OBX|3|NM|8480-6^PRESSION ARTERIELLE SYSTOLIQUE||{pas}|mm[Hg]|||||F
+OBX|4|NM|8462-4^PRESSION ARTERIELLE DIASTOLIQUE||{pad}|mm[Hg]|||||F
+OBX|5|NM|2339-0^GLUCOSE SANGUIN||{glucose}|mmol/L|3.5-5.7|{glucose_flag}|||F
+AL1|1||^AMOXICILLINE||URTICAIRE|
+AL1|2||^ASPIRINE||OEDEME DE QUINCKE|
+AL1|3||^ARACHIDES||CHOC ANAPHYLACTIQUE|
+DG1|1|CIM10|I21.0^Infarctus transmural aigu du myocarde, de la paroi antérieure|Infarctus du myocarde||A
+DG1|2|CIM10|I10^Hypertension essentielle (primitive)|Hypertension artérielle||C
+DG1|3|CIM10|E11.9^Diabète sucré de type 2 sans complication|Diabète de type 2||C
+PR1|1|CCAM|DDQH001^Coronarographie|Coronarographie||{timestamp}
+GT1|1|8291|DUPONT^JEAN^MARC^JR^M||123 RUE PRINCIPALE^^PARIS^^75001^FRA|(01)23456789||19610615|M|P/F|SLF|1234567890123||||
+IN1|1|SECURITE SOCIALE|1|CPAM|||||||||||||||||||||||||||||||||||||||||||"""
+
+    
+    return hl7_message
+
+
 # Logger configuration
 logging.basicConfig(
     filename='send_hl7_tcp.log',
@@ -26,6 +81,41 @@ logging.basicConfig(
     format='%(asctime)s - %(levelname)s - %(message)s',
     datefmt='%Y-%m-%d %H:%M:%S'
 )
+
+def generate_random_patient_id():
+    return ''.join(random.choices(string.digits, k=8))
+
+def generate_random_first_name():
+    # renvoyer des prénoms internationaux parmi une liste de 500
+    first_names = ["Alice", "Bob", "Charlie", "David", "Eva", "Frank", "Grace", "Hannah", "Ian", "Julia"]
+    return random.choice(first_names)
+
+def generate_random_last_name():
+    last_names = ["Dupont", "Martin", "Bernard", "Thomas", "Petit", "Durand", "Leroy", "Moreau", "Simon", "Michel"]
+    return random.choice(last_names)
+
+def generate_random_dob():
+    year = random.randint(1950, 2024)
+    month = random.randint(1, 12)
+    day = random.randint(1, 28)  # Pour simplifier, on limite à 28 jours
+    return f"{day:02d}/{month:02d}/{year}"
+
+def generate_random_gender():
+    return random.choice(["homme", "femme"])
+
+def on_generate_data():
+    new_patient_id = generate_random_patient_id()
+    entry_patient_id.delete(0, tk.END)
+    entry_patient_id.insert(0, new_patient_id)
+    entry_first_name.delete(0, tk.END)
+    entry_first_name.insert(0, generate_random_first_name())
+    entry_last_name.delete(0, tk.END)
+    entry_last_name.insert(0, generate_random_last_name())
+    entry_dob.delete(0, tk.END)
+    entry_dob.insert(0, generate_random_dob())
+    entry_gender.delete(0, tk.END)
+    entry_gender.insert(0, generate_random_gender())
+
 def highlight_lines_with(keyword, tag="highlight"):
     log_text.configure(state="normal")
     log_text.tag_remove(tag, "1.0", tk.END)  # nettoyer les anciens surlignages
@@ -85,6 +175,14 @@ def highlight_pid_segment():
         for field in fields:
             field_start_indices.append(cursor)
             cursor += len(field) + 1  # +1 pour le séparateur "|"
+
+        # Marquer le champ 3 : PID
+        if len(fields) > 3:
+            pid_field = fields[3]
+            subfields = pid_field.split("^")
+            # marque le premier sous-champ uniquement
+            if subfields:
+                log_text.tag_add("important_value", f"{pos}+{field_start_indices[3]}c", f"{pos}+{field_start_indices[3]+len(subfields[0])}c")
 
         # Marquer le champ 5 : Nom^Prénom
         if len(fields) > 5:
@@ -153,8 +251,9 @@ translations = {
         "port_closed": f"Le port {SERVER_PORT} sur {SERVER_IP} est fermé ou non accessible.",
         "hl7_generated": "Message HL7 généré:",
         "send_error":"Erreur lors de l'envoi HL7 :",
-        "response_received": "réponse reçue:"
-        
+        "response_received": "réponse reçue:",
+        "patient_id": "Identifiant du patient"
+
     },
     "en": {
         "title": "Patient Record Form",
@@ -171,7 +270,9 @@ translations = {
         "port_closed": f"Port {SERVER_PORT} on {SERVER_IP} is closed or not accessible.",
         "hl7_generated": "HL7 message generated:",
         "send_error":"Error sending HL7 :",
-        "response_received": "response received:"
+        "response_received": "response received:",
+        "patient_id": "Patient ID"
+
     },
     "es": {
         "title": "Formulario de Registro de Paciente",
@@ -188,7 +289,8 @@ translations = {
         "port_closed": f"El puerto {SERVER_PORT} en {SERVER_IP} está cerrado o no es accesible.",
         "hl7_generated": "Mensaje HL7 generado:",
         "send_error":"Error al enviar HL7 :",
-        "response_received": "respuesta recibida:" 
+        "response_received": "respuesta recibida:",
+        "patient_id": "Identificador del paciente"
     }
 }
 
@@ -217,56 +319,33 @@ gender_code_dict = {
 }
     
 def send_hl7_message():
-    first_name = entry_first_name.get()
-    last_name = entry_last_name.get()
-    dob = entry_dob.get()
-    
-    # log_text.configure(state="normal")
-    # log_text.delete("1.0", tk.END)
-    # log_text.configure(state="disabled")
-    
-    # gender = entry_gender.get()
-    # Extrait juste la première lettre (code HL7) : "M", "F", ou "X"
-    
-    selected_label = gender_var.get()  # exemple: "femme"
-    gender = gender_code_dict[current_language][selected_label]
-
-    if not all([first_name, last_name, dob, gender]):
-        messagebox.showwarning("", translations[current_language]["error_fields"])
-        return
-
-    try:
-        dob_formatted = datetime.strptime(dob, "%d/%m/%Y").strftime("%Y%m%d")
-    except ValueError:
-        messagebox.showerror("", translations[current_language]["error_date"])
-        return
-
-    timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
             
-    hl7_message = f"""MSH|^~\\&|REGADT|MCM|IFENG||{timestamp}||ADT^A01|000001|P|2.5.1|1||
-EVN|A01|199601061000|199601101400|1
-PID|||24445670^^^HOPITAL^MRN~FR123456^^^DLNUM^DL|253763|{last_name}^{first_name}||{dob_formatted}|{gender}|||77 Rue de Varenne^^PARIS^75^75007^||(01)554437765|(06)098866543|FRENCH|S|C|10199925|1641202898334566
-NK1|1|DUPONT^MARIE^|EPOUSE||||ERSONNE A PREVENIR||
-PV1|1|H|CARDIO^CHAMBRE201^LIT1||||004777^MARTIN^SOPHIE^DR|||CARDIO|||||ADM|A0|
-PV2|||^Chirurgie Programmée||||||||||||||||||||||||||||||||||||||20240712
-OBX|1|NM|21612-7^POIDS CORPOREL||52|kg|||||F
-OBX|2|NM|8302-2^TAILLE||163|cm|||||F
-OBX|3|NM|8480-6^PRESSION ARTERIELLE SYSTOLIQUE||154|mm[Hg]|||||F
-OBX|4|NM|8462-4^PRESSION ARTERIELLE DIASTOLIQUE||87|mm[Hg]|||||F
-OBX|5|NM|2339-0^GLUCOSE SANGUIN||6.2|mmol/L|3.5-5.7|H|||F
-AL1|1||^AMOXICILLINE||URTICAIRE|
-AL1|2||^ASPIRINE||OEDEME DE QUINCKE|
-AL1|3||^ARACHIDES||CHOC ANAPHYLACTIQUE|
-DG1|1|CIM10|I21.0^Infarctus transmural aigu du myocarde, de la paroi antérieure|Infarctus du myocarde||A
-DG1|2|CIM10|I10^Hypertension essentielle (primitive)|Hypertension artérielle||C
-DG1|3|CIM10|E11.9^Diabète sucré de type 2 sans complication|Diabète de type 2||C
-PR1|1|CCAM|DDQH001^Coronarographie|Coronarographie||20240710103015
-GT1|1|8291|DUPONT^JEAN^MARC^JR^M||123 RUE PRINCIPALE^^PARIS^^75001^FRA|(01)23456789||19610615|M|P/F|SLF|1234567890123||||
-IN1|1|SECURITE SOCIALE|1|CPAM|||||||||||||||||||||||||||||||||||||||||||"""
+#     # Exemple de message HL7        
+#     hl7_message = f"""MSH|^~\\&|REGADT|MCM|IFENG||{timestamp}||ADT^A01|000001|P|2.5.1|1||
+# EVN|A01|199601061000|199601101400|1
+# PID|||{patient_id}^^^HOPITAL^MRN~FR123456^^^DLNUM^DL|253763|{last_name}^{first_name}||{dob_formatted}|{gender}|||77 Rue de Varenne^^PARIS^75^75007^||(01)554437765|(06)098866543|FRENCH|S|C|10199925|1641202898334566
+# NK1|1|DUPONT^MARIE^|EPOUSE||||ERSONNE A PREVENIR||
+# PV1|1|H|CARDIO^CHAMBRE201^LIT1||||004777^MARTIN^SOPHIE^DR|||CARDIO|||||ADM|A0|
+# PV2|||^Chirurgie Programmée||||||||||||||||||||||||||||||||||||||20240712
+# OBX|1|NM|21612-7^POIDS CORPOREL||52|kg|||||F
+# OBX|2|NM|8302-2^TAILLE||163|cm|||||F
+# OBX|3|NM|8480-6^PRESSION ARTERIELLE SYSTOLIQUE||154|mm[Hg]|||||F
+# OBX|4|NM|8462-4^PRESSION ARTERIELLE DIASTOLIQUE||87|mm[Hg]|||||F
+# OBX|5|NM|2339-0^GLUCOSE SANGUIN||6.2|mmol/L|3.5-5.7|H|||F
+# AL1|1||^AMOXICILLINE||URTICAIRE|
+# AL1|2||^ASPIRINE||OEDEME DE QUINCKE|
+# AL1|3||^ARACHIDES||CHOC ANAPHYLACTIQUE|
+# DG1|1|CIM10|I21.0^Infarctus transmural aigu du myocarde, de la paroi antérieure|Infarctus du myocarde||A
+# DG1|2|CIM10|I10^Hypertension essentielle (primitive)|Hypertension artérielle||C
+# DG1|3|CIM10|E11.9^Diabète sucré de type 2 sans complication|Diabète de type 2||C
+# PR1|1|CCAM|DDQH001^Coronarographie|Coronarographie||20240710103015
+# GT1|1|8291|DUPONT^JEAN^MARC^JR^M||123 RUE PRINCIPALE^^PARIS^^75001^FRA|(01)23456789||19610615|M|P/F|SLF|1234567890123||||
+# IN1|1|SECURITE SOCIALE|1|CPAM|||||||||||||||||||||||||||||||||||||||||||"""
+    hl7_message = generate_random_hl7_message()
     hl7_message = hl7_message.replace("\n", "\r")
-    # hl7_wrapped = f'\x0b{hl7_message}\x1c\r'
     hl7_message_wrapped = START_BLOCK.encode('utf-8') + hl7_message.encode('utf-8') + END_BLOCK.encode('utf-8') + CARRIAGE_RETURN.encode('utf-8')
-
+    
+    # hl7_wrapped = f'\x0b{hl7_message}\x1c\r'
     try:
         
         if check_port_open(SERVER_IP, SERVER_PORT):
@@ -309,6 +388,7 @@ def switch_language():
     
 def update_labels():
     window.title(translations[current_language]["title"])
+    label_patient_id.config(text=translations[current_language]["patient_id"])
     label_first_name.config(text=translations[current_language]["first_name"])
     label_last_name.config(text=translations[current_language]["last_name"])
     label_dob.config(text=translations[current_language]["dob"])
@@ -348,6 +428,11 @@ canvas.create_image(1525, 984, image=logo_photo, anchor="nw")
 # Widgets sur canvas
 entry = tk.Entry(window, font=("Avenir", 23))
 
+label_patient_id = tk.Label(window, bg="#70B8EA", font=("Avenir", 23), text=translations[current_language]["patient_id"])
+entry_patient_id = tk.Entry(window, bg="#03045C", font=("Avenir", 23))
+entry_patient_id.insert(0, "24445670")
+btn_generate_data = tk.Button(window, text="🎲", font=("Avenir", 15), bg="#03045C", command=on_generate_data)
+
 label_first_name = tk.Label(window, bg="#70B8EA", font=("Avenir", 23))
 entry_first_name = tk.Entry(window, bg="#03045C", font=("Avenir", 23))
 entry_first_name.insert(0, "Alice")
@@ -372,6 +457,10 @@ entry_gender.set(gender_options_dict[current_language][1])
 
 btn_send = tk.Button(window, bg="#03045C", text="", command=send_hl7_message, font=("Avenir", 15))
 btn_lang = tk.Button(window, bg="#03045C",text="🇬🇧", command=switch_language, font=("Avenir", 23))
+
+label_patient_id.place(x=50, y=50)
+entry_patient_id.place(x=550, y=50, width=200)
+btn_generate_data.place(x=745, y=50, height=43)
 
 label_first_name.place(x=50, y=100)
 entry_first_name.place(x=550, y=100, width=200)

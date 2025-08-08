@@ -1,7 +1,7 @@
 {
     
     "objectscript.conn": {
-        "active": true,
+        "active": false,
         "ns": "ES4",
         "server": "irishealth",
         "username": "_SYSTEM",
