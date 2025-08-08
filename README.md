@@ -26,3 +26,12 @@ With this pod, the user can access each instance's Management Portal immediately
 * [IRIS EM METRICS](http://localhost:28000/api/monitor/metrics)
 ### LICENSES
 * [License Key EM](http://localhost:28000/csp/sys/mgr/%25CSP.UI.Portal.License.Key.zen)
+
+# Send TCP HL7 Messages
+You can send TCP HL7 messages using the provided Python script `send_hl7_tcp.py`. 
+This script establishes a TCP connection to the specified server and port, constructs an HL7 message, and sends it over the connection.
+
+```python
+cd ./code/python
+python3 send_hl7_tcp.py 
+```
