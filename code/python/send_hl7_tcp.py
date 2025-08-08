@@ -70,7 +70,6 @@ DG1|3|CIM10|E11.9^Diabète sucré de type 2 sans complication|Diabète de type 2
 PR1|1|CCAM|DDQH001^Coronarographie|Coronarographie||{timestamp}
 GT1|1|8291|DUPONT^JEAN^MARC^JR^M||123 RUE PRINCIPALE^^PARIS^^75001^FRA|(01)23456789||19610615|M|P/F|SLF|1234567890123||||
 IN1|1|SECURITE SOCIALE|1|CPAM|||||||||||||||||||||||||||||||||||||||||||"""
-
     
     return hl7_message
 
@@ -101,9 +100,6 @@ def generate_random_dob():
     day = random.randint(1, 28)  # Pour simplifier, on limite à 28 jours
     return f"{day:02d}/{month:02d}/{year}"
 
-def generate_random_gender():
-    return random.choice(["homme", "femme"])
-
 def on_generate_data():
     new_patient_id = generate_random_patient_id()
     entry_patient_id.delete(0, tk.END)
@@ -115,7 +111,8 @@ def on_generate_data():
     entry_dob.delete(0, tk.END)
     entry_dob.insert(0, generate_random_dob())
     entry_gender.delete(0, tk.END)
-    entry_gender.insert(0, generate_random_gender())
+    entry_gender.set(gender_options_dict[current_language][random.randint(0, 1)]) 
+
     weight = round(random.uniform(50, 100), 1)
     height = random.randint(150, 200)
     entry_weight.delete(0, tk.END)
