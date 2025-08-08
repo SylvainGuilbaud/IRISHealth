@@ -38,6 +38,12 @@ ClassMethod install(NAMESPACE As %String = "FHIRDEMO") As %Status
     set strategy = ##class(HS.FHIRServer.API.InteractionsStrategy).GetStrategyForEndpoint(appKey)
     set config = strategy.GetServiceConfigData()
     set config.DebugMode = 4
+    #; #### Remove auth
+    #; #### Definition of debug_mode : 
+    #; ##### 4 Allow unauthenticated access to the FHIR server
+    #; ##### 2 New instance at each call
+    #; ##### 1 traceback
+    #; ##### eg : 6 = 4+2
     do strategy.SaveServiceConfigData(config)
     
     zn ns

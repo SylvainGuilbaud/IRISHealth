@@ -64,6 +64,9 @@ XData ProductionDefinition
   <Item Name="source HL7 TCP" Category="HL7" ClassName="EnsLib.HL7.Service.TCPService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
     <Setting Target="Host" Name="TargetConfigNames">HL7v2 router</Setting>
     <Setting Target="Host" Name="LocalFacilityApplication">ISC:IRISHL7</Setting>
+    <Setting Target="Host" Name="AddNackERR">1</Setting>
+    <Setting Target="Host" Name="DefCharEncoding">Native</Setting>
+    <Setting Target="Host" Name="SaveReplies">All</Setting>
     <Setting Target="Adapter" Name="JobPerConnection">1</Setting>
   </Item>
   <Item Name="target HL7 TCP" Category="HL7" ClassName="EnsLib.HL7.Operation.TCPOperation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
@@ -130,7 +133,7 @@ XData ProductionDefinition
     <Setting Target="Host" Name="FailureTimeout">-1</Setting>
   </Item>
   <Item Name="target HPRIM FTP" Category="" ClassName="HPRIM.EDI.E1238.Operation.FTPOperation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
-    <Setting Target="Adapter" Name="FTPServer">IRISHealth-ftpaaa</Setting>
+    <Setting Target="Adapter" Name="FTPServer">IRISHealth-ftp</Setting>
     <Setting Target="Adapter" Name="Credentials">ftp</Setting>
     <Setting Target="Adapter" Name="FilePath">./ftp/out</Setting>
     <Setting Target="Adapter" Name="FTPPort"></Setting>
@@ -157,6 +160,7 @@ XData ProductionDefinition
   <Item Name="de Résultats de Laboratoire" Category="Résultats de Laboratoire" ClassName="EnsLib.HL7.Service.FileService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
     <Setting Target="Host" Name="MessageSchemaCategory">2.3</Setting>
     <Setting Target="Host" Name="TargetConfigNames">LABO</Setting>
+    <Setting Target="Adapter" Name="FilePath">/data/LabResult/in</Setting>
     <Setting Target="Adapter" Name="ArchivePath"></Setting>
     <Setting Target="Adapter" Name="FileSpec">*.hl7</Setting>
     <Setting Target="Host" Name="ArchiveIO">0</Setting>
@@ -172,7 +176,6 @@ XData ProductionDefinition
     <Setting Target="Host" Name="ArchiveIO">0</Setting>
   </Item>
   <Item Name="from Lab TCP" Category="" ClassName="EnsLib.HL7.Service.TCPService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
-    <Setting Target="Adapter" Name="Port">9000</Setting>
     <Setting Target="Host" Name="MessageSchemaCategory">2.3</Setting>
     <Setting Target="Host" Name="TargetConfigNames">LABO</Setting>
     <Setting Target="Host" Name="AddNackERR">1</Setting>
@@ -180,7 +183,6 @@ XData ProductionDefinition
   </Item>
   <Item Name="to LAB TCP" Category="" ClassName="EnsLib.HL7.Operation.TCPOperation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
     <Setting Target="Adapter" Name="IPAddress">127.0.0.1</Setting>
-    <Setting Target="Adapter" Name="Port">9000</Setting>
     <Setting Target="Host" Name="ArchiveIO">1</Setting>
   </Item>
   <Item Name="source Kafka Consumer TOPIC APT-FROM-DXPLANNING" Category="Kafka" ClassName="EnsLib.Kafka.Service" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
@@ -317,6 +319,10 @@ XData ProductionDefinition
     <Setting Target="Adapter" Name="Charset">utf-8</Setting>
   </Item>
   <Item Name="target products" Category="" ClassName="operations.product" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  </Item>
+  <Item Name="get env" Category="" ClassName="operations.env" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  </Item>
+  <Item Name="get secrets" Category="" ClassName="operations.secrets" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
   </Item>
 </Production>
 }
