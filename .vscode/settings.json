@@ -1,9 +1,15 @@
 {
     
     "objectscript.conn": {
-        "active": false,
-        "ns": "IRISAPP",
+        "active": true,
+        "ns": "ES4",
         "server": "irishealth",
+        "username": "_SYSTEM",
+        "password": "SYS",
+        "docker-compose": {
+            "service": "iris",
+            "internalPort": 52773
+        },
         "links": {
             "Monitor - Grafana": "http://${host}:3000",
             "Monitor - Prometheus": "http://${host}:9090",
