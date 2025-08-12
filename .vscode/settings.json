@@ -1,7 +1,7 @@
 {
     
     "objectscript.conn": {
-        "active": false,
+        "active": true,
         "ns": "IRISAPP",
         "server": "irishealth",
         "password": "SYS",
