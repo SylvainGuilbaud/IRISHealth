@@ -2,9 +2,8 @@
     
     "objectscript.conn": {
         "active": false,
-        "ns": "ES4",
+        "ns": "IRISAPP",
         "server": "irishealth",
-        "username": "_SYSTEM",
         "password": "SYS",
         "docker-compose": {
             "service": "iris",
