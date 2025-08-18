@@ -1,0 +1,32 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"name": "IRISHealth - irishealth:IRISAPP",
+			"uri": "isfs-readonly://irishealth:irisapp/?project=IRISHealth"
+		}
+	],
+	"settings": {
+		"objectscript.autoShowTerminal": true,
+		"objectscript.compileOnSave": true,
+		"objectscript.webSocketTerminal.syntaxColoring": true,
+		"sqltools.connections": [
+			{
+				"namespace": "IRISAPP",
+				"connectionMethod": "Server and Port",
+				"showSystem": false,
+				"previewLimit": 50,
+				"server": "localhost",
+				"port": 28000,
+				"https": false,
+				"askForPassword": false,
+				"driver": "InterSystems IRIS",
+				"name": "IRISHealth",
+				"username": "_system",
+				"password": "SYS"
+			}
+		]
+	}
+}

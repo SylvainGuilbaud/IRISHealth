@@ -15,4 +15,5 @@ data/LabResult/pdf
 # Ignore .int, *.mac from objectscript
 **/*.int
 **/*.mac
+**/*archive*
 
