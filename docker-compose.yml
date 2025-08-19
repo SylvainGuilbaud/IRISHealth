@@ -34,7 +34,6 @@ services:
       - 24040:8080
       # - 4041:8081
       - 2575:2575
-      - 28888:8888
       - 19000-19100:19000-19100
 
   notebook:
@@ -43,7 +42,7 @@ services:
     #   context: notebook
     image: jupyter-notebook
     ports:
-      - "28001:8888"
+      - $NOTEBOOK_PORT:8888
     volumes:
       - ./notebook/Notebooks:/Notebooks
     command: "start-notebook.sh --NotebookApp.token='' --NotebookApp.password='' --notebook-dir=/Notebooks"
@@ -209,7 +208,7 @@ services:
           type: loki
           access: proxy 
           orgId: 1
-          url: http://host.docker.internal:3100
+          url: http://host.docker.internal:13100
           basicAuth: false
           isDefault: true
           version: 1
@@ -234,4 +233,45 @@ services:
     volumes:
       - ./volumes/IRIS/mgr:/var/log
     command: -config.file=/etc/promtail/config.yml
- 
+  lorah:
+    build: 
+      context: ./lorah
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      - ISC_CPF_MERGE_FILE=$IRIS_FHIR_MERGE_FILE
+    command: 
+      --check-caps false
+    ports: 
+      - $IRIS_LORAH_MGR_PORT:1972
+      - $IRIS_LORAH_WEB_PORT:52773
+    volumes:
+      - ./lorah:/irisdev/app
+      - ./lorah/init.db/:/docker-entrypoint-initdb.d/
+
+  oscar:
+    build: 
+      context: ./oscar
+      dockerfile: Dockerfile
+    restart: always
+    command: 
+      --check-caps false
+    ports: 
+      - $IRIS_OSCAR_MGR_PORT:1972
+      - $IRIS_OSCAR_WEB_PORT:52773
+    volumes:
+      - ./oscar:/irisdev/app
+      - ./oscar/init.db/:/docker-entrypoint-initdb.d/
+
+  anonymizer:
+    build: 
+      context: ./anonymizer
+      dockerfile: Dockerfile
+    environment:
+      - ISC_CPF_MERGE_FILE=$IRIS_FHIR_MERGE_FILE
+    restart: always
+    ports: 
+      - $IRIS_ANONYMIZER_MGR_PORT:1972
+      - $IRIS_ANONYMIZER_WEB_PORT:52773
+    volumes:
+      - ./anonymizer:/irisdev/app

@@ -1,0 +1,56 @@
+
+stages:
+  - test
+  - deploy_integration
+  - deploy_production
+
+variables:
+  # define the image to use
+  IMAGE: intersystemsdc/irishealth-community:latest
+  IRISNAMESPACE_EAI: "LORAH"
+  IRISNAMESPACE_FHIR: "FHIRSERVER"
+  DOCKER_INSTANCE: "lorah"
+  HOST_INTERGRATION: "lorah-integ"
+  USER_INTERGRATION: "root"
+
+test:
+  # use an docker executor
+  stage: test
+  image: intersystemsdc/irishealth-community:latest
+  before_script:
+    - iris start IRIS
+    - iris session IRIS < iris.script
+    - export IRISNAMESPACE=$IRISNAMESPACE
+  script:
+    - pip install -r requirements.txt
+    - pytest
+  tags:
+    - docker
+
+deploy_integration:
+  stage: deploy_integration
+  rules:
+    - if: '$CI_COMMIT_TAG'
+  script:
+    - echo "Deploying tag $CI_COMMIT_TAG"
+    # scp file to integration server
+    - scp . $USER_INTERGRATION@$HOST_INTERGRATION:/home/$USER_INTERGRATION
+    # ssh to integration server
+    - ssh $USER_INTERGRATION@$HOST_INTERGRATION -t "
+        cd /home/$USER_INTERGRATION &&
+        docker-compose exec $DOCKER_INSTANCE bash -c '
+          iop --migrate /irisdev/app/src/python/fhir-converter/settings.py &&
+          iop --restart &&
+          iris session IRIS < /irisdev/app/iris.deploy.script'"
+  tags:
+    - shell
+
+deploy_production:
+  stage: deploy_production
+  rules:
+    - if: '$CI_COMMIT_RELEASE'
+  script:
+    - echo "Deploying release"
+    - uname -a
+  tags:
+    - shell

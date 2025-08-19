@@ -1,0 +1,148 @@
+13:02:22 2025-08-19 [INFO] Executing command /home/irisowner/irissys/startISCAgent.sh 2188...
+13:02:22 2025-08-19 [INFO] Writing status to file: /home/irisowner/irissys/iscagent.status
+Reading configuration from file: /home/irisowner/irissys/iscagent.conf
+ISCAgent[18]: Starting
+ISCAgent[19]: Starting ApplicationServer on *:2188
+
+13:02:22 2025-08-19 [INFO] ...executed command /home/irisowner/irissys/startISCAgent.sh 2188
+13:02:22 2025-08-19 [INFO] Starting InterSystems IRIS instance IRIS...
+13:02:40 2025-08-19 [INFO] log: 08/19/25-13:02:23:085 (427) 0 [Generic.Event] Allocated 102MB shared memory
+
+Allocated 102MB shared memory
+16MB global buffers, 35MB routine buffers
+log: 08/19/25-13:02:23:085 (427) 0 [Generic.Event] 16MB global buffers, 35MB routine buffers, 16MB journal buffers, 2MB buffer descriptors, 16MB heap, 1MB ECP, 14MB miscellaneous
+
+log: 08/19/25-13:02:23:086 (427) 0 [SIMD] SIMD optimization level: DEFAULT
+
+log: 08/19/25-13:02:23:515 (427) 0 [Database.MountedRW] Mounted database /usr/irissys/mgr/ (SFN 0) read-write.
+
+log: 08/19/25-13:02:23:535 (427) 1 [Utility.Event] Error opening CPF file to get IRISTEMP and IRISLOCALDATA directories, using defaults
+
+log: 08/19/25-13:02:27:603 (427) 1 [Database.MountedRO] dRO]  opening CPF file to get IRISTEMP and IRISLOCALDATA directories, using defaults...(repeated 1 times)
+
+log: 08/19/25-13:02:27:603 (427) 0 [Database.MountedRO] Mounted database /usr/irissys/mgr/irislib/ (SFN 1) read-only. Database label is marked read-only. 
+
+log: 08/19/25-13:02:27:617 (427) 0 [Database.MountedRW] Mounted database /usr/irissys/mgr/irissecurity/ (SFN 2) read-write.
+
+log: 08/19/25-13:02:27:653 (427) 0 [Utility.Event] Merging /irisdev/app/merge.cpf into /usr/irissys/iris.cpf
+
+log: 08/19/25-13:02:27:662 (427) 0 [Utility.Event] Validating CPF file /usr/irissys/iris.cpf_Merge
+
+log: 08/19/25-13:02:27:887 (427) 0 [Database.MountedRW] Mounted database /usr/irissys/mgr/irislocaldata/ (SFN 3) read-write.
+
+log: 08/19/25-13:02:27:918 (427) 0 [Utility.Event] No errors found in CPF file /usr/irissys/iris.cpf_Merge
+
+log: 08/19/25-13:02:27:918 (427) 0 [Utility.Event] Reading [Actions] section
+
+log: 08/19/25-13:02:27:921 (427) 0 [Utility.Event] Validating [Actions] section
+
+Starting Control Process
+Global buffer setting requires attention.  Auto-selected 25% of total memory.
+Allocated 7421MB shared memory
+5999MB global buffers, 599MB routine buffers
+This copy of InterSystems IRIS has been licensed for use exclusively by:
+InterSystems IRIS Community
+Copyright (c) 1986-2025 by InterSystems Corporation
+Any other use is a violation of your license agreement
+
+1 alert(s) during startup. See messages.log for details.
+Merging IRIS, please wait...
+Starting IRIS
+
+
+13:02:40 2025-08-19 [INFO] ...started InterSystems IRIS instance IRIS
+13:02:40 2025-08-19 [INFO] Files differ; merging /irisdev/app/merge.cpf...
+13:02:42 2025-08-19 [INFO] ...merged /irisdev/app/merge.cpf
+13:02:42 2025-08-19 [INFO] Copying /irisdev/app/merge.cpf to /usr/irissys/iris.cpf.last_merge...
+13:02:42 2025-08-19 [INFO] ...copied /irisdev/app/merge.cpf to /usr/irissys/iris.cpf.last_merge
+13:45:02 2025-08-19 [INFO] Executing command /home/irisowner/irissys/startISCAgent.sh 2188...
+13:45:02 2025-08-19 [INFO] Writing status to file: /home/irisowner/irissys/iscagent.status
+Reading configuration from file: /home/irisowner/irissys/iscagent.conf
+ISCAgent[17]: Starting
+ISCAgent[19]: Starting ApplicationServer on *:2188
+
+13:45:02 2025-08-19 [INFO] ...executed command /home/irisowner/irissys/startISCAgent.sh 2188
+13:45:02 2025-08-19 [INFO] Starting InterSystems IRIS instance IRIS...
+13:45:07 2025-08-19 [INFO] log: 08/19/25-13:45:03:031 (427) 0 [Generic.Event] Allocated 102MB shared memory
+
+Allocated 102MB shared memory
+16MB global buffers, 35MB routine buffers
+log: 08/19/25-13:45:03:031 (427) 0 [Generic.Event] 16MB global buffers, 35MB routine buffers, 16MB journal buffers, 2MB buffer descriptors, 16MB heap, 1MB ECP, 14MB miscellaneous
+
+log: 08/19/25-13:45:03:031 (427) 0 [SIMD] SIMD optimization level: DEFAULT
+
+log: 08/19/25-13:45:03:472 (427) 0 [Database.MountedRW] Mounted database /usr/irissys/mgr/ (SFN 0) read-write.
+
+log: 08/19/25-13:45:03:479 (427) 1 [Utility.Event] Error opening CPF file to get IRISTEMP and IRISLOCALDATA directories, using defaults
+
+log: 08/19/25-13:45:04:703 (427) 1 [Database.MountedRO] dRO]  opening CPF file to get IRISTEMP and IRISLOCALDATA directories, using defaults...(repeated 1 times)
+
+log: 08/19/25-13:45:04:703 (427) 0 [Database.MountedRO] Mounted database /usr/irissys/mgr/irislib/ (SFN 1) read-only. Database label is marked read-only. 
+
+log: 08/19/25-13:45:04:716 (427) 0 [Database.MountedRW] Mounted database /usr/irissys/mgr/irissecurity/ (SFN 2) read-write.
+
+log: 08/19/25-13:45:04:718 (427) 0 [Utility.Event] File pointed to by '/iridev/app/merge.cpf' does not exist; skipping
+
+Starting Control Process
+Global buffer setting requires attention.  Auto-selected 25% of total memory.
+Allocated 7421MB shared memory
+5999MB global buffers, 599MB routine buffers
+This copy of InterSystems IRIS has been licensed for use exclusively by:
+InterSystems IRIS Community
+Copyright (c) 1986-2025 by InterSystems Corporation
+Any other use is a violation of your license agreement
+
+1 alert(s) during startup. See messages.log for details.
+Merging IRIS, please wait...
+Starting IRIS
+
+
+13:45:07 2025-08-19 [INFO] ...started InterSystems IRIS instance IRIS
+13:48:15 2025-08-19 [INFO] Shutting down InterSystems IRIS instance IRIS...
+13:48:16 2025-08-19 [INFO] Verifying InterSystems IRIS instance IRIS is down...
+13:48:16 2025-08-19 [INFO] IRIS^/usr/irissys^2025.3.0L.156.0com^down, last used Tue Aug 19 13:48:15 2025^iris.cpf^1972^52773^0^^IRIS^^^/usr/irissys^1972
+
+13:48:16 2025-08-19 [INFO] ...verified that InterSystems IRIS instance IRIS is down
+13:48:17 2025-08-19 [INFO] Executing command /home/irisowner/irissys/startISCAgent.sh 2188...
+13:48:17 2025-08-19 [INFO] Writing status to file: /home/irisowner/irissys/iscagent.status
+Reading configuration from file: /home/irisowner/irissys/iscagent.conf
+ISCAgent[18]: Starting
+ISCAgent[19]: Starting ApplicationServer on *:2188
+
+13:48:17 2025-08-19 [INFO] ...executed command /home/irisowner/irissys/startISCAgent.sh 2188
+13:48:17 2025-08-19 [INFO] Starting InterSystems IRIS instance IRIS...
+13:48:23 2025-08-19 [INFO] log: 08/19/25-13:48:17:396 (427) 0 [Generic.Event] Allocated 102MB shared memory
+
+Allocated 102MB shared memory
+16MB global buffers, 35MB routine buffers
+log: 08/19/25-13:48:17:396 (427) 0 [Generic.Event] 16MB global buffers, 35MB routine buffers, 16MB journal buffers, 2MB buffer descriptors, 16MB heap, 1MB ECP, 14MB miscellaneous
+
+log: 08/19/25-13:48:17:396 (427) 0 [SIMD] SIMD optimization level: DEFAULT
+
+log: 08/19/25-13:48:17:930 (427) 0 [Database.MountedRW] Mounted database /usr/irissys/mgr/ (SFN 0) read-write.
+
+log: 08/19/25-13:48:17:934 (427) 1 [Utility.Event] Error opening CPF file to get IRISTEMP and IRISLOCALDATA directories, using defaults
+
+log: 08/19/25-13:48:19:880 (427) 1 [Database.MountedRO] dRO]  opening CPF file to get IRISTEMP and IRISLOCALDATA directories, using defaults...(repeated 1 times)
+
+log: 08/19/25-13:48:19:880 (427) 0 [Database.MountedRO] Mounted database /usr/irissys/mgr/irislib/ (SFN 1) read-only. Database label is marked read-only. 
+
+log: 08/19/25-13:48:19:932 (427) 0 [Database.MountedRW] Mounted database /usr/irissys/mgr/irissecurity/ (SFN 2) read-write.
+
+log: 08/19/25-13:48:19:937 (427) 0 [Utility.Event] File pointed to by '/iridev/app/merge.cpf' does not exist; skipping
+
+Starting Control Process
+Global buffer setting requires attention.  Auto-selected 25% of total memory.
+Allocated 7421MB shared memory
+5999MB global buffers, 599MB routine buffers
+This copy of InterSystems IRIS has been licensed for use exclusively by:
+InterSystems IRIS Community
+Copyright (c) 1986-2025 by InterSystems Corporation
+Any other use is a violation of your license agreement
+
+1 alert(s) during startup. See messages.log for details.
+Merging IRIS, please wait...
+Starting IRIS
+
+
+13:48:23 2025-08-19 [INFO] ...started InterSystems IRIS instance IRIS
