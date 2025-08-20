@@ -237,6 +237,8 @@ services:
     build: 
       context: ./lorah
       dockerfile: Dockerfile
+    container_name: ${CONTAINER_NAME}-lorah
+    hostname: ${CONTAINER_NAME}-lorah
     restart: always
     environment:
       - ISC_CPF_MERGE_FILE=$IRIS_FHIR_MERGE_FILE
@@ -253,6 +255,8 @@ services:
     build: 
       context: ./oscar
       dockerfile: Dockerfile
+    container_name: ${CONTAINER_NAME}-oscar
+    hostname: ${CONTAINER_NAME}-oscar
     restart: always
     command: 
       --check-caps false
@@ -267,6 +271,8 @@ services:
     build: 
       context: ./anonymizer
       dockerfile: Dockerfile
+    container_name: ${CONTAINER_NAME}-anonymizer
+    hostname: ${CONTAINER_NAME}-anonymizer
     environment:
       - ISC_CPF_MERGE_FILE=$IRIS_FHIR_MERGE_FILE
     restart: always

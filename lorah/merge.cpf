@@ -1,4 +1,7 @@
 [Actions]
+Execute:Namespace="%SYS",ClassName="Security.Users",MethodName="UnExpireUserPasswords",Arg1="*"
+Execute:Namespace="%SYS",ClassName="%SQL.Statement",MethodName="%ExecDirect",Arg1="update security.events set enabled=1"
+
 CreateResource:Name=%DB_LORAH_DATA,Description="LORAH_DATA database"
 CreateDatabase:Name=LORAH_DATA,Directory=/usr/irissys/mgr/LORAH_DATA
 CreateResource:Name=%DB_LORAH_CODE,Description="LORAH_CODE database"

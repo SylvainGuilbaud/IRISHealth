@@ -1,4 +1,8 @@
 [Actions]
+Execute:Namespace="%SYS",ClassName="Security.Users",MethodName="UnExpireUserPasswords",Arg1="*"
+Execute:Namespace="%SYS",ClassName="%SQL.Statement",MethodName="%ExecDirect",Arg1="update security.events set enabled=1"
+
+
 CreateResource:Name=%DB_IRISAPP_DATA,Description="IRISAPP_DATA database"
 CreateDatabase:Name=IRISAPP_DATA,Directory=/usr/irissys/mgr/IRISAPP_DATA
 CreateResource:Name=%DB_IRISAPP_CODE,Description="IRISAPP_CODE database"
