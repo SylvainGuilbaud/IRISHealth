@@ -33,39 +33,6 @@ RUN apt-get update && apt-get install -y \
     sudo -u ${ISC_PACKAGE_MGRUSER} sudo echo enabled passwordless sudo-ing for ${ISC_PACKAGE_MGRUSER} && \
     mkdir -p $ISC_DATA_DIRECTORY && chown -R ${ISC_PACKAGE_MGRUSER}:${ISC_PACKAGE_MGRUSER} $ISC_DATA_DIRECTORY
 
-
-    # Installer wkhtmltopdf selon l’architecture
-# RUN apt-get update && apt-get install -y fontconfig xfonts-75dpi xfonts-base wget \
-#   && rm -rf /var/lib/apt/lists/* \
-#   && ARCH=$(dpkg --print-architecture) \
-#   && case "$ARCH" in \
-#       i386)   URL="https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.bionic_i386.deb" ;; \
-#       amd64)  URL="https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-2/wkhtmltox_0.12.6.1-2.jammy_amd64.deb" ;; \
-#       arm64)  URL="https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-2/wkhtmltox_0.12.6.1-2.jammy_arm64.deb" ;; \
-#       *) echo "Unsupported architecture: $ARCH" && exit 1 ;; \
-#     esac \
-#   && wget -q -O /tmp/wkhtmltox.deb $URL \
-#   && dpkg -i /tmp/wkhtmltox.deb || apt-get install -f -y \
-#   && rm /tmp/wkhtmltox.deb
-
-# i386
-# RUN apt install -y fontconfig xfonts-75dpi xfonts-base && rm -rf /var/lib/apt/lists/* \
-#   && wget -q -O /tmp/wkhtmltox https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.bionic_i386.deb \
-#   && dpkg -i /tmp/wkhtmltox \
-#   && rm /tmp/wkhtmltox
-
-#AMD64
-# RUN apt install -y fontconfig xfonts-75dpi xfonts-base && rm -rf /var/lib/apt/lists/* \
-#   && wget -q -O /tmp/wkhtmltox https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-2/wkhtmltox_0.12.6.1-2.jammy_amd64.deb \
-#   && dpkg -i /tmp/wkhtmltox \
-#   && rm /tmp/wkhtmltox
-
-# ARM64
-# RUN apt install -y fontconfig xfonts-75dpi xfonts-base && rm -rf /var/lib/apt/lists/* \
-#   && wget -q -O /tmp/wkhtmltox https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-2/wkhtmltox_0.12.6.1-2.jammy_arm64.deb \
-#   && dpkg -i /tmp/wkhtmltox \
-#   && rm /tmp/wkhtmltox
-
 USER ${ISC_PACKAGE_MGRUSER}  
 COPY .iris_init /home/irisowner/.iris_init
 
