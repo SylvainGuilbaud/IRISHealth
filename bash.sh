@@ -17,7 +17,7 @@ if [ -z "$1" ]; then
     CONTAINER_NAME=$(grep -o '(?<=^CONTAINER_NAME=).*' .env | head -n 1)
     # If the .env file does not exist or does not contain CONTAINER_NAME, use a default value
     if [ -z "$CONTAINER_NAME" ]; then
-        CONTAINER_NAME="warehouse-employees"
+        CONTAINER_NAME="IRISHealth"
     fi
 # If a container name is provided as an argument, use it
 elif [[ "$1" == "--help" || "$1" == "-h" ]]; then
