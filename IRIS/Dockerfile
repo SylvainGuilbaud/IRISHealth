@@ -7,13 +7,16 @@ FROM $IMAGE
 
 USER root
 
+ENV ISC_DATA_DIRECTORY=/volumes/IRIS
+
 RUN apt-get update && apt-get install -y \
 	nano \
 	python3-venv \
     tzdata \
 	sudo && \
 	/bin/echo -e ${ISC_PACKAGE_MGRUSER}\\tALL=\(ALL\)\\tNOPASSWD: ALL >> /etc/sudoers && \
-	sudo -u ${ISC_PACKAGE_MGRUSER} sudo echo enabled passwordless sudo-ing for ${ISC_PACKAGE_MGRUSER}
+	sudo -u ${ISC_PACKAGE_MGRUSER} sudo echo enabled passwordless sudo-ing for ${ISC_PACKAGE_MGRUSER} && \
+    mkdir -p $ISC_DATA_DIRECTORY && chown -R ${ISC_PACKAGE_MGRUSER}:${ISC_PACKAGE_MGRUSER} $ISC_DATA_DIRECTORY && \
 
 # i386
 # RUN apt install -y fontconfig xfonts-75dpi xfonts-base && rm -rf /var/lib/apt/lists/* \

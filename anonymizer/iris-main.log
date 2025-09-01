@@ -429,3 +429,51 @@ Starting IRIS
 
 
 10:08:08 2025-08-20 [INFO] ...started InterSystems IRIS instance IRIS
+11:09:14 2025-09-01 [INFO] Executing command /home/irisowner/irissys/startISCAgent.sh 2188...
+11:09:14 2025-09-01 [INFO] Writing status to file: /home/irisowner/irissys/iscagent.status
+Reading configuration from file: /home/irisowner/irissys/iscagent.conf
+ISCAgent[17]: Starting
+ISCAgent[21]: Starting ApplicationServer on *:2188
+
+11:09:14 2025-09-01 [INFO] ...executed command /home/irisowner/irissys/startISCAgent.sh 2188
+11:09:14 2025-09-01 [INFO] Starting InterSystems IRIS instance IRIS...
+11:09:42 2025-09-01 [INFO] log: 09/01/25-11:09:15:133 (429) 0 [Generic.Event] Allocated 102MB shared memory
+
+Allocated 102MB shared memory
+16MB global buffers, 35MB routine buffers
+log: 09/01/25-11:09:15:133 (429) 0 [Generic.Event] 16MB global buffers, 35MB routine buffers, 16MB journal buffers, 2MB buffer descriptors, 16MB heap, 1MB ECP, 14MB miscellaneous
+
+log: 09/01/25-11:09:15:135 (429) 0 [SIMD] SIMD optimization level: DEFAULT
+
+log: 09/01/25-11:09:15:713 (429) 0 [Database.MountedRW] Mounted database /usr/irissys/mgr/ (SFN 0) read-write.
+
+log: 09/01/25-11:09:15:764 (429) 1 [Utility.Event] Error opening CPF file to get IRISTEMP and IRISLOCALDATA directories, using defaults
+
+log: 09/01/25-11:09:25:891 (429) 1 [Database.MountedRO] dRO]  opening CPF file to get IRISTEMP and IRISLOCALDATA directories, using defaults...(repeated 1 times)
+
+log: 09/01/25-11:09:25:890 (429) 0 [Database.MountedRO] Mounted database /usr/irissys/mgr/irislib/ (SFN 1) read-only. Database label is marked read-only. 
+
+log: 09/01/25-11:09:25:940 (429) 0 [Database.MountedRW] Mounted database /usr/irissys/mgr/irissecurity/ (SFN 2) read-write.
+
+log: 09/01/25-11:09:25:984 (429) 0 [Utility.Event] File pointed to by '/iridev/app/merge.cpf' does not exist; skipping
+
+Starting Control Process
+Global buffer setting requires attention.  Auto-selected 25% of total memory.
+Allocated 9760MB shared memory
+8011MB global buffers, 801MB routine buffers
+This copy of InterSystems IRIS has been licensed for use exclusively by:
+InterSystems IRIS Community
+Copyright (c) 1986-2025 by InterSystems Corporation
+Any other use is a violation of your license agreement
+
+1 alert(s) during startup. See messages.log for details.
+Merging IRIS, please wait...
+Starting IRIS
+
+
+11:09:42 2025-09-01 [INFO] ...started InterSystems IRIS instance IRIS
+11:14:37 2025-09-01 [INFO] Shutting down InterSystems IRIS instance IRIS...
+11:14:39 2025-09-01 [INFO] Verifying InterSystems IRIS instance IRIS is down...
+11:14:39 2025-09-01 [INFO] IRIS^/usr/irissys^2025.3.0L.156.0com^down, last used Mon Sep  1 11:14:37 2025^iris.cpf^1972^52773^0^^IRIS^^^/usr/irissys^1972
+
+11:14:39 2025-09-01 [INFO] ...verified that InterSystems IRIS instance IRIS is down
