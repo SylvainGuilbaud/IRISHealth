@@ -17,4 +17,5 @@ data/LabResult/pdf
 **/*.mac
 # Ignore all archive files
 **/*archive*
+data/IRIS
 

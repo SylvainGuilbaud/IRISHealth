@@ -16,7 +16,8 @@ services:
     volumes:
     - ./IRIS:/IRIS
     - ./data:/data
-    - ./$ISC_DATA_DIRECTORY:/$ISC_DATA_DIRECTORY
+    # - .$ISC_DATA_DIRECTORY:$ISC_DATA_DIRECTORY
+    # - iris-data:$ISC_DATA_DIRECTORY
     # - "/etc/timezone:/etc/timezone:ro"
     # - "/etc/localtime:/etc/localtime:ro"
     # command: -a /IRIS/FHIR-converter/entrypoint.sh
@@ -40,7 +41,7 @@ services:
     container_name: ${CONTAINER_NAME}-notebook
     # build: 
     #   context: notebook
-    image: jupyter-notebook
+    image: jupyter/datascience-notebook
     ports:
       - $NOTEBOOK_PORT:8888
     volumes:
@@ -79,22 +80,22 @@ services:
 # also for ssl/tls:
 #      ADDED_FLAGS: "--tls=2"
     restart: always
-  postgres:
-    container_name: ${CONTAINER_NAME}-postgres
-    image: postgres
-    environment:
-      POSTGRES_PASSWORD: postgres
-    volumes:
-      - ./postgreSQL:/docker-entrypoint-initdb.d/
-      - ./volumes/postgreSQL:/var/lib/postgresql/data
-    ports:
-      - 25432:5432
-    restart: unless-stopped
-    healthcheck:
-        test: ["CMD", "pg_isready", "-U", "postgres"]
-        interval: 30s
-        timeout: 30s
-        retries: 3
+  # postgres:
+  #   container_name: ${CONTAINER_NAME}-postgres
+  #   image: postgres
+  #   environment:
+  #     POSTGRES_PASSWORD: postgres
+  #   volumes:
+  #     - ./postgreSQL:/docker-entrypoint-initdb.d/
+  #     - ./volumes/postgreSQL:/var/lib/postgresql/data
+  #   ports:
+  #     - 25432:5432
+  #   restart: unless-stopped
+  #   healthcheck:
+  #       test: ["CMD", "pg_isready", "-U", "postgres"]
+  #       interval: 30s
+  #       timeout: 30s
+  #       retries: 3
   fhirhl7v2ui:
     build: ./fhirhl7ui
     depends_on:
@@ -281,3 +282,6 @@ services:
       - $IRIS_ANONYMIZER_WEB_PORT:52773
     volumes:
       - ./anonymizer:/irisdev/app
+
+volumes:
+  iris-data:

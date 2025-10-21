@@ -32,7 +32,7 @@
         <CSPApplication
           Url="/fhirUI"
           SourcePath="/fhirUI"
-          DeployPath="/volumes/IRIS/csp/fhirUI"
+          DeployPath="/usr/irissys/csp/fhirUI"
           ServeFiles="1"
           Recurse="1"
           CookiePath="/fhirUI"

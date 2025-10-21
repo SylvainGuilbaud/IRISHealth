@@ -7,7 +7,7 @@ FROM $IMAGE
 
 USER root
 
-ENV ISC_DATA_DIRECTORY=/volumes/IRIS
+# ENV ISC_DATA_DIRECTORY=/volumes/IRIS
 
 RUN apt-get update && apt-get install -y \
 	nano \
@@ -30,8 +30,8 @@ RUN apt-get update && apt-get install -y \
     dpkg -i /tmp/wkhtmltox.deb || apt-get install -f -y && \
     rm /tmp/wkhtmltox.deb && \
     /bin/echo -e ${ISC_PACKAGE_MGRUSER}\\tALL=\(ALL\)\\tNOPASSWD: ALL >> /etc/sudoers && \
-    sudo -u ${ISC_PACKAGE_MGRUSER} sudo echo enabled passwordless sudo-ing for ${ISC_PACKAGE_MGRUSER} && \
-    mkdir -p $ISC_DATA_DIRECTORY && chown -R ${ISC_PACKAGE_MGRUSER}:${ISC_PACKAGE_MGRUSER} $ISC_DATA_DIRECTORY
+    sudo -u ${ISC_PACKAGE_MGRUSER} sudo echo enabled passwordless sudo-ing for ${ISC_PACKAGE_MGRUSER} 
+    # mkdir -p $ISC_DATA_DIRECTORY && chown -R ${ISC_PACKAGE_MGRUSER}:${ISC_PACKAGE_MGRUSER} $ISC_DATA_DIRECTORY
 
 USER ${ISC_PACKAGE_MGRUSER}  
 COPY .iris_init /home/irisowner/.iris_init
@@ -46,14 +46,15 @@ ENV IRISPASSWORD="SYS"
 ENV IRISNAMESPACE="USER"
 
 RUN --mount=type=bind,src=.,dst=. \
-    # python3 -m venv ~/py_venv && \
-    # . ~/py_venv/bin/activate && \
-    # pip3 install -r requirements.txt && \
+    python3 -m venv ~/py_venv && \
+    . ~/py_venv/bin/activate && \
+    python3 -m pip install -r requirements.txt && \
+    python3 -m pip install python_fhir_converter-0.4.5-py3-none-any.whl && \
     iris start IRIS && \
     iris merge IRIS merge.cpf && \
 	iris session IRIS < iris.script && \
-    iris stop IRIS quietly && \
-    python3 -m pip install --target /usr/irissys/mgr/python -r requirements.txt && \
-    python3 -m pip install --target /usr/irissys/mgr/python python_fhir_converter-0.4.5-py3-none-any.whl 
+    iris stop IRIS quietly 
+    # python3 -m pip install --target /usr/irissys/mgr/python -r requirements.txt && \
+    # python3 -m pip install --target /usr/irissys/mgr/python python_fhir_converter-0.4.5-py3-none-any.whl 
 
 ENV PATH="/home/irisowner/py_venv/bin:$PATH"
