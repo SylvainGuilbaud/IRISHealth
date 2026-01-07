@@ -3,6 +3,7 @@
 **/*.tgz
 **/*.gz
 **/PyGUI*
+**/*.log
 volumes
 InterSystems/storage/IRIS
 data/LabResult/pdf
