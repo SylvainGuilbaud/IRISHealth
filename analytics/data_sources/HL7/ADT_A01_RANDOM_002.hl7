@@ -1,0 +1,18 @@
+MSH|^~\&|REGADT|MCM|IRIS-ANALYTICS|HOPITAL|20250805055553||ADT^A01|MSG00000002|P|2.5.1|1||
+EVN|A01|20251128113656||1
+PID|1||PAT00001001^5^M11^HOPITAL^MRN~119060639854350^^^NIFR^NI||BOURDON^Timothée^M||19860628|M||C|8, rue Texier^^Neveu-les-Bains^^72516||+33(0)249648081|0339922378||S||PAT00001001001^2^M10^HOPITAL^AN^A||119060639854350|
+NK1|1|GROS^Grégoire^|PERE||||PERSONNE A PREVENIR||
+PV1|1|H|GYNO^CHAMBRE476^LIT2||||6237^GIMENEZ^Adélaïde^DR|||GYNO|||||ADM|A0|
+PV2|||^Consultation||||||||||||||||||||||||||||||||||||||20260222
+OBX|1|NM|21612-7^POIDS CORPOREL||150|kg|||||F
+OBX|2|NM|8302-2^TAILLE||179|cm|||||F
+OBX|3|NM|8480-6^PRESSION ARTERIELLE SYSTOLIQUE||176|mm[Hg]|||||F
+OBX|4|NM|8462-4^PRESSION ARTERIELLE DIASTOLIQUE||67|mm[Hg]|||||F
+OBX|5|NM|2339-0^GLUCOSE SANGUIN||7.7|mmol/L|3.8-5.6|H|||F
+DG1|1|CIM10|N18.6^Maladie rénale chronique, stade 5|Maladie rénale chronique||A
+DG1|2|CIM10|J44.1^Maladie pulmonaire obstructive chronique avec épisode aigu|Maladie pulmonaire obstructive chronique avec épisode aigu||C
+DG1|3|CIM10|I10^Hypertension essentielle (primitive)|Hypertension essentielle (primitive)||F
+DG1|4|CIM10|Z51.1^Cycle de chimiothérapie pour tumeur maligne|Cycle de chimiothérapie pour tumeur maligne||W
+PR1|1|CCAM|DDQH001^Coronarographie|Coronarographie||20251031052935
+GT1|1|8291|PRUVOST^Olivie^Alix^JR^M||boulevard Antoinette Jacquet^^MauryBourg^^84774^FRA|+33(0)232715854||19741003|M|P/F|SLF|5292815381401||||
+IN1|1|CAISSE MALADIE|1|CPAM|||||||||||||||||||||||||||||||||||||||||||

@@ -1,0 +1,37 @@
+patient_id,visit_id,visit_date,visit_time,service,doctor,visit_type,duration_minutes,chief_complaint,diagnosis,created_date
+PAT00001000,VIS_PAT00001000_001,2025-01-24,19:02:40,ORL,Dr. Vallet,Hospitalisation,46,Fatigue,Insuffisance rénale chronique,2024-04-20 00:00:00
+PAT00001000,VIS_PAT00001000_002,2024-08-26,05:18:09,Urgences,Dr. Schneider,Hospitalisation,48,Suivi traitement,Asthme,2025-08-19 00:00:00
+PAT00001000,VIS_PAT00001000_003,2025-08-07,18:06:52,Orthopédie,Dr. Camus,Hospitalisation,78,Fatigue,Insuffisance rénale chronique,2025-08-25 00:00:00
+PAT00001000,VIS_PAT00001000_004,2026-01-05,00:50:26,Psychiatrie,Dr. Alves,Urgence,103,Contrôle routine,Insuffisance rénale chronique,2025-02-19 00:00:00
+PAT00001000,VIS_PAT00001000_005,2025-08-25,11:00:06,Pneumologie,Dr. Clément,Consultation,60,Suivi traitement,Hypercholestérolémie,2025-07-13 00:00:00
+PAT00001000,VIS_PAT00001000_006,2024-11-09,09:36:05,Urologie,Dr. Martin,Contrôle,32,Contrôle routine,BPCO,2025-05-18 00:00:00
+PAT00001000,VIS_PAT00001000_007,2024-02-15,13:59:31,Ophtalmologie,Dr. Guillot,Contrôle,75,Fatigue,BPCO,2025-09-05 00:00:00
+PAT00001000,VIS_PAT00001000_008,2024-08-22,08:37:13,ORL,Dr. Gosselin,Urgence,100,Contrôle routine,Hypercholestérolémie,2024-03-14 00:00:00
+PAT00001000,VIS_PAT00001000_009,2025-01-29,09:31:51,Gynécologie,Dr. Roger,Urgence,32,Troubles digestifs,Asthme,2025-12-10 00:00:00
+PAT00001000,VIS_PAT00001000_010,2025-02-17,12:08:29,Urgences,Dr. Legros,Hospitalisation,117,Douleur thoracique,Ostéoporose,2024-11-14 00:00:00
+PAT00001000,VIS_PAT00001000_011,2025-12-05,02:32:26,Pédiatrie,Dr. Lesage,Suivi,82,Troubles digestifs,Diabète type 2,2025-08-26 00:00:00
+PAT00001001,VIS_PAT00001001_001,2025-09-23,02:26:42,Gastroentérologie,Dr. Gaillard,Consultation,15,Dyspnée,Insuffisance rénale chronique,2024-04-20 00:00:00
+PAT00001002,VIS_PAT00001002_001,2024-08-21,06:23:50,Oncologie,Dr. Mercier,Hospitalisation,22,Troubles digestifs,BPCO,2025-09-26 00:00:00
+PAT00001002,VIS_PAT00001002_002,2024-11-22,22:56:41,Urologie,Dr. Gimenez,Consultation,78,Dyspnée,Ostéoporose,2025-01-16 00:00:00
+PAT00001002,VIS_PAT00001002_003,2025-08-18,01:24:13,Urologie,Dr. Delattre,Suivi,55,Fatigue,Asthme,2024-05-15 00:00:00
+PAT00001003,VIS_PAT00001003_001,2025-07-16,00:24:15,Cardiologie,Dr. Gimenez,Suivi,105,Douleur thoracique,BPCO,2025-08-23 00:00:00
+PAT00001003,VIS_PAT00001003_002,2024-10-12,14:21:02,Gastroentérologie,Dr. Labbé,Hospitalisation,75,Troubles digestifs,BPCO,2025-07-17 00:00:00
+PAT00001003,VIS_PAT00001003_003,2025-11-25,13:52:53,Ophtalmologie,Dr. Hervé,Contrôle,64,Suivi traitement,Ostéoporose,2024-11-06 00:00:00
+PAT00001003,VIS_PAT00001003_004,2025-08-06,14:52:50,Orthopédie,Dr. Bigot,Urgence,80,Contrôle routine,BPCO,2024-12-04 00:00:00
+PAT00001003,VIS_PAT00001003_005,2024-09-29,11:17:57,Oncologie,Dr. Brunel,Urgence,24,Fatigue,Hypercholestérolémie,2025-05-04 00:00:00
+PAT00001003,VIS_PAT00001003_006,2025-04-11,09:19:58,Oncologie,Dr. Barthelemy,Suivi,21,Douleurs articulaires,Hypercholestérolémie,2025-01-24 00:00:00
+PAT00001003,VIS_PAT00001003_007,2024-07-19,08:39:37,Neurologie,Dr. Pruvost,Consultation,66,Maux de tête,Insuffisance rénale chronique,2024-06-27 00:00:00
+PAT00001003,VIS_PAT00001003_008,2024-05-02,23:10:27,Ophtalmologie,Dr. Regnier,Hospitalisation,42,Fatigue,Insuffisance cardiaque,2024-11-02 00:00:00
+PAT00001003,VIS_PAT00001003_009,2025-05-11,09:43:15,Ophtalmologie,Dr. Grégoire,Consultation,119,Dyspnée,Dépression,2024-02-11 00:00:00
+PAT00001003,VIS_PAT00001003_010,2024-10-13,11:04:44,Radiologie,Dr. David,Urgence,75,Troubles digestifs,Dépression,2026-01-03 00:00:00
+PAT00001004,VIS_PAT00001004_001,2025-03-13,10:20:34,Urologie,Dr. Marques,Urgence,72,Contrôle routine,Diabète type 2,2024-03-13 00:00:00
+PAT00001004,VIS_PAT00001004_002,2024-08-25,09:35:15,Radiologie,Dr. Lagarde,Suivi,25,Douleur thoracique,Arthrose,2024-02-22 00:00:00
+PAT00001004,VIS_PAT00001004_003,2025-08-03,23:53:07,Dermatologie,Dr. De Sousa,Suivi,102,Troubles digestifs,Insuffisance cardiaque,2025-01-03 00:00:00
+PAT00001004,VIS_PAT00001004_004,2025-02-27,07:09:44,Radiologie,Dr. Guillaume,Contrôle,28,Contrôle routine,Hypercholestérolémie,2025-05-25 00:00:00
+PAT00001004,VIS_PAT00001004_005,2025-07-27,02:47:24,Psychiatrie,Dr. Imbert,Consultation,19,Douleurs articulaires,Insuffisance rénale chronique,2024-06-09 00:00:00
+PAT00001004,VIS_PAT00001004_006,2026-02-06,14:42:04,Pédiatrie,Dr. Rossi,Contrôle,109,Maux de tête,Hypercholestérolémie,2025-06-18 00:00:00
+PAT00001004,VIS_PAT00001004_007,2025-12-23,22:52:44,Neurologie,Dr. Turpin,Urgence,98,Contrôle routine,Diabète type 2,2025-08-22 00:00:00
+PAT00001004,VIS_PAT00001004_008,2025-04-20,10:38:46,Dermatologie,Dr. Barthelemy,Suivi,102,Suivi traitement,BPCO,2025-08-22 00:00:00
+PAT00001004,VIS_PAT00001004_009,2024-10-08,19:42:24,Dermatologie,Dr. Foucher,Hospitalisation,23,Douleurs articulaires,Ostéoporose,2024-08-18 00:00:00
+PAT00001004,VIS_PAT00001004_010,2024-05-09,13:34:01,Urgences,Dr. Pineau,Suivi,102,Suivi traitement,Hypercholestérolémie,2025-01-19 00:00:00
+PAT00001004,VIS_PAT00001004_011,2025-11-04,06:36:44,Dermatologie,Dr. Lenoir,Suivi,29,Troubles digestifs,Diabète type 2,2025-08-26 00:00:00

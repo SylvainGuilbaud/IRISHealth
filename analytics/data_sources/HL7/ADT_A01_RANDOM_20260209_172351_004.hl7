@@ -1,0 +1,18 @@
+MSH|^~\&|REGADT|MCM|IRIS-ANALYTICS|HOPITAL|20250224105855||ADT^A01|MSG00000004|P|2.5.1|1||
+EVN|A01|20250701093624||1
+PID|1||PAT00001003^5^M11^HOPITAL^MRN~219123325495079^^^NIFR^NI||BLANC^Alexandre^G||19611216|F||H|25, chemin Isaac Hoarau^^Schmitt^^28924||0231925487|+33(0)241343638||D||PAT00001003001^2^M10^HOPITAL^AN^A||219123325495079|
+NK1|1|LELEU^Brigitte^|EPOUSE||||PERSONNE A PREVENIR||
+PV1|1|H|GASTRO^CHAMBRE827^LIT3||||5979^LE GOFF^Emmanuelle^DR|||GASTRO|||||ADM|A0|
+PV2|||^Examen Complémentaire||||||||||||||||||||||||||||||||||||||20260304
+OBX|1|NM|21612-7^POIDS CORPOREL||148|kg|||||F
+OBX|2|NM|8302-2^TAILLE||188|cm|||||F
+OBX|3|NM|8480-6^PRESSION ARTERIELLE SYSTOLIQUE||155|mm[Hg]|||||F
+OBX|4|NM|8462-4^PRESSION ARTERIELLE DIASTOLIQUE||65|mm[Hg]|||||F
+OBX|5|NM|2339-0^GLUCOSE SANGUIN||8.1|mmol/L|3.8-5.6|H|||F
+AL1|1||^PENICILLINE||ERUPTION CUTANEE|
+DG1|1|CIM10|E11.9^Diabète sucré de type 2 sans complication|Diabète sucré de type 2 sans complication||A
+DG1|2|CIM10|K59.1^Diarrhée fonctionnelle|Diarrhée fonctionnelle||C
+DG1|3|CIM10|Z51.1^Cycle de chimiothérapie pour tumeur maligne|Cycle de chimiothérapie pour tumeur maligne||F
+PR1|1|CCAM|EBQH002^Échocardiographie transthoracique|Échocardiographie transthoracique||20250917125944
+GT1|1|8291|LEMONNIER^Nathalie^Augustin^JR^M||91, avenue de Da Costa^^De Sousa^^86365^FRA|+33180809478||19781106|M|P/F|SLF|6093309927772||||
+IN1|1|SECURITE SOCIALE|1|CPAM|||||||||||||||||||||||||||||||||||||||||||

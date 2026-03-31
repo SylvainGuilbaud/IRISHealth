@@ -1,0 +1,6 @@
+patient_id,nir,first_name,last_name,gender,birth_date,age,address,city,postal_code,phone_home,phone_mobile,email,marital_status_code,marital_status,blood_type,education_level,profession,created_date
+PAT00001000,1020361650,Léon,Blanc,M,2002-03-16,23,"90, rue Meyer",Faure-la-Forêt,78802,+33 (0)4 71 47 04 14,+33 3 29 30 81 23,zoe13@example.com,S,Célibataire,AB+,CEP,Cadre,2025-09-23 00:00:00
+PAT00001001,2450190406,Émilie,Jacob,F,1945-01-20,81,rue de Vallée,Payet,08446,0488227431,+33 (0)5 55 84 81 57,sbruneau@example.org,D,Divorcé(e),A-,BEPC/Brevet,Cadre,2024-12-18 00:00:00
+PAT00001002,1440453939,Guy,Langlois,M,1944-04-04,81,"55, rue Julie Pereira",Da Silva,18216,+33 (0)2 21 85 63 93,+33 (0)1 72 62 16 41,legercaroline@example.org,L,Séparé(e),B+,Doctorat,Employé,2024-10-19 00:00:00
+PAT00001003,2680345855,Maggie,Brunet,F,1968-03-09,57,"1, rue Humbert",Dumontnec,56918,05 82 78 06 22,0277685031,loiseauwilliam@example.com,L,Séparé(e),A-,Doctorat,Cadre,2024-07-22 00:00:00
+PAT00001004,2071067330,Josette,Delmas,F,2007-10-19,18,"32, rue Meunier",Perrin-la-Forêt,39467,03 51 02 43 56,06 31 93 05 50,mahemarthe@example.com,D,Divorcé(e),O-,Aucun diplôme,Cadre,2024-02-09 00:00:00

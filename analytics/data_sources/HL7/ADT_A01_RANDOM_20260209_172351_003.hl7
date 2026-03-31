@@ -1,0 +1,22 @@
+MSH|^~\&|REGADT|MCM|IRIS-ANALYTICS|HOPITAL|20251020160115||ADT^A01|MSG00000003|P|2.5.1|1||
+EVN|A01|20251220133046||1
+PID|1||PAT00001002^5^M11^HOPITAL^MRN~119034882662412^^^NIFR^NI||LEGENDRE^Claire^P||19900312|M||A|59, rue de Costa^^Bouvet^^93537||0357163273|0638685188||W||PAT00001002001^2^M10^HOPITAL^AN^A||119034882662412|
+NK1|1|DUFOUR^Claire^|PERE||||PERSONNE A PREVENIR||
+PV1|1|H|GYNO^CHAMBRE313^LIT4||||1454^RODRIGUEZ^Bernadette^DR|||GYNO|||||ADM|A0|
+PV2|||^Consultation||||||||||||||||||||||||||||||||||||||20260214
+OBX|1|NM|21612-7^POIDS CORPOREL||65|kg|||||F
+OBX|2|NM|8302-2^TAILLE||174|cm|||||F
+OBX|3|NM|8480-6^PRESSION ARTERIELLE SYSTOLIQUE||165|mm[Hg]|||||F
+OBX|4|NM|8462-4^PRESSION ARTERIELLE DIASTOLIQUE||100|mm[Hg]|||||F
+OBX|5|NM|2339-0^GLUCOSE SANGUIN||11.0|mmol/L|3.8-5.6|H|||F
+AL1|1||^MORPHINE||NAUSEES|
+AL1|2||^AMOXICILLINE||VOMISSEMENTS|
+AL1|3||^CODEINE||CHOC ANAPHYLACTIQUE|
+AL1|4||^ASPIRINE||URTICAIRE|
+DG1|1|CIM10|M79.1^Myalgie|Myalgie||F
+DG1|2|CIM10|E11.9^Diabète sucré de type 2 sans complication|Diabète sucré de type 2 sans complication||W
+DG1|3|CIM10|I10^Hypertension essentielle (primitive)|Hypertension essentielle (primitive)||W
+DG1|4|CIM10|Z51.1^Cycle de chimiothérapie pour tumeur maligne|Cycle de chimiothérapie pour tumeur maligne||C
+PR1|1|CCAM|YYYY750^Consultation externe|Consultation externe||20250802041835
+GT1|1|8291|DEVAUX^Andrée^Adèle^JR^M||22, boulevard Parent^^Robin^^97385^FRA|0252711190||19600817|M|P/F|SLF|9612096267678||||
+IN1|1|CPAM|1|CPAM|||||||||||||||||||||||||||||||||||||||||||

@@ -1,0 +1,17 @@
+MSH|^~\&|REGADT|MCM|IRIS-ANALYTICS|HOPITAL|20251017091646||ADT^A01|MSG00000001|P|2.5.1|1||
+EVN|A01|20250715042053||1
+PID|1||PAT00001000^5^M11^HOPITAL^MRN~219107895298372^^^NIFR^NI||LEGROS^Alix^É||19481002|F||I|1, boulevard Mary^^Sainte Clémence-les-Bains^^35253||+33(0)182692308|0140192908||P||PAT00001000001^2^M10^HOPITAL^AN^A||219107895298372|
+NK1|1|ALEXANDRE^Victoire^|MERE||||PERSONNE A PREVENIR||
+PV1|1|H|PEDIA^CHAMBRE147^LIT3||||5866^JEAN^Nathalie^DR|||PEDIA|||||ADM|A0|
+PV2|||^Hospitalisation de Jour||||||||||||||||||||||||||||||||||||||20260215
+OBX|1|NM|21612-7^POIDS CORPOREL||134|kg|||||F
+OBX|2|NM|8302-2^TAILLE||158|cm|||||F
+OBX|3|NM|8480-6^PRESSION ARTERIELLE SYSTOLIQUE||170|mm[Hg]|||||F
+OBX|4|NM|8462-4^PRESSION ARTERIELLE DIASTOLIQUE||81|mm[Hg]|||||F
+OBX|5|NM|2339-0^GLUCOSE SANGUIN||5.0|mmol/L|3.8-5.6||||F
+AL1|1||^PENICILLINE||CHOC ANAPHYLACTIQUE|
+DG1|1|CIM10|I10^Hypertension essentielle (primitive)|Hypertension essentielle (primitive)||F
+DG1|2|CIM10|J44.1^Maladie pulmonaire obstructive chronique avec épisode aigu|Maladie pulmonaire obstructive chronique avec épisode aigu||C
+PR1|1|CCAM|DEQP003^Pose de stent coronaire|Pose de stent coronaire||20250823041211
+GT1|1|8291|BOUCHET^Lucie^Alexandre^JR^M||23, rue Lucas^^Barthelemyboeuf^^77366^FRA|0366156041||19570105|M|P/F|SLF|1648798720147||||
+IN1|1|CAISSE MALADIE|1|CPAM|||||||||||||||||||||||||||||||||||||||||||

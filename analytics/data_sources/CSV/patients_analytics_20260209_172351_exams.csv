@@ -1,0 +1,28 @@
+patient_id,exam_id,exam_date,exam_type,exam_name,result_value,result_unit,normal_range,interpretation,laboratory,ordering_doctor,created_date
+PAT00001000,EX_PAT00001000_001,2025-07-18,Endoscopie,Échographie abdominale,Normal,,,Normal,Lab Central,Dr. Bouvier,2025-12-21 00:00:00
+PAT00001000,EX_PAT00001000_002,2025-07-14,EEG,ECG,Normal,,,Limite supérieure,Radiologie,Dr. Perrier,2025-04-20 00:00:00
+PAT00001000,EX_PAT00001000_003,2024-03-29,Scanner,TSH,Normal,,,Limite inférieure,Lab Biologie,Dr. Hubert,2024-05-23 00:00:00
+PAT00001000,EX_PAT00001000_004,2025-02-15,Biopsie,Ionogramme,Pathologique,,,Limite supérieure,Lab Biologie,Dr. Dijoux,2025-11-12 00:00:00
+PAT00001000,EX_PAT00001000_005,2024-12-14,Scanner,TSH,Normal,,,Limite supérieure,Lab Central,Dr. Colas,2025-04-20 00:00:00
+PAT00001000,EX_PAT00001000_006,2025-09-24,Biopsie,NFS,À contrôler,,,Limite supérieure,Radiologie,Dr. Langlois,2024-07-03 00:00:00
+PAT00001000,EX_PAT00001000_007,2024-12-29,Radiologie,Créatinine,Normal,,,Limite supérieure,Radiologie,Dr. Alexandre,2025-06-30 00:00:00
+PAT00001001,EX_PAT00001001_001,2024-05-04,Échographie,ECG,Normal,,,Normal,Lab Central,Dr. Gimenez,2026-01-24 00:00:00
+PAT00001001,EX_PAT00001001_002,2025-01-27,EEG,Radio thorax,À contrôler,,,Limite inférieure,Radiologie,Dr. Chauveau,2024-02-09 00:00:00
+PAT00001001,EX_PAT00001001_003,2025-04-26,Scanner,ECG,À contrôler,,,Normal,Cardiologie,Dr. Perez,2025-03-06 00:00:00
+PAT00001001,EX_PAT00001001_004,2025-06-14,Biologie,NFS,14.1,mmol/L,3.8-5.6,Anormal,Cardiologie,Dr. Bruneau,2025-05-29 00:00:00
+PAT00001001,EX_PAT00001001_005,2024-12-02,Endoscopie,NFS,Pathologique,,,Limite supérieure,Lab Biologie,Dr. Moreno,2025-05-11 00:00:00
+PAT00001002,EX_PAT00001002_001,2024-05-05,Biopsie,Créatinine,Normal,,,Normal,Lab Central,Dr. Traore,2024-05-21 00:00:00
+PAT00001002,EX_PAT00001002_002,2025-01-27,Radiologie,Échographie abdominale,Pathologique,,,Limite supérieure,Lab Biologie,Dr. Tessier,2024-06-01 00:00:00
+PAT00001002,EX_PAT00001002_003,2026-01-13,Radiologie,Échographie abdominale,Pathologique,,,Limite inférieure,Radiologie,Dr. Rolland,2024-10-28 00:00:00
+PAT00001002,EX_PAT00001002_004,2025-10-12,Biopsie,Glycémie,À contrôler,,,Anormal,Lab Central,Dr. Auger,2024-10-15 00:00:00
+PAT00001003,EX_PAT00001003_001,2025-03-25,Biologie,Glycémie,13.0,g/L,12-15,Limite inférieure,Lab Biologie,Dr. Dijoux,2024-05-17 00:00:00
+PAT00001003,EX_PAT00001003_002,2024-04-21,Échographie,Créatinine,Pathologique,,,Limite inférieure,Cardiologie,Dr. Coste,2024-09-16 00:00:00
+PAT00001003,EX_PAT00001003_003,2026-01-11,Échographie,Échographie abdominale,Normal,,,Normal,Cardiologie,Dr. Andre,2024-08-09 00:00:00
+PAT00001004,EX_PAT00001004_001,2025-11-23,Spirométrie,Créatinine,Limite,,,Limite supérieure,Lab Biologie,Dr. Coulon,2025-07-21 00:00:00
+PAT00001004,EX_PAT00001004_002,2024-11-15,Biologie,Échographie abdominale,9.8,mg/dL,12-15,Normal,Cardiologie,Dr. Tanguy,2024-12-21 00:00:00
+PAT00001004,EX_PAT00001004_003,2024-08-29,Biopsie,Radio thorax,Limite,,,Limite supérieure,Lab Biologie,Dr. Étienne,2024-04-18 00:00:00
+PAT00001004,EX_PAT00001004_004,2025-08-31,Consultation,Échographie abdominale,À contrôler,,,Limite supérieure,Lab Biologie,Dr. Laine,2024-09-12 00:00:00
+PAT00001004,EX_PAT00001004_005,2025-05-27,Échographie,Scanner cérébral,Limite,,,Limite supérieure,Cardiologie,Dr. Le Gall,2025-10-12 00:00:00
+PAT00001004,EX_PAT00001004_006,2025-12-12,Échographie,Glycémie,Pathologique,,,Normal,Lab Biologie,Dr. Ribeiro,2025-07-26 00:00:00
+PAT00001004,EX_PAT00001004_007,2024-12-28,Biologie,Échographie abdominale,7.3,mmol/L,3.8-5.6,Anormal,Lab Central,Dr. Jacques,2026-01-11 00:00:00
+PAT00001004,EX_PAT00001004_008,2025-04-21,ECG,Glycémie,Limite,,,Limite inférieure,Radiologie,Dr. Allard,2024-06-03 00:00:00
