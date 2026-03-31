@@ -16,6 +16,7 @@ services:
     volumes:
     - ./IRIS:/IRIS
     - ./data:/data
+    - ./jdbc:/jdbc
     # - .$ISC_DATA_DIRECTORY:$ISC_DATA_DIRECTORY
     # - iris-data:$ISC_DATA_DIRECTORY
     # - "/etc/timezone:/etc/timezone:ro"
@@ -36,7 +37,8 @@ services:
       # - 4041:8081
       - 2575:2575
       - 19000-19100:19000-19100
-
+    networks:
+      - default
   notebook:
     container_name: ${CONTAINER_NAME}-notebook
     # build: 
@@ -49,6 +51,8 @@ services:
     command: "start-notebook.sh --NotebookApp.token='' --NotebookApp.password='' --notebook-dir=/Notebooks"
     environment:
       - IRISINSTALLDIR='/usr/irissys'
+    networks:
+      - default
   angular:
     init: true
     container_name: ${CONTAINER_NAME}-workflow-ui
@@ -59,6 +63,8 @@ services:
       - 28002:4200
     depends_on:
       - iris
+    networks:
+      - default
   ftp_server:
     image: delfer/alpine-ftp-server:latest
     container_name: ${CONTAINER_NAME}-ftp
@@ -80,6 +86,8 @@ services:
 # also for ssl/tls:
 #      ADDED_FLAGS: "--tls=2"
     restart: always
+    networks:
+      - default
   # postgres:
   #   container_name: ${CONTAINER_NAME}-postgres
   #   image: postgres
@@ -110,6 +118,8 @@ services:
     - type: bind
       source: ./fhirhl7ui/app/src/app
       target: /home/node/app/src/app
+    networks:
+      - default
   # zookeeper:
   #   image: 'confluentinc/cp-zookeeper:5.3.1-1'
   #   # image: arm64v8/zookeeper:latest
@@ -176,21 +186,23 @@ services:
 
   prometheus:
     image: prom/prometheus:latest
-    container_name: prometheus
+    container_name: prometheus-demo
     restart: unless-stopped
     ports:
-      - "9090:9090"
+      - "19990:9090"
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
       - ./isc_alert_rules.yml:/etc/prometheus/isc_alert_rules.yml
       - ./volumes/prometheus:/prometheus
+    networks:
+      - default
 
   grafana:
     image: grafana/grafana:latest
-    container_name: grafana
+    container_name: grafana-demo
     restart: unless-stopped
     ports:
-      - "3000:3000"
+      - "13000:3000"
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=ADMIN
       - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
@@ -220,20 +232,29 @@ services:
       - ./volumes/grafana:/var/lib/grafana
     depends_on:
       - prometheus
+    networks:
+      - default
 
   loki:
     image: grafana/loki:latest
-    container_name: loki
+    container_name: loki-demo
     ports:
-      - "3100:3100"
+      - "13100:3100"
     command: -config.file=/etc/loki/local-config.yaml
+    networks:
+      - default
+    # volumes:
+    #   - ./loki/local-config.yaml:/etc/loki/local-config.yaml
+    #   - ./volumes/loki:/loki
 
   promtail:
     image: grafana/promtail:latest
-    container_name: promtail
+    container_name: promtail-demo
     volumes:
-      - ./volumes/IRIS/mgr:/var/log
+      - ./data/IRIS/mgr:/var/log
     command: -config.file=/etc/promtail/config.yml
+    networks:
+      - default
   lorah:
     build: 
       context: ./lorah
@@ -251,6 +272,8 @@ services:
     volumes:
       - ./lorah:/irisdev/app
       - ./lorah/init.db/:/docker-entrypoint-initdb.d/
+    networks:
+      - default
 
   oscar:
     build: 
@@ -267,6 +290,8 @@ services:
     volumes:
       - ./oscar:/irisdev/app
       - ./oscar/init.db/:/docker-entrypoint-initdb.d/
+    networks:
+      - default
 
   anonymizer:
     build: 
@@ -282,6 +307,38 @@ services:
       - $IRIS_ANONYMIZER_WEB_PORT:52773
     volumes:
       - ./anonymizer:/irisdev/app
+    networks:
+      - default
+  mssql:
+    container_name: mssql-pre-prod
+    image: mcr.microsoft.com/azure-sql-edge
+    ports:
+        - '60007:1433'
+    environment:
+        - ACCEPT_EULA=Y
+        - SA_PASSWORD=Secret1234
+    volumes:
+        - './volumes/mssql:/var/opt/mssql'
+    networks:
+      - default
+
+  viewer:
+    build: ./viewer
+    container_name: fhir-viewer-demo
+    ports:
+      - "3002:80"
+    depends_on:
+      - iris
+    networks:
+      - default
+
+networks:
+  default:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.25.0.0/16
+          gateway: 172.25.0.1
 
 volumes:
   iris-data:
