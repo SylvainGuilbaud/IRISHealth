@@ -1,0 +1,16 @@
+MSH|^~\&|SCHED|MCM|IFENG||20260619103000||SIU^S12^SIU_S12|SIU000001|P|2.5.1|||
+SCH|RDV-2026-00123|36997||||ADD|CONSULTATION|Normal|30|min^Minutes^ISO|^^^20260625090000^20260625093000^R|004777^MARTIN^SOPHIE^DR|||004777^MARTIN^SOPHIE^DR|||8291^DEBUSSY^CLAUDE^ACHILLE|||Booked|
+NTE|1||Consultation cardiologique de suivi post-infarctus
+PID|||12345678^^^HOPITAL^MRN~FR987654^^^DLNUM^DL|253801|DEBUSSY^Claude^Achille||18620822|M|||15 Rue du Bac^^PARIS^75^75007^FRA||(01)234567890|(06)789012345|FRENCH|M|C|20199926|2620867498211234
+PV1|1|O|CARDIO^BUREAU01^CONS||||004777^MARTIN^SOPHIE^DR|||CARDIO|||||AMB|A0|
+PV2|||^Consultation de suivi cardiologique||||||||||||||||||||||||||||||||||||||20260619
+OBX|1|NM|8867-4^FREQUENCE CARDIAQUE^LN||68|bpm|60-100||||F|||20260619
+OBX|2|NM|8480-6^PRESSION ARTERIELLE SYSTOLIQUE^LN||128|mm[Hg]|||||F|||20260619
+OBX|3|NM|8462-4^PRESSION ARTERIELLE DIASTOLIQUE^LN||80|mm[Hg]|||||F|||20260619
+DG1|1|CIM10|I21.0^Infarctus transmural aigu du myocarde, de la paroi antérieure|Infarctus du myocarde||A
+RGS|1|A
+AIS|1|A|^Consultation cardiologie|20260625090000|||30|min^Minutes^ISO||Booked|
+NTE|1||Apporter les résultats de l'ECG et de la dernière prise de sang
+AIG|1|A|CONS01^Salle de consultation 01^L||^CONSULTATION|||20260625090000|||30|min^Minutes^ISO||Booked|
+AIL|1||CARDIO^BUREAU01^^MCM Cardiologie^^^|C^Clinique^HL70305||20260625090000|||30|min^Minutes^ISO||Booked|
+AIP|1||004777^MARTIN^SOPHIE^DR|010^Cardiologue^L||20260625090000|||30|min^Minutes^ISO||Booked|

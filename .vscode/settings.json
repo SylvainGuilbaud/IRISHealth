@@ -1,7 +1,7 @@
 {
     
     "objectscript.conn": {
-        "active": true,
+        "active": false,
         "ns": "IRISAPP",
         "server": "irishealth",
         "password": "SYS",
@@ -89,6 +89,29 @@
             "driver": "InterSystems IRIS",
             "name": "IRISHealth",
             "username": "_system",
+            "password": "SYS"
+        },
+        {
+            "connectionMethod": "Server Definition",
+            "showSystem": true,
+            "previewLimit": 50,
+            "driver": "InterSystems IRIS",
+            "name": "IRIS-TEST",
+            "connectString": "iris-test:IRISAPP"
+        },
+        {
+            "namespace": "IRISAPP",
+            "connectionMethod": "Server and Port",
+            "showSystem": false,
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 10773,
+            "pathPrefix": "",
+            "https": false,
+            "askForPassword": false,
+            "driver": "InterSystems IRIS",
+            "name": "IRIS-TEST",
+            "username": "_SYSTEM",
             "password": "SYS"
         }
     ]
